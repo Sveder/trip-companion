@@ -2,3 +2,4 @@
 .env
 .env.*
 !.env.example
+/devpost/prd-notes.md
