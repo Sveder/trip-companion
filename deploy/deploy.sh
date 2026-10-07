@@ -7,4 +7,5 @@ venv/bin/pip install -q -r requirements.txt
 venv/bin/python manage.py migrate --noinput
 venv/bin/python manage.py load_content japan
 venv/bin/python manage.py collectstatic --noinput -v0
+chmod -R a+rX staticfiles
 sudo systemctl restart trip

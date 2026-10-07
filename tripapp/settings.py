@@ -116,5 +116,8 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 60 * 60 * 24 * 30
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    # trip.sveder.com has no subdomains of its own, so this is safe.
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # Preload works only for the apex domain (sveder.com), not for this subdomain.
+    SILENCED_SYSTEM_CHECKS = ["security.W021"]
     SECURE_CONTENT_TYPE_NOSNIFF = True

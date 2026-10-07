@@ -11,7 +11,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 
 ## Slices
 
-- [ ] **1. Sign in, describe the trip, get a built course — live on trip.sveder.com**
+- [x] **1. Sign in, describe the trip, get a built course — live on trip.sveder.com**
   Becomes usable: At https://trip.sveder.com a parent signs in with an email link, sets Japan, family size and ages, sees the suggested modules (kids' items off for adults-only), toggles modules, presses Build, and lands on the first activity — the Japan food cards; each visit opens the next activity.
   Why now: Michael's order (2026-10-07): "Start with the main flow". This is the kernel — many good parts made into one personal package. It also bootstraps everything: Django project, content files loaded into the database, the public deploy.
   PRD ref: `prd.md > The Core Journey` (steps 1–6), `prd.md > Login`, `prd.md > Trip setup and course builder`, `prd.md > Modules (Japan)` (Food)
@@ -148,3 +148,6 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 ## Revisions
 
 - 2026-10-07, before the build: Michael moved the main flow first and the TV check second ("Start with the main flow and only then do TV"). Old slices 1 (food on the TV) and 2 (sign-in and builder) became slice 1 (main flow, with the food cards and the deploy) and slice 2 (TV mode).
+- 2026-10-07, slice 1: Sign-in sends a short code by email, not a link. django-allauth 65 has "login by code" built in; a link needs extra code and breaks when the mail app opens a different browser. One page takes the email; a new email gets an account on the way. Open question for Michael: keep the code, or add a link too (factory task).
+- 2026-10-07, slice 1: SES on the server uses the server user's existing AWS credentials (`~/.aws`), switched on by `EMAIL_SES=true`. No keys are copied into the app's `.env`.
+- 2026-10-07, slice 1: Module stubs (words, do and don't, safety, transport, Street View, chopsticks, buy in advance) hold one "coming soon" card each, marked `ready: false`, so the builder lists the full set. Audiences: Street View hunt = kids; transport and buy in advance = grown-ups; the rest = everyone.
