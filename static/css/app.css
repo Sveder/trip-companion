@@ -187,7 +187,7 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .spot input:focus-visible ~ .spot-tick, .spot:focus { outline: 4px solid var(--c-sun); outline-offset: 2px; }
 .spot-count { font-weight: 800; min-height: 1.4em; }
 @media (min-width: 900px) {
-  .hunt { grid-template-columns: 2fr 1fr; align-items: start; }
+  .hunt { grid-template-columns: 2fr 1fr; grid-template-rows: auto 1fr; align-items: start; }
   .hunt .sv-help { grid-column: 1; }
   .hunt .spot-form { grid-column: 2; grid-row: 1 / span 2; }
 }
