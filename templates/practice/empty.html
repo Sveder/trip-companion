@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+<section class="hero">
+  {% include "includes/guide.html" with cls="hero-guide" label="Our guide" %}
+  {% if count %}
+  <h1>No quiz today!</h1>
+  <p class="lead">You know all your words for now.{% if next_item %} The next quiz is on {{ next_item.due_on|date:"l, j F" }}.{% endif %}</p>
+  {% else %}
+  <h1>No quiz yet</h1>
+  <p class="lead">Do an activity first. Then the quiz asks you about it.</p>
+  {% endif %}
+  <a class="btn big" href="{% url 'home' %}">Back home</a>
+</section>
+{% endblock %}

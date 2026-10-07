@@ -4,13 +4,45 @@ summary: Say hello and thank you in Japanese.
 emoji: "🗣️"
 audience: all
 order: 20
-ready: false
+ready: true
 activities:
   - id: words-intro
-    title: Japanese words
-    type: cards
-    intro: This part is coming soon.
-    cards:
-      - title: Japanese words
-        emoji: "🗣️"
-        text: Say hello and thank you in Japanese.
+    title: Let's say it in Japanese!
+    type: words
+    intro: Tap a card to hear the word. Say it out loud together!
+    words:
+      - id: konnichiwa
+        japanese: こんにちは
+        reading: konnichiwa
+        meaning: hello
+        emoji: "👋"
+      - id: arigatou
+        japanese: ありがとう
+        reading: arigatou
+        meaning: thank you
+        emoji: "🙏"
+      - id: ohayou
+        japanese: おはよう
+        reading: ohayou
+        meaning: good morning
+        emoji: "🌅"
+      - id: sayounara
+        japanese: さようなら
+        reading: sayounara
+        meaning: goodbye
+        emoji: "🚶"
+      - id: hai
+        japanese: はい
+        reading: hai
+        meaning: "yes"
+        emoji: "👍"
+      - id: oishii
+        japanese: おいしい
+        reading: oishii
+        meaning: yummy
+        emoji: "😋"
+      - id: sumimasen
+        japanese: すみません
+        reading: sumimasen
+        meaning: excuse me
+        emoji: "🙋"

@@ -8,4 +8,5 @@ urlpatterns = [
     path("", include("trips.urls")),
     path("", include("courses.urls")),
     path("", include("activities.urls")),
+    path("", include("practice.urls")),
 ]

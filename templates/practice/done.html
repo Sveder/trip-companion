@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Quiz done{% endblock %}
+{% block body_attrs %} data-celebrate{% endblock %}
+{% block content %}
+<section class="hero">
+  {% include "includes/guide.html" with cls="hero-guide cheer" label="Our guide jumps for joy" %}
+  <h1>Quiz done!</h1>
+  <p class="lead">You got {{ right }} of {{ total }} right.{% if right < total %} The ones we missed come back soon.{% else %} Every one! Wow!{% endif %}</p>
+  <a class="btn big" href="{% url 'home' %}">Back home</a>
+</section>
+{% endblock %}

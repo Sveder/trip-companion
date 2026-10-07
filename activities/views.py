@@ -4,6 +4,7 @@ from django.template.loader import select_template
 from django.views.decorators.http import require_POST
 
 from courses.models import CourseItem
+from practice.items import add_items
 
 
 def _item_for(request, item_id):
@@ -40,4 +41,5 @@ def activity(request, item_id):
 def activity_done(request, item_id):
     item = _item_for(request, item_id)
     item.mark_done()
+    add_items(item.course.trip, item.activity)
     return redirect("home")

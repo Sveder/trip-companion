@@ -1,0 +1,15 @@
+{% extends "activities/_frame.html" %}
+{% block activity %}
+<div class="cards words">
+  {% for w in data.words %}
+  <article class="card word" tabindex="0" data-say="{{ w.japanese }}">
+    {% if w.emoji %}<div class="card-emoji big" aria-hidden="true">{{ w.emoji }}</div>{% endif %}
+    <p class="jp" lang="ja">{{ w.japanese }}</p>
+    <h3 class="reading">{{ w.reading }}</h3>
+    <p class="meaning">{{ w.meaning }}</p>
+    <span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>
+  </article>
+  {% endfor %}
+</div>
+<p class="hint center">After this, the quiz asks these words again on other days. That is how they stay in your head!</p>
+{% endblock %}

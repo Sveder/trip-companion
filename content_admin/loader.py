@@ -23,6 +23,7 @@ def load_country(country):
         doc = yaml.safe_load(path.read_text(encoding="utf-8"))
         slug = doc.get("id") or path.stem
         defaults = {k: doc[k] for k in MODULE_FIELDS if k in doc}
+        was_stub = Module.objects.filter(country=country, slug=slug, ready=False).exists()
         module, _ = Module.objects.update_or_create(country=country, slug=slug, defaults=defaults)
         seen = []
         for index, act in enumerate(doc.get("activities", [])):
@@ -40,6 +41,11 @@ def load_country(country):
                 },
             )
         module.activities.exclude(slug__in=seen).delete()
+        if was_stub and module.ready:
+            # A "coming soon" stub became a real module: families who pressed past the stub must see it.
+            from courses.models import CourseItem
+
+            CourseItem.objects.filter(activity__module=module).update(done_at=None)
         count += 1
     return count
 

@@ -131,3 +131,25 @@ html.tv { font-size: 30px; }
 .tv .shade { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 40; background: rgba(31, 35, 64, .6); }
 .tv video, .tv iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
 .tv .tv-hint { text-align: center; color: var(--c-muted); font-size: .8rem; }
+
+/* Words and quiz (slice 4) */
+.center { text-align: center; }
+.word { text-align: center; cursor: pointer; }
+.jp { font-size: 2rem; font-weight: 800; margin: .4rem 0 0; }
+.jp.big { font-size: 3rem; }
+.word .reading { font-size: 1.5rem; }
+.word .meaning { font-size: 1.2rem; color: var(--c-muted); }
+.say-hint { display: inline-block; margin-top: .4rem; font-size: .9rem; font-weight: 700; color: var(--c-accent); }
+.say-hint[hidden] { display: none; }
+.quiz { text-align: center; }
+.quiz .ask { max-width: 420px; margin: 1rem auto; text-align: center; }
+.card-emoji.huge { width: 10rem; height: 10rem; font-size: 6rem; }
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; max-width: 640px; margin: 1.2rem auto; }
+.choice { font-size: 1.3rem; padding: 1rem .8rem; border-radius: var(--radius); }
+.btn.choice { background: var(--c-surface); color: var(--c-ink); border: 4px solid var(--c-line); box-shadow: 0 5px 0 var(--c-line); }
+.btn.choice:focus { outline: none; border-color: var(--c-accent); }
+span.choice { display: block; background: var(--c-surface); border: 4px solid var(--c-line); font-weight: 800; }
+span.choice.is-answer { border-color: var(--c-accent); background: var(--c-tint-2); }
+span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
+.answer-note .big-line { font-size: 1.5rem; font-weight: 900; margin: .4rem 0; }
+.tv .choices { max-width: 70vw; }
