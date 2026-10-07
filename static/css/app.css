@@ -186,6 +186,7 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .cards.compact .hint { margin: 0; font-size: .9rem; }
 .cards.word-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .6rem; }
 .cards.word-grid .card { padding: .6rem .5rem; }
+.cards.word-grid .jp.small { font-size: 1.15rem; white-space: nowrap; }
 .cards.word-grid .reading { font-size: 1.1rem; margin: .2rem 0 0; }
 .cards.word-grid .meaning { font-size: .95rem; }
 @media (max-width: 600px) { .cards.compact { grid-template-columns: 1fr; } .cards.word-grid { grid-template-columns: repeat(2, 1fr); } }

@@ -286,6 +286,15 @@ class AfterTheTripTests(TestCase):
         self.assertIn('class="cards word-grid"', html)
         self.assertEqual(html.count("⭐</h3>"), 1)
 
+    def test_word_grid_keeps_japanese_on_one_line(self):
+        """T41: いただきます must not break in the middle of the word in the 2-column grid."""
+        from pathlib import Path
+        from django.conf import settings
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()
+        rule = re.search(r"\.cards\.word-grid \.jp\.small \{([^}]*)\}", css)
+        self.assertIsNotNone(rule)
+        self.assertIn("white-space: nowrap", rule.group(1))
+
     def test_after_the_trip_with_nothing_done(self):
         self.set_dates(-20, -1)
         html = self.client.get("/").content.decode()
