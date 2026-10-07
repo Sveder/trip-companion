@@ -57,3 +57,17 @@ class ProfessionalBasicsTests(TestCase):
         self.assertNotIn("sentry-cdn", self.client.get("/").content.decode())
         with self.settings(SENTRY_JS_LOADER="https://js.sentry-cdn.com/abc.min.js"):
             self.assertIn('src="https://js.sentry-cdn.com/abc.min.js"', self.client.get("/").content.decode())
+
+
+class HeaderClearOfBadgeTests(TestCase):
+    """The Sveder corner badge is fixed, 130 px, top right. The header must leave that corner free."""
+
+    def test_header_padding_right_is_wider_than_the_badge(self):
+        import re
+        from pathlib import Path
+        from django.conf import settings
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()
+        for rule in (r"\n\.top \{[^}]*\}", r"\n\.tv \.top \{[^}]*\}"):
+            block = re.search(rule, css).group(0)
+            right = int(re.search(r"padding: \S+ (\d+)px", block).group(1))
+            self.assertGreaterEqual(right, 130, block)

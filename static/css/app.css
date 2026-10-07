@@ -45,12 +45,13 @@ a { color: var(--c-primary); }
 h1 { font-size: 2.1rem; font-weight: 900; margin: .4em 0 .3em; letter-spacing: -.01em; }
 h2 { font-weight: 900; }
 h3 { margin: .3em 0; font-size: 1.25rem; }
-.top { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding: .8rem 1.2rem; background: var(--c-surface); border-bottom: 6px solid var(--c-sun); }
+/* padding-right keeps the nav clear of the fixed 130 px Sveder corner badge at every width. */
+.top { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding: .8rem 140px .8rem 1.2rem; background: var(--c-surface); border-bottom: 6px solid var(--c-sun); }
 .brand { display: inline-flex; align-items: center; gap: .4rem; font-weight: 900; font-size: 1.25rem; text-decoration: none; color: var(--c-ink); }
 .guide { display: block; }
 .guide.small { width: 2.2rem; height: 2.2rem; }
 .guide.hero-guide { width: 9rem; height: 9rem; margin: 0 auto; }
-.top-nav { display: flex; gap: 1rem; align-items: center; }
+.top-nav { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; }
 .top-nav a { color: var(--c-ink); text-decoration: none; font-weight: 700; }
 .top-nav form { margin: 0; }
 .page { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 1rem 1.2rem 3rem; }
@@ -118,7 +119,7 @@ legend { font-weight: 800; font-size: 1.15rem; }
    Kept free of :has() because older webOS browsers do not support it. */
 html.tv { font-size: 30px; }
 .tv .page { max-width: 92vw; }
-.tv .top { padding: .6rem 2rem; }
+.tv .top { padding: .6rem 140px .6rem 2rem; }
 .tv .cards { grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.4rem; }
 .tv .card { transition: transform .15s, box-shadow .15s, opacity .15s; border-width: 8px; }
 .tv .cards:focus-within .card { opacity: .85; }
