@@ -200,6 +200,25 @@ class StreetViewHuntTests(TestCase):
         home = self.client.get(reverse("home"))
         self.assertRedirects(home, reverse("activity", args=[second.id]), fetch_redirect_response=False)
 
+    def test_praise_after_a_skip_with_nothing_found_says_good_try(self):
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=4)
+        course = Course.objects.create(trip=trip)
+        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
+        CourseItem.objects.create(course=course, order=1, activity=hunts[1])
+        r = self.client.post(reverse("activity_done", args=[first.id]), {"found": [], "skip": "1"})
+        n = len(hunts[0].data["spots"])
+        self.assertEqual(r["Location"], reverse("activity_praise", args=[first.id]) + f"?found=0&of={n}")
+        html = self.client.get(r["Location"]).content.decode()
+        self.assertNotIn("You found 0", html)
+        self.assertNotIn("Great job!", html)
+        self.assertIn("Good try!", html)
+        self.assertIn("look again another day", html)
+        html = self.client.get(reverse("activity_praise", args=[first.id]) + f"?found=2&of={n}").content.decode()
+        self.assertIn(f"You found 2 of {n}!", html)
+        self.assertIn("Great job!", html)
+
     def test_a_done_hunt_opens_with_no_ticks_and_plays_again(self):
         trip = Trip.objects.create(user=self.user, destination="japan")
         Traveller.objects.create(trip=trip, age=4)
