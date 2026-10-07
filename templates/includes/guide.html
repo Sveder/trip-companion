@@ -1,0 +1,19 @@
+{# The guide character. ONE slot: swap this file when our 4-year-old picks the animal. Colours come from the theme variables. #}
+<svg class="guide {{ cls }}" viewBox="0 0 120 120" {% if label %}role="img" aria-label="{{ label }}"{% else %}aria-hidden="true" focusable="false"{% endif %}>
+  <g class="guide-body">
+    <path d="M22 44 L30 12 L52 34 Z" fill="var(--guide-fur)"/>
+    <path d="M98 44 L90 12 L68 34 Z" fill="var(--guide-fur)"/>
+    <path d="M30 38 L33 22 L44 34 Z" fill="var(--guide-ear)"/>
+    <path d="M90 38 L87 22 L76 34 Z" fill="var(--guide-ear)"/>
+    <ellipse cx="60" cy="66" rx="44" ry="40" fill="var(--guide-fur)"/>
+    <ellipse cx="60" cy="80" rx="28" ry="22" fill="var(--guide-belly)"/>
+    <circle class="guide-eye" cx="44" cy="60" r="6" fill="var(--c-ink)"/>
+    <circle class="guide-eye" cx="76" cy="60" r="6" fill="var(--c-ink)"/>
+    <circle cx="46" cy="58" r="2" fill="#fff"/>
+    <circle cx="78" cy="58" r="2" fill="#fff"/>
+    <ellipse cx="34" cy="74" rx="7" ry="4.5" fill="var(--guide-cheek)"/>
+    <ellipse cx="86" cy="74" rx="7" ry="4.5" fill="var(--guide-cheek)"/>
+    <ellipse cx="60" cy="72" rx="5" ry="3.6" fill="var(--c-ink)"/>
+    <path d="M51 80 Q60 89 69 80" fill="none" stroke="var(--c-ink)" stroke-width="3.4" stroke-linecap="round"/>
+  </g>
+</svg>

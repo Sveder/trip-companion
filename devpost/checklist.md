@@ -31,7 +31,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Open https://trip.sveder.com on the LG TV, move through the food cards with the remote, and say if it reads well from the couch.
   Commit: `TV mode with remote navigation`
 
-- [ ] **3. Look and feel from our 4-year-old and Michael**
+- [x] **3. Look and feel from our 4-year-old and Michael**
   Becomes usable: The whole site wears the chosen colours, guide animal and finish celebration, Matific-style.
   Why now: Every later slice builds screens; setting the look once now saves restyling them all later. Waits for the answers asked on 2026-10-07 at 18:00.
   PRD ref: `prd.md > Look and Feel`
@@ -154,3 +154,6 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 2: TV mode turns on by `?tv=1` (kept in the session, `?tv=0` turns it off) or by a smart-TV browser name (LG `Web0S`, Tizen and others), not by screen width. A desktop monitor is 1920 px wide too, and it must keep the normal layout.
 - 2026-10-07, slice 2: OK on a fact card shows that card full screen; Back (webOS key 461) or Escape closes it. OK on a builder card flips its switch. The TV CSS uses no `:has()` and no `inset`, for older webOS browsers.
 - 2026-10-07, slice 2: The headless check at 1920x1080 passes on the live site (10 of 10, `trip-companion-tools/tv_check.cjs`). The real TV was off at 14:20 (`lgtv/find_tv.py`: no webOS TV answered), so its model, webOS version and a screen photo are still missing. A factory task holds that check; it does not block the next slices.
+- 2026-10-07, slice 3: Built before our 4-year-old's and Michael's answers came in (fast mode; the answers were asked for 18:00). The look follows `spec.md > Look and Feel` with placeholders: a warm cream page with soft dots, a Japan-red main colour, a sun-yellow header line, coloured icon circles on cards, the Nunito font (self-hosted, OFL), an orange fox-like guide drawn as SVG, and a finish celebration of confetti, a short four-note tune and a jumping guide. Every colour is a CSS variable at the top of `static/css/app.css`; the guide is one file, `templates/includes/guide.html`. The real answers swap in there. A factory QUESTION task holds the choice.
+- 2026-10-07, slice 3: The contrast check found 4 failures and fixed them: the red was darkened to #b82a22 (the footer link was 4.34:1 on the dots), "coming soon" countries are no longer faded with opacity (dashed border instead), the muted grey was darkened, and the TV dimming of unfocused cards went from 70% to 85%. Result: 10 of 10 pages pass WCAG AA (`trip-companion-tools/theme_check.cjs`). Some browsers block the sound until the person taps the page; the "Party again!" button always plays it.
+

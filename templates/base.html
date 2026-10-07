@@ -7,10 +7,11 @@
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   <script src="/sveder-badge.js" defer></script>
   <script src="{% static 'js/tv.js' %}" defer></script>
+  <script src="{% static 'js/celebrate.js' %}" defer></script>
 </head>
-<body class="{% block body_class %}{% endblock %}">
+<body class="{% block body_class %}{% endblock %}"{% block body_attrs %}{% endblock %}>
   <header class="top">
-    <a class="brand" href="{% url 'home' %}"><span class="mascot" aria-hidden="true">🧭</span> Trip Companion</a>
+    <a class="brand" href="{% url 'home' %}">{% include "includes/guide.html" with cls="small" %} Trip Companion</a>
     {% if user.is_authenticated %}
     <nav class="top-nav">
       <a href="{% url 'builder' %}">Our course</a>

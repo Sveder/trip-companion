@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block title %}All done{% endblock %}
+{% block body_attrs %} data-celebrate{% endblock %}
 {% block content %}
 <section class="hero">
-  <div class="hero-mascot" aria-hidden="true">🎉</div>
+  {% include "includes/guide.html" with cls="hero-guide cheer" label="Our guide jumps for joy" %}
   <h1>You did every activity!</h1>
   <p class="lead">Great job. You are ready for Japan. Want more? Add more to your course.</p>
+  <button class="btn big alt" type="button" data-celebrate-again>Party again! 🎉</button>
   <a class="btn big" href="{% url 'builder' %}">Our course</a>
 </section>
 {% endblock %}

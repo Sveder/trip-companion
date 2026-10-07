@@ -109,3 +109,34 @@ class FlowTests(TestCase):
         self.client.force_login(u)
         r = self.client.post(reverse("trip_setup"), {"destination": "japan", "ages": "two"})
         self.assertContains(r, "is not an age")
+
+
+class ThemeTests(TestCase):
+    """Slice 3: every page wears the theme; the finish page celebrates."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("t@example.com", "t@example.com")
+
+    def test_welcome_shows_the_guide_and_loads_theme(self):
+        html = self.client.get("/").content.decode()
+        self.assertIn('class="guide hero-guide"', html)
+        self.assertIn("css/app.css", html)
+        self.assertIn("js/celebrate.js", html)
+
+    def test_header_guide_is_decorative(self):
+        html = self.client.get("/").content.decode()
+        self.assertRegex(html, r'class="guide small"[^>]*aria-hidden="true"')
+
+    def test_finish_page_celebrates(self):
+        trip = make_trip(self.user, [38, 4])
+        course = build_course(trip, [m.id for m, on in suggestions(trip) if on])
+        for item in course.items.all():
+            item.mark_done()
+        self.client.force_login(self.user)
+        html = self.client.get("/").content.decode()
+        self.assertIn("You did every activity!", html)
+        self.assertRegex(html, r"<body[^>]*data-celebrate")
+        self.assertIn("data-celebrate-again", html)
+        self.assertIn("hero-guide cheer", html)

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="hero">
-  <div class="hero-mascot" aria-hidden="true">🧭</div>
+  {% include "includes/guide.html" with cls="hero-guide" label="Our guide says hi" %}
   <h1>Get ready for your trip!</h1>
   <p class="lead">Short, fun activities for the whole family. Learn the food, the words and the fun stuff before you fly.</p>
   <a class="btn big" href="{% url 'signin' %}">Let's start</a>
