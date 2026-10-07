@@ -380,7 +380,26 @@ class PraiseTests(TestCase):
         first = self.ready[0]
         self.client.post(reverse("activity_done", args=[first.id]))
         r = self.client.post(reverse("activity_done", args=[first.id]))
-        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+        self.assertRedirects(r, reverse("activity", args=[self.ready[1].id]), fetch_redirect_response=False)
+
+    def test_next_goes_after_the_activity_picked_on_the_course_page(self):
+        # Earlier ones done, three left open; the family picks a later one on the course page.
+        self.assertGreaterEqual(len(self.ready), 10)
+        for item in self.ready[:5]:
+            item.mark_done()
+        picked, after = self.ready[8], self.ready[9]
+        r = self.client.post(reverse("activity_done", args=[picked.id]), {"skip": "1"})
+        self.assertRedirects(r, reverse("activity_praise", args=[picked.id]), fetch_redirect_response=False)
+        page = self.client.get(reverse("activity_praise", args=[picked.id]))
+        self.assertContains(page, f'href="{reverse("activity", args=[after.id])}"')
+        # Done again from the course page: no praise, straight to the next one after it.
+        r = self.client.post(reverse("activity_done", args=[picked.id]))
+        self.assertRedirects(r, reverse("activity", args=[after.id]), fetch_redirect_response=False)
+        # The last one wraps to the first unfinished: activity 6 (index 5).
+        last = self.ready[-1]
+        self.client.post(reverse("activity_done", args=[last.id]), {"skip": "1"})
+        page = self.client.get(reverse("activity_praise", args=[last.id]))
+        self.assertContains(page, f'href="{reverse("activity", args=[self.ready[5].id])}"')
 
     def test_last_activity_goes_to_the_finish_page(self):
         for item in self.ready[:-1]:

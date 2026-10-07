@@ -87,10 +87,13 @@ def activity_done(request, item_id):
         track("activity_done", trip=item.course.trip, activity=act.id, module=act.module.slug)
     item.mark_done()
     add_items(item.course.trip, item.activity)
-    if first_time and item.course.next_item() is not None:
+    nxt = item.course.next_item(after=item)
+    if nxt is None:
+        return redirect("home")
+    if first_time:
         # A short praise screen before the next activity. The last one goes to the finish page instead.
         return redirect(reverse("activity_praise", args=[item.id]) + found_note)
-    return redirect("home")
+    return redirect("activity", item_id=nxt.id)
 
 
 @login_required
@@ -105,8 +108,9 @@ def activity_praise(request, item_id):
     found = of = None
     if item.activity.type == "streetview" and request.GET.get("found", "").isdigit() and request.GET.get("of", "").isdigit():
         found, of = int(request.GET["found"]), int(request.GET["of"])
+    nxt = item.course.next_item(after=item)
     return render(request, "activities/praise.html", {
-        "item": item, "activity": item.activity, "module": item.activity.module,
+        "item": item, "next_url": reverse("activity", args=[nxt.id]) if nxt else reverse("home"), "activity": item.activity, "module": item.activity.module,
         "found": found if of and found < of else None, "of": of,
         "progress": {"done": done, "before": max(done - 1, 0), "total": total},
     })
