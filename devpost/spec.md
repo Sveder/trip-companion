@@ -75,7 +75,7 @@ From `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
 ## Components
 
 ### Accounts
-Email sign-in code (allauth "login by code"; see checklist Revisions) and Google sign-in (django-allauth). After the first login → trip setup; after that → home.
+Email sign-in code, 6 digits, numbers only (allauth "login by code"; see checklist Revisions) and Google sign-in (django-allauth). After the first login → trip setup; after that → home.
 PRD ref: `prd.md > Login`.
 
 ### Trips
