@@ -10,12 +10,12 @@
       {% if item.is_stub %}
       <span class="course-item stub">
         <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji }}</span>
-        <span class="course-text"><strong>{{ item.activity.title }}</strong><small>{{ item.activity.module.title }}</small><span class="badge muted">Coming soon</span></span>
+        <span class="course-text"><strong>{{ item.activity.title }}</strong>{% if item.activity.module.title != item.activity.title %}<small>{{ item.activity.module.title }}</small>{% endif %}<span class="badge muted">Coming soon</span></span>
       </span>
       {% else %}
       <a class="course-item{% if item.done_at %} done{% endif %}{% if item.id == next_id %} next{% endif %}" href="{% url 'activity' item.id %}">
         <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji }}</span>
-        <span class="course-text"><strong>{{ item.activity.title }}</strong><small>{{ item.activity.module.title }}</small>
+        <span class="course-text"><strong>{{ item.activity.title }}</strong>{% if item.activity.module.title != item.activity.title %}<small>{{ item.activity.module.title }}</small>{% endif %}
           {% if item.done_at %}<span class="badge done">✓ Done</span>{% elif item.id == next_id %}<span class="badge">Next</span>{% endif %}
         </span>
       </a>
