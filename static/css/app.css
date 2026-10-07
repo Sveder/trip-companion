@@ -74,3 +74,21 @@ legend { font-weight: 800; font-size: 1.15rem; }
 .facts .fact { text-align: center; }
 .done-form { text-align: center; margin-top: 1.5rem; }
 @media (max-width: 600px) { h1 { font-size: 1.6rem; } .cards { grid-template-columns: 1fr; } }
+
+/* TV mode (?tv=1 or a smart-TV browser): big type, big cards, one card in focus.
+   Kept free of :has() because older webOS browsers do not support it. */
+html.tv { font-size: 30px; }
+.tv .page { max-width: 92vw; }
+.tv .top { padding: .6rem 2rem; }
+.tv .cards { grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.4rem; }
+.tv .card { transition: transform .15s, box-shadow .15s, opacity .15s; border-width: 8px; }
+.tv .cards:focus-within .card { opacity: .7; }
+.tv .cards .card:focus, .tv .cards .card:focus-within { opacity: 1; transform: scale(1.06); border-color: var(--c-accent); box-shadow: 0 0 0 6px var(--c-sun), var(--shadow); }
+.tv a:focus, .tv .btn:focus, .tv .link:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
+.tv .card.open { position: fixed; inset: 4vh 6vw; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: none; opacity: 1; font-size: 1.5rem; }
+.tv .card.open .card-emoji.big { font-size: 9rem; }
+.tv .card.open h3 { font-size: 2.4rem; }
+.tv .card.open img { max-height: 55vh; width: auto; }
+.tv .shade { position: fixed; inset: 0; z-index: 40; background: rgba(31, 35, 64, .6); }
+.tv video, .tv iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
+.tv .tv-hint { text-align: center; color: var(--c-muted); font-size: .8rem; }
