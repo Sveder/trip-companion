@@ -95,6 +95,11 @@ From `scope.md > The POC Boundary`:
 ### After the trip
 - [ ] After the trip dates, the app shows trip highlights.
 
+### Super user and analytics (added by Michael, 2026-10-07, after approval)
+- [ ] Michael can sign in as super user and edit any module's content (text, videos, Street View, links); the site shows the change.
+- [ ] A staff-only page shows usage: sign-ups, courses built, activities done, referral clicks.
+- [ ] Errors reach Sentry; the site has proper error pages, a privacy page and share previews.
+
 ## States and Boundaries
 - **First use** — login, then trip setup; no course yet.
 - **No course yet** — the main screen sends the user to trip setup.

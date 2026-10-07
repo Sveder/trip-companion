@@ -10,8 +10,9 @@ One website, made with Django, runs on the sveder.com server at https://trip.sve
 a laptop and the TV's web browser; on the TV it shows big cards that the remote's arrow keys move between.
 
 All the travel content — Japanese foods, words, do and don't, emergency numbers, transport, the Street View hunt, the
-chopsticks activity, the buy-in-advance list — lives in plain content files in the repo, one file per module. Changing a
-fact means editing a text file, not code.
+chopsticks activity, the buy-in-advance list — starts as plain content files in the repo, one file per module, and is loaded
+into the database. Michael, as the super user, edits any of it from an admin page in the browser, so he can tune the demo
+without code. The site also counts what people do (analytics) and reports its own errors to Sentry, like a professional site.
 
 When a parent signs in and describes the trip (Japan, family size, ages), the website picks the modules that fit the family,
 lets the parent add or remove modules, and saves the result as the family's course: an ordered list of activities. The site
@@ -45,6 +46,8 @@ Accepted by Michael, 2026-10-07 ("The stack looks good").
 - **SQLite** — one file database; enough for a family-scale POC. https://www.sqlite.org/
 - **PyYAML** — reads the content files. https://pyyaml.org/
 - **boto3 / Amazon SES** — sign-in and reminder emails, from the existing SES setup. https://docs.aws.amazon.com/ses/
+- **Django admin** — the super-user editor for content, trips and analytics. https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
+- **sentry-sdk** (Django integration) — error and performance reports. https://docs.sentry.io/platforms/python/integrations/django/
 - Plain CSS and small vanilla JavaScript (no build step) for animation, TV arrow-key navigation, video recording.
 - gunicorn + nginx + certbot on the existing sveder.com droplet.
 - To verify early: the exact allauth setting for login-by-link in the current release.
@@ -80,7 +83,8 @@ PRD ref: `prd.md > Login`.
 PRD ref: `prd.md > Trip setup and course builder`.
 
 ### Content library
-YAML files under `content/japan/`, one per module. Each module has: id, title, audience (`all`, `adult`, `child`), order, and a
+YAML files under `content/japan/`, one per module, loaded into the database by `manage.py load_content` (Module and Activity
+rows). After loading, the database is the source the site reads; the super user's edits live there. Each module has: id, title, audience (`all`, `adult`, `child`), order, and a
 list of activities. An activity has a type and its data:
 - `cards` — fact cards (food, do and don't, safety, transport); a card can hold an image and a short text.
 - `words` — word list (Japanese, reading, Hebrew/English meaning, optional audio file) → feeds Practice.
@@ -128,8 +132,31 @@ PRD ref: `prd.md > Reminders`.
 
 ### Highlights (after the trip)
 After the trip end date, home shows highlights: the activities the family completed and their own chopsticks clips that they
-chose to save, plus a "words we learned" list. Assumption, see Decisions: no photo upload in the POC.
+chose to save, plus a "words we learned" list. Confirmed by Michael: no photo upload in the POC.
 PRD ref: `prd.md > After the trip`.
+
+### Super-user admin
+Michael's account is a Django superuser. The admin lists modules and activities (text, images, video ids and their approval
+flag, Street View links, things to spot, referral links, order and audience), trips and travellers, and the analytics. Every
+content change shows on the site at once. `manage.py export_content` writes the database content back to YAML, so the demo
+content can be committed to the public repo.
+Source: Michael, 2026-10-07 ("me being able to be a super user and change things so that I can edit the demo").
+
+### Analytics
+An `Event` table records sign-ups, trips built, modules added or removed, activities opened and done, quiz answers, video
+plays, referral-link clicks and reminder-email clicks. A staff-only page `/stats/` shows totals per day and the funnel
+(signed up → trip set up → course built → first activity done → 3 activities done). No third-party tracker, so no cookie banner.
+Source: Michael, 2026-10-07 ("analytics").
+
+### Monitoring and professional basics
+- Sentry: every server error and slow page goes to a Sentry project (free developer plan, Kurt's account); browser errors too
+  through the Sentry JS loader.
+- Error pages (404, 500) in the app's style; a privacy page (what is stored, how to delete an account); favicon; page titles
+  and share previews (Open Graph) so a shared link shows a picture.
+- Security: HTTPS only, secure cookies, Django's deploy checklist (`manage.py check --deploy`) clean.
+- Backups: the SQLite file and uploaded clips copied nightly to the existing Backblaze B2 backup.
+- Uptime: a check every 5 minutes from the home server; Telegram alert to Michael when the site is down.
+Source: Michael, 2026-10-07 ("connected to Sentry and other things for professional website").
 
 ### TV mode
 A CSS layout for wide screens and `?tv=1`; JavaScript moves focus between cards with the arrow keys; video plays full width.
@@ -145,7 +172,8 @@ All in SQLite on the server; it survives restarts and returns.
 - `PracticeItem` — trip, item key (module/activity/item), box (1–5), due_on, last_result.
 - `Clip` — trip, file (chopsticks recording the family saved), created_at. Stored under `media/` on the server.
 - `ReminderLog` — trip, sent_at.
-Content is not in the database; it is read from `content/` at runtime, so content edits need no migration.
+- `Module`, `Activity` — the content, loaded from `content/` and edited in the admin (activity data as JSON).
+- `Event` — user (nullable), trip (nullable), name, data (JSON), created_at — the analytics.
 
 ## File Structure
 ```
@@ -166,6 +194,8 @@ trip-companion/
 ├── practice/                    # PracticeItem, Leitner logic, quiz pages
 ├── reminders/                   # ReminderLog, send_reminders management command
 ├── highlights/                  # after-the-trip page
+├── analytics/                   # Event model, track() helper, /stats/ page
+├── content_admin/               # Module/Activity models, admin, load_content / export_content commands
 ├── content/
 │   ├── japan/                   # food.yaml, words.yaml, dos_donts.yaml, safety.yaml, transport.yaml,
 │   │                            # streetview.yaml, chopsticks.yaml, buy_in_advance.yaml
@@ -187,6 +217,8 @@ trip-companion/
 - **YouTube embed** — `https://www.youtube-nocookie.com/embed/<id>`. Free. Every id needs Michael's approval in the content file.
 - **Referral links** — plain outbound links (AliExpress children's chopsticks; a Japan snack box service). Real affiliate ids
   are added when the accounts exist; until then the links work without them.
+- **Sentry** — free developer plan, project "trip-companion"; DSN in server `.env`. Signup with Kurt's email. Free tier limit:
+  5,000 errors a month. https://sentry.io/pricing/
 - **Hosting** — sveder.com droplet (existing), Namecheap DNS (existing), Let's Encrypt certificate (free).
 
 ## Important Failure Modes
@@ -196,7 +228,6 @@ trip-companion/
 - **A sign-in email is slow or lands in spam** → the sign-in page says to check spam and offers Google sign-in.
 
 ## What Was Simplified and Why
-- **Content files** instead of an admin editor — the content changes rarely in the POC; text files are reviewable in Git.
 - **Ticking found items by hand** in the Street View hunt instead of automatic detection — an embed cannot report what is visible.
 - **Email reminders** instead of phone push — agreed with Michael; push does not reach the TV browser.
 - **Highlights from the family's own app history** (completed activities, saved clips, learned words) instead of photo uploads
@@ -205,6 +236,9 @@ trip-companion/
 
 ## Decisions and Open Issues
 Learner decisions (Michael, 2026-10-07):
+- Super user: Michael edits all demo content in an admin page — added 12:15.
+- Analytics and professional basics, including Sentry — added 12:15.
+- Highlights from the app's own history (activities, saved clips, learned words); photo upload later — confirmed 12:15.
 - Stack: Django, server-rendered, content files, SQLite — accepted.
 - Hosting: public at trip.sveder.com — accepted "for now".
 - Reminders: email — accepted.
@@ -213,6 +247,8 @@ reminder time 17:00; TV mode by width or `?tv=1`; MIT licence.
 
 Open:
 - **Look and Feel** waits for our 4-year-old's answers and Michael's direction (asked 2026-10-07 18:00).
-- **Highlights** content (assumption above): confirm or change.
 - **Google OAuth client:** needs a client id/secret; until then, email sign-in only.
-- **One useful unknown:** not yet discussed — asked in the review.
+- **One useful unknown (Michael):** "the TV part" — will the site really work well in the LG TV's browser?
+  Agreed investigation: the first build slice that has a screen is opened on the real TV (model and webOS version read with
+  `lgtv/find_tv.py`), checking: the page loads over https, arrow keys move focus, OK opens a card, a YouTube embed plays, a
+  Google Maps embed loads. Evidence: photos of the TV screen and the TV's model/webOS version, written into the checklist.
