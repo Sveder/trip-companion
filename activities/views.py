@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import FileResponse, HttpResponseBadRequest, JsonResponse
+from django.http import FileResponse, Http404, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import select_template
 from django.urls import reverse
@@ -9,7 +9,8 @@ from django.views.decorators.http import require_POST
 from courses.models import CourseItem
 from practice.items import add_items
 
-from .models import Clip
+from .links import find_link, visible_links
+from .models import Clip, ReferralClick
 from .steps import visible_steps
 from . import streetview
 
@@ -48,6 +49,7 @@ def activity(request, item_id):
             "progress": {"done": done, "total": total, "number": item.order + 1},
             "steps": visible_steps(item.activity.data, course.trip) if item.activity.type == "steps" else None,
             "hunt": hunt,
+            "links": visible_links(item.activity.data, course.trip) if item.activity.type == "links" else None,
         },
     )
 
@@ -89,3 +91,14 @@ def clip_save(request, item_id):
 def clip_file(request, clip_id):
     clip = get_object_or_404(Clip, id=clip_id, trip__user=request.user)
     return FileResponse(clip.file.open("rb"), content_type=clip.content_type)
+
+
+@login_required
+def go(request, item_id, link_id):
+    """Count a click on a shop link, then open the shop."""
+    item = _item_for(request, item_id)
+    url = find_link(item.activity, link_id)
+    if url is None:
+        raise Http404("No such link.")
+    ReferralClick.objects.create(trip=item.course.trip, activity=item.activity, link_id=link_id, url=url)
+    return redirect(url)

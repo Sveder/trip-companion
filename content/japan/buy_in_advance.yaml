@@ -4,13 +4,49 @@ summary: Things to get before the trip.
 emoji: "🛍️"
 audience: adult
 order: 80
-ready: false
+ready: true
 activities:
+  # The id stays "buy_in_advance-intro": a new id would delete the old row and the families' course items with it.
   - id: buy_in_advance-intro
     title: Buy before you go
-    type: cards
-    intro: This part is coming soon.
-    cards:
-      - title: Buy before you go
-        emoji: "🛍️"
-        text: Things to get before the trip.
+    type: links
+    intro: A few things to get, or to do, before the trip. The links open the shop in a new tab. You pay there, not here.
+    # Plain shop links, no affiliate ids. Every link goes through /go/ so a click is counted.
+    links:
+      - id: snack-box
+        emoji: "🍬"
+        title: A box of Japanese snacks
+        text: Taste Japan at home before you go. A snack box comes by mail with candy and snacks from Japan.
+        label: See TokyoTreat
+        url: https://www.tokyotreat.com/
+      - id: snack-box-bokksu
+        emoji: "🍘"
+        title: Another snack box
+        text: Bokksu sends Japanese snacks and teas, with a little book about each one.
+        label: See Bokksu
+        url: https://www.bokksu.com/
+      - id: kids-chopsticks
+        audience: child
+        emoji: "🥢"
+        title: Kids' chopsticks
+        text: Training chopsticks are joined at the top, so they are easy to hold. Practise at home before the trip.
+        label: See kids' chopsticks
+        url: https://www.aliexpress.com/w/wholesale-kids-training-chopsticks.html
+      - id: plug-adapter
+        emoji: "🔌"
+        title: A plug adapter
+        text: Japan uses plugs with two flat pins (type A), at 100 volts. Bring an adapter. Most phone chargers work at 100 volts; check the label.
+        label: See plug adapters
+        url: https://www.aliexpress.com/w/wholesale-japan-plug-adapter.html
+      - id: visit-japan-web
+        emoji: "🛂"
+        title: Visit Japan Web (free)
+        text: Fill in the arrival forms online before you fly. You get QR codes to show at immigration and customs. It is the official Japanese government site.
+        label: Open Visit Japan Web
+        url: https://services.digital.go.jp/en/visit-japan-web/
+      - id: jr-pass
+        emoji: "🎫"
+        title: Japan Rail Pass
+        text: Only if your train trips add up to more than the pass price. Buy it on the official site.
+        label: See the JR Pass
+        url: https://japanrailpass.net/en/

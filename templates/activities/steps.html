@@ -8,7 +8,7 @@
     {% if step.text %}<p>{{ step.text }}</p>{% endif %}
 
     {% if step.kind == "link" %}
-    <p><a class="btn alt" href="{{ step.url }}" target="_blank" rel="noopener nofollow">{{ step.label|default:"Open" }}</a></p>
+    <p><a class="btn alt" href="{% if step.id %}{% url 'go' item.id step.id %}{% else %}{{ step.url }}{% endif %}" target="_blank" rel="noopener nofollow">{{ step.label|default:"Open" }}</a></p>
     <p class="hint">A grown-up buys it. The shop opens in a new tab.</p>
 
     {% elif step.kind == "video" %}

@@ -4,13 +4,48 @@ summary: Who to call if you need help.
 emoji: "🚑"
 audience: all
 order: 40
-ready: false
+ready: true
 activities:
+  # The id stays "safety-intro": a new id would delete the old row and the families' course items with it.
   - id: safety-intro
     title: Staying safe
     type: cards
-    intro: This part is coming soon.
+    intro: Japan is a safe place. Let's learn what to do if we need help.
     cards:
-      - title: Staying safe
-        emoji: "🚑"
-        text: Who to call if you need help.
+      - title: Police
+        emoji: "👮"
+        text: To call the police in Japan, call 110. One, one, zero.
+        quiz: true
+        question: What number do you call for the police in Japan?
+        answer: "110"
+        wrong: ["119", "100", "911"]
+      - title: Fire and ambulance
+        emoji: "🚒"
+        text: For a fire, or if someone is hurt or very sick, call 119. One, one, nine.
+        quiz: true
+        question: What number do you call for a fire or an ambulance in Japan?
+        answer: "119"
+        wrong: ["110", "101", "911"]
+      - title: Police box (koban)
+        emoji: "🏠"
+        text: A koban is a small police house on the street. If you are lost, go in. A police officer will help you.
+        quiz: true
+        question: What is the name of the small police house on the street?
+        answer: Koban
+        wrong: [Bento, Onsen, Onigiri]
+      - title: If you get lost
+        emoji: "🧒"
+        text: Stay where you are. Ask a person who works there, like a shop helper or a train station worker. Show them your name card.
+      - title: A name card in the pocket
+        emoji: "🪪"
+        text: For grown-ups. Put a card in each child's pocket with your phone number and the hotel name.
+      - title: Help in English
+        emoji: "☎️"
+        text: For grown-ups. The Japan Visitor Hotline helps in English, all day and all night. Call 050-3816-2787. For an emergency, call 110 or 119 first.
+      - title: Earthquake
+        emoji: "🌏"
+        text: Japan has small earthquakes. If the floor shakes, get under a table and hold on. Wait until it stops.
+        quiz: true
+        question: If the floor shakes, where do you go?
+        answer: Under a table
+        wrong: [Up the stairs, Into the lift, Out the window]

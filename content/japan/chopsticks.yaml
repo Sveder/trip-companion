@@ -13,6 +13,7 @@ activities:
     intro: In Japan, people eat with chopsticks. Let's learn, then show everyone!
     steps:
       - kind: link
+        id: kids-chopsticks
         audience: child
         emoji: "🛒"
         title: Get kids' chopsticks

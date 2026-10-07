@@ -44,3 +44,19 @@ class Clip(models.Model):
 
     def __str__(self):
         return f"Clip {self.id} for {self.trip}"
+
+
+class ReferralClick(models.Model):
+    """One press on a shop link. Slice 11 (analytics) counts these."""
+
+    trip = models.ForeignKey("trips.Trip", on_delete=models.SET_NULL, null=True, blank=True, related_name="referral_clicks")
+    activity = models.ForeignKey("content_admin.Activity", on_delete=models.SET_NULL, null=True, blank=True)
+    link_id = models.CharField(max_length=60)
+    url = models.URLField(max_length=500)
+    clicked_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ["-clicked_at"]
+
+    def __str__(self):
+        return f"{self.link_id} at {self.clicked_at:%Y-%m-%d %H:%M}"

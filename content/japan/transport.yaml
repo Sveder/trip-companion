@@ -4,13 +4,43 @@ summary: Trains, buses and how to ride them.
 emoji: "🚄"
 audience: adult
 order: 50
-ready: false
+ready: true
 activities:
+  # The id stays "transport-intro": a new id would delete the old row and the families' course items with it.
   - id: transport-intro
     title: Getting around
     type: cards
-    intro: This part is coming soon.
+    intro: Trains in Japan are clean and on time. Here is how to ride them with the family.
     cards:
-      - title: Getting around
-        emoji: "🚄"
-        text: Trains, buses and how to ride them.
+      - title: A travel card (IC card)
+        emoji: "💳"
+        text: Get an IC card like Suica or PASMO. You tap it at the train gate and on the bus, and you can pay in many shops with it. Add money at the machines in any station.
+        quiz: true
+        question: Which card do you tap at the train gate?
+        answer: Suica
+        wrong: [Bento, Koban, Ramen]
+      - title: Children's fares
+        emoji: "👧"
+        text: Children under 6 ride for free with a paying adult (up to two children for each adult). Children from 6 to 11 pay half the adult fare. From 12, they pay the adult fare.
+      - title: The bullet train (Shinkansen)
+        emoji: "🚅"
+        text: The Shinkansen is very fast. Reserve seats for the family so you sit together. On the line from Tokyo to Osaka and Fukuoka, a very big suitcase (over 160 cm, length + width + height) needs a seat with a luggage space, booked in advance.
+        quiz: true
+        question: What is the name of the fast train in Japan?
+        answer: Shinkansen
+        wrong: [Suica, Onsen, Koban]
+      - title: Is the JR Pass worth it?
+        emoji: "🎫"
+        text: The JR Pass price went up a lot in October 2023. For many trips, single tickets now cost less. Add up your train trips before you buy one.
+      - title: Avoid the rush hour
+        emoji: "⏰"
+        text: Trains in big cities are very full from about 7:30 to 9:30 in the morning. With small children or a stroller, travel after that.
+      - title: Send your bags ahead
+        emoji: "🧳"
+        text: Hotels and convenience stores can send your suitcases to the next hotel (takkyubin). The bags usually arrive the next day. You ride the train with a small bag only.
+      - title: Taxis
+        emoji: "🚕"
+        text: The back door of a taxi opens and closes by itself. Do not touch it. Show the driver the address in Japanese on your phone.
+      - title: Find the way
+        emoji: "🗺️"
+        text: Google Maps shows train lines, platforms and times in Japan. Station signs are in English too.

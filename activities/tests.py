@@ -11,7 +11,7 @@ from content_admin.models import Activity
 from courses.models import Course, CourseItem
 from trips.models import Traveller, Trip
 
-from .models import Clip
+from .models import Clip, ReferralClick
 from .steps import visible_steps
 
 CLIP_DIR = tempfile.mkdtemp(prefix="trip-clips-")
@@ -52,9 +52,9 @@ class ChopsticksTests(TestCase):
 
     def test_referral_step_only_with_a_child(self):
         family = self.page(chopsticks_item(self.user, [38, 4]), HTTP_USER_AGENT=PHONE)
-        self.assertIn("aliexpress.com", family)
+        self.assertIn("/kids-chopsticks/", family)
         adults = self.page(chopsticks_item(self.user, [40, 38]), HTTP_USER_AGENT=PHONE)
-        self.assertNotIn("aliexpress.com", adults)
+        self.assertNotIn("kids-chopsticks", adults)
         self.assertNotIn("kids' chopsticks", adults)
 
     def test_unapproved_video_never_renders(self):
@@ -176,3 +176,86 @@ class StreetViewHuntTests(TestCase):
 
         with self.assertRaises(ValueError):
             embed_url({"lat": 135.0, "lng": 35.0})
+
+
+class JapanContentTests(TestCase):
+    """Slice 7: do and don't, safety, transport and buy in advance."""
+
+    MODULES = ["dos_donts", "safety", "transport", "buy_in_advance"]
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("j@example.com", "j@example.com")
+
+    def item(self, module, ages=(38, 4)):
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        for a in ages:
+            Traveller.objects.create(trip=trip, age=a)
+        course = Course.objects.create(trip=trip)
+        act = Activity.objects.filter(module__slug=module).first()
+        return CourseItem.objects.create(course=course, order=0, activity=act)
+
+    def page(self, item):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[item.id]), HTTP_USER_AGENT=PHONE)
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_every_japan_module_is_ready(self):
+        from content_admin.models import Module
+
+        self.assertEqual(list(Module.objects.filter(country="japan", ready=False)), [])
+
+    def test_each_new_module_page_renders(self):
+        for slug in self.MODULES:
+            with self.subTest(slug):
+                html = self.page(self.item(slug))
+                self.assertNotIn("coming soon", html)
+
+    def test_safety_numbers_are_right(self):
+        html = self.page(self.item("safety"))
+        self.assertIn("call 110", html)
+        self.assertIn("call 119", html)
+
+    def test_buy_links_go_through_the_click_hook(self):
+        item = self.item("buy_in_advance")
+        html = self.page(item)
+        self.assertIn(reverse("go", args=[item.id, "snack-box"]), html)
+        self.assertNotIn("tokyotreat.com", html)
+        r = self.client.get(reverse("go", args=[item.id, "snack-box"]))
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r["Location"], "https://www.tokyotreat.com/")
+        click = ReferralClick.objects.get()
+        self.assertEqual((click.link_id, click.trip_id), ("snack-box", item.course.trip_id))
+
+    def test_go_is_not_an_open_redirect(self):
+        item = self.item("buy_in_advance")
+        self.client.force_login(self.user)
+        self.assertEqual(self.client.get(reverse("go", args=[item.id, "nope"])).status_code, 404)
+        other = get_user_model().objects.create_user("o@example.com", "o@example.com")
+        self.client.force_login(other)
+        self.assertEqual(self.client.get(reverse("go", args=[item.id, "snack-box"])).status_code, 404)
+        self.assertEqual(ReferralClick.objects.count(), 0)
+
+    def test_kids_chopsticks_only_with_a_child(self):
+        self.assertIn("kids-chopsticks", self.page(self.item("buy_in_advance", ages=(38, 4))))
+        self.assertNotIn("kids-chopsticks", self.page(self.item("buy_in_advance", ages=(40, 38))))
+
+    def test_chopsticks_step_link_is_counted(self):
+        item = chopsticks_item(self.user, [38, 4])
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("go", args=[item.id, "kids-chopsticks"]))
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("aliexpress.com", r["Location"])
+        self.assertEqual(ReferralClick.objects.count(), 1)
+
+    def test_safety_quiz_asks_for_the_number(self):
+        from practice.items import add_items, question
+
+        item = self.item("safety")
+        add_items(item.course.trip, item.activity)
+        q = question(item.course.trip, "safety/safety-intro/police")
+        self.assertEqual(q["answer"], "110")
+        self.assertIn("119", q["choices"])
+        self.assertEqual(len(q["choices"]), 4)

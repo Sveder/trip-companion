@@ -64,7 +64,7 @@ def lookup(trip, key):
 def question(trip, key):
     """A multiple-choice question for one practice item, or None when its content is gone.
 
-    Words: the Japanese word, pick its meaning. Fact cards: the picture (or the card's own question), pick the name.
+    Words: the Japanese word, pick its meaning. Fact cards: the picture (or the card's own question), pick the name (or the card's own answer).
     Wrong choices come from the same activity, so they are the same kind of thing.
     """
     activity, entry = lookup(trip, key)
@@ -81,8 +81,9 @@ def question(trip, key):
             "emoji": "",
         }
     else:
-        answer_of = lambda e: e["title"]
-        entries = activity.data.get("cards", [])
+        # A card can name its own answer and wrong choices (e.g. "110" for the police card).
+        answer_of = lambda e: str(e.get("answer") or e["title"])
+        entries = [c for c in activity.data.get("cards", []) if not c.get("answer")]
         q = {
             "kind": "fact",
             "prompt": entry.get("question") or "What is this?",
@@ -93,7 +94,10 @@ def question(trip, key):
         }
     right = answer_of(entry)
     rng = random.Random(f"{trip.id}:{key}")
-    others = sorted({answer_of(e) for e in entries} - {right})
+    if entry.get("wrong"):
+        others = sorted({str(w) for w in entry["wrong"]} - {right})
+    else:
+        others = sorted({answer_of(e) for e in entries} - {right})
     choices = rng.sample(others, min(CHOICES - 1, len(others))) + [right]
     rng.shuffle(choices)
     q.update({"key": key, "answer": right, "choices": choices, "module": activity.module})

@@ -1,0 +1,14 @@
+{% extends "activities/_frame.html" %}
+{% block activity %}
+<div class="cards facts buy-list">
+  {% for link in links %}
+  <article class="card fact buy">
+    {% if link.emoji %}<div class="card-emoji big" aria-hidden="true">{{ link.emoji }}</div>{% endif %}
+    <h3>{{ link.title }}</h3>
+    <p>{{ link.text }}</p>
+    <p><a class="btn alt" href="{% url 'go' item.id link.id %}" target="_blank" rel="noopener nofollow">{{ link.label|default:"Open" }}</a></p>
+  </article>
+  {% endfor %}
+</div>
+<p class="hint">A grown-up buys these. The shop opens in a new tab. Nothing is paid in this app.</p>
+{% endblock %}
