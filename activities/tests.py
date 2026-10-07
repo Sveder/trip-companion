@@ -276,8 +276,29 @@ class JapanContentTests(TestCase):
         self.client.force_login(self.user)
         r = self.client.get(reverse("go", args=[item.id, "kids-chopsticks"]))
         self.assertEqual(r.status_code, 302)
-        self.assertIn("aliexpress.com", r["Location"])
+        self.assertRegex(r["Location"], r"^https://www\.aliexpress\.com/item/\d+\.html$")
         self.assertEqual(ReferralClick.objects.count(), 1)
+
+    def test_kids_chopsticks_links_are_one_product(self):
+        import yaml
+        from django.conf import settings
+
+        def walk(node):
+            if isinstance(node, dict):
+                if node.get("id") == "kids-chopsticks":
+                    yield node["url"]
+                for v in node.values():
+                    yield from walk(v)
+            elif isinstance(node, list):
+                for v in node:
+                    yield from walk(v)
+
+        for name in ("chopsticks", "buy_in_advance"):
+            data = yaml.safe_load((settings.BASE_DIR / "content" / "japan" / f"{name}.yaml").read_text())
+            urls = list(walk(data))
+            self.assertTrue(urls, name)
+            for url in urls:
+                self.assertRegex(url, r"^https://www\.aliexpress\.com/item/\d+\.html$")
 
     def test_safety_quiz_asks_for_the_number(self):
         from practice.items import add_items, question
