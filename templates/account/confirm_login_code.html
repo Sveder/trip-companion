@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Enter your code{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>Check your email</h1>
+  <p>We sent a code to <strong>{{ email }}</strong>. Type it here. The code works for 15 minutes.</p>
+  <p class="hint">No email? Look in your spam folder.</p>
+  <form method="post" action="{% url 'account_confirm_login_code' %}" class="form">
+    {% csrf_token %}
+    {{ verify_form.as_p }}
+    {{ redirect_field }}
+    <button class="btn big" type="submit">Sign in</button>
+  </form>
+  {% if can_resend %}
+  <form method="post" action="{% url 'account_confirm_login_code' %}">
+    {% csrf_token %}<input type="hidden" name="action" value="resend">
+    <button class="link" type="submit">Send a new code</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

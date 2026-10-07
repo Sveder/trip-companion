@@ -1,0 +1,16 @@
+id: chopsticks
+title: Eat with chopsticks
+summary: Learn to hold chopsticks, then show everyone.
+emoji: "🥢"
+audience: all
+order: 70
+ready: false
+activities:
+  - id: chopsticks-intro
+    title: Eat with chopsticks
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Eat with chopsticks
+        emoji: "🥢"
+        text: Learn to hold chopsticks, then show everyone.

@@ -1,0 +1,16 @@
+id: buy_in_advance
+title: Buy before you go
+summary: Things to get before the trip.
+emoji: "🛍️"
+audience: adult
+order: 80
+ready: false
+activities:
+  - id: buy_in_advance-intro
+    title: Buy before you go
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Buy before you go
+        emoji: "🛍️"
+        text: Things to get before the trip.

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}All done{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-mascot" aria-hidden="true">🎉</div>
+  <h1>You did every activity!</h1>
+  <p class="lead">Great job. You are ready for Japan. Want more? Add more to your course.</p>
+  <a class="btn big" href="{% url 'builder' %}">Our course</a>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+id: safety
+title: Staying safe
+summary: Who to call if you need help.
+emoji: "🚑"
+audience: all
+order: 40
+ready: false
+activities:
+  - id: safety-intro
+    title: Staying safe
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Staying safe
+        emoji: "🚑"
+        text: Who to call if you need help.

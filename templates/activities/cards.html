@@ -1,0 +1,12 @@
+{% extends "activities/_frame.html" %}
+{% block activity %}
+<div class="cards facts">
+  {% for card in data.cards %}
+  <article class="card fact" tabindex="0">
+    {% if card.image %}<img src="{{ card.image }}" alt="{{ card.title }}">{% elif card.emoji %}<div class="card-emoji big" aria-hidden="true">{{ card.emoji }}</div>{% endif %}
+    <h3>{{ card.title }}</h3>
+    <p>{{ card.text }}</p>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}

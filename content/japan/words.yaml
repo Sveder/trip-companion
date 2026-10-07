@@ -1,0 +1,16 @@
+id: words
+title: Japanese words
+summary: Say hello and thank you in Japanese.
+emoji: "🗣️"
+audience: all
+order: 20
+ready: false
+activities:
+  - id: words-intro
+    title: Japanese words
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Japanese words
+        emoji: "🗣️"
+        text: Say hello and thank you in Japanese.

@@ -1,0 +1,16 @@
+id: streetview
+title: Street View hunt
+summary: Look around a real place in Japan and find hidden things.
+emoji: "🔎"
+audience: child
+order: 60
+ready: false
+activities:
+  - id: streetview-intro
+    title: Street View hunt
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Street View hunt
+        emoji: "🔎"
+        text: Look around a real place in Japan and find hidden things.

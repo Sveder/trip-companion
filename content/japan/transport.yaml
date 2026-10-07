@@ -1,0 +1,16 @@
+id: transport
+title: Getting around
+summary: Trains, buses and how to ride them.
+emoji: "🚄"
+audience: adult
+order: 50
+ready: false
+activities:
+  - id: transport-intro
+    title: Getting around
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Getting around
+        emoji: "🚄"
+        text: Trains, buses and how to ride them.

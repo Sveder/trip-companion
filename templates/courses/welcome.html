@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-mascot" aria-hidden="true">🧭</div>
+  <h1>Get ready for your trip!</h1>
+  <p class="lead">Short, fun activities for the whole family. Learn the food, the words and the fun stuff before you fly.</p>
+  <a class="btn big" href="{% url 'signin' %}">Let's start</a>
+</section>
+<h2 class="section-title">Where are you going?</h2>
+<div class="cards countries">
+  {% for c in previews %}
+  <div class="card country {% if not c.ready %}soon{% endif %}">
+    <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
+    <h3>{{ c.name }}</h3>
+    <p>{{ c.line }}</p>
+    {% if not c.ready %}<span class="badge">Coming soon</span>{% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

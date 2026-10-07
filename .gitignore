@@ -3,3 +3,9 @@
 .env.*
 !.env.example
 /devpost/prd-notes.md
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+staticfiles/
+media/

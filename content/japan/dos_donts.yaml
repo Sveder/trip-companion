@@ -1,0 +1,16 @@
+id: dos_donts
+title: Do and don't
+summary: How to be polite in Japan.
+emoji: "🙇"
+audience: all
+order: 30
+ready: false
+activities:
+  - id: dos_donts-intro
+    title: Do and don't
+    type: cards
+    intro: This part is coming soon.
+    cards:
+      - title: Do and don't
+        emoji: "🙇"
+        text: How to be polite in Japan.

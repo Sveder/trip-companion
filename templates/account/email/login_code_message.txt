@@ -1,0 +1,10 @@
+{% autoescape off %}Hello!
+
+Your Trip Companion sign-in code is:
+
+{{ code }}
+
+Type it in the open Trip Companion page. The code works for 15 minutes.
+
+If you did not ask for this code, you can delete this email.
+{% endautoescape %}

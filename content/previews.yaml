@@ -1,0 +1,10 @@
+- id: japan
+  name: Japan
+  emoji: "🇯🇵"
+  line: Sushi, fast trains and kind people.
+  ready: true
+- id: uzbekistan
+  name: Uzbekistan
+  emoji: "🇺🇿"
+  line: Blue domes, old Silk Road cities and fresh bread.
+  ready: false

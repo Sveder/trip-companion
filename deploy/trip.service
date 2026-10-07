@@ -1,0 +1,13 @@
+[Unit]
+Description=Trip Companion (gunicorn)
+After=network.target
+
+[Service]
+User=server
+Group=www-data
+WorkingDirectory=/srv/www/trip-companion
+ExecStart=/srv/www/trip-companion/venv/bin/gunicorn tripapp.wsgi:application --bind 127.0.0.1:8031 --workers 2 --access-logfile -
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

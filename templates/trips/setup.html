@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Our trip{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Tell us about your trip</h1>
+  <form method="post" class="form">
+    {% csrf_token %}
+    <fieldset class="countries-pick">
+      <legend>Where are you going?</legend>
+      <div class="cards countries">
+        {% for c in previews %}
+          {% if c.ready %}
+          <label class="card country pick">
+            <input type="radio" name="destination" value="{{ c.id }}" {% if form.destination.value == c.id or not form.destination.value %}checked{% endif %}>
+            <span class="card-emoji" aria-hidden="true">{{ c.emoji }}</span>
+            <h3>{{ c.name }}</h3>
+            <p>{{ c.line }}</p>
+          </label>
+          {% else %}
+          <div class="card country soon" aria-disabled="true">
+            <span class="card-emoji" aria-hidden="true">{{ c.emoji }}</span>
+            <h3>{{ c.name }}</h3>
+            <p>{{ c.line }}</p>
+            <span class="badge">Coming soon</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {{ form.destination.errors }}
+    </fieldset>
+    <p>{{ form.ages.label_tag }} {{ form.ages }} <span class="hint">{{ form.ages.help_text }}</span>{{ form.ages.errors }}</p>
+    <div class="row">
+      <p>{{ form.start_date.label_tag }} {{ form.start_date }}{{ form.start_date.errors }}</p>
+      <p>{{ form.end_date.label_tag }} {{ form.end_date }}{{ form.end_date.errors }}</p>
+    </div>
+    <button class="btn big" type="submit">Next: our course</button>
+  </form>
+</section>
+{% endblock %}
