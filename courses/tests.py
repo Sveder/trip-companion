@@ -133,6 +133,11 @@ class ThemeTests(TestCase):
         self.assertIn("css/app.css", html)
         self.assertIn("js/celebrate.js", html)
 
+    def test_welcome_ready_country_card_links_to_sign_in(self):
+        html = self.client.get("/").content.decode()
+        self.assertRegex(html, r'<a class="card country go" href="/signin/"')
+        self.assertNotRegex(html, r'<a class="card country soon')
+
     def test_header_guide_is_decorative(self):
         html = self.client.get("/").content.decode()
         self.assertRegex(html, r'class="guide small"[^>]*aria-hidden="true"')

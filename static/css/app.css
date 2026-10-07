@@ -91,6 +91,9 @@ h3 { margin: .3em 0; font-size: 1.25rem; }
 .badge { display: inline-block; background: var(--c-sun); color: var(--c-ink); border-radius: 999px; padding: .1rem .7rem; font-size: .8rem; font-weight: 800; margin-top: .5rem; }
 .badge.muted { background: var(--c-line); color: var(--c-muted); }
 .country.soon { border: 4px dashed var(--c-line); }
+a.card.go { color: var(--c-ink); text-decoration: none; cursor: pointer; transition: transform .15s; }
+a.card.go:hover { transform: translateY(-3px); }
+.card-go { display: inline-block; margin-top: .6rem; font-weight: 800; color: var(--c-primary); }
 .country.soon .card-emoji { filter: grayscale(.5); }
 .pick, .module { cursor: pointer; }
 .pick input, .module input { position: absolute; opacity: 0; }

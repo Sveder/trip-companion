@@ -9,12 +9,21 @@
 <h2 class="section-title">Where are you going?</h2>
 <div class="cards countries">
   {% for c in previews %}
-  <div class="card country {% if not c.ready %}soon{% endif %}">
+  {% if c.ready %}
+  <a class="card country go" href="{% url 'signin' %}">
     <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>
-    {% if not c.ready %}<span class="badge">Coming soon</span>{% endif %}
+    <span class="card-go">Let's go! &rarr;</span>
+  </a>
+  {% else %}
+  <div class="card country soon">
+    <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
+    <h3>{{ c.name }}</h3>
+    <p>{{ c.line }}</p>
+    <span class="badge">Coming soon</span>
   </div>
+  {% endif %}
   {% endfor %}
 </div>
 {% endblock %}
