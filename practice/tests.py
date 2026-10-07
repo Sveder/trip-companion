@@ -174,6 +174,8 @@ class QuizFlowTests(TestCase):
         wrong = next(c for c in q["choices"] if c != q["answer"])
         r = self.client.post(reverse("quiz"), {"key": q["key"], "choice": wrong})
         self.assertContains(r, "Not this time")
+        self.assertContains(r, "We ask this one again tomorrow.")
+        self.assertNotContains(r, "next time")
         missed = PracticeItem.objects.get(trip=trip, key=q["key"])
         # Answer every other question right.
         for _ in range(n - 1):
