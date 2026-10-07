@@ -17,7 +17,7 @@
     <ul class="spots">
       {% for spot in data.spots %}
       <li><label class="spot">
-        <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% if item.done_at %} checked{% endif %}>
+        <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% if item.done_at %} checked{% else %}{% with n=forloop.counter0|stringformat:"d" %}{% if n in hunt.ticked %} checked{% endif %}{% endwith %}{% endif %}>
         <span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>
         <span class="spot-text">{{ spot.text }}</span>
         <span class="spot-tick" aria-hidden="true">✓</span>
@@ -26,6 +26,9 @@
     </ul>
     <p class="spot-count" data-count aria-live="polite"></p>
     <button class="btn big" type="submit">{% if item.done_at %}Next{% else %}We found them all!{% endif %}</button>
+    {% if hunt.missing and not item.done_at %}
+    <button class="btn alt big hunt-skip" type="submit" name="skip" value="1">We can't find them all. Next ➜</button>
+    {% endif %}
   </form>
 </div>
 <script src="{% static 'js/hunt.js' %}" defer></script>

@@ -159,7 +159,7 @@ class StreetViewHuntTests(TestCase):
     def test_ticking_some_items_does_not_finish(self):
         item = self.item()
         r = self.done(item, ["0", "1", "2"])
-        self.assertRedirects(r, reverse("activity", args=[item.id]) + "?missing=1", fetch_redirect_response=False)
+        self.assertRedirects(r, reverse("activity", args=[item.id]) + "?missing=1&found=0,1,2", fetch_redirect_response=False)
         item.refresh_from_db()
         self.assertIsNone(item.done_at)
         self.assertIn("Keep looking", self.client.get(r["Location"]).content.decode())
@@ -170,6 +170,35 @@ class StreetViewHuntTests(TestCase):
         self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
         item.refresh_from_db()
         self.assertIsNotNone(item.done_at)
+
+    def test_missing_keeps_the_ticks_and_shows_the_skip_button(self):
+        item = self.item()
+        r = self.done(item, ["0", "2"])
+        html = self.client.get(r["Location"]).content.decode()
+        self.assertIn('name="skip"', html)
+        self.assertEqual(html.count(" checked>"), 2)
+        self.assertNotIn('name="skip"', self.client.get(reverse("activity", args=[item.id])).content.decode())
+
+    def test_skip_after_missing_marks_the_hunt_done_and_home_opens_the_next(self):
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=3)
+        course = Course.objects.create(trip=trip)
+        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
+        second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
+        url = reverse("activity_done", args=[first.id])
+        r = self.client.post(url, {"found": ["0", "1"]})
+        self.assertIn("missing=1", r["Location"])
+        first.refresh_from_db()
+        self.assertIsNone(first.done_at)
+        r = self.client.post(url, {"found": ["0", "1"], "skip": "1"})
+        first.refresh_from_db()
+        self.assertIsNotNone(first.done_at)
+        n = len(hunts[0].data["spots"])
+        self.assertEqual(r["Location"], reverse("activity_praise", args=[first.id]) + f"?found=2&of={n}")
+        self.assertIn(f"You found 2 of {n}!", self.client.get(r["Location"]).content.decode())
+        home = self.client.get(reverse("home"))
+        self.assertRedirects(home, reverse("activity", args=[second.id]), fetch_redirect_response=False)
 
     def test_embed_url_rejects_a_bad_point(self):
         from .streetview import embed_url

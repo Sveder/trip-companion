@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import select_template
 from django.urls import reverse
 from django.views.decorators.http import require_POST
+from urllib.parse import urlencode
 
 from analytics.models import track
 from courses.models import CourseItem
@@ -40,7 +41,8 @@ def activity(request, item_id):
     hunt = None
     if act.type == "streetview":
         hunt = {"embed": streetview.embed_url(act.data), "link": streetview.maps_link(act.data),
-                "missing": request.GET.get("missing") == "1"}
+                "missing": request.GET.get("missing") == "1",
+                "ticked": set(request.GET.get("found", "").split(","))}
     names = [f"activities/{act.type}.html"] if not item.is_stub else []
     template = select_template(names + ["activities/coming_soon.html"])
     return render(
@@ -69,9 +71,17 @@ def activity_done(request, item_id):
     if item.is_stub:
         # A "coming soon" stub never counts as done, so the family sees it when it turns real.
         return redirect("home")
-    if act.type == "streetview" and not item.done_at and not streetview.all_found(act.data, request.POST.getlist("found")):
-        # A hunt is done only when every thing is found.
-        return redirect(reverse("activity", args=[item.id]) + "?missing=1")
+    found_note = ""
+    if act.type == "streetview" and not item.done_at:
+        found = request.POST.getlist("found")
+        if not streetview.all_found(act.data, found):
+            if request.POST.get("skip") != "1":
+                # First press with things missing: "Keep looking!", the ticks stay, and a skip button appears.
+                return redirect(reverse("activity", args=[item.id]) + "?" + urlencode(
+                    {"missing": 1, "found": ",".join(found)}, safe=","))
+            # A small child cannot always find them all. The skip button ends the hunt with the count found.
+            found_note = "?" + urlencode({"found": streetview.count_found(act.data, found),
+                                          "of": len(act.data.get("spots", []))})
     first_time = item.done_at is None
     if first_time:
         track("activity_done", trip=item.course.trip, activity=act.id, module=act.module.slug)
@@ -79,7 +89,7 @@ def activity_done(request, item_id):
     add_items(item.course.trip, item.activity)
     if first_time and item.course.next_item() is not None:
         # A short praise screen before the next activity. The last one goes to the finish page instead.
-        return redirect("activity_praise", item_id=item.id)
+        return redirect(reverse("activity_praise", args=[item.id]) + found_note)
     return redirect("home")
 
 
@@ -92,8 +102,12 @@ def activity_praise(request, item_id):
     ready = item.course.ready_items()
     total = ready.count()
     done = ready.filter(done_at__isnull=False).count()
+    found = of = None
+    if item.activity.type == "streetview" and request.GET.get("found", "").isdigit() and request.GET.get("of", "").isdigit():
+        found, of = int(request.GET["found"]), int(request.GET["of"])
     return render(request, "activities/praise.html", {
         "item": item, "activity": item.activity, "module": item.activity.module,
+        "found": found if of and found < of else None, "of": of,
         "progress": {"done": done, "before": max(done - 1, 0), "total": total},
     })
 

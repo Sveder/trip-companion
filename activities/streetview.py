@@ -30,3 +30,9 @@ def all_found(data, found):
     """found: the spot numbers the family ticked (strings from the form)."""
     wanted = {str(i) for i in range(len(data.get("spots", [])))}
     return bool(wanted) and wanted <= set(found)
+
+
+def count_found(data, found):
+    """How many of the spots the family ticked (unknown numbers are ignored)."""
+    wanted = {str(i) for i in range(len(data.get("spots", [])))}
+    return len(wanted & set(found))
