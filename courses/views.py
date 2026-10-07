@@ -26,7 +26,7 @@ def home(request):
         return redirect("builder")
     item = course.next_item()
     if item is None:
-        return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase})
+        return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase, "more_soon": course.has_stubs()})
     return redirect("activity", item_id=item.id)
 
 

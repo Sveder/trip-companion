@@ -71,7 +71,7 @@ def build_email(user, item):
         "item": item,
         "go": base + reverse("activity", args=[item.id]) + "?from=reminder",
         "stop": stop,
-        "left": item.course.items.filter(done_at__isnull=True).count(),
+        "left": item.course.ready_items().filter(done_at__isnull=True).count(),
     }
     subject = settings.ACCOUNT_EMAIL_SUBJECT_PREFIX + render_to_string("reminders/subject.txt", ctx).strip()
     msg = EmailMultiAlternatives(

@@ -261,3 +261,64 @@ class AfterTheTripTests(TestCase):
         r = self.client.get(reverse("highlights"))
         self.assertEqual(r.status_code, 200)
         self.assertIn("Welcome back from Japan!", r.content.decode())
+
+
+class StubTests(TestCase):
+    """A "coming soon" stub cannot be marked done, and the course goes past it."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("s@example.com", "s@example.com")
+        self.trip = make_trip(self.user, [38, 4])
+        self.course = build_course(self.trip, [m.id for m in Module.objects.all()])
+        food = Module.objects.get(slug="food")
+        Module.objects.exclude(id=food.id).update(ready=False)
+        self.ready = list(self.course.ready_items())
+        self.stubs = [i for i in self.course.items.select_related("activity__module") if i.is_stub]
+        self.client.force_login(self.user)
+
+    def test_stub_cannot_be_marked_done(self):
+        stub = self.stubs[0]
+        self.client.post(reverse("activity_done", args=[stub.id]))
+        stub.refresh_from_db()
+        self.assertIsNone(stub.done_at)
+        page = self.client.get(reverse("activity", args=[stub.id]))
+        self.assertContains(page, "coming soon")
+        self.assertNotContains(page, "We did it!")
+
+    def test_finish_after_the_ready_items_only(self):
+        self.assertTrue(self.ready and self.stubs)
+        for item in self.ready:
+            self.assertRedirects(self.client.get("/"), reverse("activity", args=[item.id]))
+            page = self.client.get(reverse("activity", args=[item.id]))
+            self.assertEqual(page.context["progress"]["total"], len(self.ready))
+            self.client.post(reverse("activity_done", args=[item.id]))
+        page = self.client.get("/")
+        self.assertTemplateUsed(page, "courses/finished.html")
+        self.assertContains(page, "More activities come soon")
+
+    def test_stub_that_turns_ready_is_not_done(self):
+        stub = self.stubs[0]
+        self.client.post(reverse("activity_done", args=[stub.id]))
+        for item in self.ready:
+            self.client.post(reverse("activity_done", args=[item.id]))
+        Module.objects.filter(id=stub.activity.module_id).update(ready=True)
+        stub.refresh_from_db()
+        self.assertIsNone(stub.done_at)
+        self.assertRedirects(self.client.get("/"), reverse("activity", args=[stub.id]))
+
+    def test_admin_ready_switch_clears_old_done_marks(self):
+        from django.contrib.admin.sites import site
+        from content_admin.admin import ModuleAdmin
+
+        stub = self.stubs[0]
+        stub.mark_done()  # done before this fix existed
+        module = Module.objects.get(id=stub.activity.module_id)
+        module.ready = True
+        form = type("F", (), {"changed_data": ["ready"]})()
+        ModuleAdmin(Module, site).save_model(None, module, form, True)
+        stub.refresh_from_db()
+        self.assertIsNone(stub.done_at)

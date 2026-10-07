@@ -63,6 +63,11 @@ class ModuleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.edited = True
         super().save_model(request, obj, form, change)
+        if change and obj.ready and "ready" in form.changed_data:
+            # A stub became real: a family that pressed past the old stub must see it now.
+            from courses.models import CourseItem
+
+            CourseItem.objects.filter(activity__module=obj).update(done_at=None)
 
 
 @admin.register(Activity)

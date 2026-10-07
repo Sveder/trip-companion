@@ -30,8 +30,9 @@ def _item_for(request, item_id):
 def activity(request, item_id):
     item = _item_for(request, item_id)
     course = item.course
-    total = course.items.count()
-    done = course.items.filter(done_at__isnull=False).count()
+    ready = course.ready_items()
+    total = ready.count()
+    done = ready.filter(done_at__isnull=False).count()
     act = item.activity
     if request.GET.get("from") == "reminder":
         track("reminder_click", trip=course.trip, activity=act.id)
@@ -40,7 +41,8 @@ def activity(request, item_id):
     if act.type == "streetview":
         hunt = {"embed": streetview.embed_url(act.data), "link": streetview.maps_link(act.data),
                 "missing": request.GET.get("missing") == "1"}
-    template = select_template([f"activities/{item.activity.type}.html", "activities/coming_soon.html"])
+    names = [f"activities/{act.type}.html"] if not item.is_stub else []
+    template = select_template(names + ["activities/coming_soon.html"])
     return render(
         request,
         template.template.name,
@@ -50,7 +52,8 @@ def activity(request, item_id):
             "module": item.activity.module,
             "data": item.activity.data,
             "trip": course.trip,
-            "progress": {"done": done, "total": total, "number": item.order + 1},
+            "progress": None if item.is_stub else {
+                "done": done, "total": total, "number": ready.filter(order__lt=item.order).count() + 1},
             "steps": visible_steps(item.activity.data, course.trip) if item.activity.type == "steps" else None,
             "hunt": hunt,
             "links": visible_links(item.activity.data, course.trip) if item.activity.type == "links" else None,
@@ -63,6 +66,9 @@ def activity(request, item_id):
 def activity_done(request, item_id):
     item = _item_for(request, item_id)
     act = item.activity
+    if item.is_stub:
+        # A "coming soon" stub never counts as done, so the family sees it when it turns real.
+        return redirect("home")
     if act.type == "streetview" and not item.done_at and not streetview.all_found(act.data, request.POST.getlist("found")):
         # A hunt is done only when every thing is found.
         return redirect(reverse("activity", args=[item.id]) + "?missing=1")
