@@ -300,6 +300,16 @@ class JapanContentTests(TestCase):
             for url in urls:
                 self.assertRegex(url, r"^https://www\.aliexpress\.com/item/\d+\.html$")
 
+    def test_aliexpress_links_are_products_not_searches(self):
+        import yaml
+        from django.conf import settings
+
+        data = yaml.safe_load((settings.BASE_DIR / "content/japan/buy_in_advance.yaml").read_text())
+        links = {l["id"]: l["url"] for l in data["activities"][0]["links"]}
+        self.assertRegex(links["plug-adapter"], r"^https://www\.aliexpress\.com/item/\d+\.html$")
+        for url in links.values():
+            self.assertNotIn("/wholesale-", url)
+
     def test_safety_quiz_asks_for_the_number(self):
         from practice.items import add_items, question
 

@@ -36,8 +36,9 @@ activities:
         emoji: "🔌"
         title: A plug adapter
         text: Japan uses plugs with two flat pins (type A), at 100 volts. Bring an adapter. Most phone chargers work at 100 volts; check the label.
-        label: See plug adapters
-        url: https://www.aliexpress.com/w/wholesale-japan-plug-adapter.html
+        label: See a plug adapter
+        # One product: an EU round-pin to US/Japan flat-pin adapter. Israeli two-pin plugs fit it too.
+        url: https://www.aliexpress.com/item/1005005897706815.html
       - id: visit-japan-web
         emoji: "🛂"
         title: Visit Japan Web (free)
