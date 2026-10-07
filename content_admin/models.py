@@ -20,6 +20,9 @@ class Module(models.Model):
     audience = models.CharField(max_length=10, choices=AUDIENCES, default="all")
     order = models.PositiveIntegerField(default=0)
     ready = models.BooleanField(default=True, help_text="False while the module is only a stub.")
+    edited = models.BooleanField(default=False, help_text=(
+        "True after a change in the admin. load_content then leaves this module alone until "
+        "export_content writes it back to its YAML file."))
 
     class Meta:
         ordering = ["country", "order", "slug"]

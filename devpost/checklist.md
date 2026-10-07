@@ -101,7 +101,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Set a test trip in the past and look at the highlights page.
   Commit: `After-the-trip highlights`
 
-- [ ] **10. Super user: edit the demo**
+- [x] **10. Super user: edit the demo**
   Becomes usable: Michael edits any module, activity, video approval, Street View link, spot list or referral link in an admin page; the site shows the change at once; export writes it back to the content files.
   Why now: Michael tunes the demo content before recording; everything it edits exists by now.
   PRD ref: `prd.md > Super user and analytics`
@@ -177,3 +177,6 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 8: The server runs in UTC. `/etc/cron.d/trip-reminders` starts `deploy/send_reminders.sh` at 14:00 and 15:00 UTC; the script sends only in the run where the Israel hour is 17, so the send stays at 17:00 in summer and in winter. Log: `/srv/www/trip-companion/reminders.log`. `deploy.sh` installs the cron file.
 - 2026-10-07, slice 9: Home picks its screen by the trip dates. Before the start date and during the trip (start to end date, both days included), home shows the next activity or the finish page; the finish page says "Play the quiz every day until the trip" before and "You are in Japan now!" during. From the day after the end date, home shows the highlights. A trip with no end date never switches.
 - 2026-10-07, slice 9: Highlights show the activities done (newest last, each opens again), the saved chopsticks clips (played from the family's private `/clips/<id>/`), and every word the family met in the words activity. A star marks a word the family got right in the quiz at least once (Leitner box 2 or higher). "Coming soon" stubs are left out. `/highlights/` opens the same page at any time, so a parent can look at it before the trip.
+- 2026-10-07, slice 10: The admin has no password form. `/admin/login/` sends the reader to the site's email-code sign-in with `next=/admin/`; `manage.py make_superuser <email>` gives an account the admin. Michael's account (michael@example.com) was made a superuser on the server by hand, so his email is not in the public repo.
+- 2026-10-07, slice 10: `deploy.sh` runs `load_content` on every deploy. So that a deploy does not throw admin edits away, a change in the admin marks the module `edited`, and `load_content` skips an edited module (with a warning) until `export_content` writes it to YAML or `--force` is given. `export_content` edits the YAML file in place with ruamel.yaml: it rewrites only the changed values and keeps the comments and the quoting. Exporting unchanged content changes no file.
+- 2026-10-07, slice 10: Edits made on the live site live in the server's database. To bring them into the public repo: `export_content` on the server, then copy the changed `content/japan/*.yaml` files back and commit them. The activity data is edited as indented JSON; the activity list shows each video id and whether it is approved.

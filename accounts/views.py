@@ -3,19 +3,31 @@ from allauth.account.internal.flows.login_by_code import LoginCodeVerificationPr
 from allauth.account.models import EmailAddress
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme, urlencode
 
 from .forms import EmailForm
 
 
+def safe_next(request):
+    """The ``next`` page from the query, if it is a page on this site."""
+    url = request.GET.get("next", "")
+    if url and url_has_allowed_host_and_scheme(url, {request.get_host()}, request.is_secure()):
+        return url
+    return ""
+
+
 def signin(request):
+    next_url = safe_next(request)
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect(next_url or "home")
     form = EmailForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         email = form.cleaned_data["email"].strip().lower()
         user = user_for_email(email)
         LoginCodeVerificationProcess.initiate(request=request, user=user, email=email)
-        return redirect("account_confirm_login_code")
+        url = reverse("account_confirm_login_code")
+        return redirect(f"{url}?{urlencode({'next': next_url})}" if next_url else url)
     return render(request, "accounts/signin.html", {"form": form})
 
 

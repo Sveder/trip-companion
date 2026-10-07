@@ -11,19 +11,30 @@ CONTENT_DIR = Path(settings.BASE_DIR) / "content"
 MODULE_FIELDS = ("title", "summary", "emoji", "audience", "order", "ready")
 
 
-def module_files(country):
-    return sorted((CONTENT_DIR / country).glob("*.yaml"))
+def module_files(country, content_dir=None):
+    return sorted(Path(content_dir or CONTENT_DIR, country).glob("*.yaml"))
 
 
 @transaction.atomic
-def load_country(country):
-    """Create or update every module of one country. Returns the module count."""
+def load_country(country, content_dir=None, force=False, log=None):
+    """Create or update every module of one country. Returns the number of modules loaded.
+
+    A module that Michael changed in the admin (``edited``) is left alone, so a deploy does not
+    throw his edits away; ``export_content`` writes them to the YAML file first. ``force`` loads
+    every file.
+    """
+    log = log or (lambda msg: None)
     count = 0
-    for path in module_files(country):
+    for path in module_files(country, content_dir):
         doc = yaml.safe_load(path.read_text(encoding="utf-8"))
         slug = doc.get("id") or path.stem
+        current = Module.objects.filter(country=country, slug=slug).first()
+        if current and current.edited and not force:
+            log(f"skip {country}/{slug}: changed in the admin; run export_content first, or --force")
+            continue
         defaults = {k: doc[k] for k in MODULE_FIELDS if k in doc}
-        was_stub = Module.objects.filter(country=country, slug=slug, ready=False).exists()
+        defaults["edited"] = False
+        was_stub = bool(current and not current.ready)
         module, _ = Module.objects.update_or_create(country=country, slug=slug, defaults=defaults)
         seen = []
         for index, act in enumerate(doc.get("activities", [])):
@@ -46,6 +57,7 @@ def load_country(country):
             from courses.models import CourseItem
 
             CourseItem.objects.filter(activity__module=module).update(done_at=None)
+        log(f"load {country}/{slug}")
         count += 1
     return count
 

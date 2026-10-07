@@ -23,6 +23,11 @@ Open http://127.0.0.1:8000/. Sign-in codes print in the terminal (console email 
 
 Each Japan module is one YAML file in `content/japan/`. `manage.py load_content japan` loads them into the database.
 
+A superuser edits the content at `/admin/` (`manage.py make_superuser <email>`; the admin uses the same email-code
+sign-in, no password). A module changed in the admin is marked `edited`, and `load_content` leaves it alone until
+`manage.py export_content japan` writes it back to its YAML file. The export changes only the values that differ and
+keeps the comments in the files.
+
 ## Deploy
 
 `deploy/` holds the nginx site, the gunicorn systemd unit and `deploy.sh`. Secrets live in `.env` on the server only;
