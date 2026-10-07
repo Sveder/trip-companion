@@ -274,6 +274,18 @@ class AfterTheTripTests(TestCase):
         known = [w["entry"]["reading"] for w in r.context["words"] if w["known"]]
         self.assertEqual(known, ["konnichiwa"])
 
+    def test_highlights_say_words_we_met_not_learned(self):
+        """T39: a family that got 1 of 8 right did not learn every word."""
+        self.set_dates(-20, -1)
+        words_item = next(i for i in self.course.items.select_related("activity__module") if i.activity.type == "words")
+        self.client.post(reverse("activity_done", args=[words_item.id]))
+        PracticeItem.objects.get(trip=self.trip, key__endswith="/konnichiwa").answer(True)
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertIn("Words we met", html)
+        self.assertNotIn("Words we learned", html)
+        self.assertIn('class="cards word-grid"', html)
+        self.assertEqual(html.count("⭐</h3>"), 1)
+
     def test_after_the_trip_with_nothing_done(self):
         self.set_dates(-20, -1)
         html = self.client.get("/").content.decode()

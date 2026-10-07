@@ -14,7 +14,7 @@
 
 <h2 class="section-title">⭐ What we did</h2>
 {% if done %}
-<div class="cards highlights-done">
+<div class="cards compact highlights-done">
   {% for item in done %}
   <a class="card" href="{% url 'activity' item.id %}">
     <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji|default:"✅" }}</span>
@@ -39,20 +39,18 @@
 </div>
 {% endif %}
 
-<h2 class="section-title">🗣️ Words we learned</h2>
+<h2 class="section-title">🗣️ Words we met</h2>
 {% if words %}
-<div class="cards words">
+<div class="cards word-grid">
   {% for w in words %}
   <article class="card word{% if w.known %} known{% endif %}" tabindex="0" data-say="{{ w.entry.japanese }}" data-say-src="{{ w.entry.reading|word_audio }}">
-    {% if w.entry.emoji %}<div class="card-emoji big" aria-hidden="true">{{ w.entry.emoji }}</div>{% endif %}
-    <p class="jp" lang="ja">{{ w.entry.japanese }}</p>
+    <p class="jp small" lang="ja">{% if w.entry.emoji %}<span aria-hidden="true">{{ w.entry.emoji }}</span> {% endif %}{{ w.entry.japanese }}</p>
     <h3 class="reading">{{ w.entry.reading }}{% if w.known %} ⭐{% endif %}</h3>
     <p class="meaning">{{ w.entry.meaning }}</p>
-    <span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>
   </article>
   {% endfor %}
 </div>
-<p class="hint center">⭐ = you got it right in the quiz.</p>
+<p class="hint center">⭐ = you got it right in the quiz. Tap a word to hear it.</p>
 {% else %}
 <p class="hint center">No words yet.</p>
 {% endif %}
