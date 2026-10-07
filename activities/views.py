@@ -11,6 +11,7 @@ from practice.items import add_items
 
 from .models import Clip
 from .steps import visible_steps
+from . import streetview
 
 CLIP_TYPES = {"video/webm": "webm", "video/mp4": "mp4", "video/quicktime": "mov"}
 
@@ -29,6 +30,11 @@ def activity(request, item_id):
     course = item.course
     total = course.items.count()
     done = course.items.filter(done_at__isnull=False).count()
+    act = item.activity
+    hunt = None
+    if act.type == "streetview":
+        hunt = {"embed": streetview.embed_url(act.data), "link": streetview.maps_link(act.data),
+                "missing": request.GET.get("missing") == "1"}
     template = select_template([f"activities/{item.activity.type}.html", "activities/coming_soon.html"])
     return render(
         request,
@@ -41,6 +47,7 @@ def activity(request, item_id):
             "trip": course.trip,
             "progress": {"done": done, "total": total, "number": item.order + 1},
             "steps": visible_steps(item.activity.data, course.trip) if item.activity.type == "steps" else None,
+            "hunt": hunt,
         },
     )
 
@@ -49,6 +56,10 @@ def activity(request, item_id):
 @require_POST
 def activity_done(request, item_id):
     item = _item_for(request, item_id)
+    act = item.activity
+    if act.type == "streetview" and not item.done_at and not streetview.all_found(act.data, request.POST.getlist("found")):
+        # A hunt is done only when every thing is found.
+        return redirect(reverse("activity", args=[item.id]) + "?missing=1")
     item.mark_done()
     add_items(item.course.trip, item.activity)
     return redirect("home")

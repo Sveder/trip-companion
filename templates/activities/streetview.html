@@ -1,0 +1,32 @@
+{% extends "activities/_frame.html" %}
+{% load static %}
+{% block activity %}
+<p class="place">📍 {{ data.place }}</p>
+<div class="hunt">
+  <div class="sv-frame">
+    <iframe src="{{ hunt.embed }}" title="Street View: {{ data.place }}" allow="fullscreen" allowfullscreen
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <p class="hint sv-help">Drag the picture to look around. <a href="{{ hunt.link }}" target="_blank" rel="noopener">Open it big</a></p>
+{% endblock %}
+{% block done %}
+  <form method="post" action="{% url 'activity_done' item.id %}" class="spot-form" data-hunt>
+    {% csrf_token %}
+    <h2>Things to spot</h2>
+    {% if hunt.missing %}<p class="hint" role="status">Keep looking! Tap each thing when you find it.</p>{% endif %}
+    <ul class="spots">
+      {% for spot in data.spots %}
+      <li><label class="spot">
+        <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% if item.done_at %} checked{% endif %}>
+        <span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>
+        <span class="spot-text">{{ spot.text }}</span>
+        <span class="spot-tick" aria-hidden="true">✓</span>
+      </label></li>
+      {% endfor %}
+    </ul>
+    <p class="spot-count" data-count aria-live="polite"></p>
+    <button class="btn big" type="submit">{% if item.done_at %}Next{% else %}We found them all!{% endif %}</button>
+  </form>
+</div>
+<script src="{% static 'js/hunt.js' %}" defer></script>
+{% endblock %}

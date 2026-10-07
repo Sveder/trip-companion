@@ -9,8 +9,10 @@
 <h1>{{ activity.title }}</h1>
 {% if data.intro %}<p class="lead">{{ data.intro }}</p>{% endif %}
 {% block activity %}{% endblock %}
+{% block done %}
 <form method="post" action="{% url 'activity_done' item.id %}" class="done-form">
   {% csrf_token %}
   <button class="btn big" type="submit">{% if item.done_at %}Next{% else %}We did it!{% endif %}</button>
 </form>
+{% endblock %}
 {% endblock %}

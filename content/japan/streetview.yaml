@@ -4,13 +4,66 @@ summary: Look around a real place in Japan and find hidden things.
 emoji: "🔎"
 audience: child
 order: 60
-ready: false
+ready: true
+# Each place is a 360° photo on Google Maps. lat/lng are exact to 7 digits: the embed opens the photo
+# nearest to that point, so these numbers pick the photo. The "spot" lists were checked against the photos
+# on 2026-10-07 (trip-companion-tools/sv_probe.cjs). heading = where the view looks first (0 = north).
 activities:
+  # The first id stays "streetview-intro": a new id would delete the old row and the families' course items with it.
   - id: streetview-intro
-    title: Street View hunt
-    type: cards
-    intro: This part is coming soon.
-    cards:
-      - title: Street View hunt
-        emoji: "🔎"
-        text: Look around a real place in Japan and find hidden things.
+    title: "Hunt: the fish market"
+    type: streetview
+    place: Tsukiji Outer Market, Tokyo
+    intro: This is a real fish shop in Tokyo. Look all around! Can you find these things?
+    lat: 35.6654333
+    lng: 139.7707133
+    heading: 0
+    spots:
+      - emoji: "🐟"
+        text: Boxes full of little fish
+      - emoji: "💚"
+        text: A big green wall
+      - emoji: "🧡"
+        text: An orange shop sign
+      - emoji: "🎀"
+        text: A pink woolly hat
+      - emoji: "🚫"
+        text: A red "no" sign
+  - id: streetview-inari
+    title: "Hunt: the fox shrine"
+    type: streetview
+    place: Fushimi Inari Taisha, Kyoto
+    intro: This is a shrine in Kyoto. People say foxes carry messages here. Can you find these things?
+    lat: 34.9671396
+    lng: 135.7726693
+    heading: 90
+    spots:
+      - emoji: "🦊"
+        text: A fox statue with a red bib
+      - emoji: "⛩️"
+        text: A big orange gate
+      - emoji: "🏮"
+        text: A lantern on a tall post
+      - emoji: "🌲"
+        text: A pine tree
+      - emoji: "🚗"
+        text: Parked cars
+  - id: streetview-lantern
+    title: "Hunt: the giant lantern"
+    type: streetview
+    place: Kaminarimon Gate, Senso-ji, Tokyo
+    intro: This is the Thunder Gate of an old temple in Tokyo. Look up! Can you find these things?
+    lat: 35.7110583
+    lng: 139.7963133
+    heading: 0
+    spots:
+      - emoji: "🏮"
+        text: A giant red and black lantern
+      - emoji: "🔴"
+        text: Big red posts
+      - emoji: "🌳"
+        text: A tree with long hanging leaves
+      - emoji: "🏯"
+        text: A building with a red and green roof
+      - emoji: "👥"
+        text: Lots and lots of people

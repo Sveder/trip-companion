@@ -6,7 +6,7 @@
 
   var BACK = { 461: 1, 27: 1, 8: 1 }; // webOS Back, Escape, Backspace
   var DIRS = { 37: 'left', 38: 'up', 39: 'right', 40: 'down' };
-  var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card';
+  var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card, .spot';
 
   function targets() {
     var all = document.querySelectorAll(SELECTOR), out = [];

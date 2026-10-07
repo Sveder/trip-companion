@@ -117,3 +117,62 @@ class ChopsticksTests(TestCase):
         r = self.client.post(reverse("clip_save", args=[item.id]), {"clip": SimpleUploadedFile("x.html", b"<b>", content_type="text/html")})
         self.assertEqual(r.status_code, 400)
         self.assertFalse(Clip.objects.exists())
+
+
+class StreetViewHuntTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("s@example.com", "s@example.com")
+
+    def item(self, slug="streetview-intro"):
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=5)
+        course = Course.objects.create(trip=trip)
+        act = Activity.objects.get(module__slug="streetview", slug=slug)
+        return CourseItem.objects.create(course=course, order=0, activity=act)
+
+    def setUp(self):
+        self.client.force_login(self.user)
+
+    def test_streetview_module_is_ready_with_places(self):
+        acts = Activity.objects.filter(module__slug="streetview")
+        self.assertTrue(acts[0].module.ready)
+        self.assertGreaterEqual(acts.count(), 2)
+        for act in acts:
+            self.assertEqual(act.type, "streetview")
+            self.assertGreaterEqual(len(act.data["spots"]), 3)
+
+    def test_page_shows_the_embed_and_the_spot_list(self):
+        item = self.item()
+        r = self.client.get(reverse("activity", args=[item.id]))
+        self.assertEqual(r.status_code, 200)
+        html = r.content.decode()
+        self.assertIn("https://www.google.com/maps/embed?pb=!6m7!1m6!2m2!1d35.6654333!2d139.7707133!3f0!4f0!5f1", html)
+        self.assertNotIn("key=", html)
+        self.assertEqual(html.count('name="found"'), 5)
+        self.assertIn("Boxes full of little fish", html)
+
+    def done(self, item, found):
+        return self.client.post(reverse("activity_done", args=[item.id]), {"found": found})
+
+    def test_ticking_some_items_does_not_finish(self):
+        item = self.item()
+        r = self.done(item, ["0", "1", "2"])
+        self.assertRedirects(r, reverse("activity", args=[item.id]) + "?missing=1", fetch_redirect_response=False)
+        item.refresh_from_db()
+        self.assertIsNone(item.done_at)
+        self.assertIn("Keep looking", self.client.get(r["Location"]).content.decode())
+
+    def test_ticking_all_items_marks_the_item_done(self):
+        item = self.item()
+        r = self.done(item, ["0", "1", "2", "3", "4"])
+        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+        item.refresh_from_db()
+        self.assertIsNotNone(item.done_at)
+
+    def test_embed_url_rejects_a_bad_point(self):
+        from .streetview import embed_url
+
+        with self.assertRaises(ValueError):
+            embed_url({"lat": 135.0, "lng": 35.0})

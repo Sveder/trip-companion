@@ -168,3 +168,28 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .rec-status { min-height: 1.4em; font-weight: 700; }
 .rec-buttons { display: flex; flex-wrap: wrap; gap: .6rem; }
 .rec-buttons .btn[hidden] { display: none; }
+
+/* Street View hunt */
+.place { font-weight: 800; margin: .2rem 0 .8rem; }
+.hunt { display: grid; gap: 1rem; }
+.sv-frame { position: relative; height: 60vh; min-height: 18rem; border-radius: var(--radius); overflow: hidden; background: #000; }
+.sv-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.sv-help { margin: -.4rem 0 0; }
+.spot-form h2 { margin: 0 0 .5rem; }
+.spots { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; gap: .6rem; }
+.spot { display: flex; align-items: center; gap: .8rem; padding: .7rem 1rem; background: var(--c-surface); border: 4px solid var(--c-line); border-radius: var(--radius); font-weight: 800; font-size: 1.15rem; cursor: pointer; }
+.spot input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.spot-emoji { font-size: 1.8rem; line-height: 1; }
+.spot-text { flex: 1; }
+.spot-tick { display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 3px solid var(--c-line); color: transparent; font-size: 1.3rem; flex: none; }
+.spot input:checked ~ .spot-tick { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+.spot input:checked ~ .spot-text { text-decoration: line-through; text-decoration-thickness: 3px; }
+.spot input:focus-visible ~ .spot-tick, .spot:focus { outline: 4px solid var(--c-sun); outline-offset: 2px; }
+.spot-count { font-weight: 800; min-height: 1.4em; }
+@media (min-width: 900px) {
+  .hunt { grid-template-columns: 2fr 1fr; align-items: start; }
+  .hunt .sv-help { grid-column: 1; }
+  .hunt .spot-form { grid-column: 2; grid-row: 1 / span 2; }
+}
+.tv .sv-frame { height: 62vh; }
+.tv .spot:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
