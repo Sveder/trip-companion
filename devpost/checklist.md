@@ -51,7 +51,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Do the words activity with our 4-year-old, take the quiz, get one wrong on purpose, and see it come back next time.
   Commit: `Words, quiz and repetition`
 
-- [ ] **5. The chopsticks activity**
+- [x] **5. The chopsticks activity**
   Becomes usable: The guided chopsticks activity: children's chopsticks referral link (only with kids), the approved video, practice, then record a clip on the phone and share it.
   Why now: The demo's centre moment (real chopsticks, guided by the app); it also proves the video and the camera parts.
   PRD ref: `prd.md > Chopsticks activity`
@@ -160,3 +160,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 4: Seven words (konnichiwa, arigatou, ohayou, sayounara, hai, oishii, sumimasen). The quiz asks one question per page with four big answer buttons: a word asks for its meaning, a food card shows its picture and asks for the name. The wrong answers come from the same activity. The words module keeps its old activity id, so courses built before slice 4 keep their item.
 - 2026-10-07, slice 4: Leitner timing: a right answer in box N moves the item to box N+1 and asks it again after 1, 2, 4, 7 or 14 days (by box N); box 5 stays in box 5. A wrong answer goes to box 1, due today. Items enter practice when the family presses "We did it!" on the activity. Nav link "Quiz"; the finish page has "Take the quiz".
 - 2026-10-07, slice 4: When a "coming soon" module turns real, `load_content` clears the done marks of its course items, so a family who pressed past the stub gets the real activity (part of factory task T15).
+- 2026-10-07, slice 5: The chopsticks module is one `steps` activity with four steps: kids' chopsticks link (only with a child), video, practice with tips on Japanese chopstick manners, record. It keeps its old activity id `chopsticks-intro`, so courses built before slice 5 keep their item; the loader clears the stub's done mark.
+- 2026-10-07, slice 5: The referral link is an AliExpress search page for kids' training chopsticks, not one product page, so it does not break when one listing goes away. No affiliate id.
+- 2026-10-07, slice 5: The video is `CBNw5yX1M34` (Pinkfong, "How to Use Chopsticks? Fun & Easy for Kids") with `approved: false`. Other candidates are in a comment in `chopsticks.yaml`. Until Michael approves one, step 2 shows three written "how" lines, and the video id is not in the page at all. An approved video plays from youtube-nocookie.com.
+- 2026-10-07, slice 5: Clips are private family videos, so they live in `private/clips/` (setting `CLIP_ROOT`), outside `media/`, which nginx serves to anyone. Only the family's own login can open a clip (`/clips/<id>/`). A clip is saved only when the family presses "Keep it for our trip"; recording and sharing alone send nothing to the server. Recording stops by itself after 30 seconds. The phone records MP4 where the browser can (better for Instagram), else WebM. Where the browser cannot share a file, a Download button shows instead of Share.

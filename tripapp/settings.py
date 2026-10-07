@@ -90,6 +90,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+CLIP_ROOT = Path(os.environ.get("TRIP_CLIP_ROOT", BASE_DIR / "private" / "clips"))
+CLIP_MAX_BYTES = 40 * 1024 * 1024
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

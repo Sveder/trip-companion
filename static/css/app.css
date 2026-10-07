@@ -153,3 +153,18 @@ span.choice.is-answer { border-color: var(--c-accent); background: var(--c-tint-
 span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .answer-note .big-line { font-size: 1.5rem; font-weight: 900; margin: .4rem 0; }
 .tv .choices { max-width: 70vw; }
+
+/* Steps activity (chopsticks) */
+.steps { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 1rem; }
+.step h2 { font-size: 1.25rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .5rem; }
+.step-num { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--c-primary); color: var(--c-primary-ink); font-size: 1rem; flex: none; }
+.step .how { padding-left: 1.3rem; margin: .4rem 0 0; }
+.step .how li { margin: .3rem 0; }
+.step .tips { margin: .8rem 0 0; padding: .8rem 1rem .8rem 2rem; background: var(--c-bg); border-radius: var(--radius); }
+.video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: #000; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.no-camera { background: var(--c-bg); border-radius: var(--radius); padding: .8rem 1rem; }
+.rec-view { width: 100%; max-height: 60vh; border-radius: var(--radius); background: #000; display: block; }
+.rec-status { min-height: 1.4em; font-weight: 700; }
+.rec-buttons { display: flex; flex-wrap: wrap; gap: .6rem; }
+.rec-buttons .btn[hidden] { display: none; }
