@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "activities",
     "practice",
     "reminders",
+    "analytics",
 ]
 
 MIDDLEWARE = [

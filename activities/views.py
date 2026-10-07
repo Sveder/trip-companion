@@ -6,6 +6,7 @@ from django.template.loader import select_template
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
+from analytics.models import track
 from courses.models import CourseItem
 from practice.items import add_items
 
@@ -32,6 +33,9 @@ def activity(request, item_id):
     total = course.items.count()
     done = course.items.filter(done_at__isnull=False).count()
     act = item.activity
+    if request.GET.get("from") == "reminder":
+        track("reminder_click", trip=course.trip, activity=act.id)
+    track("activity_opened", trip=course.trip, activity=act.id, module=act.module.slug)
     hunt = None
     if act.type == "streetview":
         hunt = {"embed": streetview.embed_url(act.data), "link": streetview.maps_link(act.data),
@@ -62,6 +66,8 @@ def activity_done(request, item_id):
     if act.type == "streetview" and not item.done_at and not streetview.all_found(act.data, request.POST.getlist("found")):
         # A hunt is done only when every thing is found.
         return redirect(reverse("activity", args=[item.id]) + "?missing=1")
+    if item.done_at is None:
+        track("activity_done", trip=item.course.trip, activity=act.id, module=act.module.slug)
     item.mark_done()
     add_items(item.course.trip, item.activity)
     return redirect("home")
@@ -84,6 +90,7 @@ def clip_save(request, item_id):
     clip = Clip.objects.create(
         trip=item.course.trip, item=item, file=upload, content_type=content_type, size=upload.size
     )
+    track("clip_saved", trip=item.course.trip, activity=item.activity_id, size=upload.size)
     return JsonResponse({"id": clip.id, "url": reverse("clip", args=[clip.id])})
 
 
@@ -101,4 +108,5 @@ def go(request, item_id, link_id):
     if url is None:
         raise Http404("No such link.")
     ReferralClick.objects.create(trip=item.course.trip, activity=item.activity, link_id=link_id, url=url)
+    track("referral_click", trip=item.course.trip, activity=item.activity_id, link=link_id)
     return redirect(url)

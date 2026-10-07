@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
+from analytics.models import track
 from content_admin.loader import load_previews
 from trips.models import active_trip
 
@@ -42,7 +43,15 @@ def builder(request):
         if not chosen:
             messages.error(request, "Pick at least one thing to learn.")
         else:
-            build_course(trip, chosen)
+            before = set(course.module_ids) if course else set()
+            course = build_course(trip, chosen)
+            after = set(course.module_ids)
+            track("course_built", trip=trip, modules=sorted(after), rebuild=bool(before))
+            if before:
+                for m in sorted(after - before):
+                    track("module_added", trip=trip, module=m)
+                for m in sorted(before - after):
+                    track("module_removed", trip=trip, module=m)
             return redirect("home")
     on = set(course.module_ids) if course else {m.id for m, fit in rows if fit}
     modules = [{"module": m, "suggested": fit, "on": m.id in on} for m, fit in rows]

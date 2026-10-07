@@ -69,7 +69,7 @@ def build_email(user, item):
     stop = base + reverse("reminders_stop", args=[unsubscribe_token(user)])
     ctx = {
         "item": item,
-        "go": base + reverse("activity", args=[item.id]),
+        "go": base + reverse("activity", args=[item.id]) + "?from=reminder",
         "stop": stop,
         "left": item.course.items.filter(done_at__isnull=True).count(),
     }

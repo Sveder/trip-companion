@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import redirect, render
 
+from analytics.models import track
 from content_admin.loader import load_previews
 
 from .forms import TripForm
@@ -16,7 +17,8 @@ def trip_setup(request):
         if form.is_valid():
             data = form.cleaned_data
             with transaction.atomic():
-                if trip is None:
+                new = trip is None
+                if new:
                     trip = Trip(user=request.user)
                 trip.destination = data["destination"]
                 trip.start_date = data["start_date"]
@@ -24,6 +26,7 @@ def trip_setup(request):
                 trip.save()
                 trip.travellers.all().delete()
                 Traveller.objects.bulk_create(Traveller(trip=trip, age=a) for a in data["ages"])
+            track("trip_set_up", trip=trip, new=new, travellers=len(data["ages"]))
             return redirect("builder")
     else:
         initial = {}

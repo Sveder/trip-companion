@@ -6,6 +6,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme, urlencode
 
+from analytics.models import track
+
 from .forms import EmailForm
 
 
@@ -41,5 +43,6 @@ def user_for_email(email):
         user = User.objects.create_user(username=email[:150], email=email)
         user.set_unusable_password()
         user.save()
+        track("signed_up", user=user)
     EmailAddress.objects.get_or_create(user=user, email=email, defaults={"primary": True, "verified": False})
     return user

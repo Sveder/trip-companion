@@ -10,4 +10,5 @@ urlpatterns = [
     path("", include("activities.urls")),
     path("", include("practice.urls")),
     path("", include("reminders.urls")),
+    path("", include("analytics.urls")),
 ]

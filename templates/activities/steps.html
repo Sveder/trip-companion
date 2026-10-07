@@ -13,7 +13,7 @@
 
     {% elif step.kind == "video" %}
       {% if step.show_video %}
-      <div class="video-frame">
+      <div class="video-frame" data-video-play="{% url 'track_video' item.id %}" data-video="{{ step.youtube }}">
         <iframe src="https://www.youtube-nocookie.com/embed/{{ step.youtube }}?rel=0" title="{{ step.title }}"
           allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
       </div>
@@ -52,4 +52,5 @@
   </li>
   {% endfor %}
 </ol>
+<script src="{% static 'js/video_track.js' %}" defer></script>
 {% endblock %}

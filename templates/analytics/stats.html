@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Stats{% endblock %}
+{% block content %}
+<section class="card stats">
+  <h1>Stats</h1>
+  <p class="hint">Staff only. Families and events on this site. No outside tracker.</p>
+
+  <h2>Funnel</h2>
+  <table class="stats-table" data-sortable>
+    <thead><tr><th>Step</th><th class="num">Families</th><th class="num">Of sign-ups</th></tr></thead>
+    <tbody>
+    {% for s in funnel %}
+      <tr><td data-v="{{ forloop.counter }}">{{ s.label }}</td><td class="num" data-v="{{ s.count }}">{{ s.count }}</td>
+        <td class="num" data-v="{{ s.pct }}"><span class="bar" style="--w:{{ s.pct }}%"></span>{{ s.pct }}%</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Per day, last 30 days</h2>
+  {% if days %}
+  <div class="table-scroll">
+  <table class="stats-table" data-sortable>
+    <thead><tr><th>Day</th>{% for key, label in names %}<th class="num">{{ label }}</th>{% endfor %}<th class="num">All</th></tr></thead>
+    <tbody>
+    {% for d in days %}
+      <tr><td data-v="{{ d.day|date:'Ymd' }}">{{ d.day|date:"D j M" }}</td>
+        {% for n in d.cells %}<td class="num" data-v="{{ n }}">{{ n|default:"·" }}</td>{% endfor %}
+        <td class="num" data-v="{{ d.total }}"><strong>{{ d.total }}</strong></td></tr>
+    {% endfor %}
+    </tbody>
+    <tfoot><tr><th>Total</th>{% for n in totals %}<th class="num">{{ n }}</th>{% endfor %}<th class="num">{{ grand_total }}</th></tr></tfoot>
+  </table>
+  </div>
+  {% else %}
+  <p>No events since {{ since|date:"j M" }}.</p>
+  {% endif %}
+
+  <h2>Shop links</h2>
+  {% if links %}
+  <table class="stats-table" data-sortable>
+    <thead><tr><th>Link</th><th class="num">Clicks</th></tr></thead>
+    <tbody>{% for l in links %}<tr><td data-v="{{ l.link }}">{{ l.link }}</td><td class="num" data-v="{{ l.n }}">{{ l.n }}</td></tr>{% endfor %}</tbody>
+    <tfoot><tr><th>Total</th><th class="num">{{ link_total }}</th></tr></tfoot>
+  </table>
+  {% else %}
+  <p>No shop link clicks yet.</p>
+  {% endif %}
+  <p class="hint">{{ all_time }} events in all. Every event: <a href="{% url 'admin:analytics_event_changelist' %}">admin</a>.</p>
+</section>
+<script>
+document.querySelectorAll("table[data-sortable]").forEach(function (t) {
+  t.querySelectorAll("thead th").forEach(function (th, i) {
+    th.style.cursor = "pointer";
+    th.addEventListener("click", function () {
+      var dir = th.dataset.dir === "desc" ? "asc" : "desc";
+      t.querySelectorAll("thead th").forEach(function (x) { delete x.dataset.dir; });
+      th.dataset.dir = dir;
+      var body = t.tBodies[0], rows = Array.from(body.rows);
+      rows.sort(function (a, b) {
+        var x = a.cells[i].dataset.v, y = b.cells[i].dataset.v;
+        var nx = parseFloat(x), ny = parseFloat(y);
+        var c = (!isNaN(nx) && !isNaN(ny)) ? nx - ny : String(x).localeCompare(String(y));
+        return dir === "asc" ? c : -c;
+      });
+      rows.forEach(function (r) { body.appendChild(r); });
+    });
+  });
+});
+</script>
+{% endblock %}

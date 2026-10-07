@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.utils import timezone
 
+from analytics.models import track
 from trips.models import active_trip
 
 from .items import due_items, question
@@ -44,6 +45,7 @@ def quiz(request):
         item = PracticeItem.objects.filter(trip=trip, key=key).first()
         if item:
             item.answer(right)
+        track("quiz_answer", trip=trip, key=key, right=right)
         state["i"] += 1
         state["right"] += int(right)
         request.session[SESSION_KEY] = state

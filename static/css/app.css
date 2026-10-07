@@ -195,3 +195,15 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 }
 .tv .sv-frame { height: 62vh; }
 .tv .spot:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
+
+/* Staff stats page (slice 11). */
+.stats h2 { margin-top: 1.4em; }
+.table-scroll { overflow-x: auto; }
+.stats-table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+.stats-table th, .stats-table td { padding: .35em .6em; border-bottom: 1px solid var(--c-line); text-align: left; white-space: nowrap; }
+.stats-table thead th { cursor: pointer; user-select: none; }
+.stats-table thead th[data-dir="asc"]::after { content: " ▲"; }
+.stats-table thead th[data-dir="desc"]::after { content: " ▼"; }
+.stats-table tfoot th { border-top: 2px solid var(--c-ink); }
+.stats-table .num { text-align: right; }
+.stats-table .bar { display: inline-block; height: .7em; width: calc(var(--w) * .8); max-width: 80px; background: var(--c-accent); border-radius: 4px; margin-right: .4em; vertical-align: middle; }
