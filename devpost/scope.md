@@ -44,12 +44,13 @@ Michael's decisions, 2026-10-07:
   do and don't in public, safety (emergency numbers).
 - Real-world guided activities, e.g. chopsticks with a real pair.
 - A quiz / practice round that repeats earlier items.
+- Moved into "now" by Michael (2026-10-07): local transportation; a guided Street View tour; a buy-in-advance list
+  (things to get before the trip, e.g. practice chopsticks); after-the-trip highlights.
 - Kid-friendly UI that works on a phone and in the TV's web browser.
 
 ## Later
-- More modules: what to wear, local transportation, a guided Street View tour, curated videos.
-- What to buy in advance, with shop or affiliate links.
-- After the trip: highlights and memories.
+- More modules: what to wear, curated videos.
+- Shop or affiliate links on the buy-in-advance list.
 - A real LG webOS app (sideloaded), instead of the TV browser.
 - Full content for more countries (Uzbekistan first), beyond the preview cards.
 
