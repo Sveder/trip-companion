@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Great job!{% endblock %}
+{% block content %}
+<section class="hero praise">
+  <div class="praise-emoji" aria-hidden="true">{{ module.emoji|default:"⭐" }}</div>
+  {% include "includes/guide.html" with cls="hero-guide cheer" label="Our guide jumps for joy" %}
+  <h1>Great job!</h1>
+  <p class="lead">You did “{{ activity.title }}”!</p>
+  <div class="progress" aria-label="{{ progress.done }} of {{ progress.total }} activities done">
+    <span>⭐ {{ progress.done }} of {{ progress.total }} done</span>
+    <div class="bar"><div class="fill praise-fill" style="--from: {% widthratio progress.before progress.total 100 %}%; width: {% widthratio progress.done progress.total 100 %}%"></div></div>
+  </div>
+  <a class="btn big" href="{% url 'home' %}" autofocus>Next ➜</a>
+</section>
+{% endblock %}

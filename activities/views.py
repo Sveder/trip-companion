@@ -72,11 +72,30 @@ def activity_done(request, item_id):
     if act.type == "streetview" and not item.done_at and not streetview.all_found(act.data, request.POST.getlist("found")):
         # A hunt is done only when every thing is found.
         return redirect(reverse("activity", args=[item.id]) + "?missing=1")
-    if item.done_at is None:
+    first_time = item.done_at is None
+    if first_time:
         track("activity_done", trip=item.course.trip, activity=act.id, module=act.module.slug)
     item.mark_done()
     add_items(item.course.trip, item.activity)
+    if first_time and item.course.next_item() is not None:
+        # A short praise screen before the next activity. The last one goes to the finish page instead.
+        return redirect("activity_praise", item_id=item.id)
     return redirect("home")
+
+
+@login_required
+def activity_praise(request, item_id):
+    """'Great job!' between two activities: the guide cheers and the progress bar moves up one step."""
+    item = _item_for(request, item_id)
+    if item.done_at is None or item.is_stub:
+        return redirect("activity", item_id=item.id)
+    ready = item.course.ready_items()
+    total = ready.count()
+    done = ready.filter(done_at__isnull=False).count()
+    return render(request, "activities/praise.html", {
+        "item": item, "activity": item.activity, "module": item.activity.module,
+        "progress": {"done": done, "before": max(done - 1, 0), "total": total},
+    })
 
 
 @login_required

@@ -98,8 +98,12 @@ class FlowTests(TestCase):
         self.assertRedirects(r, reverse("activity", args=[first.id]))
         page = c.get(reverse("activity", args=[first.id]))
         self.assertContains(page, "Sushi")
-        # Marking it done makes home open the next activity.
-        c.post(reverse("activity_done", args=[first.id]))
+        # Marking it done shows the praise screen; its Next button goes home, which opens the next activity.
+        r = c.post(reverse("activity_done", args=[first.id]))
+        self.assertRedirects(r, reverse("activity_praise", args=[first.id]), fetch_redirect_response=False)
+        praise = c.get(r["Location"])
+        self.assertContains(praise, "Great job!")
+        self.assertContains(praise, 'href="/"')
         second = course.items.all()[1]
         self.assertRedirects(c.get("/"), reverse("activity", args=[second.id]))
 
@@ -327,6 +331,57 @@ class StubTests(TestCase):
         ModuleAdmin(Module, site).save_model(None, module, form, True)
         stub.refresh_from_db()
         self.assertIsNone(stub.done_at)
+
+
+class PraiseTests(TestCase):
+    """'We did it!' shows 'Great job!' and a progress bar that moves, then Next opens the next activity."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("p@example.com", "p@example.com")
+        self.trip = make_trip(self.user, [38, 4])
+        self.course = build_course(self.trip, [m.id for m in Module.objects.all()])
+        self.ready = list(self.course.ready_items())
+        self.client.force_login(self.user)
+
+    def test_praise_after_the_first_activity(self):
+        first = self.ready[0]
+        r = self.client.post(reverse("activity_done", args=[first.id]))
+        self.assertRedirects(r, reverse("activity_praise", args=[first.id]), fetch_redirect_response=False)
+        page = self.client.get(r["Location"])
+        self.assertTemplateUsed(page, "activities/praise.html")
+        self.assertContains(page, "Great job!")
+        self.assertContains(page, f"1 of {len(self.ready)} done")
+        self.assertEqual(page.context["progress"]["before"], 0)
+        self.assertRedirects(self.client.get("/"), reverse("activity", args=[self.ready[1].id]))
+
+    def test_praise_before_done_goes_to_the_activity(self):
+        first = self.ready[0]
+        r = self.client.get(reverse("activity_praise", args=[first.id]))
+        self.assertRedirects(r, reverse("activity", args=[first.id]))
+
+    def test_no_praise_for_an_activity_done_before(self):
+        first = self.ready[0]
+        self.client.post(reverse("activity_done", args=[first.id]))
+        r = self.client.post(reverse("activity_done", args=[first.id]))
+        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+
+    def test_last_activity_goes_to_the_finish_page(self):
+        for item in self.ready[:-1]:
+            found = [str(i) for i in range(len(item.activity.data.get("spots", [])))]
+            self.client.post(reverse("activity_done", args=[item.id]), {"found": found})
+        last = self.ready[-1]
+        found = [str(i) for i in range(len(last.activity.data.get("spots", [])))]
+        r = self.client.post(reverse("activity_done", args=[last.id]), {"found": found})
+        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+
+    def test_other_users_praise_is_404(self):
+        other = get_user_model().objects.create_user("o@example.com", "o@example.com")
+        self.client.force_login(other)
+        self.assertEqual(self.client.get(reverse("activity_praise", args=[self.ready[0].id])).status_code, 404)
 
 
 class CoursePageTests(TestCase):
