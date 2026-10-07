@@ -1,9 +1,11 @@
 from datetime import date, timedelta
+from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from content_admin.models import Activity, Module
 from courses.builder import build_course
@@ -41,11 +43,11 @@ class LeitnerTests(TestCase):
             self.assertEqual(p.due_on, TODAY + timedelta(days=days))
             self.assertTrue(p.last_result)
 
-    def test_wrong_goes_back_to_box_one_due_next_visit(self):
+    def test_wrong_goes_back_to_box_one_due_tomorrow(self):
         p = self.item(4)
         p.answer(False, today=TODAY)
         p.refresh_from_db()
-        self.assertEqual((p.box, p.due_on, p.last_result), (1, TODAY, False))
+        self.assertEqual((p.box, p.due_on, p.last_result), (1, TODAY + timedelta(days=1), False))
 
     def test_quiz_holds_at_most_eight_due_items_earliest_first(self):
         for n in range(12):
@@ -132,10 +134,29 @@ class QuizFlowTests(TestCase):
         self.assertContains(self.client.get(reverse("quiz") + "?end=1"), f"You got {n - 1} of {n} right")
         missed.refresh_from_db()
         self.assertEqual(missed.box, 1)
-        # The next quiz asks only the missed word.
-        page = self.client.get(reverse("quiz") + "?new=1")
-        self.assertContains(page, "Question 1 of 1")
+        # The same day, the quiz does not start again with the missed word.
+        for url in (reverse("quiz"), reverse("quiz") + "?new=1"):
+            page = self.client.get(url)
+            self.assertContains(page, "All done for today!")
+            self.assertContains(page, "Come back tomorrow")
+            self.assertNotIn("q", page.context)
+        # The next day, the missed word is asked first.
+        tomorrow = timezone.localdate() + timedelta(days=1)
+        with mock.patch("django.utils.timezone.localdate", return_value=tomorrow):
+            page = self.client.get(reverse("quiz") + "?new=1")
+        self.assertContains(page, f"Question 1 of {n}")
         self.assertEqual(page.context["q"]["key"], missed.key)
+
+    def test_quiz_end_screen_promises_tomorrow(self):
+        trip = make_trip(self.user)
+        PracticeItem.objects.create(trip=trip, key="words/words-intro/hai")
+        self.client.force_login(self.user)
+        q = self.client.get(reverse("quiz")).context["q"]
+        wrong = next(c for c in q["choices"] if c != q["answer"])
+        self.client.post(reverse("quiz"), {"key": q["key"], "choice": wrong})
+        page = self.client.get(reverse("quiz") + "?end=1")
+        self.assertContains(page, "You got 0 of 1 right. The ones we missed come back tomorrow.")
+        self.assertNotContains(page, "come back soon")
 
     def test_quiz_ignores_a_stale_answer(self):
         trip = make_trip(self.user)

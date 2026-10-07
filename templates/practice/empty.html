@@ -3,7 +3,10 @@
 {% block content %}
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide" label="Our guide" %}
-  {% if count %}
+  {% if missed %}
+  <h1>All done for today!</h1>
+  <p class="lead">Come back tomorrow. The ones we missed come back then.</p>
+  {% elif count %}
   <h1>No quiz today!</h1>
   <p class="lead">You know all your words for now.{% if next_item %} The next quiz is on {{ next_item.due_on|date:"l, j F" }}.{% endif %}</p>
   {% else %}

@@ -5,7 +5,7 @@
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide cheer" label="Our guide jumps for joy" %}
   <h1>Quiz done!</h1>
-  <p class="lead">You got {{ right }} of {{ total }} right.{% if right < total %} The ones we missed come back soon.{% else %} Every one! Wow!{% endif %}</p>
+  <p class="lead">You got {{ right }} of {{ total }} right.{% if right < total %} The ones we missed come back tomorrow.{% else %} Every one! Wow!{% endif %}</p>
   <a class="btn big" href="{% url 'home' %}">Back home</a>
 </section>
 {% endblock %}

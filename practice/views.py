@@ -33,7 +33,10 @@ def quiz(request):
         state = _start(request, trip)
     if not state["keys"]:
         nxt = PracticeItem.objects.filter(trip=trip).order_by("due_on").first()
-        return render(request, "practice/empty.html", {"trip": trip, "next_item": nxt, "count": trip.practice_items.count()})
+        missed = PracticeItem.objects.filter(trip=trip, last_result=False, due_on__gt=timezone.localdate()).exists()
+        return render(request, "practice/empty.html", {
+            "trip": trip, "next_item": nxt, "count": trip.practice_items.count(), "missed": missed,
+        })
 
     if request.method == "POST" and state["i"] < len(state["keys"]):
         key = state["keys"][state["i"]]

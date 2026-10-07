@@ -28,13 +28,15 @@ class PracticeItem(models.Model):
         return f"{self.key} (box {self.box})"
 
     def answer(self, right, today=None):
-        """Right: one box up, asked again later. Wrong: back to box 1, asked on the next visit."""
+        """Right: one box up, asked again later. Wrong: back to box 1, asked again tomorrow.
+
+        Not today: a child who just finished a quiz would get the same missed items at once, in a loop."""
         today = today or timezone.localdate()
         if right:
             self.due_on = today + timedelta(days=INTERVALS[self.box])
             self.box = min(self.box + 1, BOXES)
         else:
             self.box = 1
-            self.due_on = today
+            self.due_on = today + timedelta(days=1)
         self.last_result = right
         self.save(update_fields=["box", "due_on", "last_result"])
