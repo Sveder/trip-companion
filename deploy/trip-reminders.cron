@@ -1,0 +1,2 @@
+# Trip Companion reminder emails. Install: sudo cp deploy/trip-reminders.cron /etc/cron.d/trip-reminders
+0 14,15 * * * server /srv/www/trip-companion/deploy/send_reminders.sh >> /srv/www/trip-companion/reminders.log 2>&1

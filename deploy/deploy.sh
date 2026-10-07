@@ -8,4 +8,5 @@ venv/bin/python manage.py migrate --noinput
 venv/bin/python manage.py load_content japan
 venv/bin/python manage.py collectstatic --noinput -v0
 chmod -R a+rX staticfiles
+sudo install -m 644 deploy/trip-reminders.cron /etc/cron.d/trip-reminders
 sudo systemctl restart trip
