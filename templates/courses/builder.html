@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Our course{% endblock %}
+{% block title %}Choose your course{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1>Your course for Japan</h1>
-  <p class="lead">We picked these for your family ({{ trip.ages|join:", " }}). Switch any of them on or off.</p>
+  <h1>Choose your course</h1>
+  <p class="lead">We picked these for your family ({{ trip.ages|join:", " }}). Tap a card to switch it on or off.</p>
   <form method="post">
     {% csrf_token %}
     <div class="cards modules">

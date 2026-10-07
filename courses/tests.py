@@ -116,9 +116,12 @@ class FlowTests(TestCase):
         self.assertEqual(r.status_code, 302)
         # First visit: no trip yet -> trip setup.
         self.assertRedirects(c.get("/"), reverse("trip_setup"))
+        # Michael's feedback: the step after setup is "choose your course", on the button and on the next page.
+        self.assertContains(c.get(reverse("trip_setup")), "Next: choose your course")
         r = c.post(reverse("trip_setup"), {"destination": "japan", "ages": "38, 36, 4, 2"})
         self.assertRedirects(r, reverse("builder"))
         page = c.get(reverse("builder"))
+        self.assertContains(page, "<h1>Choose your course</h1>", html=False)
         self.assertContains(page, "Street View hunt")
         # Parent adds "buy before you go" on top of the suggestion (it is suggested anyway here).
         ids = [str(m.id) for m in Module.objects.all()]
