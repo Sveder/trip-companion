@@ -1,33 +1,35 @@
 ---
 doc: checklist
-status: draft
+status: approved
 ---
 
 # Build Checklist
 
-Build mode: [not chosen yet]
+Build mode: fast (Michael, 2026-10-07)
+Run rule (Michael, 2026-10-07): "just run with it even if you don't get my feedback for the slices." Hands-on checkpoints do not block the build; feedback that arrives later becomes a task.
+Builder: Michael's factory (`tools/factory/`), one slice per developer run, progress emailed every 4 hours.
 
 ## Slices
 
-- [ ] **1. A Japan food course you can open on the TV**
-  Becomes usable: https://trip.sveder.com shows a Japan food module as big, swipeable fact cards; on the TV browser the remote's arrows move between cards.
-  Why now: Michael's one unknown is the TV. This slice puts a real page on the real TV first, so a TV problem changes the plan while it is cheap. It also bootstraps everything: Django project, content files loaded into the database, the public deploy.
-  PRD ref: `prd.md > Modules (Japan)` (Food), `prd.md > Screens and Layout`
-  Spec ref: `spec.md > Content library`, `spec.md > Activity player`, `spec.md > TV mode`, `spec.md > Where It Runs and How Someone Tries It`, `spec.md > File Structure`
-  Build: Scaffold the Django project per the file structure; `content/japan/food.yaml`; Module/Activity models and `load_content`; the cards activity template; TV mode CSS and arrow-key focus; DNS A record, nginx site, certbot, gunicorn unit on the droplet; Sveder badge.
-  Verify (mechanical): `manage.py check --deploy` passes on the server; `curl -I https://trip.sveder.com/` returns 200; the food page renders all cards; a headless browser presses ArrowRight and the focused card changes.
-  Learner check: Open https://trip.sveder.com on the LG TV browser, move through the food cards with the remote, and say if it reads well from the couch. Kurt records the TV model and webOS version, and a photo of the screen.
-  Commit: `Japan food course, TV mode, live on trip.sveder.com`
+- [ ] **1. Sign in, describe the trip, get a built course — live on trip.sveder.com**
+  Becomes usable: At https://trip.sveder.com a parent signs in with an email link, sets Japan, family size and ages, sees the suggested modules (kids' items off for adults-only), toggles modules, presses Build, and lands on the first activity — the Japan food cards; each visit opens the next activity.
+  Why now: Michael's order (2026-10-07): "Start with the main flow". This is the kernel — many good parts made into one personal package. It also bootstraps everything: Django project, content files loaded into the database, the public deploy.
+  PRD ref: `prd.md > The Core Journey` (steps 1–6), `prd.md > Login`, `prd.md > Trip setup and course builder`, `prd.md > Modules (Japan)` (Food)
+  Spec ref: `spec.md > Accounts`, `spec.md > Trips`, `spec.md > Course builder`, `spec.md > Content library`, `spec.md > Activity player`, `spec.md > Data Model`, `spec.md > File Structure`, `spec.md > Where It Runs and How Someone Tries It`
+  Build: Scaffold the Django project per the file structure; Module/Activity models and `load_content`; `content/japan/food.yaml` plus stubs for every other Japan module so the builder has the full list; the cards activity template; django-allauth email-link login (SES); Trip and Traveller with the setup form; builder.py suggestion rules by audience; Course and CourseItem; home "next activity"; country picker with Uzbekistan as a "coming soon" card; DNS A record, nginx site, certbot, gunicorn unit on the droplet; Sveder badge and "Made by Sveder".
+  Verify (mechanical): Django tests: adults-only → no child modules switched on but listed; a family with a 4-year-old → child modules on; Build creates ordered items; marking one done makes home open the next. `manage.py check --deploy` passes on the server; `curl -I https://trip.sveder.com/` returns 200; a sign-in email arrives through SES.
+  Learner check: Sign in on your phone, set up Japan with two adults and two kids (4 and 2), add "buy a snack box", build, and see the first activity (the food cards).
+  Commit: `Main flow: sign-in, trip setup, course builder, food cards, live on trip.sveder.com`
 
-- [ ] **2. Sign in, describe the trip, get a built course**
-  Becomes usable: A parent signs in with an email link, sets Japan, family size and ages, sees the suggested modules (kids' items off for adults-only), toggles modules, presses Build, and lands on the first activity; each visit opens the next activity.
-  Why now: This is the kernel — many good parts made into one personal package. It must exist early, before the individual parts get deep.
-  PRD ref: `prd.md > The Core Journey` (steps 1–6), `prd.md > Login`, `prd.md > Trip setup and course builder`
-  Spec ref: `spec.md > Accounts`, `spec.md > Trips`, `spec.md > Course builder`, `spec.md > Data Model`
-  Build: django-allauth email-link login (SES); Trip and Traveller with the setup form; builder.py suggestion rules by audience; Course and CourseItem; home "next activity"; country picker with Uzbekistan as a "coming soon" card; module stubs for every Japan module so the builder has the full list.
-  Verify (mechanical): Django tests: adults-only → no child modules switched on but listed; a family with a 4-year-old → child modules on; Build creates ordered items; marking one done makes home open the next. Sign-in email arrives (console locally, SES on the server).
-  Learner check: Sign in on your phone, set up Japan with two adults and two kids (4 and 2), add "buy a snack box", build, and see the first activity.
-  Commit: `Sign-in, trip setup and the course builder`
+- [ ] **2. TV mode, checked on the real TV**
+  Becomes usable: On the LG TV browser the site switches to TV mode: very large cards, one in focus, the remote's arrows move between cards and OK opens them.
+  Why now: Michael's one unknown is the TV; right after the main flow exists, it gets proved on the real TV before more screens are built.
+  PRD ref: `prd.md > Screens and Layout`
+  Spec ref: `spec.md > TV mode`, `spec.md > Decisions and Open Issues`
+  Build: TV mode CSS for wide screens and `?tv=1`; arrow-key focus navigation; check on the real TV (model and webOS version via `lgtv/find_tv.py` when the TV is on).
+  Verify (mechanical): A headless browser at 1920×1080 presses ArrowRight and the focused card changes, Enter opens it; the TV's model/webOS version and a screen photo are recorded below under Revisions when the TV is reachable.
+  Learner check: Open https://trip.sveder.com on the LG TV, move through the food cards with the remote, and say if it reads well from the couch.
+  Commit: `TV mode with remote navigation`
 
 - [ ] **3. Look and feel from our 4-year-old and Michael**
   Becomes usable: The whole site wears the chosen colours, guide animal and finish celebration, Matific-style.
@@ -131,8 +133,8 @@ Build mode: [not chosen yet]
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 1 (the TV check, Michael's unknown)
-- [ ] Core journey explored — after slice 5 (builder, look, words, chopsticks), with our 4-year-old
+- [ ] Early usable behavior explored — after slice 2 (main flow on the phone, then the TV check, Michael's unknown); non-blocking
+- [ ] Core journey explored — after slice 5 (builder, look, words, chopsticks), with our 4-year-old; non-blocking
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
@@ -144,3 +146,5 @@ Build mode: [not chosen yet]
 - [ ] Learning wrap-up complete and `devpost/app-map.html` shared
 
 ## Revisions
+
+- 2026-10-07, before the build: Michael moved the main flow first and the TV check second ("Start with the main flow and only then do TV"). Old slices 1 (food on the TV) and 2 (sign-in and builder) became slice 1 (main flow, with the food cards and the deploy) and slice 2 (TV mode).
