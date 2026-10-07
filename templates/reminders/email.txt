@@ -1,0 +1,16 @@
+{% autoescape off %}Hello!
+
+Your next Japan activity is ready: {{ item.activity.title }}.
+It takes a few minutes. Do it together with the kids.
+
+Open it here:
+{{ go }}
+
+{{ left }} activit{{ left|pluralize:"y,ies" }} wait{{ left|pluralize:"s," }} before your trip.
+
+We send this note every two days at most.
+To stop these emails, open this link:
+{{ stop }}
+
+Trip Companion
+{% endautoescape %}

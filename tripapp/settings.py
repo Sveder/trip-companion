@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "courses",
     "activities",
     "practice",
+    "reminders",
 ]
 
 MIDDLEWARE = [
@@ -44,6 +45,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "tripapp.tv.TvModeMiddleware",
+    "reminders.middleware.LastSeenMiddleware",
 ]
 
 ROOT_URLCONF = "tripapp.urls"
@@ -107,6 +109,8 @@ LOGIN_URL = "signin"
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 
+# Absolute links in emails (reminders) start with this.
+SITE_URL = os.environ.get("SITE_URL", "https://trip.sveder.com")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Trip Companion <m@sveder.com>")
 # SES keys come from the standard AWS chain (~/.aws or AWS_* variables).
 if env_bool("EMAIL_SES"):
