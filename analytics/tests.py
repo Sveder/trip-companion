@@ -141,6 +141,11 @@ class StatsPageTests(TestCase):
         self.assertEqual(funnel, {"Signed up": 2, "Trip set up": 1, "Course built": 1,
                                   "First activity done": 1, "3 activities done": 0})
         self.assertEqual(r.context["grand_total"], 3)
+        # A trip with no dates yet still counts as set up.
+        trip.start_date = None
+        trip.save()
+        funnel = {s["label"]: s["count"] for s in self.client.get(reverse("stats")).context["funnel"]}
+        self.assertEqual(funnel["Trip set up"], 1)
         self.assertEqual(r.context["links"], [{"link": "kids-chopsticks", "n": 2}])
         html = r.content.decode()
         self.assertIn("<tfoot>", html)

@@ -34,7 +34,7 @@ def funnel():
     users_done = users.annotate(done=done)
     steps = [
         ("Signed up", users.count()),
-        ("Trip set up", users.filter(trips__start_date__isnull=False).distinct().count()),
+        ("Trip set up", users.filter(trips__isnull=False).distinct().count()),
         ("Course built", users.filter(trips__course__isnull=False).distinct().count()),
         ("First activity done", users_done.filter(done__gte=1).count()),
         ("3 activities done", users_done.filter(done__gte=3).count()),

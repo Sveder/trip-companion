@@ -111,7 +111,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Sign in to the admin, change one food card's text, and see it on the site.
   Commit: `Super-user content admin and export`
 
-- [ ] **11. Analytics**
+- [x] **11. Analytics**
   Becomes usable: A staff-only `/stats/` page with daily totals and the funnel (signed up → trip set up → course built → first activity → 3 activities).
   Why now: Events can only be counted once all the actions exist.
   PRD ref: `prd.md > Super user and analytics`
@@ -180,3 +180,4 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 10: The admin has no password form. `/admin/login/` sends the reader to the site's email-code sign-in with `next=/admin/`; `manage.py make_superuser <email>` gives an account the admin. Michael's account (michael@example.com) was made a superuser on the server by hand, so his email is not in the public repo.
 - 2026-10-07, slice 10: `deploy.sh` runs `load_content` on every deploy. So that a deploy does not throw admin edits away, a change in the admin marks the module `edited`, and `load_content` skips an edited module (with a warning) until `export_content` writes it to YAML or `--force` is given. `export_content` edits the YAML file in place with ruamel.yaml: it rewrites only the changed values and keeps the comments and the quoting. Exporting unchanged content changes no file.
 - 2026-10-07, slice 10: Edits made on the live site live in the server's database. To bring them into the public repo: `export_content` on the server, then copy the changed `content/japan/*.yaml` files back and commit them. The activity data is edited as indented JSON; the activity list shows each video id and whether it is approved.
+- 2026-10-07, slice 11: The `/stats/` funnel counts families from the real tables (users, trips, courses, done items), not from events. So families from before slice 11 count too. The per-day table and the shop-link table come from the `Event` table. A video play is counted when the family taps the YouTube frame (the page loses focus to the frame); the page cannot see the frame's own play button without the YouTube API. A reminder email click is an activity link with `?from=reminder`. A signed-out visitor to `/stats/` goes to sign-in; a signed-in family gets 403.
