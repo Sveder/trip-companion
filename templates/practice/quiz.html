@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load say %}
 {% block title %}Quiz{% endblock %}
 {% block content %}
 <div class="progress" aria-label="Question {{ progress.number }} of {{ progress.total }}">
@@ -8,7 +9,7 @@
 </div>
 <section class="quiz">
   <h1>{{ q.prompt }}</h1>
-  <div class="card ask"{% if q.kind == "word" %} data-say="{{ q.japanese }}"{% endif %} tabindex="0">
+  <div class="card ask"{% if q.kind == "word" %} data-say="{{ q.japanese }}" data-say-src="{{ q.reading|word_audio }}"{% endif %} tabindex="0">
     {% if q.kind == "word" %}
       <p class="jp big" lang="ja">{{ q.japanese }}</p>
       <h2 class="reading">{{ q.reading }}</h2>

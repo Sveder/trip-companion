@@ -1,8 +1,9 @@
 {% extends "activities/_frame.html" %}
+{% load say %}
 {% block activity %}
 <div class="cards words">
   {% for w in data.words %}
-  <article class="card word" tabindex="0" data-say="{{ w.japanese }}">
+  <article class="card word" tabindex="0" data-say="{{ w.japanese }}" data-say-src="{{ w.reading|word_audio }}">
     {% if w.emoji %}<div class="card-emoji big" aria-hidden="true">{{ w.emoji }}</div>{% endif %}
     <p class="jp" lang="ja">{{ w.japanese }}</p>
     <h3 class="reading">{{ w.reading }}</h3>

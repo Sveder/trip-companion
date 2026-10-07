@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load say %}
 {% block title %}Our trip highlights{% endblock %}
 {% block content %}
 <section class="hero">
@@ -42,7 +43,7 @@
 {% if words %}
 <div class="cards words">
   {% for w in words %}
-  <article class="card word{% if w.known %} known{% endif %}" tabindex="0" data-say="{{ w.entry.japanese }}">
+  <article class="card word{% if w.known %} known{% endif %}" tabindex="0" data-say="{{ w.entry.japanese }}" data-say-src="{{ w.entry.reading|word_audio }}">
     {% if w.entry.emoji %}<div class="card-emoji big" aria-hidden="true">{{ w.entry.emoji }}</div>{% endif %}
     <p class="jp" lang="ja">{{ w.entry.japanese }}</p>
     <h3 class="reading">{{ w.entry.reading }}{% if w.known %} ⭐{% endif %}</h3>

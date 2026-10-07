@@ -122,6 +122,13 @@ class QuizFlowTests(TestCase):
         call_command("load_content", verbosity=0)
         cls.user = get_user_model().objects.create_user("f@example.com", "f@example.com")
 
+    def test_every_word_has_its_mp3(self):
+        """deploy/make_word_audio.py makes these; a word with no mp3 plays nothing in a browser with no Japanese voice."""
+        from django.contrib.staticfiles import finders
+        words = Activity.objects.get(module__slug="words", type="words").data["words"]
+        missing = [w["reading"] for w in words if not finders.find(f"audio/japan/{w['reading']}.mp3")]
+        self.assertEqual(missing, [], "run deploy/make_word_audio.py")
+
     def test_words_activity_then_quiz_wrong_answer_comes_back(self):
         trip = make_trip(self.user)
         course = build_course(trip, list(Module.objects.filter(slug="words").values_list("id", flat=True)))
@@ -129,7 +136,7 @@ class QuizFlowTests(TestCase):
         self.client.force_login(self.user)
         page = self.client.get(reverse("activity", args=[item.id]))
         self.assertContains(page, "こんにちは")
-        self.assertContains(page, 'data-say="こんにちは"')
+        self.assertContains(page, 'data-say="こんにちは" data-say-src="/static/audio/japan/konnichiwa.mp3"')
         self.assertContains(self.client.get(reverse("quiz")), "No quiz yet")
         self.client.post(reverse("activity_done", args=[item.id]))
         n = PracticeItem.objects.filter(trip=trip).count()
@@ -138,6 +145,7 @@ class QuizFlowTests(TestCase):
         page = self.client.get(reverse("quiz"))
         self.assertContains(page, f"Question 1 of {n}")
         q = page.context["q"]
+        self.assertContains(page, f'data-say-src="/static/audio/japan/{q["reading"]}.mp3"')
         wrong = next(c for c in q["choices"] if c != q["answer"])
         r = self.client.post(reverse("quiz"), {"key": q["key"], "choice": wrong})
         self.assertContains(r, "Not this time")
