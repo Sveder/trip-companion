@@ -1,0 +1,146 @@
+---
+doc: checklist
+status: draft
+---
+
+# Build Checklist
+
+Build mode: [not chosen yet]
+
+## Slices
+
+- [ ] **1. A Japan food course you can open on the TV**
+  Becomes usable: https://trip.sveder.com shows a Japan food module as big, swipeable fact cards; on the TV browser the remote's arrows move between cards.
+  Why now: Michael's one unknown is the TV. This slice puts a real page on the real TV first, so a TV problem changes the plan while it is cheap. It also bootstraps everything: Django project, content files loaded into the database, the public deploy.
+  PRD ref: `prd.md > Modules (Japan)` (Food), `prd.md > Screens and Layout`
+  Spec ref: `spec.md > Content library`, `spec.md > Activity player`, `spec.md > TV mode`, `spec.md > Where It Runs and How Someone Tries It`, `spec.md > File Structure`
+  Build: Scaffold the Django project per the file structure; `content/japan/food.yaml`; Module/Activity models and `load_content`; the cards activity template; TV mode CSS and arrow-key focus; DNS A record, nginx site, certbot, gunicorn unit on the droplet; Sveder badge.
+  Verify (mechanical): `manage.py check --deploy` passes on the server; `curl -I https://trip.sveder.com/` returns 200; the food page renders all cards; a headless browser presses ArrowRight and the focused card changes.
+  Learner check: Open https://trip.sveder.com on the LG TV browser, move through the food cards with the remote, and say if it reads well from the couch. Kurt records the TV model and webOS version, and a photo of the screen.
+  Commit: `Japan food course, TV mode, live on trip.sveder.com`
+
+- [ ] **2. Sign in, describe the trip, get a built course**
+  Becomes usable: A parent signs in with an email link, sets Japan, family size and ages, sees the suggested modules (kids' items off for adults-only), toggles modules, presses Build, and lands on the first activity; each visit opens the next activity.
+  Why now: This is the kernel — many good parts made into one personal package. It must exist early, before the individual parts get deep.
+  PRD ref: `prd.md > The Core Journey` (steps 1–6), `prd.md > Login`, `prd.md > Trip setup and course builder`
+  Spec ref: `spec.md > Accounts`, `spec.md > Trips`, `spec.md > Course builder`, `spec.md > Data Model`
+  Build: django-allauth email-link login (SES); Trip and Traveller with the setup form; builder.py suggestion rules by audience; Course and CourseItem; home "next activity"; country picker with Uzbekistan as a "coming soon" card; module stubs for every Japan module so the builder has the full list.
+  Verify (mechanical): Django tests: adults-only → no child modules switched on but listed; a family with a 4-year-old → child modules on; Build creates ordered items; marking one done makes home open the next. Sign-in email arrives (console locally, SES on the server).
+  Learner check: Sign in on your phone, set up Japan with two adults and two kids (4 and 2), add "buy a snack box", build, and see the first activity.
+  Commit: `Sign-in, trip setup and the course builder`
+
+- [ ] **3. Look and feel from our 4-year-old and Michael**
+  Becomes usable: The whole site wears the chosen colours, guide animal and finish celebration, Matific-style.
+  Why now: Every later slice builds screens; setting the look once now saves restyling them all later. Waits for the answers asked on 2026-10-07 at 18:00.
+  PRD ref: `prd.md > Look and Feel`
+  Spec ref: `spec.md > Look and Feel`
+  Build: Theme CSS variables, font, mascot image, celebration animation and sound; apply to existing screens.
+  Verify (mechanical): Screenshots of home, builder and a card page at phone and TV sizes; no contrast below WCAG AA on text.
+  Learner check: Show our 4-year-old the home screen and the celebration, and tell me what he says.
+  Commit: `Theme: our 4-year-old's colours, guide and celebration`
+
+- [ ] **4. Words with repetition, and the quiz**
+  Becomes usable: A words activity teaches a few Japanese words (with sound where available); a quiz asks due words and facts; right answers come back later, wrong ones sooner.
+  Why now: Repetition is what makes the app teach, not just show; the quiz also gives every later module a place to send its facts.
+  PRD ref: `prd.md > Quiz and repetition`, `prd.md > Modules (Japan)` (Language)
+  Spec ref: `spec.md > Practice (repetition)`, `spec.md > Content library`
+  Build: words.yaml, the words activity, PracticeItem with Leitner boxes, the quiz page, quiz facts from cards marked `quiz: true`.
+  Verify (mechanical): Tests for box moves and due dates (right → later, wrong → box 1); a quiz holds at most 8 due items, earliest first.
+  Learner check: Do the words activity with our 4-year-old, take the quiz, get one wrong on purpose, and see it come back next time.
+  Commit: `Words, quiz and repetition`
+
+- [ ] **5. The chopsticks activity**
+  Becomes usable: The guided chopsticks activity: children's chopsticks referral link (only with kids), the approved video, practice, then record a clip on the phone and share it.
+  Why now: The demo's centre moment (real chopsticks, guided by the app); it also proves the video and the camera parts.
+  PRD ref: `prd.md > Chopsticks activity`
+  Spec ref: `spec.md > Chopsticks activity (steps)`, `spec.md > Activity player`
+  Build: The steps activity type; chopsticks.yaml; YouTube embed with the approval flag and fallback; MediaRecorder capture; Web Share; Clip save; TV fallback text.
+  Verify (mechanical): The referral step is absent for an adults-only trip; an unapproved video id never renders; on a camera-less browser step 4 shows the fallback; a saved clip appears in the database.
+  Learner check: Do the chopsticks activity on your phone with real chopsticks, record a clip, and press Share.
+  Commit: `Chopsticks activity with video, recording and share`
+
+- [ ] **6. The Street View hunt**
+  Becomes usable: A Street View inside a Japanese place (e.g. the fish market or a museum) with a "things to spot" list; tick each find; all found → celebration.
+  Why now: A second showpiece for the demo; it depends only on the activity player.
+  PRD ref: `prd.md > Street View tour`
+  Spec ref: `spec.md > Street View hunt`
+  Build: The streetview activity type; streetview.yaml with 2–3 places and their spot lists.
+  Verify (mechanical): The Maps embed URL loads (HTTP 200) and the page renders; ticking all items marks the item done.
+  Learner check: Play the hunt with our 4-year-old on the TV or a laptop and say if the things to spot were findable.
+  Commit: `Street View hunt`
+
+- [ ] **7. The rest of Japan, and buy-in-advance**
+  Becomes usable: Do and don't in public, safety (emergency numbers), transport, and the buy-in-advance list with referral links (snack box, children's chopsticks).
+  Why now: Fills the package after the activity types exist; content-only, low risk.
+  PRD ref: `prd.md > Modules (Japan)`, `prd.md > Buy in advance`
+  Spec ref: `spec.md > Content library`
+  Build: dos_donts.yaml, safety.yaml, transport.yaml, buy_in_advance.yaml (links activity type); quiz facts marked; referral links with click tracking hook.
+  Verify (mechanical): `load_content` loads every file without errors; each module page renders; every external link answers 200 or 3xx.
+  Learner check: Read the do and don't cards and the emergency numbers, and check the buy-in-advance links open the right products.
+  Commit: `Japan content: do and don't, safety, transport, buy in advance`
+
+- [ ] **8. Reminders every two days**
+  Becomes usable: A family with waiting activities gets a short email every two days, with a link straight to the next activity, and can unsubscribe.
+  Why now: Brings people back; needs the course and next-activity logic from slice 2.
+  PRD ref: `prd.md > Reminders`
+  Spec ref: `spec.md > Reminders`
+  Build: ReminderLog, `send_reminders` command, email template, unsubscribe, cron line on the server.
+  Verify (mechanical): Tests: no email before two days, one email after, none when finished or the trip started; a dry run on the server lists who would get one.
+  Learner check: Get a reminder email in your inbox and tap its link.
+  Commit: `Reminder emails every two days`
+
+- [ ] **9. After the trip**
+  Becomes usable: After the trip dates, home shows the highlights: activities done, saved chopsticks clips, words learned. Before the trip, a finished course keeps offering quizzes.
+  Why now: Closes the journey end to end; needs data from slices 2, 4 and 5.
+  PRD ref: `prd.md > After the trip`, `prd.md > States and Boundaries`
+  Spec ref: `spec.md > Highlights (after the trip)`
+  Build: highlights page; home switch by date; finished-course state.
+  Verify (mechanical): Tests with dates set before, during and after the trip show the right home screen.
+  Learner check: Set a test trip in the past and look at the highlights page.
+  Commit: `After-the-trip highlights`
+
+- [ ] **10. Super user: edit the demo**
+  Becomes usable: Michael edits any module, activity, video approval, Street View link, spot list or referral link in an admin page; the site shows the change at once; export writes it back to the content files.
+  Why now: Michael tunes the demo content before recording; everything it edits exists by now.
+  PRD ref: `prd.md > Super user and analytics`
+  Spec ref: `spec.md > Super-user admin`
+  Build: Django admin for content, trips and travellers; `export_content`; Michael's superuser account.
+  Verify (mechanical): An admin edit changes the rendered page; `export_content` round-trips (export → load → same content).
+  Learner check: Sign in to the admin, change one food card's text, and see it on the site.
+  Commit: `Super-user content admin and export`
+
+- [ ] **11. Analytics**
+  Becomes usable: A staff-only `/stats/` page with daily totals and the funnel (signed up → trip set up → course built → first activity → 3 activities).
+  Why now: Events can only be counted once all the actions exist.
+  PRD ref: `prd.md > Super user and analytics`
+  Spec ref: `spec.md > Analytics`
+  Build: Event model, `track()` calls in every action, `/stats/` page, staff-only.
+  Verify (mechanical): Tests: each action writes one event; a non-staff user gets 403 on `/stats/`.
+  Learner check: Open `/stats/` and see your own test family in the funnel.
+  Commit: `Analytics events and stats page`
+
+- [ ] **12. Professional basics**
+  Becomes usable: Sentry error reports, styled 404/500 pages, a privacy page, share previews, Google sign-in, nightly backup to B2, uptime alert on Telegram.
+  Why now: Hardening comes after the features exist and before the demo is recorded.
+  PRD ref: `prd.md > Super user and analytics`
+  Spec ref: `spec.md > Monitoring and professional basics`, `spec.md > External Services and Dependencies`
+  Build: sentry-sdk and JS loader (Sentry account on Kurt's email); error and privacy pages; Open Graph tags and favicon; Google provider in allauth (OAuth client); backup cron; uptime check.
+  Verify (mechanical): A test exception appears in Sentry; `/does-not-exist` shows the styled 404; a shared link shows the preview (Open Graph tags present); the backup file lands in B2; stopping gunicorn triggers one Telegram alert.
+  Learner check: Sign in with Google, and share the site link in a chat to see the preview.
+  Commit: `Sentry, error pages, privacy, Google sign-in, backups, uptime`
+
+## Hands-on Checkpoints
+
+- [ ] Early usable behavior explored — after slice 1 (the TV check, Michael's unknown)
+- [ ] Core journey explored — after slice 5 (builder, look, words, chopsticks), with our 4-year-old
+- [ ] Final kick-the-tires exploration and feedback completed
+
+## Final Review
+
+- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+
+## Code Tour and App Map
+
+- [ ] Learning wrap-up complete and `devpost/app-map.html` shared
+
+## Revisions
