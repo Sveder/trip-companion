@@ -62,6 +62,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "tripapp.tv.tv_mode",
+                "tripapp.pages.site_meta",
             ],
         },
     },
@@ -131,3 +132,17 @@ if not DEBUG:
     # Preload works only for the apex domain (sveder.com), not for this subdomain.
     SILENCED_SYSTEM_CHECKS = ["security.W021"]
     SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Sentry: server errors and slow pages go to Sentry when SENTRY_DSN is set (server .env only).
+# The browser loader URL (SENTRY_JS_LOADER) reports browser errors.
+SENTRY_DSN = os.environ.get("SENTRY_DSN", "")
+SENTRY_JS_LOADER = os.environ.get("SENTRY_JS_LOADER", "")
+if SENTRY_DSN:
+    import sentry_sdk
+
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        environment=os.environ.get("SENTRY_ENVIRONMENT", "production"),
+        traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
+        send_default_pii=False,
+    )

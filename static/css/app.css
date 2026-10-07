@@ -207,3 +207,8 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .stats-table tfoot th { border-top: 2px solid var(--c-ink); }
 .stats-table .num { text-align: right; }
 .stats-table .bar { display: inline-block; height: .7em; width: calc(var(--w) * .6px); background: var(--c-accent); border-radius: 4px; margin-right: .4em; vertical-align: middle; }
+
+/* Privacy and other text pages */
+.prose h2 { margin-top: 1.6rem; font-size: 1.25rem; }
+.prose li { margin-bottom: .5rem; }
+.prose ul { padding-left: 1.2rem; }

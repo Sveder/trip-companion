@@ -1,8 +1,12 @@
 from django.contrib import admin
 from django.urls import include, path
 
+from . import pages
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("privacy/", pages.privacy, name="privacy"),
+    path("favicon.ico", pages.favicon),
     path("accounts/", include("allauth.urls")),
     path("", include("accounts.urls")),
     path("", include("trips.urls")),

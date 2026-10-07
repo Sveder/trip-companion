@@ -4,7 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Trip Companion{% endblock %} · Get ready for Japan</title>
+  <meta name="description" content="{% block description %}Short, fun activities that get the whole family ready for a trip to Japan: food, words, chopsticks and a Street View hunt.{% endblock %}">
+  <meta name="theme-color" content="#b82a22">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Trip Companion">
+  <meta property="og:title" content="{% block og_title %}Trip Companion · Get ready for Japan{% endblock %}">
+  <meta property="og:description" content="Short, fun activities that get the whole family ready for a trip to Japan.">
+  <meta property="og:url" content="{{ site_url }}{{ request.path }}">
+  <meta property="og:image" content="{{ site_url }}{% static 'img/og-image.png' %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Trip Companion: a smiling fox guide and the words Get ready for Japan">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% if sentry_js_loader %}<script src="{{ sentry_js_loader }}" crossorigin="anonymous"></script>{% endif %}
   <script src="/sveder-badge.js" defer></script>
   <script src="{% static 'js/tv.js' %}" defer></script>
   <script src="{% static 'js/celebrate.js' %}" defer></script>
@@ -26,6 +42,6 @@
     {% if messages %}<ul class="messages">{% for m in messages %}<li class="msg {{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
     {% block content %}{% endblock %}
   </main>
-  <footer class="foot">Made by <a href="https://sveder.com">Sveder</a></footer>
+  <footer class="foot">Made by <a href="https://sveder.com">Sveder</a> · <a href="{% url 'privacy' %}">Privacy</a></footer>
 </body>
 </html>

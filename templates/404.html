@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Page not found{% endblock %}
+{% block content %}
+<section class="hero">
+  {% include "includes/guide.html" with cls="hero-guide" label="Our guide looks around" %}
+  <h1>Oops! We can't find that page.</h1>
+  <p class="lead">Maybe it went on a trip. Let's go back.</p>
+  <a class="btn big" href="{% url 'home' %}">Go home</a>
+</section>
+{% endblock %}

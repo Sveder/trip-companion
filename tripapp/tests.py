@@ -20,3 +20,40 @@ class TvModeTests(TestCase):
     def test_phone_browser_does_not(self):
         ua = "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
         self.assertNotIn('class="tv"', self.client.get("/", HTTP_USER_AGENT=ua).content.decode())
+
+
+class ProfessionalBasicsTests(TestCase):
+    def test_styled_404(self):
+        with self.settings(DEBUG=False):
+            r = self.client.get("/does-not-exist")
+        self.assertEqual(r.status_code, 404)
+        self.assertContains(r, "We can't find that page", status_code=404)
+        self.assertContains(r, "app.css", status_code=404)
+
+    def test_500_page_renders_without_context(self):
+        from django.views.defaults import server_error
+        from django.test import RequestFactory
+
+        r = server_error(RequestFactory().get("/"))
+        self.assertEqual(r.status_code, 500)
+        self.assertIn("Something went wrong", r.content.decode())
+
+    def test_privacy_page_and_footer_link(self):
+        r = self.client.get("/privacy/")
+        self.assertContains(r, "Delete your account")
+        self.assertIn('href="/privacy/"', self.client.get("/").content.decode())
+
+    def test_share_preview_tags(self):
+        html = self.client.get("/").content.decode()
+        for tag in ('property="og:title"', 'property="og:description"', 'property="og:image" content="https://trip.sveder.com/static/img/og-image.png"', 'name="twitter:card"'):
+            self.assertIn(tag, html)
+
+    def test_favicon(self):
+        r = self.client.get("/favicon.ico")
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r["Content-Type"], "image/x-icon")
+
+    def test_sentry_loader_only_when_set(self):
+        self.assertNotIn("sentry-cdn", self.client.get("/").content.decode())
+        with self.settings(SENTRY_JS_LOADER="https://js.sentry-cdn.com/abc.min.js"):
+            self.assertIn('src="https://js.sentry-cdn.com/abc.min.js"', self.client.get("/").content.decode())
