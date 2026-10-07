@@ -21,7 +21,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Sign in on your phone, set up Japan with two adults and two kids (4 and 2), add "buy a snack box", build, and see the first activity (the food cards).
   Commit: `Main flow: sign-in, trip setup, course builder, food cards, live on trip.sveder.com`
 
-- [ ] **2. TV mode, checked on the real TV**
+- [x] **2. TV mode, checked on the real TV**
   Becomes usable: On the LG TV browser the site switches to TV mode: very large cards, one in focus, the remote's arrows move between cards and OK opens them.
   Why now: Michael's one unknown is the TV; right after the main flow exists, it gets proved on the real TV before more screens are built.
   PRD ref: `prd.md > Screens and Layout`
@@ -151,3 +151,6 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 1: Sign-in sends a short code by email, not a link. django-allauth 65 has "login by code" built in; a link needs extra code and breaks when the mail app opens a different browser. One page takes the email; a new email gets an account on the way. Open question for Michael: keep the code, or add a link too (factory task).
 - 2026-10-07, slice 1: SES on the server uses the server user's existing AWS credentials (`~/.aws`), switched on by `EMAIL_SES=true`. No keys are copied into the app's `.env`.
 - 2026-10-07, slice 1: Module stubs (words, do and don't, safety, transport, Street View, chopsticks, buy in advance) hold one "coming soon" card each, marked `ready: false`, so the builder lists the full set. Audiences: Street View hunt = kids; transport and buy in advance = grown-ups; the rest = everyone.
+- 2026-10-07, slice 2: TV mode turns on by `?tv=1` (kept in the session, `?tv=0` turns it off) or by a smart-TV browser name (LG `Web0S`, Tizen and others), not by screen width. A desktop monitor is 1920 px wide too, and it must keep the normal layout.
+- 2026-10-07, slice 2: OK on a fact card shows that card full screen; Back (webOS key 461) or Escape closes it. OK on a builder card flips its switch. The TV CSS uses no `:has()` and no `inset`, for older webOS browsers.
+- 2026-10-07, slice 2: The headless check at 1920x1080 passes on the live site (10 of 10, `trip-companion-tools/tv_check.cjs`). The real TV was off at 14:20 (`lgtv/find_tv.py`: no webOS TV answered), so its model, webOS version and a screen photo are still missing. A factory task holds that check; it does not block the next slices.
