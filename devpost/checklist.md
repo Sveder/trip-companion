@@ -81,7 +81,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Read the do and don't cards and the emergency numbers, and check the buy-in-advance links open the right products.
   Commit: `Japan content: do and don't, safety, transport, buy in advance`
 
-- [ ] **8. Reminders every two days**
+- [x] **8. Reminders every two days**
   Becomes usable: A family with waiting activities gets a short email every two days, with a link straight to the next activity, and can unsubscribe.
   Why now: Brings people back; needs the course and next-activity logic from slice 2.
   PRD ref: `prd.md > Reminders`
@@ -172,3 +172,6 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 7: A quiz card can name its own `answer` and `wrong` choices. The safety quiz asks "What number do you call for the police?" with the choices 110, 119, 100 and 911, instead of asking for a card title.
 - 2026-10-07, slice 7: Every shop link (the buy-in-advance list and the chopsticks step) goes through `/go/<item>/<link id>/`. The view saves a `ReferralClick` row (trip, activity, link id, URL, time) and redirects. Only a URL that is in the content can be reached, so `/go/` is not an open redirect, and only the family's own course item works. Slice 11 counts these rows.
 - 2026-10-07, slice 7: Buy in advance has six items: two snack box services (TokyoTreat, Bokksu), kids' training chopsticks (only with a child), a type A plug adapter, Visit Japan Web (free, official) and the Japan Rail Pass (official site). The chopsticks and adapter links are AliExpress search pages; factory task T25 replaces them with one product page each. `trip-companion-tools/link_check.py` checks every URL in the content: 6 of 6 answer 200 or 301.
+- 2026-10-07, slice 8: The "last visit" is a `Contact.last_seen` time, written by a middleware at most once an hour per signed-in family. The two-day clock starts at the newest of: course built, last visit, last reminder. A trip with no start date still gets reminders; a trip whose start date is today or earlier gets none.
+- 2026-10-07, slice 8: The unsubscribe link opens a page with a "Stop the reminder emails" button (POST). Opening the link alone changes nothing, so a mail scanner that follows links cannot unsubscribe a family. The same page offers "Send reminders again". The email also carries a `List-Unsubscribe` header.
+- 2026-10-07, slice 8: The server runs in UTC. `/etc/cron.d/trip-reminders` starts `deploy/send_reminders.sh` at 14:00 and 15:00 UTC; the script sends only in the run where the Israel hour is 17, so the send stays at 17:00 in summer and in winter. Log: `/srv/www/trip-companion/reminders.log`. `deploy.sh` installs the cron file.

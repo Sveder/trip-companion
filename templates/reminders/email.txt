@@ -1,7 +1,9 @@
 {% autoescape off %}Hello!
 
-Your next Japan activity is ready: {{ item.activity.title }}.
-It takes a few minutes. Do it together with the kids.
+Your next Japan activity is ready:
+{{ item.activity.title }}
+
+It takes a few minutes. Do it together as a family.
 
 Open it here:
 {{ go }}
