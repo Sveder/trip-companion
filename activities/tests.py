@@ -200,6 +200,35 @@ class StreetViewHuntTests(TestCase):
         home = self.client.get(reverse("home"))
         self.assertRedirects(home, reverse("activity", args=[second.id]), fetch_redirect_response=False)
 
+    def test_a_done_hunt_opens_with_no_ticks_and_plays_again(self):
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=4)
+        course = Course.objects.create(trip=trip)
+        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
+        second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
+        url = reverse("activity_done", args=[first.id])
+        self.client.post(url, {"found": [], "skip": "1"})
+        first.refresh_from_db()
+        done_at = first.done_at
+        self.assertIsNotNone(done_at)
+        html = self.client.get(reverse("activity", args=[first.id])).content.decode()
+        self.assertEqual(html.count(" checked>"), 0)
+        self.assertIn("We found them all!", html)
+        self.assertNotIn(">Next<", html)
+        # On a replay, missing things still say "Keep looking!" and offer the skip button.
+        r = self.client.post(url, {"found": ["1"]})
+        self.assertIn("missing=1", r["Location"])
+        html = self.client.get(r["Location"]).content.decode()
+        self.assertIn('name="skip"', html)
+        self.assertEqual(html.count(" checked>"), 1)
+        # A finished replay goes on to the next activity, and the item keeps its first done time.
+        n = len(hunts[0].data["spots"])
+        r = self.client.post(url, {"found": [str(i) for i in range(n)]})
+        self.assertRedirects(r, reverse("activity", args=[second.id]), fetch_redirect_response=False)
+        first.refresh_from_db()
+        self.assertEqual(first.done_at, done_at)
+
     def test_embed_url_rejects_a_bad_point(self):
         from .streetview import embed_url
 

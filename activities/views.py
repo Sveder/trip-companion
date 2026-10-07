@@ -72,7 +72,8 @@ def activity_done(request, item_id):
         # A "coming soon" stub never counts as done, so the family sees it when it turns real.
         return redirect("home")
     found_note = ""
-    if act.type == "streetview" and not item.done_at:
+    if act.type == "streetview":
+        # A done hunt plays again from no ticks, so the same rules apply on a replay. The item stays done.
         found = request.POST.getlist("found")
         if not streetview.all_found(act.data, found):
             if request.POST.get("skip") != "1":
