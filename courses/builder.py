@@ -36,6 +36,8 @@ def build_course(trip, module_ids):
     modules = Module.objects.filter(country=trip.destination, id__in=module_ids)
     course.items.all().delete()
     activities = Activity.objects.filter(module__in=modules).order_by("module__order", "module__slug", "order", "slug")
+    if trip.has_child:
+        activities = kids_first(list(activities))
     CourseItem.objects.bulk_create(
         CourseItem(course=course, order=n, activity=a, done_at=done.get(a.id)) for n, a in enumerate(activities)
     )
@@ -43,3 +45,23 @@ def build_course(trip, module_ids):
     course.built_at = timezone.now()
     course.save()
     return course
+
+
+def kids_first(activities):
+    """Spread the kids' activities through the course, the first one as activity 2.
+
+    A family with a child gets a made-for-kids activity early, then one every few
+    activities, never two in a row while other activities are left. The other
+    activities keep their order.
+    """
+    kids = [a for a in activities if a.module.audience == "child"]
+    rest = [a for a in activities if a.module.audience != "child"]
+    if not kids or not rest:
+        return activities
+    step = max(2, (len(rest) - 1) // len(kids))
+    out = []
+    for n, a in enumerate(rest):
+        out.append(a)
+        if kids and n % step == 0:
+            out.append(kids.pop(0))
+    return out + kids

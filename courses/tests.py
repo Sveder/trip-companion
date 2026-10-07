@@ -59,7 +59,7 @@ class BuilderTests(TestCase):
         self.assertTrue(all(on for m, on in rows if m.audience == "child"))
 
     def test_build_creates_ordered_items(self):
-        trip = make_trip(self.user, [38, 4])
+        trip = make_trip(self.user, [38, 36])
         ids = [m.id for m, on in suggestions(trip) if on]
         course = build_course(trip, ids)
         items = list(course.items.select_related("activity__module"))
@@ -67,6 +67,28 @@ class BuilderTests(TestCase):
         orders = [i.activity.module.order for i in items]
         self.assertEqual(orders, sorted(orders))
         self.assertEqual(items[0].activity.module.slug, "food")
+
+    def test_adults_only_course_keeps_module_order(self):
+        trip = make_trip(self.user, [40, 38])
+        ids = [m.id for m, _ in suggestions(trip)]  # every module, also the kids' ones
+        items = list(build_course(trip, ids).items.select_related("activity__module"))
+        keys = [(i.activity.module.order, i.activity.module.slug, i.activity.order, i.activity.slug) for i in items]
+        self.assertEqual(keys, sorted(keys))
+
+    def test_family_course_has_a_hunt_early_and_hunts_apart(self):
+        trip = make_trip(self.user, [40, 38, 4, 2])
+        ids = [m.id for m, on in suggestions(trip) if on]
+        items = list(build_course(trip, ids).items.select_related("activity"))
+        types = [i.activity.type for i in items]
+        self.assertIn("streetview", types[:3])
+        self.assertEqual(types.count("streetview"), 3)
+        for a, b in zip(types, types[1:]):
+            self.assertFalse(a == b == "streetview", types)
+        slugs = [i.activity.module.slug for i in items]
+        first_hunt = types.index("streetview")
+        for adult in ("transport", "buy_in_advance"):
+            self.assertGreater(slugs.index(adult), first_hunt)
+        self.assertEqual(slugs[0], "food")
 
     def test_rebuild_keeps_done_marks(self):
         trip = make_trip(self.user, [38, 4])
