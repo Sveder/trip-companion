@@ -1,6 +1,6 @@
 ---
 doc: prd
-status: draft
+status: approved
 ---
 
 # Trip Companion (working title) — Product Requirements
@@ -98,9 +98,9 @@ From `scope.md > The POC Boundary`:
 ## States and Boundaries
 - **First use** — login, then trip setup; no course yet.
 - **No course yet** — the main screen sends the user to trip setup.
-- **Missed days** — fine; the next activity waits. Assumption to confirm: the family continues where it stopped.
+- **Missed days** — fine; the family continues where it stopped; no activity is skipped (confirmed 2026-10-07).
 - **Adults-only family** — kids' items are not in the suggestion, but stay available.
-- **Course finished** — all activities done before the trip: (to confirm) the app offers quizzes for practice until the trip.
+- **Course finished** — all activities done before the trip: the app offers quizzes for practice until the trip (confirmed).
 - **After the trip** — highlights replace the "next activity" screen.
 - **Other countries** — preview cards only; tapping one shows "coming soon".
 
