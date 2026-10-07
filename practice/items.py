@@ -82,8 +82,9 @@ def question(trip, key):
         }
     else:
         # A card can name its own answer and wrong choices (e.g. "110" for the police card).
+        # `choice: false` keeps a card that is not the same kind of thing (a phrase among foods) out of the wrong choices.
         answer_of = lambda e: str(e.get("answer") or e["title"])
-        entries = [c for c in activity.data.get("cards", []) if not c.get("answer")]
+        entries = [c for c in activity.data.get("cards", []) if not c.get("answer") and c.get("choice", True)]
         q = {
             "kind": "fact",
             "prompt": entry.get("question") or "What is this?",

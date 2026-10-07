@@ -42,5 +42,4 @@ activities:
       - title: Itadakimasu!
         emoji: "🥢"
         text: Before they eat, people in Japan say "itadakimasu". It is a way to say thank you for the food.
-        quiz: true
-        question: What do people in Japan say before they eat?
+        choice: false  # a phrase, not a food: never a wrong choice in the food quiz

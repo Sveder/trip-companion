@@ -41,6 +41,11 @@ activities:
         reading: oishii
         meaning: yummy
         emoji: "😋"
+      - id: itadakimasu
+        japanese: いただきます
+        reading: itadakimasu
+        meaning: thank you for the food
+        emoji: "🥢"
       - id: sumimasen
         japanese: すみません
         reading: sumimasen

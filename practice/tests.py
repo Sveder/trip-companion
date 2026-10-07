@@ -92,6 +92,21 @@ class QuizContentTests(TestCase):
         self.assertIn("Sushi", q["choices"])
         self.assertIsNone(question(self.trip, "food/food-cards/gone"))
 
+    def test_food_quiz_asks_only_about_foods(self):
+        food = Activity.objects.get(slug="food-cards")
+        add_items(self.trip, food)
+        keys = PracticeItem.objects.filter(trip=self.trip, key__startswith="food/").values_list("key", flat=True)
+        self.assertNotIn("food/food-cards/itadakimasu", keys)
+        for key in keys:
+            q = question(self.trip, key)
+            self.assertNotIn("Itadakimasu!", q["choices"])
+            self.assertNotEqual(q["answer"], "Itadakimasu!")
+
+    def test_itadakimasu_is_a_word(self):
+        q = question(self.trip, "words/words-intro/itadakimasu")
+        self.assertEqual(q["answer"], "thank you for the food")
+        self.assertEqual(q["reading"], "itadakimasu")
+
     def test_stub_turned_ready_clears_old_done_marks(self):
         course = build_course(self.trip, list(Module.objects.values_list("id", flat=True)))
         item = course.items.get(activity__module__slug="words")
@@ -118,7 +133,7 @@ class QuizFlowTests(TestCase):
         self.assertContains(self.client.get(reverse("quiz")), "No quiz yet")
         self.client.post(reverse("activity_done", args=[item.id]))
         n = PracticeItem.objects.filter(trip=trip).count()
-        self.assertEqual(n, 7)
+        self.assertEqual(n, len(item.activity.data["words"]))
 
         page = self.client.get(reverse("quiz"))
         self.assertContains(page, f"Question 1 of {n}")
