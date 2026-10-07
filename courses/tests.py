@@ -361,6 +361,7 @@ class CoursePageTests(TestCase):
         food = self.course.items.filter(activity__module__slug="food").first()
         page = self.client.get(reverse("course"))
         self.assertContains(page, reverse("activity", args=[food.id]))
+        self.assertContains(page, food.activity.module.title)
         again = self.client.get(reverse("activity", args=[food.id]))
         self.assertEqual(again.status_code, 200)
         self.assertTemplateUsed(again, f"activities/{food.activity.type}.html")

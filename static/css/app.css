@@ -224,3 +224,4 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .course-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 1.1rem; }
 .course-text .badge { margin-top: .3rem; }
 .badge.done { background: var(--c-accent); color: #fff; }
+.course-text small { color: var(--c-muted); font-size: .9rem; }
