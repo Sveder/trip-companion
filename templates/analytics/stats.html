@@ -6,6 +6,7 @@
   <p class="hint">Staff only. Families and events on this site. No outside tracker.</p>
 
   <h2>Funnel</h2>
+  <div class="table-scroll">
   <table class="stats-table" data-sortable>
     <thead><tr><th>Step</th><th class="num">Families</th><th class="num">Of sign-ups</th></tr></thead>
     <tbody>
@@ -15,6 +16,7 @@
     {% endfor %}
     </tbody>
   </table>
+  </div>
 
   <h2>Per day, last 30 days</h2>
   {% if days %}
@@ -37,11 +39,13 @@
 
   <h2>Shop links</h2>
   {% if links %}
+  <div class="table-scroll">
   <table class="stats-table" data-sortable>
     <thead><tr><th>Link</th><th class="num">Clicks</th></tr></thead>
     <tbody>{% for l in links %}<tr><td data-v="{{ l.link }}">{{ l.link }}</td><td class="num" data-v="{{ l.n }}">{{ l.n }}</td></tr>{% endfor %}</tbody>
     <tfoot><tr><th>Total</th><th class="num">{{ link_total }}</th></tr></tfoot>
   </table>
+  </div>
   {% else %}
   <p>No shop link clicks yet.</p>
   {% endif %}

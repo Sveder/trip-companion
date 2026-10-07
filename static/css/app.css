@@ -206,4 +206,4 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .stats-table thead th[data-dir="desc"]::after { content: " ▼"; }
 .stats-table tfoot th { border-top: 2px solid var(--c-ink); }
 .stats-table .num { text-align: right; }
-.stats-table .bar { display: inline-block; height: .7em; width: calc(var(--w) * .8px); background: var(--c-accent); border-radius: 4px; margin-right: .4em; vertical-align: middle; }
+.stats-table .bar { display: inline-block; height: .7em; width: calc(var(--w) * .6px); background: var(--c-accent); border-radius: 4px; margin-right: .4em; vertical-align: middle; }
