@@ -7,28 +7,30 @@ order: 60
 ready: true
 # Each place is a 360° photo on Google Maps. lat/lng are exact to 7 digits: the embed opens the photo
 # nearest to that point, so these numbers pick the photo. The "spot" lists were checked against the photos
-# on 2026-10-07 (trip-companion-tools/sv_probe.cjs). heading = where the view looks first (0 = north).
+# on 2026-10-07 and again on 2026-10-08 (trip-companion-tools/sv_probe.cjs).
+# Spots are Japanese things only (buildings, statues, objects, customs), never people or cars that happened to be there.
+# heading = where the view looks first (0 = north).
 activities:
   # The first id stays "streetview-intro": a new id would delete the old row and the families' course items with it.
   - id: streetview-intro
-    title: "Hunt: the fish market"
+    title: "Hunt: the lucky cat temple"
     type: streetview
-    place: Tsukiji Outer Market, Tokyo
-    intro: This is a real fish shop in Tokyo. Look all around! Can you find these things?
-    lat: 35.6654333
-    lng: 139.7707133
-    heading: 0
+    place: Gotoku-ji Temple, Tokyo
+    intro: This is a temple in Tokyo full of lucky cats. People bring a cat here when a wish comes true. Look all around! Can you find these things?
+    lat: 35.6486000
+    lng: 139.6468000
+    heading: 120
     spots:
-      - emoji: "🐟"
-        text: Boxes full of little fish
-      - emoji: "💚"
-        text: A big green wall
-      - emoji: "🧡"
-        text: An orange shop sign
-      - emoji: "🎀"
-        text: A pink woolly hat
-      - emoji: "🚫"
-        text: A red "no" sign
+      - emoji: "🐱"
+        text: A lucky cat with one paw up
+      - emoji: "🏠"
+        text: A shelf of cats with its own little roof
+      - emoji: "🪟"
+        text: Wooden windows with rows of cats under them
+      - emoji: "🛖"
+        text: A tiny wooden house with a dark tile roof
+      - emoji: "🪨"
+        text: A tall grey stone with writing on it
   - id: streetview-inari
     title: "Hunt: the fox shrine"
     type: streetview
@@ -40,14 +42,14 @@ activities:
     spots:
       - emoji: "🦊"
         text: A fox statue with a red bib
+      - emoji: "🦊"
+        text: A second fox statue on the other side
       - emoji: "⛩️"
-        text: A big orange gate
+        text: A big orange torii gate
+      - emoji: "🏯"
+        text: A tall gate with two roofs
       - emoji: "🏮"
         text: A lantern on a tall post
-      - emoji: "🌲"
-        text: A pine tree
-      - emoji: "🚗"
-        text: Parked cars
   - id: streetview-lantern
     title: "Hunt: the giant lantern"
     type: streetview
@@ -58,12 +60,12 @@ activities:
     heading: 0
     spots:
       - emoji: "🏮"
-        text: A giant red and black lantern
+        text: A giant red and black paper lantern
       - emoji: "🔴"
         text: Big red posts
-      - emoji: "🌳"
-        text: A tree with long hanging leaves
+      - emoji: "👀"
+        text: A god statue hiding behind a net
+      - emoji: "📜"
+        text: Big black brush letters on a white sign
       - emoji: "🏯"
-        text: A building with a red and green roof
-      - emoji: "👥"
-        text: Lots and lots of people
+        text: A house with curvy Japanese roofs

@@ -143,15 +143,25 @@ class StreetViewHuntTests(TestCase):
             self.assertEqual(act.type, "streetview")
             self.assertGreaterEqual(len(act.data["spots"]), 3)
 
+    def test_spots_are_japanese_things_not_random_passers_by(self):
+        # Michael, feedback 2026-10-08: no "a woman with a pink hat who happened to be there".
+        random = ("hat", "people", "cars", "pine tree", "green wall", "shop sign", '"no" sign')
+        for act in Activity.objects.filter(module__slug="streetview"):
+            for spot in act.data["spots"]:
+                for word in random:
+                    self.assertNotIn(word, spot["text"].lower(), (act.slug, spot["text"]))
+        cats = Activity.objects.get(module__slug="streetview", slug="streetview-intro")
+        self.assertIn("lucky cat", cats.data["intro"])
+
     def test_page_shows_the_embed_and_the_spot_list(self):
         item = self.item()
         r = self.client.get(reverse("activity", args=[item.id]))
         self.assertEqual(r.status_code, 200)
         html = r.content.decode()
-        self.assertIn("https://www.google.com/maps/embed?pb=!6m7!1m6!2m2!1d35.6654333!2d139.7707133!3f0!4f0!5f1", html)
+        self.assertIn("https://www.google.com/maps/embed?pb=!6m7!1m6!2m2!1d35.6486000!2d139.6468000!3f120!4f0!5f1", html)
         self.assertNotIn("key=", html)
         self.assertEqual(html.count('name="found"'), 5)
-        self.assertIn("Boxes full of little fish", html)
+        self.assertIn("A lucky cat with one paw up", html)
 
     def done(self, item, found):
         return self.client.post(reverse("activity_done", args=[item.id]), {"found": found})

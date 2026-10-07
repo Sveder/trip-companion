@@ -63,7 +63,7 @@ From `scope.md > The POC Boundary`:
 - **Do and don't in public.**
 - **Safety** — emergency numbers.
 - **Transport** — how to get around.
-- **Guided Street View tour** — an unusual Street View, e.g. inside a museum or the fish market, with a "things to spot" game.
+- **Guided Street View tour** — an unusual Street View, e.g. a temple full of lucky cats or a fox shrine, with a "things to spot" game.
 - **Real-world activities** — e.g. chopsticks (below).
 - **Buy in advance** — things to get before the trip, with referral links, e.g. a Japan snack box.
 - **After the trip** — highlights.
@@ -78,7 +78,7 @@ From `scope.md > The POC Boundary`:
 - [ ] The activity ends with the test step and marks itself done.
 
 ### Street View tour
-- [ ] The tour opens an interactive Street View inside a place (e.g. the fish market or a museum).
+- [ ] The tour opens an interactive Street View inside a place (e.g. the lucky cat temple or a fox shrine).
 - [ ] A "things to spot" list sits next to it; finding each item ticks it off, and finding all of them finishes the activity.
 
 ### Quiz and repetition
