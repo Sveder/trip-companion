@@ -37,6 +37,16 @@ class BuilderTests(TestCase):
         slugs = set(Module.objects.filter(country="japan").values_list("slug", flat=True))
         self.assertTrue({"food", "words", "dos_donts", "safety", "transport", "streetview", "chopsticks", "buy_in_advance"} <= slugs)
 
+    def test_transport_child_fare_matches_jr_rule(self):
+        # JR Central: the 12-year-old child fare is only for a Japanese elementary school, so visitors pay adult at 12.
+        import yaml
+        from django.conf import settings
+        data = yaml.safe_load(open(settings.BASE_DIR / "content/japan/transport.yaml"))
+        card = next(c for c in data["activities"][0]["cards"] if c["title"] == "Children's fares")
+        self.assertIn("From 12, they pay the adult fare.", card["text"])
+        self.assertIn("Japanese elementary school", card["text"])
+        self.assertIn("reserved seat", card["text"])
+
     def test_adults_only_child_modules_listed_but_off(self):
         rows = suggestions(make_trip(self.user, [40, 38]))
         child = [(m, on) for m, on in rows if m.audience == "child"]

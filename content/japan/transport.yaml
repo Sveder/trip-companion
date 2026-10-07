@@ -21,7 +21,7 @@ activities:
         wrong: [Bento, Koban, Ramen]
       - title: Children's fares
         emoji: "👧"
-        text: Children under 6 ride for free with a paying adult (up to two children for each adult). Children from 6 to 11 pay half the adult fare. From 12, they pay the adult fare.
+        text: Children under 6 ride for free with a paying adult (up to two children for each adult). A reserved seat for a child under 6 costs the child fare. Children from 6 to 11 pay half the adult fare. From 12, they pay the adult fare. Only children in a Japanese elementary school pay the child fare at 12.
       - title: The bullet train (Shinkansen)
         emoji: "🚅"
         text: The Shinkansen is very fast. Reserve seats for the family so you sit together. On the line from Tokyo to Osaka and Fukuoka, a very big suitcase (over 160 cm, length + width + height) needs a seat with a luggage space, booked in advance.
