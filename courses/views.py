@@ -76,7 +76,7 @@ def builder(request):
 
 
 def _highlights_page(request, trip, course):
-    return render(request, "courses/highlights.html", {"trip": trip, "course": course, **trip_highlights(trip, course)})
+    return render(request, "courses/highlights.html", {"trip": trip, "course": course, "phase": trip_phase(trip), **trip_highlights(trip, course)})
 
 
 @login_required

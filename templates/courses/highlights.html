@@ -3,8 +3,12 @@
 {% block content %}
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide" label="Our guide waves hello" %}
+  {% if phase == "after" %}
   <h1>Welcome back from Japan!</h1>
   <p class="lead">Look at everything you did to get ready.</p>
+  {% else %}
+  <h1>Look at everything you did to get ready for Japan!</h1>
+  {% endif %}
 </section>
 
 <h2 class="section-title">⭐ What we did</h2>
@@ -19,7 +23,7 @@
   {% endfor %}
 </div>
 {% else %}
-<p class="hint center">No activities yet. They wait for your next trip!</p>
+<p class="hint center">{% if phase == "after" %}No activities yet. They wait for your next trip!{% else %}No activities yet. Your first one is waiting!{% endif %}</p>
 {% endif %}
 
 {% if clips %}

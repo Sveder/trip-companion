@@ -269,7 +269,20 @@ class AfterTheTripTests(TestCase):
         self.set_dates(10, 20)
         r = self.client.get(reverse("highlights"))
         self.assertEqual(r.status_code, 200)
-        self.assertIn("Welcome back from Japan!", r.content.decode())
+        html = r.content.decode()
+        self.assertNotIn("Welcome back", html)
+        self.assertIn("Look at everything you did to get ready for Japan!", html)
+        self.assertNotIn("next trip", html)
+
+    def test_highlights_page_during_the_trip_has_no_welcome_back(self):
+        self.set_dates(-2, 5)
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertNotIn("Welcome back", html)
+
+    def test_highlights_page_after_the_trip_says_welcome_back(self):
+        self.set_dates(-20, -1)
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertIn("Welcome back from Japan!", html)
 
 
 class StubTests(TestCase):
