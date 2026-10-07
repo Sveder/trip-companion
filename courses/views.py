@@ -6,6 +6,7 @@ from content_admin.loader import load_previews
 from trips.models import active_trip
 
 from .builder import build_course, suggestions
+from .highlights import highlights as trip_highlights, trip_phase
 from .models import Course
 
 
@@ -17,11 +18,14 @@ def home(request):
     if trip is None:
         return redirect("trip_setup")
     course = Course.objects.filter(trip=trip).first()
+    phase = trip_phase(trip)
+    if phase == "after":
+        return _highlights_page(request, trip, course)
     if course is None:
         return redirect("builder")
     item = course.next_item()
     if item is None:
-        return render(request, "courses/finished.html", {"trip": trip, "course": course})
+        return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase})
     return redirect("activity", item_id=item.id)
 
 
@@ -43,3 +47,16 @@ def builder(request):
     on = set(course.module_ids) if course else {m.id for m, fit in rows if fit}
     modules = [{"module": m, "suggested": fit, "on": m.id in on} for m, fit in rows]
     return render(request, "courses/builder.html", {"trip": trip, "modules": modules, "course": course})
+
+
+def _highlights_page(request, trip, course):
+    return render(request, "courses/highlights.html", {"trip": trip, "course": course, **trip_highlights(trip, course)})
+
+
+@login_required
+def highlights(request):
+    """The highlights page. Home shows it by itself after the trip; before that it is a preview."""
+    trip = active_trip(request.user)
+    if trip is None:
+        return redirect("trip_setup")
+    return _highlights_page(request, trip, Course.objects.filter(trip=trip).first())

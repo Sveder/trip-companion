@@ -1,14 +1,22 @@
 import re
+import tempfile
+from datetime import date, timedelta
 
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.management import call_command
-from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.html import escape
 
 from content_admin.models import Module
+from activities.models import Clip
 from courses.builder import build_course, suggestions
+from courses.highlights import trip_phase
 from courses.models import Course
+from practice.models import PracticeItem
 from trips.models import Traveller, Trip
 
 
@@ -140,3 +148,116 @@ class ThemeTests(TestCase):
         self.assertRegex(html, r"<body[^>]*data-celebrate")
         self.assertIn("data-celebrate-again", html)
         self.assertIn("hero-guide cheer", html)
+
+
+CLIP_DIR = tempfile.mkdtemp(prefix="trip-clips-")
+
+
+@override_settings(CLIP_ROOT=CLIP_DIR)
+class AfterTheTripTests(TestCase):
+    """Slice 9: home by trip date: before and during = the course, after = the highlights."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("h@example.com", "h@example.com")
+        self.trip = make_trip(self.user, [38, 4])
+        self.course = build_course(self.trip, [m.id for m, on in suggestions(self.trip) if on])
+        self.client.force_login(self.user)
+
+    def set_dates(self, start_in, end_in):
+        today = timezone.localdate()
+        self.trip.start_date = today + timedelta(days=start_in)
+        self.trip.end_date = today + timedelta(days=end_in)
+        self.trip.save()
+
+    def finish_all(self):
+        for item in self.course.items.all():
+            item.mark_done()
+
+    def test_phase_by_date(self):
+        today = date(2026, 11, 10)
+        trip = Trip(start_date=date(2026, 11, 10), end_date=date(2026, 11, 20))
+        self.assertEqual(trip_phase(trip, date(2026, 11, 9)), "before")
+        self.assertEqual(trip_phase(trip, today), "during")
+        self.assertEqual(trip_phase(trip, date(2026, 11, 20)), "during")
+        self.assertEqual(trip_phase(trip, date(2026, 11, 21)), "after")
+        self.assertEqual(trip_phase(Trip(), date(2030, 1, 1)), "before")
+
+    def test_before_the_trip_home_opens_the_next_activity(self):
+        self.set_dates(10, 20)
+        r = self.client.get("/")
+        self.assertRedirects(r, reverse("activity", args=[self.course.next_item().id]), fetch_redirect_response=False)
+
+    def test_before_the_trip_finished_course_offers_the_quiz(self):
+        self.set_dates(10, 20)
+        self.finish_all()
+        html = self.client.get("/").content.decode()
+        self.assertIn("You did every activity!", html)
+        self.assertIn("Play the quiz every day until the trip", html)
+        self.assertIn(reverse("quiz"), html)
+        self.assertNotIn("Welcome back from Japan", html)
+
+    def test_during_the_trip_home_keeps_the_course(self):
+        self.set_dates(-2, 5)
+        r = self.client.get("/")
+        self.assertEqual(r.status_code, 302)
+        self.finish_all()
+        html = self.client.get("/").content.decode()
+        self.assertIn("You are in Japan now!", html)
+        self.assertNotIn("Welcome back from Japan", html)
+
+    def test_after_the_trip_home_shows_highlights(self):
+        self.set_dates(-20, -1)
+        items = list(self.course.items.select_related("activity__module"))
+        food = items[0]
+        food.mark_done()
+        words_item = next(i for i in items if i.activity.type == "words")
+        self.client.post(reverse("activity_done", args=[words_item.id]))
+        konnichiwa = PracticeItem.objects.get(trip=self.trip, key__endswith="/konnichiwa")
+        konnichiwa.answer(True)
+        Clip.objects.create(trip=self.trip, item=food, file=SimpleUploadedFile("c.webm", b"x"), content_type="video/webm", size=1)
+        r = self.client.get("/")
+        self.assertEqual(r.status_code, 200)
+        html = r.content.decode()
+        self.assertIn("Welcome back from Japan!", html)
+        self.assertIn(food.activity.title, html)
+        self.assertIn(escape(words_item.activity.title), html)
+        self.assertEqual(len(r.context["done"]), 2)
+        self.assertEqual(len(r.context["clips"]), 1)
+        self.assertIn(reverse("clip", args=[r.context["clips"][0].id]), html)
+        self.assertIn("konnichiwa ⭐", html)
+        self.assertIn("arigatou", html)
+        known = [w["entry"]["reading"] for w in r.context["words"] if w["known"]]
+        self.assertEqual(known, ["konnichiwa"])
+
+    def test_after_the_trip_with_nothing_done(self):
+        self.set_dates(-20, -1)
+        html = self.client.get("/").content.decode()
+        self.assertIn("Welcome back from Japan!", html)
+        self.assertIn("No activities yet", html)
+        self.assertIn("No words yet", html)
+
+    def test_highlights_hide_coming_soon_stubs(self):
+        self.set_dates(-20, -1)
+        stub = self.course.items.select_related("activity__module").last()
+        Module.objects.filter(id=stub.activity.module_id).update(ready=False)
+        stub.mark_done()
+        r = self.client.get("/")
+        self.assertNotIn(stub, r.context["done"])
+
+    def test_other_family_clips_stay_out(self):
+        self.set_dates(-20, -1)
+        other = get_user_model().objects.create_user("o@example.com", "o@example.com")
+        other_trip = make_trip(other, [40])
+        Clip.objects.create(trip=other_trip, file=SimpleUploadedFile("c.webm", b"x"), content_type="video/webm", size=1)
+        r = self.client.get("/")
+        self.assertEqual(r.context["clips"], [])
+
+    def test_highlights_page_works_before_the_trip(self):
+        self.set_dates(10, 20)
+        r = self.client.get(reverse("highlights"))
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("Welcome back from Japan!", r.content.decode())

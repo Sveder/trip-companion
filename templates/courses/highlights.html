@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Our trip highlights{% endblock %}
+{% block content %}
+<section class="hero">
+  {% include "includes/guide.html" with cls="hero-guide" label="Our guide waves hello" %}
+  <h1>Welcome back from Japan!</h1>
+  <p class="lead">Look at everything you did to get ready.</p>
+</section>
+
+<h2 class="section-title">⭐ What we did</h2>
+{% if done %}
+<div class="cards highlights-done">
+  {% for item in done %}
+  <a class="card" href="{% url 'activity' item.id %}">
+    <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji|default:"✅" }}</span>
+    <h3>{{ item.activity.title }}</h3>
+    <p class="hint">{{ item.activity.module.title }} · {{ item.done_at|date:"j M" }}</p>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="hint center">No activities yet. They wait for your next trip!</p>
+{% endif %}
+
+{% if clips %}
+<h2 class="section-title">🥢 Our chopsticks videos</h2>
+<div class="cards highlights-clips">
+  {% for clip in clips %}
+  <figure class="card">
+    <video class="clip-view" src="{% url 'clip' clip.id %}" controls playsinline preload="metadata"></video>
+    <figcaption class="hint">{{ clip.created_at|date:"j M Y" }}</figcaption>
+  </figure>
+  {% endfor %}
+</div>
+{% endif %}
+
+<h2 class="section-title">🗣️ Words we learned</h2>
+{% if words %}
+<div class="cards words">
+  {% for w in words %}
+  <article class="card word{% if w.known %} known{% endif %}" tabindex="0" data-say="{{ w.entry.japanese }}">
+    {% if w.entry.emoji %}<div class="card-emoji big" aria-hidden="true">{{ w.entry.emoji }}</div>{% endif %}
+    <p class="jp" lang="ja">{{ w.entry.japanese }}</p>
+    <h3 class="reading">{{ w.entry.reading }}{% if w.known %} ⭐{% endif %}</h3>
+    <p class="meaning">{{ w.entry.meaning }}</p>
+    <span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>
+  </article>
+  {% endfor %}
+</div>
+<p class="hint center">⭐ = you got it right in the quiz.</p>
+{% else %}
+<p class="hint center">No words yet.</p>
+{% endif %}
+
+<section class="hero">
+  <a class="btn big alt" href="{% url 'quiz' %}?new=1">Play the quiz ⭐</a>
+  <a class="btn big" href="{% url 'trip_setup' %}">Change our trip</a>
+</section>
+{% endblock %}
