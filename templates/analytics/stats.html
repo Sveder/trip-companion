@@ -11,7 +11,7 @@
     <tbody>
     {% for s in funnel %}
       <tr><td data-v="{{ forloop.counter }}">{{ s.label }}</td><td class="num" data-v="{{ s.count }}">{{ s.count }}</td>
-        <td class="num" data-v="{{ s.pct }}"><span class="bar" style="--w:{{ s.pct }}%"></span>{{ s.pct }}%</td></tr>
+        <td class="num" data-v="{{ s.pct }}"><span class="bar" style="--w:{{ s.pct }}"></span>{{ s.pct }}%</td></tr>
     {% endfor %}
     </tbody>
   </table>
@@ -45,7 +45,7 @@
   {% else %}
   <p>No shop link clicks yet.</p>
   {% endif %}
-  <p class="hint">{{ all_time }} events in all. Every event: <a href="{% url 'admin:analytics_event_changelist' %}">admin</a>.</p>
+  <p class="hint">{{ all_time }} event{{ all_time|pluralize }} in all. Every event: <a href="{% url 'admin:analytics_event_changelist' %}">admin</a>.</p>
 </section>
 <script>
 document.querySelectorAll("table[data-sortable]").forEach(function (t) {
