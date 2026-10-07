@@ -9,13 +9,18 @@
 </div>
 <section class="quiz">
   <h1>{{ q.prompt }}</h1>
-  <div class="card ask"{% if q.kind == "word" %} data-say="{{ q.japanese }}" data-say-src="{{ q.reading|word_audio }}"{% endif %} tabindex="0">
+  {# A food card says its name only after the answer, so the sound does not give the answer away. #}
+  <div class="card ask"{% if q.kind == "word" or result and q.japanese %} data-say="{{ q.japanese }}" data-say-src="{{ q.reading|word_audio }}"{% endif %} tabindex="0">
     {% if q.kind == "word" %}
       <p class="jp big" lang="ja">{{ q.japanese }}</p>
       <h2 class="reading">{{ q.reading }}</h2>
       <span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>
     {% elif q.image %}<img src="{{ q.image }}" alt="">
     {% else %}<div class="card-emoji huge" aria-hidden="true">{{ q.emoji }}</div>{% endif %}
+    {% if q.kind != "word" and result and q.japanese %}
+      <p class="jp" lang="ja">{{ q.japanese }}</p>
+      <span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>
+    {% endif %}
   </div>
   {% if result %}
     <div class="answer-note {% if result.right %}right{% else %}wrong{% endif %}" role="status">

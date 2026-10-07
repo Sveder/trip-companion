@@ -129,6 +129,31 @@ class QuizFlowTests(TestCase):
         missing = [w["reading"] for w in words if not finders.find(f"audio/japan/{w['reading']}.mp3")]
         self.assertEqual(missing, [], "run deploy/make_word_audio.py")
 
+    def test_every_food_card_says_its_name(self):
+        """A 4-year-old cannot read 'Onigiri': each food card plays a pre-made mp3 on a tap."""
+        from django.contrib.staticfiles import finders
+        cards = Activity.objects.get(slug="food-cards").data["cards"]
+        self.assertEqual([c["title"] for c in cards if not c.get("japanese") or not c.get("reading")], [])
+        missing = [c["reading"] for c in cards if not finders.find(f"audio/japan/{c['reading']}.mp3")]
+        self.assertEqual(missing, [], "run deploy/make_word_audio.py")
+        trip = make_trip(self.user)
+        course = build_course(trip, list(Module.objects.filter(slug="food").values_list("id", flat=True)))
+        item = course.items.get(activity__slug="food-cards")
+        self.client.force_login(self.user)
+        page = self.client.get(reverse("activity", args=[item.id]))
+        self.assertContains(page, 'data-say="すし" data-say-src="/static/audio/japan/sushi.mp3"')
+        self.assertContains(page, "Tap to hear it", count=len(cards))
+
+    def test_food_quiz_says_the_name_only_after_the_answer(self):
+        trip = make_trip(self.user)
+        add_items(trip, Activity.objects.get(slug="food-cards"))
+        self.client.force_login(self.user)
+        page = self.client.get(reverse("quiz"))
+        q = page.context["q"]
+        self.assertNotContains(page, "data-say-src")
+        r = self.client.post(reverse("quiz"), {"key": q["key"], "choice": q["answer"]})
+        self.assertContains(r, f'data-say-src="/static/audio/japan/{q["reading"]}.mp3"')
+
     def test_words_activity_then_quiz_wrong_answer_comes_back(self):
         trip = make_trip(self.user)
         course = build_course(trip, list(Module.objects.filter(slug="words").values_list("id", flat=True)))

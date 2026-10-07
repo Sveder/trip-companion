@@ -88,8 +88,8 @@ def question(trip, key):
         q = {
             "kind": "fact",
             "prompt": entry.get("question") or "What is this?",
-            "japanese": "",
-            "reading": "",
+            "japanese": entry.get("japanese", ""),
+            "reading": entry.get("reading", ""),
             "emoji": entry.get("emoji", ""),
             "image": entry.get("image", ""),
         }

@@ -1,11 +1,14 @@
 {% extends "activities/_frame.html" %}
+{% load say %}
 {% block activity %}
 <div class="cards facts">
   {% for card in data.cards %}
-  <article class="card fact" tabindex="0">
+  <article class="card fact" tabindex="0"{% if card.japanese %} data-say="{{ card.japanese }}" data-say-src="{{ card.reading|word_audio }}"{% endif %}>
     {% if card.image %}<img src="{{ card.image }}" alt="{{ card.title }}">{% elif card.emoji %}<div class="card-emoji big" aria-hidden="true">{{ card.emoji }}</div>{% endif %}
     <h3>{{ card.title }}</h3>
+    {% if card.japanese %}<p class="jp small" lang="ja">{{ card.japanese }}</p>{% endif %}
     <p>{{ card.text }}</p>
+    {% if card.japanese %}<span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>{% endif %}
   </article>
   {% endfor %}
 </div>

@@ -12,34 +12,52 @@ activities:
     intro: Let's meet the foods you can eat in Japan!
     cards:
       - title: Sushi
+        japanese: すし
+        reading: sushi
         emoji: "🍣"
         text: Sushi is rice with a little sour taste, and a topping on top. The topping is often fish. Some sushi rides past you on a little train!
         quiz: true
       - title: Onigiri
+        japanese: おにぎり
+        reading: onigiri
         emoji: "🍙"
         text: Onigiri is a rice ball. Many come wrapped in crunchy seaweed. You can buy one in any small shop.
         quiz: true
       - title: Ramen
+        japanese: ラーメン
+        reading: ramen
         emoji: "🍜"
         text: Ramen is noodles in a hot soup. In Japan it is okay to slurp your noodles. Slurp!
         quiz: true
       - title: Udon
+        japanese: うどん
+        reading: udon
         emoji: "🍲"
         text: Udon are big, fat, soft noodles. You eat them in soup, hot or cold.
       - title: Tempura
+        japanese: てんぷら
+        reading: tempura
         emoji: "🍤"
         text: Tempura is food fried in a light, crispy coat. Shrimp tempura is a favourite.
       - title: Miso soup
+        japanese: みそしる
+        reading: misoshiru
         emoji: "🥣"
         text: Miso soup is a warm soup made from beans. Many people in Japan eat it at breakfast.
       - title: Mochi
+        japanese: もち
+        reading: mochi
         emoji: "🍡"
         text: Mochi is a soft, sticky, sweet treat made from rice. It is squishy and chewy.
         quiz: true
       - title: Bento
+        japanese: おべんとう
+        reading: bento
         emoji: "🍱"
         text: A bento is a lunch box with many little foods inside, all in their own corner.
       - title: Itadakimasu!
+        japanese: いただきます
+        reading: itadakimasu
         emoji: "🥢"
         text: Before they eat, people in Japan say "itadakimasu". It is a way to say thank you for the food.
         choice: false  # a phrase, not a food: never a wrong choice in the food quiz
