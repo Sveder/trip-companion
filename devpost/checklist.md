@@ -91,7 +91,7 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
   Learner check: Get a reminder email in your inbox and tap its link.
   Commit: `Reminder emails every two days`
 
-- [ ] **9. After the trip**
+- [x] **9. After the trip**
   Becomes usable: After the trip dates, home shows the highlights: activities done, saved chopsticks clips, words learned. Before the trip, a finished course keeps offering quizzes.
   Why now: Closes the journey end to end; needs data from slices 2, 4 and 5.
   PRD ref: `prd.md > After the trip`, `prd.md > States and Boundaries`
@@ -175,3 +175,5 @@ Builder: Michael's factory (`tools/factory/`), one slice per developer run, prog
 - 2026-10-07, slice 8: The "last visit" is a `Contact.last_seen` time, written by a middleware at most once an hour per signed-in family. The two-day clock starts at the newest of: course built, last visit, last reminder. A trip with no start date still gets reminders; a trip whose start date is today or earlier gets none.
 - 2026-10-07, slice 8: The unsubscribe link opens a page with a "Stop the reminder emails" button (POST). Opening the link alone changes nothing, so a mail scanner that follows links cannot unsubscribe a family. The same page offers "Send reminders again". The email also carries a `List-Unsubscribe` header.
 - 2026-10-07, slice 8: The server runs in UTC. `/etc/cron.d/trip-reminders` starts `deploy/send_reminders.sh` at 14:00 and 15:00 UTC; the script sends only in the run where the Israel hour is 17, so the send stays at 17:00 in summer and in winter. Log: `/srv/www/trip-companion/reminders.log`. `deploy.sh` installs the cron file.
+- 2026-10-07, slice 9: Home picks its screen by the trip dates. Before the start date and during the trip (start to end date, both days included), home shows the next activity or the finish page; the finish page says "Play the quiz every day until the trip" before and "You are in Japan now!" during. From the day after the end date, home shows the highlights. A trip with no end date never switches.
+- 2026-10-07, slice 9: Highlights show the activities done (newest last, each opens again), the saved chopsticks clips (played from the family's private `/clips/<id>/`), and every word the family met in the words activity. A star marks a word the family got right in the quiz at least once (Leitner box 2 or higher). "Coming soon" stubs are left out. `/highlights/` opens the same page at any time, so a parent can look at it before the trip.
