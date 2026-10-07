@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip Companion — Scope (draft)</title>
+<style>
+  :root { --bg:#14161a; --card:#1d2026; --line:#2c3038; --text:#d8dbe0; --mut:#8a909a; --pink:#ff6fa8; --sun:#ffc94a; --sky:#6fc3ff; --leaf:#6fd38a; }
+  * { box-sizing: border-box; }
+  body { background:var(--bg); color:var(--text); font:16px/1.55 -apple-system,"Segoe UI",Arial,sans-serif; margin:0; }
+  .w { max-width:860px; margin:auto; padding:20px 16px 60px; }
+  h1 { font-size:26px; margin:6px 0 2px; }
+  h2 { font-size:18px; margin:30px 0 8px; color:#fff; }
+  .mut { color:var(--mut); }
+  .tag { display:inline-block; font-size:12px; padding:2px 9px; border-radius:20px; border:1px solid var(--line); color:var(--sun); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0; }
+  .kernel { border-color:var(--pink); }
+  .kernel b { color:var(--pink); }
+  blockquote { margin:8px 0; padding:6px 12px; border-left:3px solid var(--sky); color:#c9cdd4; }
+  svg { width:100%; height:auto; display:block; }
+  details { background:var(--card); border:1px solid var(--line); border-radius:12px; margin:10px 0; padding:4px 14px; }
+  details[open] { padding-bottom:12px; }
+  summary { cursor:pointer; font-weight:600; padding:8px 0; }
+  summary .n { color:var(--mut); font-weight:400; }
+  li { margin:4px 0; }
+  .steps { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  .steps button { background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:20px; padding:6px 12px; cursor:pointer; font-size:14px; }
+  .steps button.on { border-color:var(--sun); color:var(--sun); }
+  .beat { display:none; } .beat.on { display:block; }
+  a { color:#8ab4ff; }
+</style>
+</head>
+<body><div class="w">
+
+<span class="tag">2-scope · draft · for review</span>
+<h1>Trip Companion <span class="mut" style="font-size:16px">(working title)</span></h1>
+<p class="mut">A kid-friendly, adult-friendly app that gets a family ready and excited for a trip abroad. Canonical file: <code>devpost/scope.md</code>.</p>
+
+<div class="card kernel">
+  <b>The kernel.</b> Not one feature: “a lot of good ideas coming together into one package that is very accessible” — for
+  children and adults — that prepares you so “you want to be excited about it”. Excitement first; knowledge comes with it.
+</div>
+
+<h2>How it fits together</h2>
+<svg viewBox="0 0 820 330" role="img" aria-label="Diagram: the family uses the builder to make a course of daily steps from Japan modules; quiz repeats earlier items; other countries are previews">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8a909a"/></marker></defs>
+  <g font-family="Arial" font-size="14" fill="#d8dbe0">
+    <rect x="10" y="125" width="130" height="70" rx="14" fill="#1d2026" stroke="#ff6fa8"/>
+    <text x="75" y="155" text-anchor="middle" font-weight="bold">Family</text>
+    <text x="75" y="175" text-anchor="middle" font-size="12" fill="#8a909a">parent + two kids</text>
+
+    <rect x="180" y="125" width="140" height="70" rx="14" fill="#1d2026" stroke="#ffc94a"/>
+    <text x="250" y="152" text-anchor="middle" font-weight="bold">Builder</text>
+    <text x="250" y="172" text-anchor="middle" font-size="12" fill="#8a909a">who travels · ages</text>
+    <text x="250" y="187" text-anchor="middle" font-size="12" fill="#8a909a">how many days</text>
+
+    <rect x="360" y="125" width="140" height="70" rx="14" fill="#1d2026" stroke="#6fc3ff"/>
+    <text x="430" y="152" text-anchor="middle" font-weight="bold">Course</text>
+    <text x="430" y="172" text-anchor="middle" font-size="12" fill="#8a909a">a short step</text>
+    <text x="430" y="187" text-anchor="middle" font-size="12" fill="#8a909a">each day</text>
+
+    <g font-size="13">
+      <rect x="560" y="10" width="250" height="34" rx="10" fill="#1d2026" stroke="#2c3038"/><text x="575" y="32">🍱 Food — watch on the TV</text>
+      <rect x="560" y="52" width="250" height="34" rx="10" fill="#1d2026" stroke="#2c3038"/><text x="575" y="74">🗣️ Words — repeated across days</text>
+      <rect x="560" y="94" width="250" height="34" rx="10" fill="#1d2026" stroke="#2c3038"/><text x="575" y="116">🙇 Do and don't in public</text>
+      <rect x="560" y="136" width="250" height="34" rx="10" fill="#1d2026" stroke="#2c3038"/><text x="575" y="158">🚑 Safety — emergency numbers</text>
+      <rect x="560" y="178" width="250" height="34" rx="10" fill="#1d2026" stroke="#6fd38a"/><text x="575" y="200">🥢 Real-world activities (chopsticks…)</text>
+      <rect x="560" y="220" width="250" height="34" rx="10" fill="#1d2026" stroke="#ff6fa8"/><text x="575" y="242">⭐ Quiz — repeats earlier items</text>
+    </g>
+    <text x="685" y="282" text-anchor="middle" font-size="12" fill="#ffc94a">🇯🇵 Japan: full</text>
+
+    <rect x="180" y="250" width="320" height="60" rx="14" fill="none" stroke="#2c3038" stroke-dasharray="6 5"/>
+    <text x="340" y="276" text-anchor="middle" font-size="13">🇺🇿 Uzbekistan · more countries</text>
+    <text x="340" y="295" text-anchor="middle" font-size="12" fill="#8a909a">“coming soon” preview cards</text>
+
+    <g stroke="#8a909a" stroke-width="1.6" fill="none" marker-end="url(#a)">
+      <path d="M140,160 L178,160"/><path d="M320,160 L358,160"/>
+      <path d="M500,150 C530,120 530,40 556,28"/><path d="M500,155 C530,120 530,80 556,70"/>
+      <path d="M500,158 L556,112"/><path d="M500,160 L556,154"/>
+      <path d="M500,165 L556,195"/><path d="M500,170 C530,200 530,230 556,237"/>
+      <path d="M250,197 L250,248"/>
+    </g>
+    <path d="M560,250 C470,320 120,320 75,198" stroke="#ff6fa8" stroke-width="1.4" fill="none" stroke-dasharray="4 4" marker-end="url(#a)"/>
+    <text x="300" y="325" font-size="12" fill="#ff6fa8">come back tomorrow: next step + repetition</text>
+  </g>
+</svg>
+
+<h2>The demo video, step by step</h2>
+<p class="mut">“What working looks like”, in Michael's words. Click a step.</p>
+<div class="steps" id="steps">
+  <button class="on" data-i="0">1 · TV</button><button data-i="1">2 · Chopsticks</button><button data-i="2">3 · Quiz</button><button data-i="3">4 · Builder</button>
+</div>
+<div class="card">
+  <div class="beat on">📺 “Opening the app on the TV and watching like a course on the foods.”</div>
+  <div class="beat">🥢 “Opening a box with the chopsticks and seeing how the chopsticks work guided by the app.”</div>
+  <div class="beat">⭐ “Then showing the quiz.”</div>
+  <div class="beat">🛠️ “Showing the UI of how to build it all — you click a few buttons, choose a few settings and it automatically builds you something.”</div>
+</div>
+
+<h2>Who it's for</h2>
+<div class="card">A parent planning a trip abroad with small children — here Michael, with a 4-year-old and a 2-year-old — and the children themselves.
+Today the parent reads guide books alone, and the kids arrive knowing nothing about the place.</div>
+
+<h2>The core loop</h2>
+<div class="card">Open the app (TV, phone or laptop) → do today's short activity together → a quiz that repeats earlier words and facts → come back tomorrow for the next step.</div>
+
+<h2>Identity</h2>
+<div class="card">Bright and game-like, like <a href="https://www.matific.com/">Matific</a>. Place facts in the spirit of
+<a href="https://www.youtube.com/@GeographyNow">Geography Now</a>. Mood: “ready and pumped”.</div>
+
+<h2>The boundary</h2>
+<details open><summary>Now <span class="n">— in the proof of concept</span></summary>
+<ul>
+  <li>Japan only, in full, with “quite a lot of activities” (the list is decided in the PRD).</li>
+  <li>Other countries, Uzbekistan first, as “coming soon” / beta-preview cards.</li>
+  <li>The builder: who travels (adults, children and ages), how many days → a course of daily steps.</li>
+  <li>Japan modules: food (watchable on a TV), words with repetition, do and don't in public, safety (emergency numbers).</li>
+  <li>Real-world guided activities, e.g. chopsticks with a real pair.</li>
+  <li>A quiz that repeats earlier items.</li>
+  <li>Kid-friendly UI on a phone and in the TV's web browser.</li>
+</ul></details>
+<details><summary>Later <span class="n">— kept, not now</span></summary>
+<ul>
+  <li>More modules: what to wear, local transportation, a guided Street View tour, curated videos.</li>
+  <li>What to buy in advance, with shop or affiliate links.</li>
+  <li>After the trip: highlights and memories.</li>
+  <li>A real LG webOS app (sideloaded) instead of the TV browser.</li>
+  <li>Full content for more countries, Uzbekistan first.</li>
+</ul></details>
+<details><summary>Cut <span class="n">— with a reason</span></summary>
+<ul><li>Nothing cut yet. Every idea is in “now” or “later”.</li></ul></details>
+
+<h2>Why this matters</h2>
+<div class="card">A real family trip to Japan with two small boys. And: “to understand if a plan first approach is going to be good and interesting.”</div>
+
+</div>
+<script>
+document.querySelectorAll('#steps button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#steps button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.beat').forEach((x, i) => x.classList.toggle('on', i == b.dataset.i));
+});
+</script>
+</body>
+</html>
