@@ -213,3 +213,14 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .prose h2 { margin-top: 1.6rem; font-size: 1.25rem; }
 .prose li { margin-bottom: .5rem; }
 .prose ul { padding-left: 1.2rem; }
+
+/* Course page: the ordered list of activities */
+.course-list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .7rem; }
+.course-item { display: flex; align-items: center; gap: .9rem; padding: .7rem .9rem; border-radius: var(--radius); background: var(--c-surface); box-shadow: var(--shadow); border: 4px solid transparent; color: var(--c-ink); text-decoration: none; }
+a.course-item:focus { outline: none; border-color: var(--c-accent); }
+.course-item.next { border-color: var(--c-sun); }
+.course-item.stub { opacity: .6; box-shadow: none; }
+.course-item .card-emoji { width: 3.2rem; height: 3.2rem; font-size: 1.8rem; flex: none; }
+.course-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 1.1rem; }
+.course-text .badge { margin-top: .3rem; }
+.badge.done { background: var(--c-accent); color: #fff; }

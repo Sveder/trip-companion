@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Our course{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Our course for Japan</h1>
+  <p class="lead">We did {{ done }} of {{ total }}. Tap any one to play it again!</p>
+  <ol class="course-list">
+    {% for item in items %}
+    <li>
+      {% if item.is_stub %}
+      <span class="course-item stub">
+        <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji }}</span>
+        <span class="course-text"><strong>{{ item.activity.title }}</strong><span class="badge muted">Coming soon</span></span>
+      </span>
+      {% else %}
+      <a class="course-item{% if item.done_at %} done{% endif %}{% if item.id == next_id %} next{% endif %}" href="{% url 'activity' item.id %}">
+        <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji }}</span>
+        <span class="course-text"><strong>{{ item.activity.title }}</strong>
+          {% if item.done_at %}<span class="badge done">✓ Done</span>{% elif item.id == next_id %}<span class="badge">Next</span>{% endif %}
+        </span>
+      </a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+  <a class="btn alt" href="{% url 'builder' %}">Change our course</a>
+</section>
+{% endblock %}

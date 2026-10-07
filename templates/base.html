@@ -31,7 +31,7 @@
     <a class="brand" href="{% url 'home' %}">{% include "includes/guide.html" with cls="small" %} Trip Companion</a>
     {% if user.is_authenticated %}
     <nav class="top-nav">
-      <a href="{% url 'builder' %}">Our course</a>
+      <a href="{% url 'course' %}">Our course</a>
       <a href="{% url 'quiz' %}">Quiz</a>
       <a href="{% url 'trip_setup' %}">Our trip</a>
       <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">Sign out</button></form>

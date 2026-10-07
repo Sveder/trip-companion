@@ -31,6 +31,23 @@ def home(request):
 
 
 @login_required
+def course(request):
+    """The course as an ordered list. Every ready activity opens again, also after it is done."""
+    trip = active_trip(request.user)
+    if trip is None:
+        return redirect("trip_setup")
+    course = Course.objects.filter(trip=trip).first()
+    if course is None:
+        return redirect("builder")
+    items = list(course.items.select_related("activity__module"))
+    nxt = course.next_item()
+    ready = [i for i in items if not i.is_stub]
+    return render(request, "courses/course.html", {
+        "trip": trip, "course": course, "items": items, "next_id": nxt.id if nxt else None,
+        "done": sum(1 for i in ready if i.done_at), "total": len(ready)})
+
+
+@login_required
 def builder(request):
     trip = active_trip(request.user)
     if trip is None:

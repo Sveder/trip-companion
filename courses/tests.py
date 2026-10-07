@@ -322,3 +322,49 @@ class StubTests(TestCase):
         ModuleAdmin(Module, site).save_model(None, module, form, True)
         stub.refresh_from_db()
         self.assertIsNone(stub.done_at)
+
+
+class CoursePageTests(TestCase):
+    """The course page lists every activity in order, and a done one opens again."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("c@example.com", "c@example.com")
+        self.trip = make_trip(self.user, [38, 4])
+        self.course = build_course(self.trip, [m.id for m in Module.objects.all()])
+        self.client.force_login(self.user)
+
+    def test_nav_our_course_opens_the_course_page(self):
+        page = self.client.get(reverse("course"))
+        self.assertContains(page, f'href="{reverse("course")}">Our course')
+        self.assertContains(page, f'href="{reverse("builder")}"')
+        self.assertContains(page, "Change our course")
+
+    def test_lists_items_in_order_with_done_marks(self):
+        items = list(self.course.ready_items())
+        items[0].mark_done()
+        page = self.client.get(reverse("course"))
+        html = page.content.decode()
+        positions = [html.index(reverse("activity", args=[i.id])) for i in items]
+        self.assertEqual(positions, sorted(positions))
+        self.assertContains(page, "✓ Done", count=1)
+        self.assertEqual(page.context["next_id"], items[1].id)
+
+    def test_after_everything_is_done_food_opens_again(self):
+        for item in self.course.ready_items().select_related("activity"):
+            found = [str(i) for i in range(len(item.activity.data.get("spots", [])))]
+            self.client.post(reverse("activity_done", args=[item.id]), {"found": found})
+        self.assertTemplateUsed(self.client.get("/"), "courses/finished.html")
+        food = self.course.items.filter(activity__module__slug="food").first()
+        page = self.client.get(reverse("course"))
+        self.assertContains(page, reverse("activity", args=[food.id]))
+        again = self.client.get(reverse("activity", args=[food.id]))
+        self.assertEqual(again.status_code, 200)
+        self.assertTemplateUsed(again, f"activities/{food.activity.type}.html")
+
+    def test_no_course_yet_goes_to_the_builder(self):
+        self.course.delete()
+        self.assertRedirects(self.client.get(reverse("course")), reverse("builder"))
