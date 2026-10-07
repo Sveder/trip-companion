@@ -103,7 +103,8 @@ LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Trip Companion <m@sveder.com>")
-if os.environ.get("AWS_ACCESS_KEY_ID"):
+# SES keys come from the standard AWS chain (~/.aws or AWS_* variables).
+if env_bool("EMAIL_SES"):
     EMAIL_BACKEND = "tripapp.ses_backend.SESBackend"
     AWS_SES_REGION = os.environ.get("AWS_SES_REGION", "eu-central-1")
 else:
