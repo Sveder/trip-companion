@@ -77,3 +77,29 @@ class HeaderClearOfBadgeTests(TestCase):
             block = re.search(rule, css).group(0)
             right = int(re.search(r"padding: \S+ (\d+)px", block).group(1))
             self.assertGreaterEqual(right, 130, block)
+
+
+class OldTvBrowserTests(TestCase):
+    """The LG TV runs Chrome 87: no CSS aspect-ratio, no :has(), no Array.prototype.at (T101)."""
+
+    def css(self):
+        from pathlib import Path
+        return (Path(__file__).resolve().parent.parent / "static/css/app.css").read_text()
+
+    def test_pages_load_the_compat_script_and_the_at_polyfill(self):
+        html = self.client.get("/").content.decode()
+        self.assertIn("js/compat.js", html)
+        self.assertIn("C.prototype.at", html)
+
+    def test_boxes_that_hold_absolute_children_do_not_need_aspect_ratio(self):
+        css = self.css()
+        for sel in (".plane", ".video-frame"):
+            self.assertIn(sel + '::before { content: ""; display: block; padding-top:', css)
+            rule = css.split("\n" + sel + " {", 1)[1].split("}", 1)[0]
+            self.assertNotIn("aspect-ratio", rule)
+
+    def test_every_has_checked_rule_has_a_class_twin(self):
+        css = self.css()
+        self.assertIn(".pick.on", css)
+        for twin in (".module.on {", ".module.on .switch {", ".module.on .switch::after {", '[dir="rtl"] .module.on .switch::after'):
+            self.assertIn(twin, css)

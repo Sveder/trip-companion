@@ -20,7 +20,10 @@
   <meta property="og:image:alt" content="Trip Companion: a smiling deer guide and the words Get ready for Japan">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {# Chrome 87 (the LG TV) has no .at(); the Sentry loader calls it (T101). Not enumerable, so for-in stays clean. #}
+  <script>[Array, String].forEach(function (C) { if (!C.prototype.at) Object.defineProperty(C.prototype, 'at', { configurable: true, writable: true, value: function (n) { n = Math.trunc(n) || 0; if (n < 0) n += this.length; return this[n]; } }); });</script>
   {% if sentry_js_loader %}<script src="{{ sentry_js_loader }}" crossorigin="anonymous"></script>{% endif %}
+  <script src="{% static 'js/compat.js' %}" defer></script>
   <script src="/sveder-badge.js" defer></script>
   <script src="{% static 'js/tv.js' %}" defer></script>
   <script src="{% static 'js/celebrate.js' %}" defer></script>
