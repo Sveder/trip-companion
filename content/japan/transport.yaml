@@ -137,8 +137,8 @@ activities:
             reading: "kaisatsu"
             text: "Tap the IC card on the blue reader, then walk through. Tap it again at the gate where you get out. Children love to tap their own card!"
             text_he: "מצמידים את כרטיס ה-IC לקורא הכחול, ועוברים. מצמידים שוב בשער שבו יוצאים. ילדים אוהבים להצמיד את הכרטיס שלהם!"
-          - x: 85
-            y: 20
+          - x: 78
+            y: 21
             label: "The platform number"
             label_he: "מספר הרציף"
             japanese: "ばんせん"
@@ -353,8 +353,8 @@ activities:
             reading: "takushii"
             text: "The lamp on the roof shows the name of the taxi company."
             text_he: "המנורה על הגג מראה את השם של חברת המוניות."
-          - x: 33
-            y: 46
+          - x: 28
+            y: 44
             label: "The red sign"
             label_he: "השלט האדום"
             japanese: "くうしゃ"
@@ -362,7 +362,7 @@ activities:
             text: "The red sign in the front window says kuusha: the taxi is free. Wave, and it stops for you."
             text_he: "השלט האדום בחלון הקדמי אומר קושה: המונית פנויה. מנופפים, והיא עוצרת לכם."
           - x: 58
-            y: 62
+            y: 72
             label: "The back door"
             label_he: "הדלת האחורית"
             text: "The driver opens and closes the back door with a lever. Do not touch it! Get in from the side of the pavement."
