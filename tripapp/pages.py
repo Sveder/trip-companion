@@ -18,6 +18,13 @@ def favicon(request):
     return FileResponse(open(path, "rb"), content_type="image/x-icon")
 
 
+def sentry_check(request):
+    """Staff only: raise one error, so a person can see that gunicorn errors reach Sentry."""
+    if not request.user.is_staff:
+        raise Http404
+    raise RuntimeError("Sentry check from trip.sveder.com (staff test route)")
+
+
 def site_meta(request):
     """Share previews need absolute URLs; the Sentry browser loader is on only when its key is set."""
     return {

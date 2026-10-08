@@ -1,5 +1,6 @@
 """Django settings for Trip Companion."""
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -168,9 +169,21 @@ if not DEBUG:
 
 # Sentry: server errors and slow pages go to Sentry when SENTRY_DSN is set (server .env only).
 # The browser loader URL (SENTRY_JS_LOADER) reports browser errors.
+# A person's 'manage.py shell' or test run is not production: its errors stay out of Sentry.
+# Cron commands (send_reminders) and gunicorn still report.
+SENTRY_SKIP_COMMANDS = {"shell", "dbshell", "test", "makemigrations", "showmigrations"}
+
+
+def sentry_wanted(argv):
+    """False when this process is a manage.py command that a person runs by hand."""
+    if len(argv) > 1 and os.path.basename(argv[0]) == "manage.py":
+        return argv[1] not in SENTRY_SKIP_COMMANDS
+    return True
+
+
 SENTRY_DSN = os.environ.get("SENTRY_DSN", "")
 SENTRY_JS_LOADER = os.environ.get("SENTRY_JS_LOADER", "")
-if SENTRY_DSN:
+if SENTRY_DSN and sentry_wanted(sys.argv):
     import sentry_sdk
 
     sentry_sdk.init(

@@ -77,6 +77,27 @@ class ProfessionalBasicsTests(TestCase):
             self.assertIn('src="https://js.sentry-cdn.com/abc.min.js"', self.client.get("/").content.decode())
 
 
+class SentryScopeTests(TestCase):
+    def test_hand_run_commands_do_not_report(self):
+        from tripapp.settings import sentry_wanted
+        for cmd in ("shell", "dbshell", "test"):
+            self.assertFalse(sentry_wanted(["manage.py", cmd, "-c", "raise RuntimeError(1)"]))
+            self.assertFalse(sentry_wanted(["/srv/www/trip-companion/manage.py", cmd]))
+
+    def test_gunicorn_and_cron_commands_report(self):
+        from tripapp.settings import sentry_wanted
+        self.assertTrue(sentry_wanted(["/srv/www/trip-companion/venv/bin/gunicorn", "tripapp.wsgi:application"]))
+        self.assertTrue(sentry_wanted(["manage.py", "send_reminders"]))
+
+    def test_check_route_is_staff_only(self):
+        from django.contrib.auth import get_user_model
+        self.assertEqual(self.client.get("/staff/sentry-check/").status_code, 404)
+        staff = get_user_model().objects.create_user("s", "s@example.com", "x", is_staff=True)
+        self.client.force_login(staff)
+        with self.assertRaises(RuntimeError):
+            self.client.get("/staff/sentry-check/")
+
+
 class HeaderClearOfBadgeTests(TestCase):
     """The Sveder corner badge is fixed, 130 px, top right. The header must leave that corner free."""
 
