@@ -68,3 +68,458 @@ activities:
         emoji: "♨️"
         text: In a hot spring bath (onsen), you wash your whole body first, at the little showers. Then you get into the hot water.
         text_he: באמבטיה של מעיין חם (אונסן), קודם רוחצים את כל הגוף במקלחות הקטנות. אחר כך נכנסים למים החמים.
+  - id: manners-lesson
+    title: Polite like a kid in Japan
+    title_he: מנומסים כמו ילדים ביפן
+    type: lesson
+    intro: Swipe through the pages. Tap the pictures, play the games, and try each thing at home!
+    intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ונסו כל דבר בבית!
+    pictures:
+      - id: "bow"
+        img: "lesson/manners/bow.svg"
+        label: "A bow"
+        label_he: "קידה"
+      - id: "shoes"
+        img: "lesson/manners/shoes.svg"
+        label: "Shoes at the door"
+        label_he: "נעליים ליד הדלת"
+      - id: "slippers"
+        img: "lesson/manners/slippers.svg"
+        label: "Slippers"
+        label_he: "נעלי בית"
+      - id: "quiet"
+        img: "lesson/manners/quiet.svg"
+        label: "Shh, quiet"
+        label_he: "שש, שקט"
+      - id: "trashbag"
+        img: "lesson/manners/trashbag.svg"
+        label: "A trash bag"
+        label_he: "שקית זבל"
+      - id: "line"
+        img: "lesson/manners/line.svg"
+        label: "A neat line"
+        label_he: "תור מסודר"
+      - id: "oshibori"
+        img: "lesson/manners/oshibori.svg"
+        label: "A wet towel"
+        label_he: "מגבת רטובה"
+      - id: "hands"
+        img: "lesson/manners/hands.svg"
+        label: "Two hands with a gift"
+        label_he: "שתי ידיים עם מתנה"
+      - id: "noodles"
+        img: "lesson/manners/noodles.svg"
+        label: "A bowl of noodles"
+        label_he: "קערת אטריות"
+      - id: "towel"
+        img: "lesson/manners/towel.svg"
+        label: "A towel on the head"
+        label_he: "מגבת על הראש"
+      - id: "coins"
+        img: "lesson/manners/coins.svg"
+        label: "Coins on the table, crossed out"
+        label_he: "מטבעות על השולחן, עם איקס"
+      - id: "house"
+        img: "lesson/manners/house.svg"
+        label: "A home"
+        label_he: "בית"
+      - id: "temple"
+        img: "lesson/manners/temple.svg"
+        label: "A temple"
+        label_he: "מקדש"
+      - id: "trainin"
+        img: "lesson/manners/trainin.svg"
+        label: "Inside a train"
+        label_he: "בתוך רכבת"
+      - id: "park"
+        img: "lesson/manners/park.svg"
+        label: "A park"
+        label_he: "פארק"
+      - id: "festival"
+        img: "lesson/manners/festival.svg"
+        label: "A festival"
+        label_he: "פסטיבל"
+    pages:
+      - kind: text
+        title: Being polite is a superpower
+        title_he: להיות מנומסים זה כוח-על
+        img: lesson/manners/bow.svg
+        japanese: マナー
+        reading: manaa
+        text: In Japan, people are kind to each other in many small ways. They call it "manaa", good manners. A visitor with good manners gets a lot of smiles. Let's learn the secret moves!
+        text_he: ביפן, אנשים נחמדים אחד לשני בהרבה דרכים קטנות. קוראים לזה "מאנא", נימוסים טובים. אורח עם נימוסים טובים מקבל הרבה חיוכים. בואו נלמד את התנועות הסודיות!
+        tips:
+          - A small bow says hello, thank you and sorry.
+          - Shoes come off at the door.
+          - On the train we whisper.
+          - Our trash goes home with us.
+        tips_he:
+          - קידה קטנה אומרת שלום, תודה וסליחה.
+          - את הנעליים מורידים ליד הדלת.
+          - ברכבת מדברים בלחש.
+          - הזבל שלנו הולך איתנו הביתה.
+      - kind: spots
+        title: At the front door
+        title_he: ליד דלת הכניסה
+        img: lesson/manners/genkan.svg
+        text: This is the entrance of a home in Japan. Tap each dot to see what happens there.
+        text_he: זו הכניסה של בית ביפן. געו בכל נקודה כדי לראות מה קורה שם.
+        spots:
+          - x: 35
+            y: 46
+            label: "The step"
+            label_he: "המדרגה"
+            japanese: "げんかん"
+            reading: "genkan"
+            text: "The low part by the door is the genkan. Shoes stay down here. The floor above the step is for socks and slippers only. Never step up with shoes on!"
+            text_he: "החלק הנמוך ליד הדלת נקרא גנקאן. הנעליים נשארות כאן למטה. על הרצפה שמעל המדרגה הולכים רק עם גרביים או נעלי בית. אף פעם לא עולים עם נעליים!"
+          - x: 25
+            y: 73
+            label: "The row of shoes"
+            label_he: "שורת הנעליים"
+            text: "Take your shoes off, turn them around, and put them side by side with the toes to the door. Then they are ready for when you go out."
+            text_he: "מורידים את הנעליים, מסובבים אותן, ומניחים אותן זו ליד זו עם הקצה לכיוון הדלת. ככה הן מוכנות ליציאה."
+          - x: 70
+            y: 55
+            label: "The slippers"
+            label_he: "נעלי הבית"
+            text: "Your host may give you slippers. Wear them in the hall. Take them off before you step on a tatami mat, the soft straw floor."
+            text_he: "המארח אולי ייתן לכם נעלי בית. נועלים אותן במסדרון. מורידים אותן לפני שדורכים על טטאמי, רצפת הקש הרכה."
+          - x: 85
+            y: 29
+            label: "The shoe cupboard"
+            label_he: "ארון הנעליים"
+            japanese: "げたばこ"
+            reading: "getabako"
+            text: "A getabako is a cupboard for shoes. Its name means \"clog box\", from the wooden sandals people wore long ago."
+            text_he: "גטאבאקו הוא ארון לנעליים. השם אומר \"קופסת קבקבים\", על שם סנדלי העץ שאנשים נעלו פעם."
+          - x: 56
+            y: 40
+            label: "The toilet slippers"
+            label_he: "נעלי השירותים"
+            text: "Surprise! The toilet has its own slippers. Change into them at the toilet door, and change back when you come out. Everybody forgets once!"
+            text_he: "הפתעה! לשירותים יש נעלי בית משלהם. מחליפים אליהן ליד דלת השירותים, ומחליפים בחזרה כשיוצאים. כולם שוכחים פעם אחת!"
+      - kind: flip
+        title: Shoes on or off?
+        title_he: נעליים כן או לא?
+        text: Tap a card to turn it. Where do the shoes come off?
+        text_he: געו בכרטיס כדי להפוך אותו. איפה מורידים את הנעליים?
+        cards:
+          - img: "lesson/manners/house.svg"
+            label: "A home"
+            label_he: "בית"
+            text: "Off! Every home in Japan. Look for the step at the door."
+            text_he: "מורידים! בכל בית ביפן. חפשו את המדרגה ליד הדלת."
+          - img: "lesson/manners/temple.svg"
+            label: "A temple hall"
+            label_he: "אולם במקדש"
+            text: "Off, when you go inside the hall. There is a shelf or a bag for your shoes."
+            text_he: "מורידים, כשנכנסים לתוך האולם. יש מדף או שקית לנעליים."
+          - img: "lesson/manners/slippers.svg"
+            label: "A Japanese inn"
+            label_he: "אכסניה יפנית"
+            text: "Off at the door. The inn gives you slippers. It is called a ryokan."
+            text_he: "מורידים ליד הדלת. האכסניה נותנת נעלי בית. קוראים לה ריוקאן."
+          - img: "lesson/manners/trainin.svg"
+            label: "A train or a shop"
+            label_he: "רכבת או חנות"
+            text: "On! Shoes stay on in trains, shops and most restaurants."
+            text_he: "נשארים! הנעליים נשארות ברכבות, בחנויות וברוב המסעדות."
+          - img: "lesson/manners/noodles.svg"
+            label: "A restaurant with straw mats"
+            label_he: "מסעדה עם מחצלות קש"
+            text: "Off, if you sit on tatami mats. Wear clean socks on the trip, just in case!"
+            text_he: "מורידים, אם יושבים על מחצלות טטאמי. נועלים גרביים נקיים בטיול, ליתר ביטחון!"
+      - kind: pick
+        title: Quiet or loud?
+        title_he: שקט או רעש?
+        text: Some places are for whispers. Some are for shouting. Tap the right picture.
+        text_he: יש מקומות ללחישות. יש מקומות לצעקות. געו בתמונה הנכונה.
+        rounds:
+          - ask: "Where do we whisper and sit still?"
+            ask_he: "איפה לוחשים ויושבים בשקט?"
+            answer: "trainin"
+            choices: [park, trainin, festival, house]
+          - ask: "Where can you run and shout as loud as you like?"
+            ask_he: "איפה אפשר לרוץ ולצעוק כמה שרוצים?"
+            answer: "park"
+            choices: [trainin, temple, park, line]
+          - ask: "Where do we walk slowly and talk softly?"
+            ask_he: "איפה הולכים לאט ומדברים בשקט?"
+            answer: "temple"
+            choices: [festival, park, temple, trainin]
+          - ask: "Where is it fine to clap, cheer and dance?"
+            ask_he: "איפה בסדר למחוא כפיים, לעודד ולרקוד?"
+            answer: "festival"
+            choices: [temple, trainin, house, festival]
+      - kind: text
+        title: On the train
+        title_he: ברכבת
+        img: lesson/manners/train.svg
+        japanese: でんしゃ
+        reading: densha
+        text: A train in Japan is very quiet, even when it is full. People read, look at their phones or sleep. Here is how to be a train pro.
+        text_he: רכבת ביפן מאוד שקטה, גם כשהיא מלאה. אנשים קוראים, מסתכלים בטלפון או ישנים. ככה תהיו מקצוענים ברכבת.
+        tips:
+          - Talk softly. No phone calls. Phones are on silent, which people in Japan call "manner mode".
+          - Wait in line by the marks on the floor. Let people get off first, then get on.
+          - Hold your backpack in front of you, or put it on the rack, so it does not bump anyone.
+          - The seats with a sign are priority seats. They are for older people, people with a baby, and people who need them.
+          - No eating or drinking on a city train. On the fast shinkansen train, a lunch box is fine!
+        tips_he:
+          - מדברים בשקט. בלי שיחות טלפון. הטלפונים על שקט, וביפן קוראים לזה "מצב נימוס".
+          - מחכים בתור ליד הסימונים על הרצפה. נותנים לאנשים לרדת קודם, ואז עולים.
+          - מחזיקים את התיק מלפנים, או שמים אותו על המדף, כדי שהוא לא יפגע באף אחד.
+          - המושבים עם השלט הם מושבים שמורים. הם לאנשים מבוגרים, לאנשים עם תינוק, ולאנשים שצריכים אותם.
+          - לא אוכלים ולא שותים ברכבת בעיר. ברכבת המהירה, השינקנסן, קופסת אוכל זה בסדר!
+      - kind: spots
+        title: At a shrine
+        title_he: במקדש שינטו
+        img: lesson/manners/shrine.svg
+        text: A shrine is a quiet place with a red gate. Tap each dot to learn what to do there.
+        text_he: מקדש שינטו הוא מקום שקט עם שער אדום. געו בכל נקודה כדי ללמוד מה עושים שם.
+        spots:
+          - x: 25
+            y: 42
+            label: "The red gate"
+            label_he: "השער האדום"
+            japanese: "とりい"
+            reading: "torii"
+            text: "The gate is called a torii. Stop in front of it and bow once. Then walk through."
+            text_he: "השער נקרא טוריאי. עוצרים לפניו וקדים פעם אחת. ואז עוברים דרכו."
+          - x: 25
+            y: 70
+            label: "The path"
+            label_he: "השביל"
+            text: "Walk on the side of the path, not in the middle. People say the middle is the way of the gods."
+            text_he: "הולכים בצד השביל, לא באמצע. אנשים אומרים שהאמצע הוא הדרך של האלים."
+          - x: 55
+            y: 63
+            label: "The water basin"
+            label_he: "אגן המים"
+            japanese: "てみずや"
+            reading: "temizuya"
+            text: "Take a ladle with your right hand and pour water over your left hand. Swap hands and wash the right hand. Pour a little water into your left hand to rinse your mouth. Never drink from the ladle."
+            text_he: "לוקחים מצקת ביד ימין ושופכים מים על יד שמאל. מחליפים ידיים ורוחצים את יד ימין. שופכים קצת מים לתוך יד שמאל כדי לשטוף את הפה. אף פעם לא שותים מהמצקת."
+          - x: 82
+            y: 46
+            label: "The bell rope"
+            label_he: "חבל הפעמון"
+            text: "Pull the thick rope to ring the bell. The sound says \"hello, we are here\"."
+            text_he: "מושכים בחבל העבה כדי לצלצל בפעמון. הצליל אומר \"שלום, הגענו\"."
+          - x: 82
+            y: 71
+            label: "The wooden box"
+            label_he: "הקופסה מעץ"
+            text: "Drop a coin in the box. A 5 yen coin is the lucky one. Then bow two times, clap two times, make a wish, and bow one more time."
+            text_he: "זורקים מטבע לתוך הקופסה. מטבע של 5 ין הוא המזל. אחר כך קדים פעמיים, מוחאים כפיים פעמיים, מבקשים משאלה, וקדים עוד פעם אחת."
+      - kind: video
+        title: Watch and act it out
+        title_he: צופים ומשחקים
+        text: Watch, then play the manners game below with your family.
+        text_he: צופים, ואז משחקים במשחק הנימוסים עם המשפחה.
+        # Only Michael approves a video. Candidates: 38JKwLfiMzA ("Train Etiquette for Kids!", Diary of 4, not Japan
+        # only) and yFF4tfGPobU ("Mastering Japan Etiquette: Bowing, Shoes, and Public Manners", The Global Tourist, a short).
+        youtube: 38JKwLfiMzA
+        approved: false
+        fallback_title: The manners game
+        fallback_title_he: משחק הנימוסים
+        fallback:
+          - "Bow hello: everybody stands up, bends a little, and says \"konnichiwa\". Who makes the smallest bow? Who makes the biggest?"
+          - "Shoe race: run to the door, take your shoes off, and turn them with the toes to the door. Fastest neat pair wins!"
+          - "Freeze and whisper: a grown-up shouts \"train!\". Everybody freezes and can only whisper until someone says \"park!\"."
+          - "Trash check: look in your pockets and your bag. Is there a wrapper? It goes in the trash bag, not on the floor."
+        fallback_he:
+          - "קידת שלום: כולם עומדים, מתכופפים קצת, ואומרים \"קוניצ'יווה\". מי עושה את הקידה הכי קטנה? מי עושה את הכי גדולה?"
+          - "מרוץ נעליים: רצים לדלת, מורידים את הנעליים, ומסובבים אותן עם הקצה לדלת. הזוג המסודר הכי מהיר מנצח!"
+          - "קופאים ולוחשים: מבוגר צועק \"רכבת!\". כולם קופאים ומותר רק ללחוש, עד שמישהו אומר \"פארק!\"."
+          - "בדיקת זבל: מסתכלים בכיסים ובתיק. יש עטיפה? היא הולכת לשקית הזבל, לא לרצפה."
+      - kind: text
+        title: Trash goes home with you
+        title_he: הזבל הולך איתכם הביתה
+        img: lesson/manners/trash.svg
+        japanese: ごみ
+        reading: gomi
+        text: The streets in Japan are very clean, but there are almost no trash bins! People carry their trash home. Keep a small bag in your pocket for wrappers and tissues.
+        text_he: הרחובות ביפן מאוד נקיים, אבל כמעט אין פחי זבל! אנשים לוקחים את הזבל הביתה. תשמרו שקית קטנה בכיס לעטיפות ולממחטות.
+        tips:
+          - The bin next to a drinks machine is only for cans and bottles.
+          - Convenience stores have bins for the things you bought there.
+          - At home or at the hotel, trash is sorted. Burnable things, plastic, and cans and bottles go in different bags.
+          - Found no bin? That is normal. Hold on to it, like everybody else.
+        tips_he:
+          - הפח ליד מכונת המשקאות הוא רק לפחיות ולבקבוקים.
+          - במכולות 24 שעות יש פחים לדברים שקניתם שם.
+          - בבית או במלון, ממיינים את הזבל. דברים שנשרפים, פלסטיק, ופחיות ובקבוקים הולכים לשקיות שונות.
+          - לא מצאתם פח? זה רגיל. מחזיקים את הזבל, כמו כולם.
+      - kind: flip
+        title: At the table
+        title_he: ליד השולחן
+        text: Tap a card to turn it. Some of these will surprise you!
+        text_he: געו בכרטיס כדי להפוך אותו. חלק מהדברים האלה יפתיעו אתכם!
+        cards:
+          - img: "lesson/manners/noodles.svg"
+            label: "Slurp!"
+            label_he: "שואבים בקול!"
+            text: "Slurping your noodles is fine in Japan. It shows that the noodles are yummy. Go ahead!"
+            text_he: "לשאוב אטריות בקול זה בסדר ביפן. זה מראה שהאטריות טעימות. קדימה!"
+          - img: "lesson/manners/oshibori.svg"
+            label: "The wet towel"
+            label_he: "המגבת הרטובה"
+            japanese: "おしぼり"
+            reading: "oshibori"
+            text: "You get a wet towel before you eat. It is called an oshibori. Wipe your hands with it. Not your face!"
+            text_he: "מקבלים מגבת רטובה לפני האוכל. קוראים לה אושיבורי. מנגבים בה את הידיים. לא את הפנים!"
+          - img: "lesson/manners/hands.svg"
+            label: "Two hands"
+            label_he: "שתי ידיים"
+            text: "When you give or get something, like a gift or a plate, use both hands. It says \"this is important to me\"."
+            text_he: "כשנותנים או מקבלים משהו, כמו מתנה או צלחת, משתמשים בשתי ידיים. זה אומר \"זה חשוב לי\"."
+          - img: "lesson/manners/coins.svg"
+            label: "No tips"
+            label_he: "בלי טיפ"
+            text: "In Japan, you do not leave money on the table. The waiter may run after you to give it back! Say \"gochisousama deshita\" instead."
+            text_he: "ביפן לא משאירים כסף על השולחן. המלצר אולי ירוץ אחריכם כדי להחזיר אותו! במקום זה אומרים \"גוצ'יסוסאמה דשיטה\"."
+          - img: "lesson/manners/festival.svg"
+            label: "Snack from a stall"
+            label_he: "חטיף מדוכן"
+            text: "Buy a snack, then stand next to the stall and eat it there. People in Japan do not eat while they walk."
+            text_he: "קונים חטיף, ואז עומדים ליד הדוכן ואוכלים אותו שם. אנשים ביפן לא אוכלים בזמן שהם הולכים."
+      - kind: train
+        title: Catch the polite thing!
+        title_he: תפסו את הדבר המנומס!
+        text: The plates ride past. Tap the one we ask for.
+        text_he: הצלחות נוסעות. געו בצלחת שאנחנו מבקשים.
+        belt: [bow, shoes, quiet, trashbag, line, oshibori, hands, slippers, noodles, towel]
+        rounds:
+          - ask: "Catch the shoes. They come off at the door!"
+            ask_he: "תפסו את הנעליים. מורידים אותן ליד הדלת!"
+            answer: "shoes"
+          - ask: "Catch the bow. It says hello and thank you!"
+            ask_he: "תפסו את הקידה. היא אומרת שלום ותודה!"
+            answer: "bow"
+          - ask: "Catch the trash bag. Our trash goes home with us!"
+            ask_he: "תפסו את שקית הזבל. הזבל שלנו הולך איתנו הביתה!"
+            answer: "trashbag"
+          - ask: "Catch \"shh\". We whisper on the train!"
+            ask_he: "תפסו את \"שש\". ברכבת לוחשים!"
+            answer: "quiet"
+          - ask: "Catch the two hands. That is how we give a gift!"
+            ask_he: "תפסו את שתי הידיים. ככה נותנים מתנה!"
+            answer: "hands"
+      - kind: text
+        title: The hot spring bath
+        title_he: אמבטיית המעיין החם
+        img: lesson/manners/onsen.svg
+        japanese: おんせん
+        reading: onsen
+        text: An onsen is a big hot bath with water from the ground. Everybody shares the water, so everybody gets clean first.
+        text_he: אונסן הוא אמבטיה גדולה וחמה עם מים מהאדמה. כולם חולקים את המים, אז כולם מתנקים קודם.
+        tips:
+          - Sit on the little stool by the shower and wash all over with soap. Rinse off every bubble.
+          - Tie long hair up. Hair stays out of the water.
+          - The small towel does not go in the water. Fold it and put it on your head, like a hat!
+          - No swimming, no splashing. The bath is for sitting and relaxing. Say "ahhh".
+          - Dry off a little before you walk back into the changing room.
+          - For grown-ups. Some baths do not allow people with tattoos. Ask at the desk first.
+        tips_he:
+          - יושבים על השרפרף הקטן ליד המקלחת ורוחצים את כל הגוף עם סבון. שוטפים כל בועה.
+          - שיער ארוך אוספים למעלה. השיער נשאר מחוץ למים.
+          - המגבת הקטנה לא נכנסת למים. מקפלים אותה ושמים על הראש, כמו כובע!
+          - בלי שחייה, בלי התזות. האמבטיה היא לישיבה ולמנוחה. אומרים "אהה".
+          - מתנגבים קצת לפני שחוזרים לחדר ההלבשה.
+          - למבוגרים. יש אמבטיות שלא מכניסות אנשים עם קעקועים. שואלים בדלפק קודם.
+      - kind: text
+        title: Stairs that move
+        title_he: מדרגות שזזות
+        img: lesson/manners/escalator.svg
+        japanese: エスカレーター
+        reading: esukareetaa
+        text: On an escalator in Tokyo, people stand on the left side. In Osaka, they stand on the right! Look at the people in front of you and do the same.
+        text_he: על מדרגות נעות בטוקיו, אנשים עומדים בצד שמאל. באוסקה, הם עומדים בצד ימין! מסתכלים על האנשים שלפניכם ועושים אותו דבר.
+        tips:
+          - Hold the rail and stand still. Many stations now ask everybody to stand on both sides and not walk.
+          - In a lift, the person next to the buttons holds the door for everybody. If that is you, press and hold "open"!
+          - Walk on the left side of a corridor or a staircase. Cars in Japan drive on the left too.
+        tips_he:
+          - מחזיקים במעקה ועומדים במקום. הרבה תחנות מבקשות היום מכולם לעמוד בשני הצדדים ולא ללכת.
+          - במעלית, מי שעומד ליד הכפתורים מחזיק את הדלת לכולם. אם זה אתם, לוחצים ומחזיקים "פתח"!
+          - הולכים בצד שמאל של מסדרון או מדרגות. גם המכוניות ביפן נוסעות בצד שמאל.
+      - kind: pick
+        title: Do or don't?
+        title_he: עושים או לא?
+        text: Last game! What do we do? Tap the right picture.
+        text_he: משחק אחרון! מה עושים? געו בתמונה הנכונה.
+        rounds:
+          - ask: "Grandma's friend gives you a present. How do you take it?"
+            ask_he: "חברה של סבתא נותנת לכם מתנה. איך לוקחים אותה?"
+            answer: "hands"
+            choices: [coins, hands, quiet, shoes]
+          - ask: "Your juice box is empty and there is no bin. Where does it go?"
+            ask_he: "קופסת המיץ שלכם ריקה ואין פח. לאן היא הולכת?"
+            answer: "trashbag"
+            choices: [trashbag, oshibori, slippers, line]
+          - ask: "The train is coming. What do we do?"
+            ask_he: "הרכבת מגיעה. מה עושים?"
+            answer: "line"
+            choices: [noodles, towel, line, coins]
+          - ask: "We walk into a friend's home. What comes off?"
+            ask_he: "נכנסים לבית של חבר. מה מורידים?"
+            answer: "shoes"
+            choices: [shoes, hands, trashbag, oshibori]
+          - ask: "Somebody's phone rings on the train. What do we remember?"
+            ask_he: "הטלפון של מישהו מצלצל ברכבת. מה זוכרים?"
+            answer: "quiet"
+            choices: [towel, line, quiet, noodles]
+      - kind: local
+        title: Where to practise
+        title_he: איפה מתאמנים
+        text: Good manners need practice. Here is where.
+        text_he: נימוסים טובים צריכים אימון. הנה איפה.
+        groups:
+          - title: Before the trip
+            title_he: לפני הטיול
+            places:
+              - emoji: "🏠"
+                title: "At home"
+                title_he: "בבית"
+                text: "Take your shoes off at the door this week, and turn them to face the door. Play the slipper race."
+                text_he: "השבוע מורידים את הנעליים ליד הדלת, ומסובבים אותן לכיוון הדלת. משחקים במרוץ נעלי הבית."
+              - emoji: "🍽️"
+                title: "At the table"
+                title_he: "ליד השולחן"
+                text: "Pass the plates with both hands. Say \"itadakimasu\" before you eat."
+                text_he: "מעבירים את הצלחות בשתי ידיים. אומרים \"איטדקימס\" לפני שאוכלים."
+              - emoji: "🚌"
+                title: "On the bus"
+                title_he: "באוטובוס"
+                text: "Play the whisper game: from the first stop to the last, only whispers."
+                text_he: "משחקים במשחק הלחישות: מהתחנה הראשונה עד האחרונה, רק לחישות."
+              - emoji: "🧺"
+                title: "A trash bag in your pocket"
+                title_he: "שקית זבל בכיס"
+                text: "Put a small bag in your jacket pocket now. Then it is there in Japan."
+                text_he: "שמים עכשיו שקית קטנה בכיס של המעיל. ככה היא שם ביפן."
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "🏨"
+                title: "The hotel or inn"
+                title_he: "המלון או האכסניה"
+                text: "Look for the step at the door. If there is one, the shoes come off."
+                text_he: "מחפשים את המדרגה ליד הדלת. אם יש אחת, הנעליים יורדות."
+              - emoji: "⛩️"
+                title: "A shrine"
+                title_he: "מקדש שינטו"
+                text: "Bow at the red gate, wash your hands at the basin, ring the bell."
+                text_he: "קדים ליד השער האדום, רוחצים ידיים באגן, מצלצלים בפעמון."
+              - emoji: "🚃"
+                title: "The train"
+                title_he: "הרכבת"
+                text: "Stand behind the marks, let people off first, and whisper."
+                text_he: "עומדים מאחורי הסימונים, נותנים לאנשים לרדת קודם, ולוחשים."
+              - emoji: "♨️"
+                title: "A hot spring bath"
+                title_he: "אמבטיית מעיין חם"
+                text: "Wash first, towel on the head, and say \"ahhh\"."
+                text_he: "קודם רוחצים, המגבת על הראש, ואומרים \"אהה\"."

@@ -200,3 +200,59 @@ class WordsLessonTests(TestCase):
         self.assertNotIn("4rY3y5VZcCg", html)
         self.assertIn("Say it slowly", html)
         self.assertIn("Clap once for each part", html)
+
+
+class MannersLessonTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("m@example.com", "m@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (38, 4):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="dos_donts", slug="manners-lesson")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def page(self, lang="en"):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_every_kind_renders_in_english(self):
+        html = self.page()
+        self.assertEqual(html.count("data-page "), 14)
+        for kind in KINDS:
+            self.assertIn(f"lpage-{kind}", html)
+        self.assertIn("Page 1 of 14", html)
+        self.assertIn("At the front door", html)
+        self.assertIn("The toilet slippers", html)
+        self.assertIn('data-spot="4"', html)               # 5 dots at the door, 5 at the shrine
+        self.assertIn("temizuya", html)
+        self.assertIn('data-plate="trashbag"', html)       # the manners train
+        self.assertIn("data-right", html)
+        self.assertIn("Osaka", html)
+        self.assertIn("audio/japan/onsen.mp3", html)       # the page word has a voice
+        self.assertIn("audio/japan/genkan.mp3", html)      # the spot word too
+
+    def test_hebrew(self):
+        html = self.page("he")
+        self.assertIn("מנומסים כמו ילדים ביפן", html)
+        self.assertIn("ליד דלת הכניסה", html)
+        self.assertIn("נעלי השירותים", html)
+        self.assertIn("דף 1 מתוך 14", html)
+        self.assertNotIn("At the front door", html)
+
+    def test_unapproved_video_shows_the_manners_game_and_no_id(self):
+        html = self.page()
+        self.assertNotIn("38JKwLfiMzA", html)
+        self.assertNotIn("comes soon", html)
+        self.assertIn("The manners game", html)
+        self.assertIn("Shoe race", html)
+
+    def test_facts_on_the_page(self):
+        html = self.page()
+        self.assertIn("5 yen coin", html)
+        self.assertIn("stand on the left", html)
+        self.assertIn("Slurping your noodles is fine", html)
