@@ -135,6 +135,19 @@ class BuilderTests(TestCase):
             self.assertGreater(slugs.index(adult), first_hunt)
         self.assertEqual(slugs[0], "food")
 
+    def test_with_a_child_each_quick_review_follows_its_lesson(self):
+        # T97: a kids' item goes only at a module edge, never between a lesson and its quick review.
+        for ages in ([40, 38, 4, 2], [38, 4], [38, 9]):
+            trip = make_trip(self.user, ages)
+            ids = [m.id for m, on in suggestions(trip) if on]
+            items = list(build_course(trip, ids).items.select_related("activity__module"))
+            reviews = [n for n, i in enumerate(items) if i.activity.title.endswith(": quick review")]
+            self.assertTrue(reviews, ages)
+            for n in reviews:
+                prev = items[n - 1].activity
+                self.assertEqual(prev.module_id, items[n].activity.module_id, (ages, prev.slug))
+                self.assertEqual(prev.type, "lesson", (ages, prev.slug))
+
     def test_rebuild_keeps_done_marks(self):
         trip = make_trip(self.user, [38, 4])
         ids = [m.id for m, on in suggestions(trip) if on]

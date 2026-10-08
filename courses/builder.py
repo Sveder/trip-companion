@@ -75,20 +75,22 @@ def reorder_course(course):
 
 
 def kids_first(activities):
-    """Spread the kids' activities through the course, the first one as activity 2.
+    """Spread the kids' activities through the course, the first one after the first module.
 
     A family with a child gets a made-for-kids activity early, then one every few
-    activities, never two in a row while other activities are left. The other
-    activities keep their order.
+    modules. A kids' activity goes only at a module edge, so a lesson and its quick
+    review stay side by side. The other activities keep their order.
     """
     kids = [a for a in activities if a.module.audience == "child"]
     rest = [a for a in activities if a.module.audience != "child"]
     if not kids or not rest:
         return activities
-    step = max(2, (len(rest) - 1) // len(kids))
+    edges = [n for n, a in enumerate(rest) if n + 1 == len(rest) or rest[n + 1].module_id != a.module_id]
+    step = max(1, (len(edges) - 1) // max(1, len(kids) - 1))
+    at = set(edges[::step])
     out = []
     for n, a in enumerate(rest):
         out.append(a)
-        if kids and n % step == 0:
+        if kids and n in at:
             out.append(kids.pop(0))
     return out + kids
