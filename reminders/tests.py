@@ -114,3 +114,53 @@ class ReminderTests(TestCase):
 
     def test_bad_token_404(self):
         self.assertEqual(self.client.get("/reminders/stop/nonsense/").status_code, 404)
+
+
+class ReminderLanguageTests(TestCase):
+    """T55: a reminder goes out by cron, with no request, so it uses the language the family last used on the site."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def test_the_site_language_is_stored(self):
+        user = family("a@example.com")
+        self.client.force_login(user)
+        self.client.get("/")
+        self.assertEqual(Contact.objects.get(user=user).language, "en")
+        self.client.get("/?lang=he")
+        self.assertEqual(Contact.objects.get(user=user).language, "he")
+        self.client.get("/")  # the cookie keeps Hebrew
+        self.assertEqual(Contact.objects.get(user=user).language, "he")
+
+    def test_hebrew_family_gets_hebrew_mail(self):
+        user = family("he@example.com")
+        self.client.force_login(user)
+        self.client.get("/?lang=he")
+        Contact.objects.filter(user=user).update(last_seen=timezone.now() - timedelta(days=3))
+        age_course(user, 3)
+        run()
+        self.assertEqual(len(mail.outbox), 1)
+        msg = mail.outbox[0]
+        item = Course.objects.get(trip__user=user).next_item()
+        title_he = item.activity.data.get("title_he")
+        self.assertTrue(title_he)
+        self.assertIn("הפעילות הבאה שלכם על יפן מחכה", msg.subject)
+        self.assertIn("הפעילות הבאה שלכם על יפן מוכנה", msg.body)
+        self.assertIn(title_he, msg.body)
+        html = msg.alternatives[0][0]
+        self.assertIn('dir="rtl"', html)
+        self.assertIn(title_he, html)
+        self.assertNotIn("Your next Japan activity", msg.body + html)
+        self.assertIn("/reminders/stop/", msg.body)
+
+    def test_english_family_gets_english_mail(self):
+        user = family("en@example.com")
+        age_course(user, 3)
+        run()
+        msg = mail.outbox[0]
+        item = Course.objects.get(trip__user=user).next_item()
+        self.assertIn("Your next Japan activity is waiting", msg.subject)
+        self.assertIn(item.activity.title, msg.body)
+        self.assertNotIn('dir="rtl"', msg.alternatives[0][0])
+        self.assertNotIn("הפעילות", msg.body)

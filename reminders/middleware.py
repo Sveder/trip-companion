@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from .models import Contact
 
-# Write the visit time at most once an hour per family.
+# Write the visit time at most once an hour per family. The language is written as soon as it changes.
 SEEN_EVERY = timedelta(hours=1)
 
 
@@ -17,7 +17,14 @@ class LastSeenMiddleware:
         if user is not None and user.is_authenticated:
             now = timezone.now()
             contact, _ = Contact.objects.get_or_create(user=user)
+            fields = []
             if contact.last_seen is None or now - contact.last_seen >= SEEN_EVERY:
                 contact.last_seen = now
-                contact.save(update_fields=["last_seen"])
+                fields.append("last_seen")
+            language = getattr(request, "LANGUAGE_CODE", None)
+            if language and language != contact.language:
+                contact.language = language
+                fields.append("language")
+            if fields:
+                contact.save(update_fields=fields)
         return self.get_response(request)

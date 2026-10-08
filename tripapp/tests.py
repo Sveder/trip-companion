@@ -48,6 +48,18 @@ class ProfessionalBasicsTests(TestCase):
         r = self.client.get("/privacy/")
         self.assertContains(r, "Delete your account")
         self.assertIn('href="/privacy/"', self.client.get("/").content.decode())
+        # T55: the page names what the app keeps today, and it reads fully in Hebrew.
+        self.assertContains(r, "Photos you take in Japan")
+        self.assertContains(r, "age group")
+        self.assertContains(r, "how many days")
+        self.assertNotContains(r, "Videos")
+        self.assertContains(r, 'href="mailto:m@sveder.com?subject=Delete%20my%20Trip%20Companion%20account"')
+        he = self.client.get("/privacy/?lang=he").content.decode()
+        for text in ("תמונות שאתם מצלמים ביפן", "קבוצת גיל", "לכמה ימים", "מחיקת החשבון"):
+            self.assertIn(text, he)
+        self.assertIn('href="mailto:m@sveder.com?subject=Delete%20my%20Trip%20Companion%20account"', he)
+        main = he.split('<article', 1)[1].split('</article>', 1)[0]
+        self.assertNotRegex(main.replace("Trip Companion", "").replace("Sentry", "").replace("m@sveder.com", ""), r"(?i)>[^<]*\b(we|the|you|your)\b")
 
     def test_share_preview_tags(self):
         html = self.client.get("/").content.decode()

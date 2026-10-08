@@ -1,17 +1,17 @@
-{% autoescape off %}Hello!
+{% load i18n %}{% autoescape off %}{% trans "Hello!" %}
 
-Your next Japan activity is ready:
-{{ item.activity.title }}
+{% trans "Your next Japan activity is ready:" %}
+{{ item.activity.local_title }}
 
-It takes a few minutes. Do it together as a family.
+{% trans "It takes a few minutes. Do it together as a family." %}
 
-Open it here:
+{% trans "Open it here:" %}
 {{ go }}
 
-{{ left }} activit{{ left|pluralize:"y,ies" }} wait{{ left|pluralize:"s," }} before your trip.
+{% blocktrans trimmed count left=left %}{{ left }} activity waits before your trip.{% plural %}{{ left }} activities wait before your trip.{% endblocktrans %}
 
-We send this note every two days at most.
-To stop these emails, open this link:
+{% trans "We send this note every two days at most." %}
+{% trans "To stop these emails, open this link:" %}
 {{ stop }}
 
 Trip Companion

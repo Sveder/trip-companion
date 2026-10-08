@@ -1,1 +1,1 @@
-Your next Japan activity is waiting
+{% load i18n %}{% trans "Your next Japan activity is waiting" %}

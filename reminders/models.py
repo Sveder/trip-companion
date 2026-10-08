@@ -3,10 +3,12 @@ from django.db import models
 
 
 class Contact(models.Model):
-    """When the family last opened the site, and if they stopped the reminders."""
+    """When the family last opened the site, in which language, and if they stopped the reminders."""
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="contact")
     last_seen = models.DateTimeField(null=True, blank=True)
     unsubscribed_at = models.DateTimeField(null=True, blank=True)
+    # The site language the family last used. A reminder is sent by cron, with no request, so it reads this.
+    language = models.CharField(max_length=8, default="en")
 
     def __str__(self):
         return f"Contact {self.user}"

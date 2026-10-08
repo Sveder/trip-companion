@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-08 23:47+0300\n"
+"POT-Creation-Date: 2026-10-08 23:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -321,7 +321,7 @@ msgstr "יציאה"
 msgid "Made by"
 msgstr "נוצר על ידי"
 
-#: templates/base.html:53
+#: templates/base.html:53 templates/privacy.html:3 templates/privacy.html:6
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -378,7 +378,6 @@ msgstr "בקרוב"
 
 #: templates/courses/course.html:21
 #, python-format
-#| msgid "You found %(found)s of %(of)s!"
 msgid "found %(found)s of %(total)s"
 msgstr "מצאנו %(found)s מתוך %(total)s"
 
@@ -387,7 +386,6 @@ msgid "Done"
 msgstr "בוצע"
 
 #: templates/courses/course.html:25
-#| msgid "Party again!"
 msgid "Play again"
 msgstr "לשחק שוב"
 
@@ -513,7 +511,7 @@ msgstr "בואו נתחיל"
 msgid "Where are you going?"
 msgstr "לאן אתם נוסעים?"
 
-#: templates/courses/welcome.html:18
+#: templates/courses/welcome.html:18 templates/reminders/email.html:7
 msgid "Let's go!"
 msgstr "יוצאים לדרך!"
 
@@ -635,6 +633,172 @@ msgstr "בואו נראה איך הלך"
 msgid "Next question"
 msgstr "לשאלה הבאה"
 
+#: templates/privacy.html:7
+msgid "Trip Companion is for families. We keep as little as we can."
+msgstr "Trip Companion נועד למשפחות. אנחנו שומרים כמה שפחות."
+
+#: templates/privacy.html:8
+#| msgid "What we did"
+msgid "What we keep"
+msgstr "מה אנחנו שומרים"
+
+#: templates/privacy.html:10
+#| msgid "Your email"
+msgid "Your email address."
+msgstr "כתובת האימייל שלכם."
+
+#: templates/privacy.html:10
+msgid ""
+"You sign in with it. We send you sign-in codes and, unless you stop them, a "
+"short reminder every two days."
+msgstr ""
+"נכנסים איתה לאתר. אנחנו שולחים אליה קודי כניסה, ותזכורת קצרה כל יומיים, אלא "
+"אם הפסקתם אותה."
+
+#: templates/privacy.html:11
+#| msgid "Our trip"
+msgid "Your trip."
+msgstr "הטיול שלכם."
+
+#: templates/privacy.html:11
+msgid ""
+"Where you go, how many days, the start date if you give one, and how many "
+"travellers are in each age group (little ones, kids, big kids, grown-ups). "
+"We do not ask for names."
+msgstr ""
+"לאן נוסעים, לכמה ימים, תאריך ההתחלה אם נתתם אותו, וכמה נוסעים יש בכל קבוצת "
+"גיל (קטנטנים, ילדים, ילדים גדולים, מבוגרים). אנחנו לא שואלים שמות."
+
+#: templates/privacy.html:12
+#| msgid "Our course"
+msgid "Your course."
+msgstr "המסלול שלכם."
+
+#: templates/privacy.html:12
+msgid ""
+"Which activities you did, and your quiz answers, so the quiz can repeat the "
+"words you missed."
+msgstr ""
+"אילו פעילויות עשיתם, והתשובות שלכם בחידון, כדי שהחידון יחזור על המילים "
+"שפספסתם."
+
+#: templates/privacy.html:13
+msgid "Photos you take in Japan."
+msgstr "תמונות שאתם מצלמים ביפן."
+
+#: templates/privacy.html:13
+msgid ""
+"The photos you add to the 'In Japan' hunt. Only your family can see them. "
+"They are not public and we never share them."
+msgstr ""
+"התמונות שאתם מוסיפים לציד 'ביפן'. רק המשפחה שלכם יכולה לראות אותן. הן לא "
+"ציבוריות ואנחנו אף פעם לא משתפים אותן."
+
+#: templates/privacy.html:14
+msgid "Usage counts."
+msgstr "ספירת שימוש."
+
+#: templates/privacy.html:14
+msgid ""
+"We count actions (for example \"an activity was done\") to see what works. "
+"We do not sell them or show them to anyone."
+msgstr ""
+"אנחנו סופרים פעולות (למשל \"פעילות הסתיימה\") כדי לראות מה עובד. אנחנו לא "
+"מוכרים אותן ולא מראים אותן לאף אחד."
+
+#: templates/privacy.html:15
+msgid "Error reports."
+msgstr "דיווחי שגיאות."
+
+#: templates/privacy.html:15
+msgid ""
+"When a page breaks, a report goes to Sentry, our error service. We do not "
+"send your email address with it."
+msgstr ""
+"כשדף נשבר, דיווח נשלח ל-Sentry, שירות השגיאות שלנו. אנחנו לא שולחים איתו את "
+"כתובת האימייל שלכם."
+
+#: templates/privacy.html:17
+#| msgid "What we did"
+msgid "What we do not do"
+msgstr "מה אנחנו לא עושים"
+
+#: templates/privacy.html:19
+msgid "No ads and no advertising trackers."
+msgstr "אין פרסומות ואין מעקב של מפרסמים."
+
+#: templates/privacy.html:20
+msgid "We do not sell or give your data to anyone."
+msgstr "אנחנו לא מוכרים ולא נותנים את המידע שלכם לאף אחד."
+
+#: templates/privacy.html:21
+msgid ""
+"Shop links (for example kids' chopsticks) are plain links. The shop sees "
+"your visit only if you open the link."
+msgstr ""
+"קישורים לחנויות (למשל צ'ופסטיקס לילדים) הם קישורים רגילים. החנות רואה את "
+"הביקור שלכם רק אם פתחתם את הקישור."
+
+#: templates/privacy.html:23
+msgid "Delete your account"
+msgstr "מחיקת החשבון"
+
+#: templates/privacy.html:24
+#, python-format
+msgid ""
+"Email %(link)s from the address you sign in with. We delete your account, "
+"your trip, your course and your photos within 7 days, and we write back when"
+" it is done."
+msgstr ""
+"שלחו אימייל אל %(link)s מהכתובת שאיתה אתם נכנסים. אנחנו מוחקים את החשבון, "
+"הטיול, המסלול והתמונות שלכם תוך 7 ימים, ועונים לכם כשזה נעשה."
+
+#: templates/privacy.html:25 templates/reminders/stop.html:15
+msgid "Stop the reminder emails"
+msgstr "הפסיקו את אימיילי התזכורת"
+
+#: templates/privacy.html:26
+msgid "Every reminder has a \"stop\" link at the bottom. One tap stops them."
+msgstr "בתחתית כל תזכורת יש קישור \"הפסקה\". נגיעה אחת מפסיקה אותן."
+
+#: templates/reminders/email.html:4 templates/reminders/email.txt:1
+msgid "Hello!"
+msgstr "שלום!"
+
+#: templates/reminders/email.html:5 templates/reminders/email.txt:3
+msgid "Your next Japan activity is ready:"
+msgstr "הפעילות הבאה שלכם על יפן מוכנה:"
+
+#: templates/reminders/email.html:6 templates/reminders/email.txt:6
+msgid "It takes a few minutes. Do it together as a family."
+msgstr "היא לוקחת כמה דקות. עשו אותה יחד, כל המשפחה."
+
+#: templates/reminders/email.html:8 templates/reminders/email.txt:11
+#, python-format
+msgid "%(left)s activity waits before your trip."
+msgid_plural "%(left)s activities wait before your trip."
+msgstr[0] "פעילות אחת מחכה לפני הטיול."
+msgstr[1] "%(left)s פעילויות מחכות לפני הטיול."
+
+#: templates/reminders/email.html:9 templates/reminders/email.txt:13
+#| msgid ""
+#| "We send a short email every two days at most, with your next activity."
+msgid "We send this note every two days at most."
+msgstr "אנחנו שולחים את ההודעה הזאת לכל היותר פעם ביומיים."
+
+#: templates/reminders/email.html:10
+#| msgid "Stop the reminder emails"
+msgid "Stop these emails"
+msgstr "הפסיקו את האימיילים האלה"
+
+#: templates/reminders/email.txt:8
+msgid "Open it here:"
+msgstr "פותחים אותה כאן:"
+
+#: templates/reminders/email.txt:14
+msgid "To stop these emails, open this link:"
+msgstr "כדי להפסיק את האימיילים האלה, פתחו את הקישור הזה:"
+
 #: templates/reminders/stop.html:3 templates/reminders/stop.html:12
 msgid "Reminder emails"
 msgstr "אימיילים של תזכורת"
@@ -657,9 +821,9 @@ msgstr "שלחו תזכורות שוב"
 msgid "We send a short email every two days at most, with your next activity."
 msgstr "אנחנו שולחים אימייל קצר לכל היותר פעם ביומיים, עם הפעילות הבאה שלכם."
 
-#: templates/reminders/stop.html:15
-msgid "Stop the reminder emails"
-msgstr "הפסיקו את אימיילי התזכורת"
+#: templates/reminders/subject.txt:1
+msgid "Your next Japan activity is waiting"
+msgstr "הפעילות הבאה שלכם על יפן מחכה"
 
 #: templates/there/hunt.html:9
 msgid "Look for these things in Japan. When you see one, take a photo!"

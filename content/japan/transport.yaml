@@ -459,36 +459,59 @@ activities:
     title_he: "מתניידים ביפן: חזרה קצרה"
     type: cards
     intro: Trains in Japan are clean and on time. Here is how to ride them with the family.
+    intro_he: הרכבות ביפן נקיות ומגיעות בזמן. כך נוסעים בהן עם המשפחה.
     cards:
       - title: A travel card (IC card)
+        title_he: כרטיס נסיעה (כרטיס IC)
         emoji: "💳"
         text: Get an IC card like Suica or PASMO. You tap it at the train gate and on the bus, and you can pay in many shops with it. Add money at the machines in any station.
+        text_he: קונים כרטיס IC כמו סואיקה או פאסמו. מצמידים אותו בשער של הרכבת ובאוטובוס, ואפשר לשלם איתו בהרבה חנויות. מטעינים כסף במכונות בכל תחנה.
         quiz: true
         question: Which card do you tap at the train gate?
+        question_he: איזה כרטיס מצמידים בשער של הרכבת?
         answer: Suica
+        answer_he: סואיקה
         wrong: [Bento, Koban, Ramen]
+        wrong_he: [בנטו, קובאן, ראמן]
       - title: Children's fares
+        title_he: מחירים לילדים
         emoji: "👧"
         text: Children under 6 ride for free with a paying adult (up to two children for each adult). A reserved seat for a child under 6 costs the child fare. Children from 6 to 11 pay half the adult fare. From 12, they pay the adult fare. Only children in a Japanese elementary school pay the child fare at 12.
+        text_he: ילדים מתחת לגיל 6 נוסעים בחינם עם מבוגר שמשלם (עד שני ילדים לכל מבוגר). מושב שמור לילד מתחת לגיל 6 עולה מחיר של ילד. ילדים מגיל 6 עד 11 משלמים חצי ממחיר המבוגר. מגיל 12 משלמים מחיר מלא. רק ילדים שלומדים בבית ספר יסודי ביפן משלמים מחיר ילד בגיל 12.
       - title: The bullet train (Shinkansen)
+        title_he: רכבת הקליע (שינקנסן)
         emoji: "🚅"
         text: The Shinkansen is very fast. Reserve seats for the family so you sit together. On the line from Tokyo to Osaka and Fukuoka, a very big suitcase (over 160 cm, length + width + height) needs a seat with a luggage space, booked in advance.
+        text_he: השינקנסן מהיר מאוד. מזמינים מושבים לכל המשפחה, כדי לשבת יחד. בקו מטוקיו לאוסקה ולפוקואוקה, מזוודה גדולה מאוד (מעל 160 ס"מ, אורך + רוחב + גובה) צריכה מושב עם מקום למזוודות, שמזמינים מראש.
         quiz: true
         question: What is the name of the fast train in Japan?
+        question_he: איך קוראים לרכבת המהירה ביפן?
         answer: Shinkansen
+        answer_he: שינקנסן
         wrong: [Suica, Onsen, Koban]
+        wrong_he: [סואיקה, אונסן, קובאן]
       - title: Is the JR Pass worth it?
+        title_he: האם כדאי לקנות JR Pass?
         emoji: "🎫"
         text: The JR Pass price went up a lot in October 2023. For many trips, single tickets now cost less. Add up your train trips before you buy one.
+        text_he: המחיר של ה-JR Pass עלה הרבה באוקטובר 2023. בהרבה טיולים, כרטיסים בודדים עולים היום פחות. חשבו את כל הנסיעות ברכבת לפני שקונים אותו.
       - title: Avoid the rush hour
+        title_he: לא נוסעים בשעות העומס
         emoji: "⏰"
         text: Trains in big cities are very full from about 7:30 to 9:30 in the morning. With small children or a stroller, travel after that.
+        text_he: בערים הגדולות הרכבות מלאות מאוד בערך מ-7:30 עד 9:30 בבוקר. עם ילדים קטנים או עגלה, נוסעים אחרי זה.
       - title: Send your bags ahead
+        title_he: שולחים את המזוודות מראש
         emoji: "🧳"
         text: Hotels and convenience stores can send your suitcases to the next hotel (takkyubin). The bags usually arrive the next day. You ride the train with a small bag only.
+        text_he: מלונות וחנויות נוחות יכולים לשלוח את המזוודות למלון הבא (טקיוּבין). המזוודות מגיעות בדרך כלל למחרת. נוסעים ברכבת רק עם תיק קטן.
       - title: Taxis
+        title_he: מוניות
         emoji: "🚕"
         text: The back door of a taxi opens and closes by itself. Do not touch it. Show the driver the address in Japanese on your phone.
+        text_he: הדלת האחורית של המונית נפתחת ונסגרת לבד. לא נוגעים בה. מראים לנהג את הכתובת ביפנית בטלפון.
       - title: Find the way
+        title_he: מוצאים את הדרך
         emoji: "🗺️"
         text: Google Maps shows train lines, platforms and times in Japan. Station signs are in English too.
+        text_he: גוגל מפות מראה ביפן את קווי הרכבת, את הרציפים ואת השעות. השלטים בתחנות כתובים גם באנגלית.

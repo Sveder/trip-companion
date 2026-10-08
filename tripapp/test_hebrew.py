@@ -129,7 +129,7 @@ class CoverageTests(TestCase):
                 for v in node:
                     walk(v, where)
 
-        for slug in KIDS_MODULES:
+        for slug in KIDS_MODULES + ("transport", "buy_in_advance"):  # T55: the grown-up modules too
             walk(yaml.safe_load((CONTENT / f"{slug}.yaml").read_text(encoding="utf-8")), slug)
         self.assertEqual(missing, [])
 

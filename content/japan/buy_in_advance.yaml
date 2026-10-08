@@ -467,43 +467,61 @@ activities:
     type: links
     intro: A few things to get, or to do, before the trip. The links open the shop in a new tab. You pay there, not here.
     # Plain shop links, no affiliate ids. Every link goes through /go/ so a click is counted.
+    intro_he: כמה דברים לקנות, או לעשות, לפני הטיול. הקישורים פותחים את החנות בלשונית חדשה. משלמים שם, לא כאן.
     links:
       - id: snack-box
         emoji: "🍬"
         title: A box of Japanese snacks
+        title_he: קופסה של חטיפים יפניים
         text: Taste Japan at home before you go. A snack box comes by mail with candy and snacks from Japan.
+        text_he: טועמים את יפן בבית לפני הנסיעה. קופסת חטיפים מגיעה בדואר, עם ממתקים וחטיפים מיפן.
         label: See TokyoTreat
+        label_he: ל-TokyoTreat
         url: https://www.tokyotreat.com/
       - id: snack-box-bokksu
         emoji: "🍘"
         title: Another snack box
+        title_he: עוד קופסת חטיפים
         text: Bokksu sends Japanese snacks and teas, with a little book about each one.
+        text_he: Bokksu שולחים חטיפים ותה מיפן, עם חוברת קטנה על כל אחד מהם.
         label: See Bokksu
+        label_he: ל-Bokksu
         url: https://www.bokksu.com/
       - id: kids-chopsticks
         audience: child
         emoji: "🥢"
         title: Kids' chopsticks
+        title_he: צ'ופסטיקס לילדים
         text: Training chopsticks are joined at the top, so they are easy to hold. Practise at home before the trip.
+        text_he: צ'ופסטיקס לאימון מחוברים למעלה, אז קל להחזיק אותם. מתאמנים בבית לפני הטיול.
         label: See kids' chopsticks
         label_he: לצ'ופסטיקס לילדים
         url: https://www.aliexpress.com/item/1005007683787720.html
       - id: plug-adapter
         emoji: "🔌"
         title: A plug adapter
+        title_he: מתאם לשקע
         text: Japan uses plugs with two flat pins (type A), at 100 volts. Bring an adapter. Most phone chargers work at 100 volts; check the label.
+        text_he: ביפן התקע הוא עם שני פינים שטוחים (סוג A), במתח של 100 וולט. מביאים מתאם. רוב המטענים של טלפונים עובדים ב-100 וולט; בודקים את המדבקה.
         label: See a plug adapter
         # One product: an EU round-pin to US/Japan flat-pin adapter. Israeli two-pin plugs fit it too.
+        label_he: למתאם לשקע
         url: https://www.aliexpress.com/item/1005005897706815.html
       - id: visit-japan-web
         emoji: "🛂"
         title: Visit Japan Web (free)
+        title_he: Visit Japan Web (בחינם)
         text: Fill in the arrival forms online before you fly. You get QR codes to show at immigration and customs. It is the official Japanese government site.
+        text_he: ממלאים את טופסי הכניסה באינטרנט לפני הטיסה. מקבלים קודי QR ומראים אותם בביקורת הגבולות ובמכס. זה האתר הרשמי של ממשלת יפן.
         label: Open Visit Japan Web
+        label_he: לאתר Visit Japan Web
         url: https://services.digital.go.jp/en/visit-japan-web/
       - id: jr-pass
         emoji: "🎫"
         title: Japan Rail Pass
+        title_he: Japan Rail Pass
         text: Only if your train trips add up to more than the pass price. Buy it on the official site.
+        text_he: רק אם כל הנסיעות ברכבת עולות יותר ממחיר הכרטיס. קונים אותו באתר הרשמי.
         label: See the JR Pass
+        label_he: ל-JR Pass
         url: https://japanrailpass.net/en/

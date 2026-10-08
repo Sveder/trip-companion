@@ -7,7 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.db.models import Max
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 
 from courses.models import Course
 from trips.models import active_trip
@@ -65,6 +65,13 @@ def due(user, now=None):
 
 
 def build_email(user, item):
+    """The reminder in the language the family last used on the site."""
+    contact = Contact.objects.filter(user=user).first()
+    with translation.override(contact.language if contact else settings.LANGUAGE_CODE):
+        return _build_email(user, item)
+
+
+def _build_email(user, item):
     base = settings.SITE_URL.rstrip("/")
     stop = base + reverse("reminders_stop", args=[unsubscribe_token(user)])
     ctx = {
