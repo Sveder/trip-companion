@@ -558,11 +558,13 @@ class LookTests(TestCase):
         self.assertNotIn("confetti", js)
 
 
-class SpotDotSpacingTests(TestCase):
-    """T99: on a 412 px phone a 400x260 picture is about 332x216 px and a dot is 34 px wide plus a 3 px shadow.
-    Two dots on the same picture must not touch."""
 
-    def test_no_two_dots_touch(self):
+class SpotRingSpacingTests(TestCase):
+    """T99: since T103 the numbers sit beside the picture and a small hollow ring marks each thing.
+    On a 412 px phone a 400x260 picture is about 332x216 px, and a ring with its shadow is about 20 px.
+    Two rings on the same picture must not touch, or a child cannot tell which line goes where."""
+
+    def test_no_two_rings_touch(self):
         import math
 
         import yaml
@@ -574,7 +576,7 @@ class SpotDotSpacingTests(TestCase):
                 spots = node.get("spots") if node.get("kind") == "spots" else None
                 for i, a in enumerate(spots or []):
                     for b in spots[i + 1:]:
-                        if math.hypot((a["x"] - b["x"]) * 3.32, (a["y"] - b["y"]) * 2.16) < 36:
+                        if math.hypot((a["x"] - b["x"]) * 3.32, (a["y"] - b["y"]) * 2.16) < 22:
                             touching.append(f"{path} {node.get('title')}: {a['label']} / {b['label']}")
                 for v in node.values():
                     walk(v, path)

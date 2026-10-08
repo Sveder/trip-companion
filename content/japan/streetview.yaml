@@ -351,7 +351,7 @@ activities:
             text: "For grown-ups. Many machines take a train card, like Suica or PASMO. Touch the card here instead of coins."
             text_he: "למבוגרים. הרבה מכונות מקבלות כרטיס רכבת, כמו סואיקה או פסמו. נוגעים כאן עם הכרטיס במקום מטבעות."
           - x: 65
-            y: 80
+            y: 77
             label: "The return lever"
             label_he: "הידית להחזרה"
             text: "Changed your mind? Turn this lever, and your coins come back."

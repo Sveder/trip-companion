@@ -98,7 +98,7 @@ activities:
         text_he: זו פינת רחוב ביפן. געו בכל נקודה כדי למצוא עוזר.
         spots:
           - x: 12
-            y: 74
+            y: 50
             label: "The police box"
             label_he: "ביתן המשטרה"
             japanese: "こうばん"
@@ -106,13 +106,13 @@ activities:
             text: "A koban is a small police house. Many have the word KOBAN on the front and a red lamp on top. Police officers there help lost children every day."
             text_he: "קובאן הוא בית משטרה קטן. על הרבה מהם כתוב KOBAN מלפנים, ויש להם מנורה אדומה למעלה. השוטרים שם עוזרים לילדים שהלכו לאיבוד כל יום."
           - x: 33
-            y: 50
+            y: 48
             label: "The vending machine"
             label_he: "מכונת המשקאות"
             text: "For grown-ups. Many drinks machines have a small sticker with the address of the place. Read it to the police on the phone, and they know where you are."
             text_he: "למבוגרים. על הרבה מכונות משקאות יש מדבקה קטנה עם הכתובת של המקום. מקריאים אותה למשטרה בטלפון, והם יודעים איפה אתם."
           - x: 42
-            y: 25
+            y: 40
             label: "The crossing light"
             label_he: "הרמזור"
             text: "Cross when the person in the light is green. Some crossings play a bird song, \"piyo piyo\", to help people who cannot see."
@@ -125,8 +125,8 @@ activities:
             reading: "konbini"
             text: "A konbini is open all day and all night. The people who work there help a child who needs help. It is a good place to wait."
             text_he: "קונביני פתוחה כל היום וכל הלילה. האנשים שעובדים שם עוזרים לילד שצריך עזרה. זה מקום טוב לחכות בו."
-          - x: 85
-            y: 33
+          - x: 94
+            y: 37
             label: "The yellow sticker"
             label_he: "המדבקה הצהובה"
             text: "A yellow sign that says \"Kodomo 110\" means \"children's help house\". A child in trouble can knock on that door and ask for help."
@@ -202,25 +202,25 @@ activities:
         text_he: כל ילד מקבל כרטיס כזה בכיס. געו בכל נקודה כדי לראות מה כתוב עליו.
         spots:
           - x: 9
-            y: 20
+            y: 25
             label: "My name"
             label_he: "השם שלי"
             text: "Your first name and your family name, in big letters."
             text_he: "השם הפרטי ושם המשפחה שלכם, באותיות גדולות."
           - x: 9
-            y: 37
+            y: 41
             label: "The phone number"
             label_he: "מספר הטלפון"
             text: "A grown-up's phone number, with the country code. The helper calls it, and your family comes to you."
             text_he: "מספר הטלפון של מבוגר, עם הקידומת של המדינה. העוזר מתקשר, והמשפחה מגיעה אליכם."
           - x: 9
-            y: 54
+            y: 57
             label: "The hotel name"
             label_he: "שם המלון"
             text: "The name of the hotel and its address. Ask at the hotel desk to write it in Japanese too."
             text_he: "שם המלון והכתובת שלו. מבקשים בדלפק של המלון לכתוב אותם גם ביפנית."
           - x: 9
-            y: 71
+            y: 73
             label: "I am lost"
             label_he: "הלכתי לאיבוד"
             japanese: "まいごです"
@@ -228,7 +228,7 @@ activities:
             text: "\"Maigo desu\" means \"I am lost\". Every helper in Japan knows these words."
             text_he: "\"מאיגו דס\" אומר \"הלכתי לאיבוד\". כל עוזר ביפן מכיר את המילים האלה."
           - x: 9
-            y: 88
+            y: 87
             label: "Help!"
             label_he: "הצילו!"
             japanese: "たすけて"
@@ -286,26 +286,26 @@ activities:
         text: Train stations in Japan are busy. Tap each dot to learn how to stay safe there.
         text_he: תחנות הרכבת ביפן עמוסות. געו בכל נקודה כדי ללמוד איך שומרים על עצמנו שם.
         spots:
-          - x: 15
+          - x: 50
             y: 52
             label: "The yellow bumpy line"
             label_he: "הקו הצהוב עם הבליטות"
             text: "Always stand behind the yellow line. The bumps help people who cannot see to feel where the edge is."
             text_he: "תמיד עומדים מאחורי הקו הצהוב. הבליטות עוזרות לאנשים שלא רואים להרגיש איפה הקצה."
-          - x: 33
+          - x: 21
             y: 70
             label: "The marks on the floor"
             label_he: "הסימונים על הרצפה"
             text: "The marks show where the train doors open. Wait in line next to them, not in front of the door."
             text_he: "הסימונים מראים איפה דלתות הרכבת נפתחות. מחכים בתור לידם, לא מול הדלת."
-          - x: 50
+          - x: 42
             y: 63
             label: "The emergency button"
             label_he: "כפתור החירום"
             text: "A red button stops the trains in an emergency, like a person who fell onto the tracks. Children tell a grown-up. Never press it for fun."
             text_he: "כפתור אדום עוצר את הרכבות במקרה חירום, כמו אדם שנפל למסילה. ילדים אומרים למבוגר. אף פעם לא לוחצים בשביל הכיף."
-          - x: 94
-            y: 68
+          - x: 85
+            y: 72
             label: "The station worker"
             label_he: "עובד התחנה"
             text: "Station workers wear a uniform and a cap. Lost on the platform? Go to a station worker and show your name card."
