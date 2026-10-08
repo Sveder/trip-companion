@@ -1,6 +1,8 @@
 id: chopsticks
 title: Eat with chopsticks
+title_he: אוכלים עם צ'ופסטיקס
 summary: Learn to hold chopsticks, then show everyone.
+summary_he: לומדים להחזיק צ'ופסטיקס, ואז מראים לכולם.
 emoji: "🥢"
 audience: all
 order: 70
@@ -9,39 +11,58 @@ activities:
   # The id stays "chopsticks-intro": a new id would delete the old row and the families' course items with it.
   - id: chopsticks-intro
     title: Eat with chopsticks
+    title_he: אוכלים עם צ'ופסטיקס
     type: steps
     intro: In Japan, people eat with chopsticks. Let's learn, then show everyone!
+    intro_he: ביפן, אוכלים עם צ'ופסטיקס. בואו נלמד, ואז נראה לכולם!
     steps:
       - kind: link
         id: kids-chopsticks
         audience: child
         emoji: "🛒"
         title: Get kids' chopsticks
+        title_he: השיגו צ'ופסטיקס לילדים
         text: Kids' chopsticks are joined at the top, so they are easy to hold. Get a pair before you start.
+        text_he: צ'ופסטיקס לילדים מחוברים למעלה, אז קל להחזיק אותם. תשיגו זוג לפני שמתחילים.
         label: See kids' chopsticks
+        label_he: לצ'ופסטיקס לילדים
         url: https://www.aliexpress.com/item/1005007683787720.html
       - kind: video
         emoji: "📺"
         title: Watch how
+        title_he: צפו איך עושים
         text: Watch the video together. Look at the fingers!
         # Only Michael approves a video. An unapproved video never shows; the "how" card below shows instead.
         # Other candidates: 1viLScEkcKA (Easy Chopsticks for Kids, Laura Parker),
         # fkA07eR0X-Y (How to Hold Chopsticks Properly, SAMUKICHI Japan food studio).
+        text_he: צפו בסרטון ביחד. תסתכלו על האצבעות!
         youtube: CBNw5yX1M34
         approved: false
         fallback:
           - The bottom stick rests in the crook of your thumb. It does not move.
           - Hold the top stick like a pencil.
           - Move only the top stick, up and down, to pinch the food.
+        fallback_he:
+          - המקל התחתון נח בשקע של האגודל. הוא לא זז.
+          - מחזיקים את המקל העליון כמו עיפרון.
+          - מזיזים רק את המקל העליון, למעלה ולמטה, כדי לתפוס את האוכל.
       - kind: text
         emoji: "🍇"
         title: Practise
+        title_he: מתאמנים
         text: Put some small soft things in a bowl, like grapes, popcorn or cotton balls. Pick them up with your chopsticks, one by one, and put them in a second bowl.
+        text_he: שימו בקערה כמה דברים קטנים ורכים, כמו ענבים, פופקורן או כדורי צמר גפן. הרימו אותם עם הצ'ופסטיקס, אחד אחד, והעבירו אותם לקערה שנייה.
         tips:
           - In Japan, never stand chopsticks up in a bowl of rice.
           - Never pass food from your chopsticks to someone else's chopsticks.
           - When you rest, put your chopsticks down side by side.
+        tips_he:
+          - ביפן, אף פעם לא תוקעים צ'ופסטיקס עומדים בקערת אורז.
+          - אף פעם לא מעבירים אוכל מהצ'ופסטיקס שלכם לצ'ופסטיקס של מישהו אחר.
+          - כשנחים, מניחים את הצ'ופסטיקס אחד ליד השני.
       - kind: record
         emoji: "🎬"
         title: Show everyone!
+        title_he: תראו לכולם!
         text: Make a short video of you eating with chopsticks. Then share it with the family.
+        text_he: צלמו סרטון קצר שלכם אוכלים עם צ'ופסטיקס. ואז שתפו אותו עם המשפחה.

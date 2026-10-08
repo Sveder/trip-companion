@@ -1,6 +1,8 @@
 id: transport
 title: Getting around
+title_he: מתניידים ביפן
 summary: Trains, buses and how to ride them.
+summary_he: רכבות, אוטובוסים ואיך נוסעים בהם.
 emoji: "🚄"
 audience: adult
 order: 50
@@ -9,6 +11,7 @@ activities:
   # The id stays "transport-intro": a new id would delete the old row and the families' course items with it.
   - id: transport-intro
     title: Getting around
+    title_he: מתניידים ביפן
     type: cards
     intro: Trains in Japan are clean and on time. Here is how to ride them with the family.
     cards:

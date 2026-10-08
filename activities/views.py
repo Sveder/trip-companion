@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 from urllib.parse import urlencode
 
 from analytics.models import track
+from content_admin.i18n import localize
 from courses.models import CourseItem
 from practice.items import add_items
 
@@ -35,6 +36,7 @@ def activity(request, item_id):
     total = ready.count()
     done = ready.filter(done_at__isnull=False).count()
     act = item.activity
+    data = localize(act.data or {})
     if request.GET.get("from") == "reminder":
         track("reminder_click", trip=course.trip, activity=act.id)
     track("activity_opened", trip=course.trip, activity=act.id, module=act.module.slug)
@@ -52,13 +54,13 @@ def activity(request, item_id):
             "item": item,
             "activity": item.activity,
             "module": item.activity.module,
-            "data": item.activity.data,
+            "data": data,
             "trip": course.trip,
             "progress": None if item.is_stub else {
                 "done": done, "total": total, "number": ready.filter(order__lt=item.order).count() + 1},
-            "steps": visible_steps(item.activity.data, course.trip) if item.activity.type == "steps" else None,
+            "steps": visible_steps(data, course.trip) if item.activity.type == "steps" else None,
             "hunt": hunt,
-            "links": visible_links(item.activity.data, course.trip) if item.activity.type == "links" else None,
+            "links": visible_links(data, course.trip) if item.activity.type == "links" else None,
         },
     )
 

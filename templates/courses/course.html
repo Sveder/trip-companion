@@ -1,28 +1,29 @@
 {% extends "base.html" %}
-{% block title %}Our course{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Our course" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1>Our course for Japan</h1>
-  <p class="lead">We did {{ done }} of {{ total }}. Tap any one to play it again!</p>
+  <h1>{% translate "Our course for Japan" %}</h1>
+  <p class="lead">{% blocktranslate %}We did {{ done }} of {{ total }}. Tap any one to play it again!{% endblocktranslate %}</p>
   <ol class="course-list">
     {% for item in items %}
     <li>
       {% if item.is_stub %}
       <span class="course-item stub">
         <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji }}</span>
-        <span class="course-text"><strong>{{ item.activity.title }}</strong>{% if item.activity.module.title != item.activity.title %}<small>{{ item.activity.module.title }}</small>{% endif %}<span class="badge muted">Coming soon</span></span>
+        <span class="course-text"><strong>{{ item.activity.local_title }}</strong>{% if item.activity.module.local_title != item.activity.local_title %}<small>{{ item.activity.module.local_title }}</small>{% endif %}<span class="badge muted">{% translate "Coming soon" %}</span></span>
       </span>
       {% else %}
       <a class="course-item{% if item.done_at %} done{% endif %}{% if item.id == next_id %} next{% endif %}" href="{% url 'activity' item.id %}">
         <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji }}</span>
-        <span class="course-text"><strong>{{ item.activity.title }}</strong>{% if item.activity.module.title != item.activity.title %}<small>{{ item.activity.module.title }}</small>{% endif %}
-          {% if item.done_at %}<span class="badge done">✓ Done</span>{% elif item.id == next_id %}<span class="badge">Next</span>{% endif %}
+        <span class="course-text"><strong>{{ item.activity.local_title }}</strong>{% if item.activity.module.local_title != item.activity.local_title %}<small>{{ item.activity.module.local_title }}</small>{% endif %}
+          {% if item.done_at %}<span class="badge done">✓ {% translate "Done" %}</span>{% elif item.id == next_id %}<span class="badge">{% translate "Next" %}</span>{% endif %}
         </span>
       </a>
       {% endif %}
     </li>
     {% endfor %}
   </ol>
-  <a class="btn alt" href="{% url 'builder' %}">Change our course</a>
+  <a class="btn alt" href="{% url 'builder' %}">{% translate "Change our course" %}</a>
 </section>
 {% endblock %}

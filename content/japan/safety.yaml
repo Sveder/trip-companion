@@ -1,6 +1,8 @@
 id: safety
 title: Staying safe
+title_he: שומרים על עצמנו
 summary: Who to call if you need help.
+summary_he: למי מתקשרים כשצריך עזרה.
 emoji: "🚑"
 audience: all
 order: 40
@@ -9,43 +11,67 @@ activities:
   # The id stays "safety-intro": a new id would delete the old row and the families' course items with it.
   - id: safety-intro
     title: Staying safe
+    title_he: שומרים על עצמנו
     type: cards
     intro: Japan is a safe place. Let's learn what to do if we need help.
+    intro_he: יפן היא מקום בטוח. בואו נלמד מה עושים אם צריך עזרה.
     cards:
       - title: Police
+        title_he: משטרה
         emoji: "👮"
         text: To call the police in Japan, call 110. One, one, zero.
+        text_he: כדי להתקשר למשטרה ביפן, מתקשרים ל-110. אחת, אחת, אפס.
         quiz: true
         question: What number do you call for the police in Japan?
+        question_he: לאיזה מספר מתקשרים למשטרה ביפן?
         answer: "110"
         wrong: ["119", "100", "911"]
       - title: Fire and ambulance
+        title_he: כבאות ואמבולנס
         emoji: "🚒"
         text: For a fire, or if someone is hurt or very sick, call 119. One, one, nine.
+        text_he: בשריפה, או אם מישהו נפצע או חולה מאוד, מתקשרים ל-119. אחת, אחת, תשע.
         quiz: true
         question: What number do you call for a fire or an ambulance in Japan?
+        question_he: לאיזה מספר מתקשרים בשריפה או לאמבולנס ביפן?
         answer: "119"
         wrong: ["110", "101", "911"]
       - title: Police box (koban)
+        title_he: ביתן משטרה (קובאן)
         emoji: "🏠"
         text: A koban is a small police house on the street. If you are lost, go in. A police officer will help you.
+        text_he: קובאן הוא בית משטרה קטן ברחוב. אם הלכתם לאיבוד, היכנסו. שוטר יעזור לכם.
         quiz: true
         question: What is the name of the small police house on the street?
+        question_he: איך קוראים לבית המשטרה הקטן ברחוב?
         answer: Koban
+        answer_he: קובאן
         wrong: [Bento, Onsen, Onigiri]
+        wrong_he: [בנטו, אונסן, אוניגירי]
       - title: If you get lost
+        title_he: אם הלכתם לאיבוד
         emoji: "🧒"
         text: Stay where you are. Ask a person who works there, like a shop helper or a train station worker. Show them your name card.
+        text_he: תישארו במקום. תבקשו עזרה ממישהו שעובד שם, כמו מוכר בחנות או עובד בתחנת רכבת. תראו לו את הכרטיס עם השם שלכם.
       - title: A name card in the pocket
+        title_he: כרטיס עם שם בכיס
         emoji: "🪪"
         text: For grown-ups. Put a card in each child's pocket with your phone number and the hotel name.
+        text_he: למבוגרים. שימו בכיס של כל ילד כרטיס עם מספר הטלפון שלכם ושם המלון.
       - title: Help in English
+        title_he: עזרה באנגלית
         emoji: "☎️"
         text: For grown-ups. The Japan Visitor Hotline helps in English, all day and all night. Call 050-3816-2787. For an emergency, call 110 or 119 first.
+        text_he: למבוגרים. קו החירום למבקרים ביפן (Japan Visitor Hotline) עוזר באנגלית, כל היום וכל הלילה. התקשרו ל-050-3816-2787. במקרה חירום, התקשרו קודם ל-110 או ל-119.
       - title: Earthquake
+        title_he: רעידת אדמה
         emoji: "🌏"
         text: Japan has small earthquakes. If the floor shakes, get under a table and hold on. Wait until it stops.
+        text_he: ביפן יש רעידות אדמה קטנות. אם הרצפה רועדת, היכנסו מתחת לשולחן ותחזיקו חזק. חכו עד שזה נגמר.
         quiz: true
         question: If the floor shakes, where do you go?
+        question_he: אם הרצפה רועדת, לאן הולכים?
         answer: Under a table
+        answer_he: מתחת לשולחן
         wrong: [Up the stairs, Into the lift, Out the window]
+        wrong_he: [למעלה במדרגות, לתוך המעלית, החוצה מהחלון]

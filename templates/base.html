@@ -1,9 +1,9 @@
-{% load static %}<!doctype html>
-<html lang="en"{% if tv_mode %} class="tv"{% endif %}>
+{% load i18n %}{% load static %}<!doctype html>
+{% get_current_language as LANG %}{% get_current_language_bidi as RTL %}<html lang="{{ LANG }}" dir="{% if RTL %}rtl{% else %}ltr{% endif %}"{% if tv_mode %} class="tv"{% endif %}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Trip Companion{% endblock %} · Get ready for Japan</title>
+  <title>{% block title %}Trip Companion{% endblock %} · {% translate "Get ready for Japan" %}</title>
   <meta name="description" content="{% block description %}Short, fun activities that get the whole family ready for a trip to Japan: food, words, chopsticks and a Street View hunt.{% endblock %}">
   <meta name="theme-color" content="#b82a22">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -31,17 +31,21 @@
     <a class="brand" href="{% url 'home' %}">{% include "includes/guide.html" with cls="small" %} Trip Companion</a>
     {% if user.is_authenticated %}
     <nav class="top-nav">
-      <a href="{% url 'course' %}">Our course</a>
-      <a href="{% url 'quiz' %}">Quiz</a>
-      <a href="{% url 'trip_setup' %}">Our trip</a>
-      <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">Sign out</button></form>
+      <a href="{% url 'course' %}">{% translate "Our course" %}</a>
+      <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>
+      <a href="{% url 'trip_setup' %}">{% translate "Our trip" %}</a>
+      <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>
     </nav>
     {% endif %}
+    <form class="lang-switch" method="post" action="{% url 'set_language' %}">{% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      {% if LANG == "he" %}<button class="link" name="language" value="en" lang="en">English</button>{% else %}<button class="link" name="language" value="he" lang="he">עברית</button>{% endif %}
+    </form>
   </header>
   <main class="page">
     {% if messages %}<ul class="messages">{% for m in messages %}<li class="msg {{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
     {% block content %}{% endblock %}
   </main>
-  <footer class="foot">Made by <a href="https://sveder.com">Sveder</a> · <a href="{% url 'privacy' %}">Privacy</a></footer>
+  <footer class="foot">{% translate "Made by" %} <a href="https://sveder.com">Sveder</a> · <a href="{% url 'privacy' %}">{% translate "Privacy" %}</a></footer>
 </body>
 </html>

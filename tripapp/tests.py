@@ -8,7 +8,7 @@ class TvModeTests(TestCase):
         self.assertIn("js/tv.js", html)
 
     def test_query_turns_it_on_and_the_session_keeps_it(self):
-        self.assertIn('<html lang="en" class="tv">', self.client.get("/?tv=1").content.decode())
+        self.assertIn('<html lang="en" dir="ltr" class="tv">', self.client.get("/?tv=1").content.decode())
         self.assertIn('class="tv"', self.client.get("/").content.decode())
         self.assertNotIn('class="tv"', self.client.get("/?tv=0").content.decode())
         self.assertNotIn('class="tv"', self.client.get("/").content.decode())

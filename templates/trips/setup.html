@@ -1,12 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Our trip{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Our trip" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1>Tell us about your trip</h1>
+  <h1>{% translate "Tell us about your trip" %}</h1>
   <form method="post" class="form">
     {% csrf_token %}
     <fieldset class="countries-pick">
-      <legend>Where are you going?</legend>
+      <legend>{% translate "Where are you going?" %}</legend>
       <div class="cards countries">
         {% for c in previews %}
           {% if c.ready %}
@@ -21,7 +22,7 @@
             <span class="card-emoji" aria-hidden="true">{{ c.emoji }}</span>
             <h3>{{ c.name }}</h3>
             <p>{{ c.line }}</p>
-            <span class="badge">Coming soon</span>
+            <span class="badge">{% translate "Coming soon" %}</span>
           </div>
           {% endif %}
         {% endfor %}
@@ -33,7 +34,7 @@
       <p>{{ form.start_date.label_tag }} {{ form.start_date }}{{ form.start_date.errors }}</p>
       <p>{{ form.end_date.label_tag }} {{ form.end_date }}{{ form.end_date.errors }}</p>
     </div>
-    <button class="btn big" type="submit">Next: choose your course</button>
+    <button class="btn big" type="submit">{% translate "Next: choose your course" %}</button>
   </form>
 </section>
 {% endblock %}

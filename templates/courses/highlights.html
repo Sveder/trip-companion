@@ -1,34 +1,35 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load say %}
-{% block title %}Our trip highlights{% endblock %}
+{% block title %}{% translate "Our trip highlights" %}{% endblock %}
 {% block content %}
 <section class="hero">
-  {% include "includes/guide.html" with cls="hero-guide" label="Our guide waves hello" %}
+  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide waves hello") %}
   {% if phase == "after" %}
-  <h1>Welcome back from Japan!</h1>
-  <p class="lead">Look at everything you did to get ready.</p>
+  <h1>{% translate "Welcome back from Japan!" %}</h1>
+  <p class="lead">{% translate "Look at everything you did to get ready." %}</p>
   {% else %}
-  <h1>Look at everything you did to get ready for Japan!</h1>
+  <h1>{% translate "Look at everything you did to get ready for Japan!" %}</h1>
   {% endif %}
 </section>
 
-<h2 class="section-title">⭐ What we did</h2>
+<h2 class="section-title">⭐ {% translate "What we did" %}</h2>
 {% if done %}
 <div class="cards compact highlights-done">
   {% for item in done %}
   <a class="card" href="{% url 'activity' item.id %}">
     <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji|default:"✅" }}</span>
-    <h3>{{ item.activity.title }}</h3>
-    <p class="hint">{{ item.activity.module.title }} · {{ item.done_at|date:"j M" }}</p>
+    <h3>{{ item.activity.local_title }}</h3>
+    <p class="hint">{{ item.activity.module.local_title }} · {{ item.done_at|date:"j M" }}</p>
   </a>
   {% endfor %}
 </div>
 {% else %}
-<p class="hint center">{% if phase == "after" %}No activities yet. They wait for your next trip!{% else %}No activities yet. Your first one is waiting!{% endif %}</p>
+<p class="hint center">{% if phase == "after" %}{% translate "No activities yet. They wait for your next trip!" %}{% else %}{% translate "No activities yet. Your first one is waiting!" %}{% endif %}</p>
 {% endif %}
 
 {% if clips %}
-<h2 class="section-title">🥢 Our chopsticks videos</h2>
+<h2 class="section-title">🥢 {% translate "Our chopsticks videos" %}</h2>
 <div class="cards highlights-clips">
   {% for clip in clips %}
   <figure class="card">
@@ -39,7 +40,7 @@
 </div>
 {% endif %}
 
-<h2 class="section-title">🗣️ Words we met</h2>
+<h2 class="section-title">🗣️ {% translate "Words we met" %}</h2>
 {% if words %}
 <div class="cards word-grid">
   {% for w in words %}
@@ -50,13 +51,13 @@
   </article>
   {% endfor %}
 </div>
-<p class="hint center">⭐ = you got it right in the quiz. Tap a word to hear it.</p>
+<p class="hint center">⭐ = {% translate "you got it right in the quiz. Tap a word to hear it." %}</p>
 {% else %}
-<p class="hint center">No words yet.</p>
+<p class="hint center">{% translate "No words yet." %}</p>
 {% endif %}
 
 <section class="hero">
-  <a class="btn big alt" href="{% url 'quiz' %}?new=1">Play the quiz ⭐</a>
-  <a class="btn big" href="{% url 'trip_setup' %}">Change our trip</a>
+  <a class="btn big alt" href="{% url 'quiz' %}?new=1">{% translate "Play the quiz" %} ⭐</a>
+  <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Change our trip" %}</a>
 </section>
 {% endblock %}

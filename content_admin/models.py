@@ -1,5 +1,7 @@
 from django.db import models
 
+from .i18n import is_hebrew
+
 AUDIENCES = [("all", "Everyone"), ("adult", "Grown-ups"), ("child", "Kids")]
 ACTIVITY_TYPES = [
     ("cards", "Cards"),
@@ -16,6 +18,8 @@ class Module(models.Model):
     slug = models.SlugField(max_length=60)
     title = models.CharField(max_length=120)
     summary = models.CharField(max_length=300, blank=True)
+    title_he = models.CharField("title (Hebrew)", max_length=120, blank=True)
+    summary_he = models.CharField("summary (Hebrew)", max_length=300, blank=True)
     emoji = models.CharField(max_length=8, blank=True)
     audience = models.CharField(max_length=10, choices=AUDIENCES, default="all")
     order = models.PositiveIntegerField(default=0)
@@ -30,6 +34,14 @@ class Module(models.Model):
 
     def __str__(self):
         return f"{self.country}/{self.slug}"
+
+    @property
+    def local_title(self):
+        return self.title_he if is_hebrew() and self.title_he else self.title
+
+    @property
+    def local_summary(self):
+        return self.summary_he if is_hebrew() and self.summary_he else self.summary
 
 
 class Activity(models.Model):
@@ -47,3 +59,8 @@ class Activity(models.Model):
 
     def __str__(self):
         return f"{self.module}/{self.slug}"
+
+    @property
+    def local_title(self):
+        """The title in the active language. The Hebrew title sits in the data as ``title_he``."""
+        return (self.data or {}).get("title_he") or self.title if is_hebrew() else self.title

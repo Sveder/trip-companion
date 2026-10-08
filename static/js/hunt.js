@@ -11,10 +11,11 @@
 
     function update() {
       var n = form.querySelectorAll('input[name=found]:checked').length;
-      count.textContent = n + ' of ' + boxes.length + ' found';
+      var T = window.T || {};
+      count.textContent = (T.found || '{n} of {total} found').replace('{n}', n).replace('{total}', boxes.length);
       if (n === boxes.length && !wasDone && !sent) {
         sent = true;
-        count.textContent = 'You found them all! 🎉';
+        count.textContent = T.allFound || 'You found them all! 🎉';
         if (window.celebrate) window.celebrate();
         setTimeout(function () { form.submit(); }, 2600);
       }

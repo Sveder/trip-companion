@@ -1,10 +1,14 @@
 - id: japan
   name: Japan
+  name_he: יפן
   emoji: "🇯🇵"
   line: Sushi, fast trains and kind people.
+  line_he: סושי, רכבות מהירות ואנשים נחמדים.
   ready: true
 - id: uzbekistan
   name: Uzbekistan
+  name_he: אוזבקיסטן
   emoji: "🇺🇿"
   line: Blue domes, old Silk Road cities and fresh bread.
+  line_he: כיפות כחולות, ערים עתיקות על דרך המשי ולחם טרי.
   ready: false

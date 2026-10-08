@@ -3,6 +3,7 @@ from django.db import transaction
 from django.shortcuts import redirect, render
 
 from analytics.models import track
+from content_admin.i18n import localize
 from content_admin.loader import load_previews
 
 from .forms import TripForm
@@ -38,4 +39,4 @@ def trip_setup(request):
                 "end_date": trip.end_date,
             }
         form = TripForm(initial=initial)
-    return render(request, "trips/setup.html", {"form": form, "previews": load_previews(), "trip": trip})
+    return render(request, "trips/setup.html", {"form": form, "previews": localize(load_previews()), "trip": trip})

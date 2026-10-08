@@ -1,18 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Reminder emails{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Reminder emails" %}{% endblock %}
 {% block content %}
 <section class="hero">
   {% if stopped %}
-  <h1>No more reminders</h1>
-  <p class="lead">We will not send you reminder emails. You can still open the site any time.</p>
+  <h1>{% translate "No more reminders" %}</h1>
+  <p class="lead">{% translate "We will not send you reminder emails. You can still open the site any time." %}</p>
   <form method="post">{% csrf_token %}<input type="hidden" name="again" value="1">
-    <button class="btn" type="submit">Send reminders again</button></form>
+    <button class="btn" type="submit">{% translate "Send reminders again" %}</button></form>
   {% else %}
-  <h1>Reminder emails</h1>
-  <p class="lead">We send a short email every two days at most, with your next activity.</p>
+  <h1>{% translate "Reminder emails" %}</h1>
+  <p class="lead">{% translate "We send a short email every two days at most, with your next activity." %}</p>
   <form method="post">{% csrf_token %}
-    <button class="btn big" type="submit">Stop the reminder emails</button></form>
+    <button class="btn big" type="submit">{% translate "Stop the reminder emails" %}</button></form>
   {% endif %}
-  <p><a href="{% url 'home' %}">Back home</a></p>
+  <p><a href="{% url 'home' %}">{% translate "Back home" %}</a></p>
 </section>
 {% endblock %}

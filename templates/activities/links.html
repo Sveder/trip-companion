@@ -1,4 +1,5 @@
 {% extends "activities/_frame.html" %}
+{% load i18n %}
 {% block activity %}
 <div class="cards facts buy-list">
   {% for link in links %}
@@ -6,9 +7,9 @@
     {% if link.emoji %}<div class="card-emoji big" aria-hidden="true">{{ link.emoji }}</div>{% endif %}
     <h3>{{ link.title }}</h3>
     <p>{{ link.text }}</p>
-    <p><a class="btn alt" href="{% url 'go' item.id link.id %}" target="_blank" rel="noopener nofollow">{{ link.label|default:"Open" }}</a></p>
+    <p><a class="btn alt" href="{% url 'go' item.id link.id %}" target="_blank" rel="noopener nofollow">{% if link.label %}{{ link.label }}{% else %}{% translate "Open" %}{% endif %}</a></p>
   </article>
   {% endfor %}
 </div>
-<p class="hint">A grown-up buys these. The shop opens in a new tab. Nothing is paid in this app.</p>
+<p class="hint">{% translate "A grown-up buys these. The shop opens in a new tab. Nothing is paid in this app." %}</p>
 {% endblock %}

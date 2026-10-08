@@ -1,6 +1,8 @@
 {% extends "activities/_frame.html" %}
+{% load i18n %}
 {% load static %}
 {% block activity %}
+{% include "includes/js_strings.html" %}
 <ol class="steps">
   {% for step in steps %}
   <li class="step panel step-{{ step.kind }}">
@@ -8,8 +10,8 @@
     {% if step.text %}<p>{{ step.text }}</p>{% endif %}
 
     {% if step.kind == "link" %}
-    <p><a class="btn alt" href="{% if step.id %}{% url 'go' item.id step.id %}{% else %}{{ step.url }}{% endif %}" target="_blank" rel="noopener nofollow">{{ step.label|default:"Open" }}</a></p>
-    <p class="hint">A grown-up buys it. The shop opens in a new tab.</p>
+    <p><a class="btn alt" href="{% if step.id %}{% url 'go' item.id step.id %}{% else %}{{ step.url }}{% endif %}" target="_blank" rel="noopener nofollow">{% if step.label %}{{ step.label }}{% else %}{% translate "Open" %}{% endif %}</a></p>
+    <p class="hint">{% translate "A grown-up buys it. The shop opens in a new tab." %}</p>
 
     {% elif step.kind == "video" %}
       {% if step.show_video %}
@@ -19,27 +21,27 @@
       </div>
       {% else %}
       <div class="video-fallback" data-video-fallback>
-        <p class="hint">The video comes soon. Here is how:</p>
+        <p class="hint">{% translate "The video comes soon. Here is how:" %}</p>
         <ol class="how">{% for line in step.fallback %}<li>{{ line }}</li>{% endfor %}</ol>
       </div>
       {% endif %}
 
     {% elif step.kind == "record" %}
     <div class="no-camera" data-no-camera{% if not tv_mode %} hidden{% endif %}>
-      <p><strong>📱 Do this part on your phone.</strong> Open this page on a phone, make the video there, then come back and press the button.</p>
+      <p><strong>📱 {% translate "Do this part on your phone." %}</strong> {% translate "Open this page on a phone, make the video there, then come back and press the button." %}</p>
     </div>
     {% if not tv_mode %}
     <div class="recorder" data-recorder hidden data-save-url="{% url 'clip_save' item.id %}">
       <video class="rec-view" data-view playsinline muted></video>
       <p class="rec-status" data-status aria-live="polite"></p>
       <div class="rec-buttons">
-        <button type="button" class="btn" data-act="camera">📷 Turn on the camera</button>
-        <button type="button" class="btn" data-act="start" hidden>🔴 Start</button>
-        <button type="button" class="btn" data-act="stop" hidden>⏹ Stop</button>
-        <button type="button" class="btn" data-act="share" hidden>📤 Share</button>
-        <button type="button" class="btn alt" data-act="save" hidden>💾 Keep it for our trip</button>
-        <button type="button" class="btn alt" data-act="again" hidden>🔁 Again</button>
-        <a class="btn alt" data-act="download" hidden download>⬇️ Download</a>
+        <button type="button" class="btn" data-act="camera">📷 {% translate "Turn on the camera" %}</button>
+        <button type="button" class="btn" data-act="start" hidden>🔴 {% translate "Start" %}</button>
+        <button type="button" class="btn" data-act="stop" hidden>⏹ {% translate "Stop" %}</button>
+        <button type="button" class="btn" data-act="share" hidden>📤 {% translate "Share" %}</button>
+        <button type="button" class="btn alt" data-act="save" hidden>💾 {% translate "Keep it for our trip" %}</button>
+        <button type="button" class="btn alt" data-act="again" hidden>🔁 {% translate "Again" %}</button>
+        <a class="btn alt" data-act="download" hidden download>⬇️ {% translate "Download" %}</a>
       </div>
     </div>
     <script src="{% static 'js/record.js' %}" defer></script>

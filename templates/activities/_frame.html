@@ -1,20 +1,22 @@
 {% extends "base.html" %}
-{% block title %}{{ activity.title }}{% endblock %}
+{% load i18n %}
+{% block title %}{{ activity.local_title }}{% endblock %}
 {% block content %}
 {% if progress %}
-<div class="progress" aria-label="Activity {{ progress.number }} of {{ progress.total }}">
-  <span>{{ module.emoji }} {{ module.title }}</span>
-  <span>Activity {{ progress.number }} of {{ progress.total }}</span>
+{% blocktranslate asvar progress_line with number=progress.number total=progress.total %}Activity {{ number }} of {{ total }}{% endblocktranslate %}
+<div class="progress" aria-label="{{ progress_line }}">
+  <span>{{ module.emoji }} {{ module.local_title }}</span>
+  <span>{{ progress_line }}</span>
   <div class="bar"><div class="fill" style="width: {% widthratio progress.done progress.total 100 %}%"></div></div>
 </div>
 {% endif %}
-<h1>{{ activity.title }}</h1>
+<h1>{{ activity.local_title }}</h1>
 {% if data.intro %}<p class="lead">{{ data.intro }}</p>{% endif %}
 {% block activity %}{% endblock %}
 {% block done %}
 <form method="post" action="{% url 'activity_done' item.id %}" class="done-form">
   {% csrf_token %}
-  <button class="btn big" type="submit">{% if item.done_at %}Next{% else %}We did it!{% endif %}</button>
+  <button class="btn big" type="submit">{% if item.done_at %}{% translate "Next" %}{% else %}{% translate "We did it!" %}{% endif %}</button>
 </form>
 {% endblock %}
 {% endblock %}

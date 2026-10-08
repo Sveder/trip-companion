@@ -2,7 +2,9 @@
 import random
 
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 
+from content_admin.i18n import localize
 from content_admin.models import Activity
 
 from .models import PracticeItem
@@ -70,12 +72,14 @@ def question(trip, key):
     activity, entry = lookup(trip, key)
     if entry is None:
         return None
-    entries = [e for _, e in quiz_entries(activity)]
+    # Questions and choices in the active language. The answer check runs in the same language.
+    entry = localize(entry)
+    entries = [localize(e) for _, e in quiz_entries(activity)]
     if activity.type == "words":
         answer_of = lambda e: e["meaning"]
         q = {
             "kind": "word",
-            "prompt": "What does this word mean?",
+            "prompt": _("What does this word mean?"),
             "japanese": entry.get("japanese", ""),
             "reading": entry["reading"],
             "emoji": "",
@@ -84,10 +88,10 @@ def question(trip, key):
         # A card can name its own answer and wrong choices (e.g. "110" for the police card).
         # `choice: false` keeps a card that is not the same kind of thing (a phrase among foods) out of the wrong choices.
         answer_of = lambda e: str(e.get("answer") or e["title"])
-        entries = [c for c in activity.data.get("cards", []) if not c.get("answer") and c.get("choice", True)]
+        entries = [c for c in localize(activity.data.get("cards", [])) if not c.get("answer") and c.get("choice", True)]
         q = {
             "kind": "fact",
-            "prompt": entry.get("question") or "What is this?",
+            "prompt": entry.get("question") or _("What is this?"),
             "japanese": entry.get("japanese", ""),
             "reading": entry.get("reading", ""),
             "emoji": entry.get("emoji", ""),

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
 <section class="hero">
-  {% include "includes/guide.html" with cls="hero-guide" label="Our guide says hi" %}
-  <h1>Get ready for your trip!</h1>
-  <p class="lead">Short, fun activities for the whole family. Learn the food, the words and the fun stuff before you fly.</p>
-  <a class="btn big" href="{% url 'signin' %}">Let's start</a>
+  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide says hi") %}
+  <h1>{% translate "Get ready for your trip!" %}</h1>
+  <p class="lead">{% translate "Short, fun activities for the whole family. Learn the food, the words and the fun stuff before you fly." %}</p>
+  <a class="btn big" href="{% url 'signin' %}">{% translate "Let's start" %}</a>
 </section>
-<h2 class="section-title">Where are you going?</h2>
+<h2 class="section-title">{% translate "Where are you going?" %}</h2>
 <div class="cards countries">
   {% for c in previews %}
   {% if c.ready %}
@@ -14,14 +15,14 @@
     <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>
-    <span class="card-go">Let's go! &rarr;</span>
+    <span class="card-go">{% translate "Let's go!" %} <span class="arrow">&rarr;</span></span>
   </a>
   {% else %}
   <div class="card country soon">
     <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>
-    <span class="badge">Coming soon</span>
+    <span class="badge">{% translate "Coming soon" %}</span>
   </div>
   {% endif %}
   {% endfor %}

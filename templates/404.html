@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Page not found{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Page not found" %}{% endblock %}
 {% block content %}
 <section class="hero">
-  {% include "includes/guide.html" with cls="hero-guide" label="Our guide looks around" %}
-  <h1>Oops! We can't find that page.</h1>
-  <p class="lead">Maybe it went on a trip. Let's go back.</p>
-  <a class="btn big" href="{% url 'home' %}">Go home</a>
+  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide looks around") %}
+  <h1>{% translate "Oops! We can't find that page." %}</h1>
+  <p class="lead">{% translate "Maybe it went on a trip. Let's go back." %}</p>
+  <a class="btn big" href="{% url 'home' %}">{% translate "Go home" %}</a>
 </section>
 {% endblock %}

@@ -1,18 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Quiz{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Quiz" %}{% endblock %}
 {% block content %}
 <section class="hero">
-  {% include "includes/guide.html" with cls="hero-guide" label="Our guide" %}
+  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide") %}
   {% if missed %}
-  <h1>All done for today!</h1>
-  <p class="lead">Come back tomorrow. The ones we missed come back then.</p>
+  <h1>{% translate "All done for today!" %}</h1>
+  <p class="lead">{% translate "Come back tomorrow. The ones we missed come back then." %}</p>
   {% elif count %}
-  <h1>No quiz today!</h1>
-  <p class="lead">You know all your words for now.{% if next_item %} The next quiz is on {{ next_item.due_on|date:"l, j F" }}.{% endif %}</p>
+  <h1>{% translate "No quiz today!" %}</h1>
+  <p class="lead">{% translate "You know all your words for now." %}{% if next_item %} {% blocktranslate with day=next_item.due_on|date:"l, j F" %}The next quiz is on {{ day }}.{% endblocktranslate %}{% endif %}</p>
   {% else %}
-  <h1>No quiz yet</h1>
-  <p class="lead">Do an activity first. Then the quiz asks you about it.</p>
+  <h1>{% translate "No quiz yet" %}</h1>
+  <p class="lead">{% translate "Do an activity first. Then the quiz asks you about it." %}</p>
   {% endif %}
-  <a class="btn big" href="{% url 'home' %}">Back home</a>
+  <a class="btn big" href="{% url 'home' %}">{% translate "Back home" %}</a>
 </section>
 {% endblock %}

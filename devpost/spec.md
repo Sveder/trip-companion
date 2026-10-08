@@ -71,6 +71,10 @@ From `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
 - TV mode: very large type, high contrast, one focused card at a time, clear focus ring for the remote.
 - **Pending:** guide animal, main colour and the finish celebration (our 4-year-old, asked 2026-10-07 18:00), and Michael's own direction.
   Until then the build uses neutral placeholders that are easy to swap (CSS variables, one mascot image slot).
+- Languages: English (default) and Hebrew. Interface text uses Django i18n (`locale/he/LC_MESSAGES/django.po`, compiled
+  `.mo` committed). Content text has a Hebrew twin in the YAML: `title_he`, `text_he`, `meaning_he` and so on
+  (`content_admin/i18n.py > localize`). The language comes from the cookie that the header switch sets (or `?lang=he`),
+  never from the browser. Hebrew pages carry `dir="rtl"`.
 
 ## Components
 
@@ -87,7 +91,7 @@ YAML files under `content/japan/`, one per module, loaded into the database by `
 rows). After loading, the database is the source the site reads; the super user's edits live there. Each module has: id, title, audience (`all`, `adult`, `child`), order, and a
 list of activities. An activity has a type and its data:
 - `cards` — fact cards (food, do and don't, safety, transport); a card can hold an image and a short text.
-- `words` — word list (Japanese, reading, Hebrew/English meaning, optional audio file) → feeds Practice.
+- `words` — word list (Japanese, reading, English meaning with a `meaning_he` twin, optional audio file) → feeds Practice.
 - `video` — a YouTube id, `approved: true|false`; unapproved videos never show.
 - `streetview` — a Google Maps embed URL and a list of "things to spot".
 - `steps` — a guided real-world activity (chopsticks): ordered steps, each text / video / link / record.

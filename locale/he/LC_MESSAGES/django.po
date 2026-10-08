@@ -1,0 +1,482 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-08 08:42+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Your email"
+msgstr "האימייל שלכם"
+
+msgid "Your 6-digit code"
+msgstr "הקוד שלכם (6 ספרות)"
+
+msgid "Pick at least one thing to learn."
+msgstr "בחרו לפחות דבר אחד ללמוד."
+
+msgid "What does this word mean?"
+msgstr "מה פירוש המילה הזאת?"
+
+msgid "What is this?"
+msgstr "מה זה?"
+
+msgid "Page not found"
+msgstr "הדף לא נמצא"
+
+msgid "Our guide looks around"
+msgstr "המדריך שלנו מסתכל מסביב"
+
+msgid "Oops! We can't find that page."
+msgstr "אופס! אנחנו לא מוצאים את הדף הזה."
+
+msgid "Maybe it went on a trip. Let's go back."
+msgstr "אולי הוא יצא לטיול. בואו נחזור."
+
+msgid "Go home"
+msgstr "לדף הבית"
+
+msgid "Enter your code"
+msgstr "הקלידו את הקוד"
+
+msgid "Check your email"
+msgstr "בדקו את האימייל"
+
+#, python-format
+msgid ""
+"We sent a code to <strong>%(email)s</strong>. Type it here. The code works "
+"for 15 minutes."
+msgstr ""
+"שלחנו קוד אל <strong>%(email)s</strong>. הקלידו אותו כאן. הקוד עובד 15 דקות."
+
+msgid "No email? Look in your spam folder."
+msgstr "לא הגיע אימייל? הסתכלו בתיקיית הספאם."
+
+msgid "Sign in"
+msgstr "כניסה"
+
+msgid "Send a new code"
+msgstr "שלחו קוד חדש"
+
+msgid "Type your email. We send you a 6-digit code. No password needed."
+msgstr "הקלידו את האימייל שלכם. נשלח לכם קוד של 6 ספרות. לא צריך סיסמה."
+
+msgid "Send me a code"
+msgstr "שלחו לי קוד"
+
+#, python-format
+msgid "Activity %(number)s of %(total)s"
+msgstr "פעילות %(number)s מתוך %(total)s"
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "We did it!"
+msgstr "עשינו את זה!"
+
+msgid "Tap to hear it"
+msgstr "לחצו כדי לשמוע"
+
+msgid "This activity is coming soon. We will tell you when it is ready!"
+msgstr "הפעילות הזאת תגיע בקרוב. נגיד לכם כשהיא מוכנה!"
+
+msgid "Open"
+msgstr "פתיחה"
+
+msgid ""
+"A grown-up buys these. The shop opens in a new tab. Nothing is paid in this "
+"app."
+msgstr ""
+"מבוגר קונה את אלה. החנות נפתחת בלשונית חדשה. באפליקציה הזאת לא משלמים כלום."
+
+msgid "Good try!"
+msgstr "ניסיון יפה!"
+
+msgid "Great job!"
+msgstr "כל הכבוד!"
+
+msgid "Our guide jumps for joy"
+msgstr "המדריך שלנו קופץ משמחה"
+
+msgid "Let's look again another day."
+msgstr "בואו נחפש שוב ביום אחר."
+
+#, python-format
+msgid "You found %(found)s of %(of)s!"
+msgstr "מצאתם %(found)s מתוך %(of)s!"
+
+#, python-format
+msgid "You finished %(name)s!"
+msgstr "סיימתם את %(name)s!"
+
+#, python-format
+msgid "%(done)s of %(total)s activities done"
+msgstr "%(done)s מתוך %(total)s פעילויות הושלמו"
+
+#, python-format
+msgid "%(done)s of %(total)s done"
+msgstr "%(done)s מתוך %(total)s הושלמו"
+
+msgid "A grown-up buys it. The shop opens in a new tab."
+msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
+
+msgid "The video comes soon. Here is how:"
+msgstr "הסרטון יגיע בקרוב. ככה עושים את זה:"
+
+msgid "Do this part on your phone."
+msgstr "את החלק הזה עושים בטלפון."
+
+msgid ""
+"Open this page on a phone, make the video there, then come back and press "
+"the button."
+msgstr "פתחו את הדף הזה בטלפון, צלמו שם את הסרטון, ואז חזרו ולחצו על הכפתור."
+
+msgid "Turn on the camera"
+msgstr "הפעלת המצלמה"
+
+msgid "Start"
+msgstr "התחלה"
+
+msgid "Stop"
+msgstr "עצירה"
+
+msgid "Share"
+msgstr "שיתוף"
+
+msgid "Keep it for our trip"
+msgstr "שמרו לטיול שלנו"
+
+msgid "Again"
+msgstr "עוד פעם"
+
+msgid "Download"
+msgstr "הורדה"
+
+msgid "Street View"
+msgstr "Street View"
+
+msgid "Drag the picture to look around."
+msgstr "גררו את התמונה כדי להסתכל מסביב."
+
+msgid "Full screen"
+msgstr "מסך מלא"
+
+msgid "Things to spot"
+msgstr "מה צריך למצוא"
+
+msgid "Keep looking! Tap each thing when you find it."
+msgstr "תמשיכו לחפש! לחצו על כל דבר כשאתם מוצאים אותו."
+
+msgid "We found them all!"
+msgstr "מצאנו את כולם!"
+
+msgid "We can't find them all. Next"
+msgstr "אנחנו לא מוצאים את כולם. הבא"
+
+msgid ""
+"After this, the quiz asks these words again on other days. That is how they "
+"stay in your head!"
+msgstr ""
+"אחרי זה, החידון ישאל את המילים האלה שוב בימים אחרים. ככה הן נשארות בראש!"
+
+msgid "Get ready for Japan"
+msgstr "מתכוננים ליפן"
+
+msgid "Our course"
+msgstr "המסלול שלנו"
+
+msgid "Quiz"
+msgstr "חידון"
+
+msgid "Our trip"
+msgstr "הטיול שלנו"
+
+msgid "Sign out"
+msgstr "יציאה"
+
+msgid "Made by"
+msgstr "נוצר על ידי"
+
+msgid "Privacy"
+msgstr "פרטיות"
+
+msgid "Choose your course"
+msgstr "בחרו את המסלול שלכם"
+
+#, python-format
+msgid ""
+"We picked these for your family (%(ages)s). Tap a card to switch it on or "
+"off."
+msgstr ""
+"בחרנו את אלה בשביל המשפחה שלכם (%(ages)s). לחצו על כרטיס כדי להדליק או לכבות"
+" אותו."
+
+msgid "For kids"
+msgstr "לילדים"
+
+msgid "For grown-ups"
+msgstr "למבוגרים"
+
+msgid "Not picked for you"
+msgstr "לא נבחר בשבילכם"
+
+msgid "More coming soon"
+msgstr "עוד יגיע בקרוב"
+
+msgid "Rebuild our course"
+msgstr "בנו מחדש את המסלול"
+
+msgid "Build our course!"
+msgstr "בנו את המסלול שלנו!"
+
+msgid "Our course for Japan"
+msgstr "המסלול שלנו ליפן"
+
+#, python-format
+msgid "We did %(done)s of %(total)s. Tap any one to play it again!"
+msgstr "עשינו %(done)s מתוך %(total)s. לחצו על כל אחת כדי לשחק בה שוב!"
+
+msgid "Coming soon"
+msgstr "בקרוב"
+
+msgid "Done"
+msgstr "בוצע"
+
+msgid "Change our course"
+msgstr "שינוי המסלול"
+
+msgid "All done"
+msgstr "סיימנו הכול"
+
+msgid "You did every activity!"
+msgstr "עשיתם את כל הפעילויות!"
+
+msgid "You are in Japan now! Play the quiz to keep your words fresh."
+msgstr "אתם ביפן עכשיו! שחקו בחידון כדי לזכור את המילים."
+
+msgid ""
+"Great job. You are ready for Japan. Play the quiz every day until the trip!"
+msgstr "כל הכבוד. אתם מוכנים ליפן. שחקו בחידון כל יום עד הטיול!"
+
+msgid "More activities come soon. We will tell you when they are ready!"
+msgstr "עוד פעילויות יגיעו בקרוב. נגיד לכם כשהן מוכנות!"
+
+msgid "Party again!"
+msgstr "עוד מסיבה!"
+
+msgid "Take the quiz"
+msgstr "לחידון"
+
+msgid "Our trip highlights"
+msgstr "הרגעים הכי יפים מהטיול"
+
+msgid "Our guide waves hello"
+msgstr "המדריך שלנו מנופף שלום"
+
+msgid "Welcome back from Japan!"
+msgstr "ברוכים השבים מיפן!"
+
+msgid "Look at everything you did to get ready."
+msgstr "תראו את כל מה שעשיתם כדי להתכונן."
+
+msgid "Look at everything you did to get ready for Japan!"
+msgstr "תראו את כל מה שעשיתם כדי להתכונן ליפן!"
+
+msgid "What we did"
+msgstr "מה עשינו"
+
+msgid "No activities yet. They wait for your next trip!"
+msgstr "עוד אין פעילויות. הן מחכות לטיול הבא שלכם!"
+
+msgid "No activities yet. Your first one is waiting!"
+msgstr "עוד אין פעילויות. הראשונה מחכה לכם!"
+
+msgid "Our chopsticks videos"
+msgstr "הסרטונים שלנו עם הצ'ופסטיקס"
+
+msgid "Words we met"
+msgstr "מילים שפגשנו"
+
+msgid "you got it right in the quiz. Tap a word to hear it."
+msgstr "עניתם נכון בחידון. לחצו על מילה כדי לשמוע אותה."
+
+msgid "No words yet."
+msgstr "עוד אין מילים."
+
+msgid "Play the quiz"
+msgstr "שחקו בחידון"
+
+msgid "Change our trip"
+msgstr "שינוי הטיול"
+
+msgid "Our guide says hi"
+msgstr "המדריך שלנו אומר שלום"
+
+msgid "Get ready for your trip!"
+msgstr "מתכוננים לטיול!"
+
+msgid ""
+"Short, fun activities for the whole family. Learn the food, the words and "
+"the fun stuff before you fly."
+msgstr ""
+"פעילויות קצרות וכיפיות לכל המשפחה. לומדים על האוכל, המילים והדברים הכיפיים "
+"לפני הטיסה."
+
+msgid "Let's start"
+msgstr "בואו נתחיל"
+
+msgid "Where are you going?"
+msgstr "לאן אתם נוסעים?"
+
+msgid "Let's go!"
+msgstr "יוצאים לדרך!"
+
+#, python-brace-format
+#| msgid "%(n)s of %(total)s found"
+msgid "{n} of {total} found"
+msgstr "נמצאו {n} מתוך {total}"
+
+msgid "You found them all! 🎉"
+msgstr "מצאתם את כולם! 🎉"
+
+msgid "Starting the camera…"
+msgstr "מפעילים את המצלמה…"
+
+msgid ""
+"The camera did not turn on. Allow the camera, or do this part on a phone."
+msgstr "המצלמה לא נדלקה. אשרו את המצלמה, או עשו את החלק הזה בטלפון."
+
+msgid "Great job! Watch it, then share it."
+msgstr "כל הכבוד! צפו בסרטון, ואז שתפו אותו."
+
+msgid "Saving did not work. Try again, or download it."
+msgstr "השמירה לא הצליחה. נסו שוב, או הורידו את הסרטון."
+
+msgid "Quiz done"
+msgstr "החידון הסתיים"
+
+msgid "Quiz done!"
+msgstr "החידון הסתיים!"
+
+#, python-format
+msgid "You got %(right)s of %(total)s right."
+msgstr "עניתם נכון על %(right)s מתוך %(total)s."
+
+msgid "The ones we missed come back tomorrow."
+msgstr "מה שפספסנו יחזור מחר."
+
+msgid "Every one! Wow!"
+msgstr "על כולן! וואו!"
+
+msgid "Back home"
+msgstr "חזרה לדף הבית"
+
+msgid "Our guide"
+msgstr "המדריך שלנו"
+
+msgid "All done for today!"
+msgstr "סיימנו להיום!"
+
+msgid "Come back tomorrow. The ones we missed come back then."
+msgstr "חזרו מחר. מה שפספסנו יחזור אז."
+
+msgid "No quiz today!"
+msgstr "אין חידון היום!"
+
+msgid "You know all your words for now."
+msgstr "אתם יודעים את כל המילים שלכם בינתיים."
+
+#, python-format
+msgid "The next quiz is on %(day)s."
+msgstr "החידון הבא ביום %(day)s."
+
+msgid "No quiz yet"
+msgstr "עוד אין חידון"
+
+msgid "Do an activity first. Then the quiz asks you about it."
+msgstr "קודם עשו פעילות. אחר כך החידון ישאל עליה."
+
+#, python-format
+msgid "Question %(number)s of %(total)s"
+msgstr "שאלה %(number)s מתוך %(total)s"
+
+msgid "Quiz time"
+msgstr "זמן חידון"
+
+msgid "Yes! Great job!"
+msgstr "כן! כל הכבוד!"
+
+#, python-format
+msgid "Not this time. It is <strong>%(answer)s</strong>."
+msgstr "לא הפעם. התשובה היא <strong>%(answer)s</strong>."
+
+msgid "No problem! We ask this one again tomorrow."
+msgstr "לא נורא! נשאל את זה שוב מחר."
+
+msgid "See how we did"
+msgstr "בואו נראה איך הלך"
+
+msgid "Next question"
+msgstr "לשאלה הבאה"
+
+msgid "Reminder emails"
+msgstr "אימיילים של תזכורת"
+
+msgid "No more reminders"
+msgstr "אין יותר תזכורות"
+
+msgid ""
+"We will not send you reminder emails. You can still open the site any time."
+msgstr ""
+"לא נשלח לכם יותר אימיילים של תזכורת. אפשר עדיין להיכנס לאתר מתי שרוצים."
+
+msgid "Send reminders again"
+msgstr "שלחו תזכורות שוב"
+
+msgid "We send a short email every two days at most, with your next activity."
+msgstr "אנחנו שולחים אימייל קצר לכל היותר פעם ביומיים, עם הפעילות הבאה שלכם."
+
+msgid "Stop the reminder emails"
+msgstr "הפסיקו את אימיילי התזכורת"
+
+msgid "Tell us about your trip"
+msgstr "ספרו לנו על הטיול שלכם"
+
+msgid "Next: choose your course"
+msgstr "הבא: בחרו את המסלול"
+
+msgid "How old is everyone going?"
+msgstr "בני כמה כל מי שנוסע?"
+
+msgid "One number per person, with commas. For example: 38, 36, 4, 2"
+msgstr "מספר אחד לכל אדם, עם פסיקים. לדוגמה: 38, 36, 4, 2"
+
+msgid "We leave on"
+msgstr "יוצאים בתאריך"
+
+msgid "We come home on"
+msgstr "חוזרים הביתה בתאריך"
+
+msgid "Add at least one age."
+msgstr "הוסיפו לפחות גיל אחד."
+
+#, python-format
+msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
+msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
+
+msgid "That is a big family! The app takes up to 12 people."
+msgstr "איזו משפחה גדולה! האפליקציה מקבלת עד 12 אנשים."
+
+msgid "The trip ends before it starts."
+msgstr "הטיול נגמר לפני שהוא מתחיל."

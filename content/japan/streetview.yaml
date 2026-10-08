@@ -1,6 +1,8 @@
 id: streetview
 title: Street View hunt
+title_he: ציד ב-Street View
 summary: Look around a real place in Japan and find hidden things.
+summary_he: מסתכלים מסביב במקום אמיתי ביפן ומוצאים דברים מוסתרים.
 emoji: "🔎"
 audience: child
 order: 60
@@ -15,88 +17,142 @@ activities:
   # The first id stays "streetview-intro": a new id would delete the old row and the families' course items with it.
   - id: streetview-intro
     title: "Hunt: the lucky cat temple"
+    title_he: 'ציד: מקדש החתולים של המזל'
     type: streetview
     place: Gotoku-ji Temple, Tokyo
+    place_he: מקדש גוטוקו-ג'י, טוקיו
     intro: This is a temple in Tokyo full of lucky cats. People bring a cat here when a wish comes true. Look all around! Can you find these things?
+    intro_he: זה מקדש בטוקיו מלא בחתולים של מזל. אנשים מביאים לכאן חתול כשמשאלה מתגשמת. תסתכלו מסביב! אתם יכולים למצוא את הדברים האלה?
     lat: 35.6486000
     lng: 139.6468000
     heading: 120
     spots:
       - emoji: "🐱"
         name: Maneki-neko (lucky cat)
+        name_he: מנקי-נקו (חתול המזל)
         text: A lucky cat with one paw up
+        text_he: חתול מזל עם כף יד אחת למעלה
         about: 'Maneki-neko means "beckoning cat". The raised paw waves good luck in. A story from the 1600s says a cat here waved a lord inside, just before a storm broke.'
+        about_he: מנקי-נקו פירושו "החתול שקורא לבוא". הכף המורמת מנופפת למזל טוב שייכנס. סיפור משנות ה-1600 מספר שחתול כאן נופף לאציל להיכנס, רגע לפני שפרצה סערה.
       - emoji: "🏠"
         name: Thank-you cats
+        name_he: חתולי התודה
         text: A shelf of cats with its own little roof
+        text_he: מדף של חתולים עם גג קטן משלו
         about: 'When a wish comes true, people bring a cat back to the temple to say thank you. There are thousands of them here.'
+        about_he: כשמשאלה מתגשמת, אנשים מחזירים חתול למקדש כדי להגיד תודה. יש כאן אלפים כאלה.
       - emoji: "🪟"
         name: Koshi (wooden lattice)
+        name_he: קושי (סבכת עץ)
         text: Wooden windows with rows of cats under them
+        text_he: חלונות עץ עם שורות של חתולים מתחתם
         about: 'Koshi are thin wooden bars on a window. They let air and light in, but people outside cannot see in well.'
+        about_he: קושי הם מוטות עץ דקים על חלון. הם מכניסים אוויר ואור, אבל מי שבחוץ לא רואה טוב פנימה.
       - emoji: "🛖"
         name: Kawara (roof tiles)
+        name_he: קווארה (רעפים)
         text: A tiny wooden house with a dark tile roof
+        text_he: בית עץ קטנטן עם גג רעפים כהה
         about: 'Kawara are heavy clay tiles. They keep out rain and fire. Roof tiles came to Japan with Buddhism about 1,400 years ago.'
+        about_he: קווארה הם רעפי חרס כבדים. הם שומרים מפני גשם ואש. הרעפים הגיעו ליפן יחד עם הבודהיזם לפני בערך 1,400 שנה.
       - emoji: "🪨"
         name: Sekihi (stone monument)
+        name_he: סקיהי (מצבת אבן)
         text: A tall grey stone with writing on it
+        text_he: אבן אפורה גבוהה עם כתב עליה
         about: 'A sekihi is a stone with carved words. It remembers a person or an event. The words are kanji, letters that first came from China.'
+        about_he: סקיהי היא אבן עם מילים חקוקות. היא מזכירה אדם או אירוע. המילים כתובות בקאנג'י, אותיות שהגיעו במקור מסין.
   - id: streetview-inari
     title: "Hunt: the fox shrine"
+    title_he: 'ציד: מקדש השועלים'
     type: streetview
     place: Fushimi Inari Taisha, Kyoto
+    place_he: פושימי אינארי טאישה, קיוטו
     intro: This is a shrine in Kyoto. People say foxes carry messages here. Can you find these things?
+    intro_he: זה מקדש בקיוטו. אומרים שכאן שועלים מעבירים הודעות. אתם יכולים למצוא את הדברים האלה?
     lat: 34.9671396
     lng: 135.7726693
     heading: 90
     spots:
       - emoji: "🦊"
         name: Kitsune (fox) statue
+        name_he: פסל קיטסונה (שועל)
         text: A fox statue with a red bib
+        text_he: פסל שועל עם סינר אדום
         about: 'Foxes are the messengers of Inari, the god of rice. Many fox statues hold a key in their mouth: the key to the rice store. People say the red bib keeps bad luck away.'
+        about_he: 'השועלים הם השליחים של אינארי, אל האורז. הרבה פסלי שועלים מחזיקים מפתח בפה: המפתח למחסן האורז. אומרים שהסינר האדום מרחיק מזל רע.'
       - emoji: "🦊"
         name: The second kitsune
+        name_he: הקיטסונה השני
         text: A second fox statue on the other side
+        text_he: פסל שועל שני בצד השני
         about: 'Fox statues stand in pairs, one on each side of the path. Together they guard the shrine.'
+        about_he: פסלי השועלים עומדים בזוגות, אחד בכל צד של השביל. ביחד הם שומרים על המקדש.
       - emoji: "⛩️"
         name: Torii gate
+        name_he: שער טוריי
         text: A big orange gate
+        text_he: שער כתום גדול
         about: 'A torii marks the way into a shrine, the home of a kami (a god). Fushimi Inari has about 10,000 torii. Families and companies give them to ask for luck.'
+        about_he: טוריי מסמן את הכניסה למקדש, הבית של קאמי (אל). בפושימי אינארי יש בערך 10,000 שערי טוריי. משפחות וחברות תורמות אותם כדי לבקש מזל.
       - emoji: "🏯"
         name: Romon (tower gate)
+        name_he: רומון (שער מגדל)
         text: A tall gate with two roofs
+        text_he: שער גבוה עם שני גגות
         about: 'The Romon is the big entrance gate of the shrine. The ruler Toyotomi Hideyoshi gave it in 1589, more than 400 years ago.'
+        about_he: הרומון הוא שער הכניסה הגדול של המקדש. השליט טויוטומי הידיושי תרם אותו ב-1589, לפני יותר מ-400 שנה.
       - emoji: "🏮"
         name: Toro (lantern)
+        name_he: טורו (פנס)
         text: A lantern on a tall post
+        text_he: פנס על עמוד גבוה
         about: 'Toro light the path to a shrine. Long ago a flame or a candle burned inside.'
+        about_he: פנסי טורו מאירים את הדרך למקדש. פעם, בתוכם בערה להבה או נר.
   - id: streetview-lantern
     title: "Hunt: the giant lantern"
+    title_he: 'ציד: הפנס הענק'
     type: streetview
     place: Kaminarimon Gate, Senso-ji, Tokyo
+    place_he: שער קמינרימון, סנסו-ג'י, טוקיו
     intro: This is the Thunder Gate of an old temple in Tokyo. Look up! Can you find these things?
+    intro_he: זה שער הרעם של מקדש עתיק בטוקיו. תסתכלו למעלה! אתם יכולים למצוא את הדברים האלה?
     lat: 35.7110583
     lng: 139.7963133
     heading: 0
     spots:
       - emoji: "🏮"
         name: Chochin (paper lantern)
+        name_he: צ'וצ'ין (פנס נייר)
         text: A giant red and black paper lantern
+        text_he: פנס נייר ענק באדום ושחור
         about: 'This chochin is about 3.9 m tall and weighs about 700 kg, as much as a small car. It is paper on a bamboo frame. The letters say Kaminarimon, "Thunder Gate".'
+        about_he: הצ'וצ'ין הזה גבוה בערך 3.9 מטר ושוקל בערך 700 ק"ג, כמו מכונית קטנה. הוא עשוי נייר על מסגרת במבוק. האותיות אומרות קמינרימון, "שער הרעם".
       - emoji: "🔴"
         name: Vermilion pillars
+        name_he: עמודים אדומים
         text: Big red posts
+        text_he: עמודים אדומים גדולים
         about: 'Temples and shrines paint their wood this red-orange colour. The paint protects the wood, and people say the colour keeps bad spirits away.'
+        about_he: מקדשים צובעים את העץ שלהם בצבע האדום-כתום הזה. הצבע שומר על העץ, ואומרים שהצבע מרחיק רוחות רעות.
       - emoji: "👀"
         name: Fujin and Raijin
+        name_he: פוג'ין וראיג'ין
         text: A god statue hiding behind a net
+        text_he: פסל של אל שמתחבא מאחורי רשת
         about: 'Fujin is the god of wind and Raijin is the god of thunder. They guard the gate, one on each side. The net keeps the birds off.'
+        about_he: פוג'ין הוא אל הרוח וראיג'ין הוא אל הרעם. הם שומרים על השער, אחד בכל צד. הרשת מרחיקה את הציפורים.
       - emoji: "📜"
         name: Shodo (brush writing)
+        name_he: שודו (כתיבה במכחול)
         text: Big black brush letters on a white sign
+        text_he: אותיות גדולות במכחול שחור על שלט לבן
         about: 'Japanese is written with a brush and black ink. Beautiful brush writing is an art in Japan called shodo.'
+        about_he: פעם כתבו יפנית במכחול ובדיו שחורה. כתיבה יפה במכחול היא אומנות ביפן שנקראת שודו.
       - emoji: "🏯"
         name: Curved temple roofs
+        name_he: גגות מקדש מעוקלים
         text: A house with curvy Japanese roofs
+        text_he: בית עם גגות יפניים מעוקלים
         about: 'The roof edges curve up at the ends. This style came from China with Buddhism. Senso-ji is the oldest temple in Tokyo, from the year 628.'
+        about_he: קצוות הגג מתעקלים למעלה. הסגנון הזה הגיע מסין יחד עם הבודהיזם. סנסו-ג'י הוא המקדש הכי עתיק בטוקיו, משנת 628.

@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext as _
 
 from analytics.models import track
+from content_admin.i18n import localize
 from content_admin.loader import load_previews
 from trips.models import active_trip
 
@@ -14,7 +16,7 @@ from .models import Course
 def home(request):
     """Signed out: the welcome page. Signed in: the next step for this family."""
     if not request.user.is_authenticated:
-        return render(request, "courses/welcome.html", {"previews": load_previews()})
+        return render(request, "courses/welcome.html", {"previews": localize(load_previews())})
     trip = active_trip(request.user)
     if trip is None:
         return redirect("trip_setup")
@@ -58,7 +60,7 @@ def builder(request):
         valid = {m.id for m, _ in rows}
         chosen = [int(x) for x in request.POST.getlist("modules") if x.isdigit() and int(x) in valid]
         if not chosen:
-            messages.error(request, "Pick at least one thing to learn.")
+            messages.error(request, _("Pick at least one thing to learn."))
         else:
             before = set(course.module_ids) if course else set()
             course = build_course(trip, chosen)

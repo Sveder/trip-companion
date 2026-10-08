@@ -249,3 +249,13 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .course-text .badge { margin-top: .3rem; }
 .badge.done { background: var(--c-accent); color: #fff; }
 .course-text small { color: var(--c-muted); font-size: .9rem; }
+/* Hebrew: the page runs right to left. Rules with a fixed side get their mirror here. */
+.lang-switch { margin: 0; }
+.lang-switch .link { font-weight: 700; }
+[dir="rtl"] body { font-family: "Rubik", "Arial Hebrew", "Noto Sans Hebrew", var(--font); }
+[dir="rtl"] .module .switch { right: auto; left: 1rem; }
+[dir="rtl"] .module .switch::after { left: auto; right: 3px; transition: right .15s; }
+[dir="rtl"] .module:has(input:checked) .switch::after { left: auto; right: 25px; }
+[dir="rtl"] .step .how, [dir="rtl"] .prose ul { padding-left: 0; padding-right: 1.3rem; }
+[dir="rtl"] .arrow { display: inline-block; transform: scaleX(-1); }
+[dir="rtl"] .jp, [dir="rtl"] .reading { direction: ltr; unicode-bidi: isolate; }

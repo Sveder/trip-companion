@@ -1,4 +1,5 @@
 {% extends "activities/_frame.html" %}
+{% load i18n %}
 {% load say %}
 {% block activity %}
 <div class="cards words">
@@ -8,9 +9,9 @@
     <p class="jp" lang="ja">{{ w.japanese }}</p>
     <h3 class="reading">{{ w.reading }}</h3>
     <p class="meaning">{{ w.meaning }}</p>
-    <span class="say-hint" data-say-hint hidden>🔊 Tap to hear it</span>
+    <span class="say-hint" data-say-hint hidden>🔊 {% translate "Tap to hear it" %}</span>
   </article>
   {% endfor %}
 </div>
-<p class="hint center">After this, the quiz asks these words again on other days. That is how they stay in your head!</p>
+<p class="hint center">{% translate "After this, the quiz asks these words again on other days. That is how they stay in your head!" %}</p>
 {% endblock %}

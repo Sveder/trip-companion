@@ -1,21 +1,22 @@
 {% extends "base.html" %}
-{% block title %}{% if found == 0 %}Good try!{% else %}Great job!{% endif %}{% endblock %}
+{% load i18n %}
+{% block title %}{% if found == 0 %}{% translate "Good try!" %}{% else %}{% translate "Great job!" %}{% endif %}{% endblock %}
 {% block content %}
 <section class="hero praise">
   <div class="praise-emoji" aria-hidden="true">{{ module.emoji|default:"⭐" }}</div>
-  {% include "includes/guide.html" with cls="hero-guide cheer" label="Our guide jumps for joy" %}
+  {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
   {% if found == 0 %}
-  <h1>Good try!</h1>
-  <p class="lead">Let's look again another day.</p>
+  <h1>{% translate "Good try!" %}</h1>
+  <p class="lead">{% translate "Let's look again another day." %}</p>
   {% else %}
-  <h1>Great job!</h1>
-  {% if found is not None %}<p class="lead">You found {{ found }} of {{ of }}!</p>{% endif %}
+  <h1>{% translate "Great job!" %}</h1>
+  {% if found is not None %}<p class="lead">{% blocktranslate %}You found {{ found }} of {{ of }}!{% endblocktranslate %}</p>{% endif %}
   {% endif %}
-  <p class="lead">You finished {{ module.title }}!</p>
-  <div class="progress" aria-label="{{ progress.done }} of {{ progress.total }} activities done">
-    <span>⭐ {{ progress.done }} of {{ progress.total }} done</span>
+  <p class="lead">{% blocktranslate with name=module.local_title %}You finished {{ name }}!{% endblocktranslate %}</p>
+  <div class="progress" aria-label="{% blocktranslate with done=progress.done total=progress.total %}{{ done }} of {{ total }} activities done{% endblocktranslate %}">
+    <span>⭐ {% blocktranslate with done=progress.done total=progress.total %}{{ done }} of {{ total }} done{% endblocktranslate %}</span>
     <div class="bar"><div class="fill praise-fill" style="--from: {% widthratio progress.before progress.total 100 %}%; width: {% widthratio progress.done progress.total 100 %}%"></div></div>
   </div>
-  <a class="btn big" href="{{ next_url }}" autofocus>Next ➜</a>
+  <a class="btn big" href="{{ next_url }}" autofocus>{% translate "Next" %} <span class="arrow">➜</span></a>
 </section>
 {% endblock %}

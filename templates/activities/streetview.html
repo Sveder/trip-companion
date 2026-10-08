@@ -1,19 +1,21 @@
 {% extends "activities/_frame.html" %}
+{% load i18n %}
 {% load static %}
 {% block activity %}
+{% include "includes/js_strings.html" %}
 <p class="place">📍 {{ data.place }}</p>
 <div class="hunt">
   <div class="sv-frame">
-    <iframe src="{{ hunt.embed }}" title="Street View: {{ data.place }}" allow="fullscreen" allowfullscreen
+    <iframe src="{{ hunt.embed }}" title="{% translate "Street View" %}: {{ data.place }}" allow="fullscreen" allowfullscreen
       loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
-  <p class="hint sv-help">Drag the picture to look around. <a href="{{ hunt.link }}" target="_blank" rel="noopener">Full screen</a></p>
+  <p class="hint sv-help">{% translate "Drag the picture to look around." %} <a href="{{ hunt.link }}" target="_blank" rel="noopener">{% translate "Full screen" %}</a></p>
 {% endblock %}
 {% block done %}
   <form method="post" action="{% url 'activity_done' item.id %}" class="spot-form" data-hunt>
     {% csrf_token %}
-    <h2>Things to spot</h2>
-    {% if hunt.missing %}<p class="hint" role="status">Keep looking! Tap each thing when you find it.</p>{% endif %}
+    <h2>{% translate "Things to spot" %}</h2>
+    {% if hunt.missing %}<p class="hint" role="status">{% translate "Keep looking! Tap each thing when you find it." %}</p>{% endif %}
     <ul class="spots">
       {% for spot in data.spots %}
       <li><label class="spot">
@@ -29,9 +31,9 @@
       {% endfor %}
     </ul>
     <p class="spot-count" data-count aria-live="polite"></p>
-    <button class="btn big" type="submit">We found them all!</button>
+    <button class="btn big" type="submit">{% translate "We found them all!" %}</button>
     {% if hunt.missing %}
-    <button class="btn alt big hunt-skip" type="submit" name="skip" value="1">We can't find them all. Next ➜</button>
+    <button class="btn alt big hunt-skip" type="submit" name="skip" value="1">{% translate "We can't find them all. Next" %} <span class="arrow">➜</span></button>
     {% endif %}
   </form>
 </div>

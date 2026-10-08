@@ -8,7 +8,7 @@ from django.db import transaction
 from .models import Activity, Module
 
 CONTENT_DIR = Path(settings.BASE_DIR) / "content"
-MODULE_FIELDS = ("title", "summary", "emoji", "audience", "order", "ready")
+MODULE_FIELDS = ("title", "summary", "title_he", "summary_he", "emoji", "audience", "order", "ready")
 
 
 def module_files(country, content_dir=None):

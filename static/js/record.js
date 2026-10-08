@@ -15,6 +15,8 @@
     Object.keys(btn).forEach(function (k) { btn[k].hidden = names.indexOf(k) < 0; });
   }
   function say(text) { status.textContent = text; }
+  // The page language: base.html puts the translated lines in window.T.
+  function t(key, english) { return (window.T && window.T[key]) || english; }
   function noCamera() { box.hidden = true; noCam.hidden = false; }
 
   var md = navigator.mediaDevices;
@@ -37,11 +39,11 @@
   }
 
   btn.camera.addEventListener('click', function () {
-    say('Starting the camera…');
+    say(t('camStart', 'Starting the camera…'));
     md.getUserMedia({ video: { facingMode: 'user' }, audio: true }).then(function (s) {
       stream = s; live(); say('Ready? Press Start.'); show(['start']);
     }).catch(function () {
-      say('The camera did not turn on. Allow the camera, or do this part on a phone.');
+      say(t('camFail', 'The camera did not turn on. Allow the camera, or do this part on a phone.'));
       noCam.hidden = false;
     });
   });
@@ -67,7 +69,7 @@
     view.srcObject = null; view.src = url; view.muted = false; view.controls = true;
     btn.download.href = url;
     btn.download.download = 'chopsticks.' + (blob.type === 'video/mp4' ? 'mp4' : 'webm');
-    say('Great job! Watch it, then share it.');
+    say(t('recDone', 'Great job! Watch it, then share it.'));
     var file = asFile();
     var canShare = navigator.canShare && navigator.canShare({ files: [file] });
     show([canShare ? 'share' : 'download', 'save', 'again']);
@@ -94,7 +96,7 @@
     fetch(box.dataset.saveUrl, { method: 'POST', body: form, headers: { 'X-CSRFToken': token ? token.value : '' }, credentials: 'same-origin' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (j) { savedId = j.id; say('Saved! You will see it again after the trip.'); btn.save.hidden = true; })
-      .catch(function () { say('Saving did not work. Try again, or download it.'); btn.download.hidden = false; })
+      .catch(function () { say(t('saveFail', 'Saving did not work. Try again, or download it.')); btn.download.hidden = false; })
       .then(function () { btn.save.disabled = false; });
   });
 })();

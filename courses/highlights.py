@@ -2,6 +2,7 @@
 from django.utils import timezone
 
 from activities.models import Clip
+from content_admin.i18n import localize
 from practice.items import lookup
 from practice.models import PracticeItem
 
@@ -30,5 +31,5 @@ def highlights(trip, course):
         activity, entry = lookup(trip, p.key)
         if activity is None or entry is None or activity.type != "words":
             continue
-        words.append({"entry": entry, "known": p.box >= 2})
+        words.append({"entry": localize(entry), "known": p.box >= 2})
     return {"done": done, "clips": clips, "words": words}

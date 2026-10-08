@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Choose your course{% endblock %}
+{% load i18n %}
+{% block title %}{% translate "Choose your course" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1>Choose your course</h1>
-  <p class="lead">We picked these for your family ({{ trip.ages|join:", " }}). Tap a card to switch it on or off.</p>
+  <h1>{% translate "Choose your course" %}</h1>
+  <p class="lead">{% blocktranslate with ages=trip.ages|join:", " %}We picked these for your family ({{ ages }}). Tap a card to switch it on or off.{% endblocktranslate %}</p>
   <form method="post">
     {% csrf_token %}
     <div class="cards modules">
@@ -11,18 +12,18 @@
       <label class="card module {% if row.suggested %}suggested{% endif %}">
         <input type="checkbox" name="modules" value="{{ row.module.id }}" {% if row.on %}checked{% endif %}>
         <span class="card-emoji" aria-hidden="true">{{ row.module.emoji }}</span>
-        <h3>{{ row.module.title }}</h3>
-        <p>{{ row.module.summary }}</p>
+        <h3>{{ row.module.local_title }}</h3>
+        <p>{{ row.module.local_summary }}</p>
         <span class="tags">
-          {% if row.module.audience == "child" %}<span class="badge">For kids</span>{% elif row.module.audience == "adult" %}<span class="badge">For grown-ups</span>{% endif %}
-          {% if not row.suggested %}<span class="badge muted">Not picked for you</span>{% endif %}
-          {% if not row.module.ready %}<span class="badge muted">More coming soon</span>{% endif %}
+          {% if row.module.audience == "child" %}<span class="badge">{% translate "For kids" %}</span>{% elif row.module.audience == "adult" %}<span class="badge">{% translate "For grown-ups" %}</span>{% endif %}
+          {% if not row.suggested %}<span class="badge muted">{% translate "Not picked for you" %}</span>{% endif %}
+          {% if not row.module.ready %}<span class="badge muted">{% translate "More coming soon" %}</span>{% endif %}
         </span>
         <span class="switch" aria-hidden="true"></span>
       </label>
       {% endfor %}
     </div>
-    <button class="btn big" type="submit">{% if course %}Rebuild our course{% else %}Build our course!{% endif %}</button>
+    <button class="btn big" type="submit">{% if course %}{% translate "Rebuild our course" %}{% else %}{% translate "Build our course!" %}{% endif %}</button>
   </form>
 </section>
 {% endblock %}

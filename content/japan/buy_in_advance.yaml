@@ -1,6 +1,8 @@
 id: buy_in_advance
 title: Buy before you go
+title_he: לקנות לפני הנסיעה
 summary: Things to get before the trip.
+summary_he: דברים להשיג לפני הטיול.
 emoji: "🛍️"
 audience: adult
 order: 80
@@ -9,6 +11,7 @@ activities:
   # The id stays "buy_in_advance-intro": a new id would delete the old row and the families' course items with it.
   - id: buy_in_advance-intro
     title: Buy before you go
+    title_he: לקנות לפני הנסיעה
     type: links
     intro: A few things to get, or to do, before the trip. The links open the shop in a new tab. You pay there, not here.
     # Plain shop links, no affiliate ids. Every link goes through /go/ so a click is counted.
@@ -31,6 +34,7 @@ activities:
         title: Kids' chopsticks
         text: Training chopsticks are joined at the top, so they are easy to hold. Practise at home before the trip.
         label: See kids' chopsticks
+        label_he: לצ'ופסטיקס לילדים
         url: https://www.aliexpress.com/item/1005007683787720.html
       - id: plug-adapter
         emoji: "🔌"

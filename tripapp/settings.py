@@ -45,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "tripapp.lang.LanguageMiddleware",
     "tripapp.tv.TvModeMiddleware",
     "reminders.middleware.LastSeenMiddleware",
 ]
@@ -61,6 +62,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.i18n",
                 "tripapp.tv.tv_mode",
                 "tripapp.pages.site_meta",
             ],
@@ -84,7 +86,10 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-LANGUAGE_CODE = "en-us"
+# English is the default. Hebrew only when the family picks it (the switch in the header sets a cookie).
+LANGUAGE_CODE = "en"
+LANGUAGES = [("en", "English"), ("he", "עברית")]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 TIME_ZONE = "Asia/Jerusalem"
 USE_I18N = True
 USE_TZ = True

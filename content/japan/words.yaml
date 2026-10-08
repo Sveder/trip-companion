@@ -1,6 +1,8 @@
 id: words
 title: Japanese words
+title_he: מילים ביפנית
 summary: Say hello and thank you in Japanese.
+summary_he: אומרים שלום ותודה ביפנית.
 emoji: "🗣️"
 audience: all
 order: 20
@@ -8,46 +10,56 @@ ready: true
 activities:
   - id: words-intro
     title: Let's say it in Japanese!
+    title_he: בואו נגיד את זה ביפנית!
     type: words
     intro: Tap a card to hear the word. Say it out loud together!
+    intro_he: לחצו על כרטיס כדי לשמוע את המילה. תגידו אותה בקול ביחד!
     words:
       - id: konnichiwa
         japanese: こんにちは
         reading: konnichiwa
         meaning: hello
+        meaning_he: שלום
         emoji: "👋"
       - id: arigatou
         japanese: ありがとう
         reading: arigatou
         meaning: thank you
+        meaning_he: תודה
         emoji: "🙏"
       - id: ohayou
         japanese: おはよう
         reading: ohayou
         meaning: good morning
+        meaning_he: בוקר טוב
         emoji: "🌅"
       - id: sayounara
         japanese: さようなら
         reading: sayounara
         meaning: goodbye
+        meaning_he: להתראות
         emoji: "🚶"
       - id: hai
         japanese: はい
         reading: hai
         meaning: "yes"
+        meaning_he: כן
         emoji: "👍"
       - id: oishii
         japanese: おいしい
         reading: oishii
         meaning: yummy
+        meaning_he: טעים
         emoji: "😋"
       - id: itadakimasu
         japanese: いただきます
         reading: itadakimasu
         meaning: thank you for the food
+        meaning_he: תודה על האוכל
         emoji: "🥢"
       - id: sumimasen
         japanese: すみません
         reading: sumimasen
         meaning: excuse me
+        meaning_he: סליחה
         emoji: "🙋"

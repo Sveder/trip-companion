@@ -20,6 +20,8 @@ def module_doc(module):
         "id": module.slug,
         "title": module.title,
         "summary": module.summary,
+        **({"title_he": module.title_he} if module.title_he else {}),
+        **({"summary_he": module.summary_he} if module.summary_he else {}),
         "emoji": module.emoji,
         "audience": module.audience,
         "order": module.order,
