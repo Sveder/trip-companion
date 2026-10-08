@@ -541,6 +541,15 @@ class LookTests(TestCase):
         Trip.objects.filter(user=user).update(destination="italy")
         self.assertNotIn(deer, self.client.get(reverse("course")).content.decode())
 
+    def test_the_icons_show_the_mark_not_the_deer(self):
+        """T89: the favicon and the share image are app-wide, so they show the paper plane (T87), not the deer."""
+        svg = (settings.BASE_DIR / "static/img/favicon.svg").read_text()
+        self.assertNotIn("#b5713c", svg)  # the deer's fur colour
+        self.assertIn("M22 62 L98 26 L72 98 L58 70 Z", svg)  # the plane path from includes/mark.html
+        html = self.client.get(reverse("privacy")).content.decode()
+        self.assertIn('content="Trip Companion: a paper plane over a sun and the words Get ready for Japan"', html)
+        self.assertNotIn("deer", html)
+
     def test_the_celebration_script(self):
         js = (settings.BASE_DIR / "static/js/celebrate.js").read_text()
         self.assertIn("function stars()", js)
