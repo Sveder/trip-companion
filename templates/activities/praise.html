@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block title %}{% if found == 0 %}{% translate "Good try!" %}{% else %}{% translate "Great job!" %}{% endif %}{% endblock %}
+{% block body_attrs %}{% if module_done %} data-celebrate{% endif %}{% endblock %}
 {% block content %}
 <section class="hero praise">
   <div class="praise-emoji" aria-hidden="true">{{ module.emoji|default:"⭐" }}</div>
@@ -12,7 +13,7 @@
   <h1>{% translate "Great job!" %}</h1>
   {% if found is not None %}<p class="lead">{% blocktranslate %}You found {{ found }} of {{ of }}!{% endblocktranslate %}</p>{% endif %}
   {% endif %}
-  <p class="lead">{% blocktranslate with name=module.local_title %}You finished {{ name }}!{% endblocktranslate %}</p>
+  {% if module_done %}<p class="lead">{% blocktranslate with name=module.local_title %}You finished {{ name }}!{% endblocktranslate %}</p>{% endif %}
   <div class="progress" aria-label="{% blocktranslate with done=progress.done total=progress.total %}{{ done }} of {{ total }} activities done{% endblocktranslate %}">
     <span>⭐ {% blocktranslate with done=progress.done total=progress.total %}{{ done }} of {{ total }} done{% endblocktranslate %}</span>
     <div class="bar"><div class="fill praise-fill" style="--from: {% widthratio progress.before progress.total 100 %}%; width: {% widthratio progress.done progress.total 100 %}%"></div></div>

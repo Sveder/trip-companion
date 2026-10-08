@@ -69,8 +69,16 @@ From `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
 - Place facts with the energy of Geography Now: short, punchy, one fact per card.
 - Copy tone: excited and simple; a 4-year-old must understand the kids' screens when a parent reads them aloud.
 - TV mode: very large type, high contrast, one focused card at a time, clear focus ring for the remote.
-- **Pending:** guide animal, main colour and the finish celebration (our 4-year-old, asked 2026-10-07 18:00), and Michael's own direction.
-  Until then the build uses neutral placeholders that are easy to swap (CSS variables, one mascot image slot).
+- Theme (feedback T83): a warm cream page, Japan-flag red `#bc002d` (`--c-primary`) ONLY on highlights: buttons, step
+  numbers, dots, tap spots, links. No red panel, header or browser bar (`theme-color` is white). Every colour is a CSS
+  variable at the top of `static/css/app.css`.
+- Guide: a young Nara deer with small antlers and white spots, own SVG, one file `templates/includes/guide.html`.
+- Module finish: the praise screen after the LAST activity of a module plays the celebration (`static/js/celebrate.js`): a
+  star explosion (canvas, colours `--star-1..5`) and a bell-like chime on the Japanese yo scale (Web Audio, no file). The
+  course finish and the quiz finish play it too. Reduced motion: the chime only. A praise screen in the middle of a module
+  has no stars and no "You finished" line.
+- Easter egg: in about one celebration out of six, our 4-year-old's penguin (own SVG, `templates/includes/penguin.html`) waddles
+  across the bottom of the screen. `?penguin=1` always sends it.
 - Languages: English (default) and Hebrew. Interface text uses Django i18n (`locale/he/LC_MESSAGES/django.po`, compiled
   `.mo` committed). Content text has a Hebrew twin in the YAML: `title_he`, `text_he`, `meaning_he` and so on
   (`content_admin/i18n.py > localize`). The language comes from the cookie that the header switch sets (or `?lang=he`),
@@ -273,7 +281,6 @@ Implementation details derived by the agent (not Michael's choices): Leitner int
 reminder time 17:00; TV mode by width or `?tv=1`; MIT licence.
 
 Open:
-- **Look and Feel** waits for our 4-year-old's answers and Michael's direction (asked 2026-10-07 18:00).
 - **Google OAuth client:** needs a client id/secret; until then, email sign-in only.
 - **One useful unknown (Michael):** "the TV part" — will the site really work well in the LG TV's browser?
   Agreed investigation: the first build slice that has a screen is opened on the real TV (model and webOS version read with

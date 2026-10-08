@@ -282,6 +282,25 @@ class StreetViewHuntTests(TestCase):
         self.assertIn(f"You found 2 of {n}!", html)
         self.assertIn("Great job!", html)
 
+    def test_stars_and_chime_only_when_the_module_is_finished(self):
+        # Feedback T83 (our 4-year-old): finishing a module brings a star explosion and a chime.
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=6)
+        course = Course.objects.create(trip=trip)
+        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        other = Activity.objects.exclude(module__slug="streetview").filter(type="steps").first()
+        first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
+        second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
+        CourseItem.objects.create(course=course, order=2, activity=other)
+        first.mark_done()
+        html = self.client.get(reverse("activity_praise", args=[first.id])).content.decode()
+        self.assertNotIn("data-celebrate", html)
+        self.assertNotIn("You finished", html)
+        second.mark_done()
+        html = self.client.get(reverse("activity_praise", args=[second.id])).content.decode()
+        self.assertIn("<body class=\"\" data-celebrate>", html)
+        self.assertIn("You finished", html)
+
     def test_a_done_hunt_opens_with_no_ticks_and_plays_again(self):
         trip = Trip.objects.create(user=self.user, destination="japan")
         Traveller.objects.create(trip=trip, age=4)
@@ -430,3 +449,24 @@ class JapanContentTests(TestCase):
         self.assertEqual(q["answer"], "110")
         self.assertIn("119", q["choices"])
         self.assertEqual(len(q["choices"]), 4)
+
+
+class LookTests(TestCase):
+    """Feedback T83 (our 4-year-old and Michael): flag red as a highlight only, a Nara deer guide, stars on a finish, a rare penguin."""
+
+    def test_the_theme_and_the_guide(self):
+        html = self.client.get(reverse("privacy")).content.decode()
+        self.assertIn('<meta name="theme-color" content="#ffffff">', html)  # no red browser bar
+        self.assertIn("var(--guide-antler)", html)  # the deer guide in the header
+        self.assertRegex(html, r'<template id="penguin-egg">\s*<svg class="penguin"')
+        self.assertNotIn("fox", html)
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn("--c-primary: #bc002d;", css)
+        self.assertNotIn("confetti", css)
+
+    def test_the_celebration_script(self):
+        js = (settings.BASE_DIR / "static/js/celebrate.js").read_text()
+        self.assertIn("function stars()", js)
+        self.assertIn("function chime()", js)
+        self.assertIn("Math.random() >= 1 / 6", js)  # the penguin comes in about one party out of six
+        self.assertNotIn("confetti", js)

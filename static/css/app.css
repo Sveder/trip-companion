@@ -1,5 +1,5 @@
-/* Theme (slice 3). Placeholder look from spec.md > Look and Feel until our 4-year-old and Michael answer:
-   swap the colour values here, and the guide in templates/includes/guide.html. Nothing else names a colour. */
+/* Theme (feedback T83, our 4-year-old and Michael): Japan-flag red ONLY as a highlight (buttons, dots, marks), never a big area;
+   the guide is a Nara deer (templates/includes/guide.html). Nothing else names a colour. */
 @font-face {
   font-family: "Nunito";
   src: url("../fonts/nunito-latin.woff2") format("woff2");
@@ -12,7 +12,7 @@
   --c-surface: #ffffff;
   --c-ink: #1d2145;
   --c-muted: #474d70;
-  --c-primary: #b82a22;
+  --c-primary: #bc002d;
   --c-primary-ink: #ffffff;
   --c-accent: #12806f;
   --c-sun: #ffc93c;
@@ -24,16 +24,18 @@
   --c-tint-3: #fff0c2;
   --c-tint-4: #e3e6ff;
   /* The guide: */
-  --guide-fur: #f08a3c;
-  --guide-ear: #ffd7b0;
+  --guide-fur: #b5713c;
+  --guide-ear: #f3d2b0;
   --guide-belly: #fff1df;
   --guide-cheek: #ff9fa8;
-  /* The finish celebration: */
-  --confetti-1: #d8382e;
-  --confetti-2: #ffc93c;
-  --confetti-3: #12806f;
-  --confetti-4: #5b5bd6;
-  --confetti-5: #ff8fb1;
+  --guide-spot: #fff8ec;
+  --guide-antler: #d9b98c;
+  /* The star burst when a module is finished (gold first: most stars are gold): */
+  --star-1: #ffc93c;
+  --star-2: #ffb703;
+  --star-3: #bc002d;
+  --star-4: #12806f;
+  --star-5: #ffe28a;
   --radius: 22px;
   --shadow: 0 6px 0 rgba(29, 33, 69, .10), 0 10px 24px rgba(29, 33, 69, .08);
   --font: "Nunito", "Varela Round", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -72,7 +74,8 @@ h3 { margin: .3em 0; font-size: 1.25rem; }
 .praise-fill { animation: grow 1.2s ease-out .3s both; }
 @keyframes grow { from { width: var(--from); } }
 @keyframes pop { 0% { transform: scale(.2); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
-.confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
+.stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
+.penguin { position: fixed; bottom: 8px; left: 0; width: 72px; height: 90px; z-index: 61; pointer-events: none; transform-origin: 50% 100%; }
 @media (prefers-reduced-motion: reduce) { .hero-guide, .hero-mascot, .hero-guide.cheer, .praise .praise-emoji, .praise-fill { animation: none; } }
 .btn { display: inline-block; border: 0; cursor: pointer; background: var(--c-primary); color: var(--c-primary-ink); font: inherit; font-weight: 800; padding: .7rem 1.4rem; border-radius: 999px; text-decoration: none; box-shadow: 0 5px 0 rgba(0,0,0,.18); transition: transform .1s; }
 .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,.18); }

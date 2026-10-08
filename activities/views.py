@@ -114,7 +114,10 @@ def activity_praise(request, item_id):
     if item.activity.type == "streetview" and request.GET.get("found", "").isdigit() and request.GET.get("of", "").isdigit():
         found, of = int(request.GET["found"]), int(request.GET["of"])
     nxt = item.course.next_item(after=item)
+    # The last activity of a module ends it: stars and a chime (feedback T83).
+    module_done = not ready.filter(activity__module=item.activity.module, done_at__isnull=True).exists()
     return render(request, "activities/praise.html", {
+        "module_done": module_done,
         "item": item, "next_url": reverse("activity", args=[nxt.id]) if nxt else reverse("home"), "activity": item.activity, "module": item.activity.module,
         "found": found if of and found < of else None, "of": of,
         "progress": {"done": done, "before": max(done - 1, 0), "total": total},

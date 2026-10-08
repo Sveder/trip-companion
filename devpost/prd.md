@@ -43,8 +43,11 @@ Works on a phone and in the TV's web browser (big, readable, remote-friendly on 
 - Kid friendly, bright and game-like, like Matific (https://www.matific.com/). Source: `scope.md > Inspiration & Identity`.
 - Place facts in the spirit of Geography Now (https://www.youtube.com/@GeographyNow).
 - Mood: excitement, "ready and pumped".
-- **Pending (asked 2026-10-07 18:00):** our 4-year-old's answers — the guide animal, the colour, what happens when you finish a game —
-  and Michael's own direction on colours, letters, a guide character, and anything to avoid.
+- Colour (Michael and our 4-year-old, feedback T83): red like the Japanese flag, but ONLY as a highlight colour (buttons, accents).
+  No large red areas; it must not be jarring.
+- Finishing a module (our 4-year-old): a star explosion and a nice sound.
+- Guide animal: a Japanese animal, a Nara deer. our 4-year-old's penguin appears sometimes as an Easter egg (rarely, in a celebration).
+  Own artwork only: no copyrighted characters (for example not the Suica penguin).
 
 ## Features and Behavior
 
