@@ -352,7 +352,8 @@ class JapanContentTests(TestCase):
         for a in ages:
             Traveller.objects.create(trip=trip, age=a)
         course = Course.objects.create(trip=trip)
-        act = Activity.objects.filter(module__slug=module).first()
+        # The slice 7 items, not the lessons (activities/test_lesson.py covers those).
+        act = Activity.objects.filter(module__slug=module).exclude(type="lesson").first()
         return CourseItem.objects.create(course=course, order=0, activity=act)
 
     def page(self, item):
@@ -435,7 +436,8 @@ class JapanContentTests(TestCase):
         from django.conf import settings
 
         data = yaml.safe_load((settings.BASE_DIR / "content/japan/buy_in_advance.yaml").read_text())
-        links = {l["id"]: l["url"] for l in data["activities"][0]["links"]}
+        intro = next(a for a in data["activities"] if a["id"] == "buy_in_advance-intro")
+        links = {l["id"]: l["url"] for l in intro["links"]}
         self.assertRegex(links["plug-adapter"], r"^https://www\.aliexpress\.com/item/\d+\.html$")
         for url in links.values():
             self.assertNotIn("/wholesale-", url)

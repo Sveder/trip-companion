@@ -8,10 +8,462 @@ audience: adult
 order: 80
 ready: true
 activities:
+  - id: pack-lesson
+    title: Pack like a pro
+    title_he: אורזים כמו מקצוענים
+    type: lesson
+    intro: Swipe through the pages. Tap the pictures, play the games, and pack together!
+    intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, וארזו יחד!
+    pictures:
+      - id: "typea"
+        img: "lesson/pack/typea.svg"
+        label: "Two flat pins"
+        label_he: "שני פינים שטוחים"
+      - id: "euplug"
+        img: "lesson/pack/euplug.svg"
+        label: "Two round pins"
+        label_he: "שני פינים עגולים"
+      - id: "ukplug"
+        img: "lesson/pack/ukplug.svg"
+        label: "Three square pins"
+        label_he: "שלושה פינים מרובעים"
+      - id: "chopsticks"
+        img: "lesson/pack/chopsticks.svg"
+        label: "Kids' chopsticks"
+        label_he: "צ'ופסטיקס לילדים"
+      - id: "towel"
+        img: "lesson/pack/towel.svg"
+        label: "Hand towel"
+        label_he: "מגבת ידיים"
+      - id: "purse"
+        img: "lesson/pack/purse.svg"
+        label: "Coin purse"
+        label_he: "ארנק מטבעות"
+      - id: "namecard"
+        img: "lesson/pack/namecard.svg"
+        label: "Name card"
+        label_he: "כרטיס שם"
+      - id: "shoes"
+        img: "lesson/pack/shoes.svg"
+        label: "Slip-on shoes"
+        label_he: "נעלי שחלה"
+      - id: "snackbox"
+        img: "lesson/pack/snackbox.svg"
+        label: "Snack box"
+        label_he: "קופסת חטיפים"
+      - id: "esim"
+        img: "lesson/pack/esim.svg"
+        label: "eSIM"
+        label_he: "eSIM"
+      - id: "vjw"
+        img: "lesson/pack/vjw.svg"
+        label: "Visit Japan Web QR"
+        label_he: "קוד QR של Visit Japan Web"
+      - id: "suica"
+        img: "lesson/pack/suica.svg"
+        label: "IC card"
+        label_he: "כרטיס IC"
+      - id: "umbrella"
+        img: "lesson/pack/umbrella.svg"
+        label: "Umbrella"
+        label_he: "מטרייה"
+      - id: "snacks"
+        img: "lesson/pack/snacks.svg"
+        label: "Rice ball"
+        label_he: "כדור אורז"
+      - id: "cash"
+        img: "lesson/pack/cash.svg"
+        label: "Cash"
+        label_he: "מזומן"
+      - id: "seven"
+        img: "lesson/pack/seven.svg"
+        label: "ATM at 7-Eleven"
+        label_he: "כספומט בסבן-אילבן"
+      - id: "postatm"
+        img: "lesson/pack/postatm.svg"
+        label: "Post office ATM"
+        label_he: "כספומט בדואר"
+      - id: "jrpass"
+        img: "lesson/pack/jrpass.svg"
+        label: "JR Pass"
+        label_he: "JR Pass"
+      - id: "suitcase"
+        img: "lesson/pack/suitcase.svg"
+        label: "Suitcase"
+        label_he: "מזוודה"
+    pages:
+      - kind: text
+        title: Pack like a pro
+        title_he: אורזים כמו מקצוענים
+        img: lesson/pack/ready.svg
+        text: A few small things make the trip much easier. Most of them you can buy or do at home, before you fly. Let's pack together!
+        text_he: כמה דברים קטנים עושים את הטיול הרבה יותר קל. את רובם אפשר לקנות או לעשות בבית, לפני הטיסה. בואו נארוז יחד!
+        tips:
+          - A plug adapter for Japan.
+          - Data for the phone (an eSIM).
+          - The arrival forms on Visit Japan Web.
+          - Small things for the children's bag.
+        tips_he:
+          - מתאם לשקע של יפן.
+          - אינטרנט לטלפון (eSIM).
+          - טופסי הכניסה ב-Visit Japan Web.
+          - דברים קטנים לתיק של הילדים.
+      - kind: spots
+        title: The open suitcase
+        title_he: המזוודה הפתוחה
+        img: lesson/pack/open-case.svg
+        text: Tap each dot to see why it goes in the suitcase.
+        text_he: געו בכל נקודה כדי לראות למה זה נכנס למזוודה.
+        spots:
+          - x: 13
+            y: 45
+            label: "The plug adapter"
+            label_he: "המתאם לשקע"
+            text: "Japan uses plugs with two flat pins (type A), at 100 volts. Most phone and laptop chargers work from 100 to 240 volts; check the label. A hair dryer often does not."
+            text_he: "ביפן משתמשים בתקע עם שני פינים שטוחים (סוג A), במתח של 100 וולט. רוב המטענים של טלפונים ומחשבים עובדים מ-100 עד 240 וולט; בודקים על התווית. מייבש שיער בדרך כלל לא."
+          - x: 42
+            y: 40
+            label: "Kids' chopsticks"
+            label_he: "צ'ופסטיקס לילדים"
+            text: "Chopsticks joined at the top, with rings for the fingers. Practise at home, and bring them for the first meals."
+            text_he: "צ'ופסטיקס שמחוברים למעלה, עם טבעות לאצבעות. מתאמנים בבית, ולוקחים אותם לארוחות הראשונות."
+          - x: 61
+            y: 37
+            label: "A small hand towel"
+            label_he: "מגבת ידיים קטנה"
+            japanese: "ハンカチ"
+            reading: "hankachi"
+            text: "Many public toilets in Japan have no paper towels. People carry a small towel to dry their hands. Give each child one."
+            text_he: "בהרבה שירותים ציבוריים ביפן אין מגבות נייר. אנשים מחזיקים מגבת קטנה כדי לייבש את הידיים. תנו לכל ילד אחת."
+          - x: 85
+            y: 39
+            label: "A coin purse"
+            label_he: "ארנק מטבעות"
+            japanese: "こぜにいれ"
+            reading: "kozeniire"
+            text: "Japan has coins of 1, 5, 10, 50, 100 and 500 yen. You get many coins back. A coin purse keeps them in one place."
+            text_he: "ביפן יש מטבעות של 1, 5, 10, 50, 100 ו-500 ין. מקבלים הרבה מטבעות בעודף. ארנק מטבעות שומר אותם במקום אחד."
+          - x: 12
+            y: 69
+            label: "A name card"
+            label_he: "כרטיס שם"
+            text: "A card in each child's pocket, with the child's name and your phone number. If a child gets lost, a helper can call you."
+            text_he: "כרטיס בכיס של כל ילד, עם השם של הילד ומספר הטלפון שלכם. אם ילד הולך לאיבוד, מי שעוזר יכול להתקשר אליכם."
+          - x: 35
+            y: 77
+            label: "Slip-on shoes"
+            label_he: "נעלי שחלה"
+            text: "Shoes come off often in Japan: at homes, in temples and in some restaurants. Shoes with no laces make it quick."
+            text_he: "ביפן חולצים נעליים הרבה: בבתים, במקדשים ובחלק מהמסעדות. נעליים בלי שרוכים עושות את זה מהר."
+          - x: 67
+            y: 65
+            label: "The snack box"
+            label_he: "קופסת החטיפים"
+            text: "Japanese snacks to taste at home before the trip. Later, the children find the same snacks in the shops in Japan."
+            text_he: "חטיפים יפניים לטעום בבית לפני הטיול. אחר כך, הילדים מוצאים את אותם החטיפים בחנויות ביפן."
+      - kind: flip
+        title: Buy before, or buy there?
+        title_he: קונים לפני, או קונים שם?
+        text: Tap a card to turn it.
+        text_he: געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/pack/typea.svg"
+            label: "The plug adapter"
+            label_he: "המתאם לשקע"
+            text: "Buy before. You need it on the first night, to charge the phones."
+            text_he: "קונים לפני. צריך אותו כבר בלילה הראשון, כדי להטעין את הטלפונים."
+          - img: "lesson/pack/esim.svg"
+            label: "The eSIM"
+            label_he: "ה-eSIM"
+            text: "Buy before. An eSIM gives the phone data in Japan. Your phone must take an eSIM and must not be locked to your company."
+            text_he: "קונים לפני. eSIM נותן לטלפון אינטרנט ביפן. הטלפון צריך לתמוך ב-eSIM ולא להיות נעול לחברה שלכם."
+          - img: "lesson/pack/vjw.svg"
+            label: "Visit Japan Web"
+            label_he: "Visit Japan Web"
+            text: "Do it before. It is free. Fill in the arrival forms online and get the QR codes."
+            text_he: "עושים לפני. זה בחינם. ממלאים באינטרנט את טופסי הכניסה ומקבלים את קודי ה-QR."
+          - img: "lesson/pack/suica.svg"
+            label: "The IC card"
+            label_he: "כרטיס ה-IC"
+            text: "Buy there, at the airport station. The Welcome Suica is a card for visitors. On an iPhone, you can add a Suica before you fly."
+            text_he: "קונים שם, בתחנה של שדה התעופה. וולקם סואיקה הוא כרטיס לתיירים. באייפון אפשר להוסיף סואיקה עוד לפני הטיסה."
+          - img: "lesson/pack/umbrella.svg"
+            label: "An umbrella"
+            label_he: "מטרייה"
+            japanese: "かさ"
+            reading: "kasa"
+            text: "Buy there, if it rains. Every konbini sells clear umbrellas."
+            text_he: "קונים שם, אם יורד גשם. בכל קונביני מוכרים מטריות שקופות."
+          - img: "lesson/pack/snacks.svg"
+            label: "Snacks for the day"
+            label_he: "חטיפים ליום"
+            text: "Buy there. A konbini is on almost every corner, with rice balls, fruit, drinks and sweets."
+            text_he: "קונים שם. כמעט בכל פינה יש קונביני, עם כדורי אורז, פירות, משקאות וממתקים."
+      - kind: pick
+        title: Which plug fits?
+        title_he: איזה תקע מתאים?
+        text: Tap the right plug.
+        text_he: געו בתקע הנכון.
+        rounds:
+          - ask: "Which plug fits the wall in Japan?"
+            ask_he: "איזה תקע נכנס לשקע ביפן?"
+            answer: "typea"
+            choices: [euplug, typea, ukplug]
+          - ask: "Which plug has two round pins? It does not fit in Japan."
+            ask_he: "לאיזה תקע יש שני פינים עגולים? הוא לא נכנס לשקע ביפן."
+            answer: "euplug"
+            choices: [typea, ukplug, euplug]
+      - kind: text
+        title: Visit Japan Web
+        title_he: Visit Japan Web
+        img: lesson/pack/vjw-big.svg
+        text: Visit Japan Web is the free site of the Japanese government. Before you fly, a grown-up fills in the arrival forms for the whole family. You get QR codes for immigration and for customs.
+        text_he: Visit Japan Web הוא האתר החינמי של ממשלת יפן. לפני הטיסה, מבוגר ממלא את טופסי הכניסה של כל המשפחה. מקבלים קודי QR לביקורת הגבולות ולמכס.
+        tips:
+          - Have the passports ready. You type in the details of each traveller.
+          - Take a screenshot of the QR codes. The airport Wi-Fi can be slow.
+          - At the airport, show the QR code at the machine or to the officer.
+        tips_he:
+          - מכינים את הדרכונים. מקלידים את הפרטים של כל נוסע.
+          - מצלמים את המסך עם קודי ה-QR. ה-Wi-Fi בשדה התעופה יכול להיות איטי.
+          - בשדה התעופה מראים את קוד ה-QR במכונה או לפקיד.
+        link:
+          id: visit-japan-web
+          url: https://services.digital.go.jp/en/visit-japan-web/
+          label: Open Visit Japan Web
+          label_he: לאתר Visit Japan Web
+      - kind: spots
+        title: The trip phone
+        title_he: הטלפון של הטיול
+        img: lesson/pack/phone-big.svg
+        text: Set up the phone at home. Tap each dot to see one app.
+        text_he: מכינים את הטלפון בבית. געו בכל נקודה כדי לראות אפליקציה אחת.
+        spots:
+          - x: 36
+            y: 19
+            label: "The eSIM"
+            label_he: "ה-eSIM"
+            text: "Install the eSIM at home, on Wi-Fi. Turn it on when you land."
+            text_he: "מתקינים את ה-eSIM בבית, על Wi-Fi. מפעילים אותו כשנוחתים."
+          - x: 55
+            y: 19
+            label: "Google Maps"
+            label_he: "גוגל מפות"
+            text: "It shows the trains, the platforms, the times and the right station exit. Save the hotel address before you go."
+            text_he: "הוא מראה את הרכבות, את הרציפים, את השעות ואת היציאה הנכונה מהתחנה. שומרים את הכתובת של המלון לפני הנסיעה."
+          - x: 75
+            y: 19
+            label: "Google Translate"
+            label_he: "גוגל תרגום"
+            text: "Point the camera at a menu or a sign, and the app shows it in your language. Download Japanese for use offline."
+            text_he: "מכוונים את המצלמה לתפריט או לשלט, והאפליקציה מראה אותו בשפה שלכם. מורידים את היפנית לשימוש בלי אינטרנט."
+          - x: 36
+            y: 52
+            label: "Suica in the Wallet"
+            label_he: "סואיקה בארנק"
+            text: "An iPhone can hold a Suica card in Apple Wallet. Add money and tap the phone at the gate. Most Android phones from outside Japan cannot."
+            text_he: "אייפון יכול להחזיק כרטיס סואיקה בארנק של אפל. מטעינים כסף ומצמידים את הטלפון בשער. רוב מכשירי האנדרואיד מחוץ ליפן לא יכולים."
+          - x: 55
+            y: 52
+            label: "The QR codes"
+            label_he: "קודי ה-QR"
+            text: "The Visit Japan Web QR codes. Keep a screenshot on the phone for the airport."
+            text_he: "קודי ה-QR של Visit Japan Web. שומרים צילום מסך בטלפון בשביל שדה התעופה."
+          - x: 75
+            y: 52
+            label: "A taxi app"
+            label_he: "אפליקציית מוניות"
+            text: "In the big cities, the GO app or Uber calls a taxi. The address is in the app, so you do not need to explain the way."
+            text_he: "בערים הגדולות, האפליקציה GO או אובר מזמינות מונית. הכתובת כבר באפליקציה, אז לא צריך להסביר את הדרך."
+      - kind: video
+        title: Watch and pack
+        title_he: צופים ואורזים
+        text: Watch, then tick the list together.
+        text_he: צופים, ואז מסמנים יחד את הרשימה.
+        # Only Michael approves a video. Candidates: q8nkH3lKmRg ("10 Packing Tips Families Travelling to Japan",
+        # Hepburn Family Adventures), CtEpN5RHe6M ("Japan with Kids: Planning Tips & What to Expect", Family Travel Unpacked).
+        youtube: q8nkH3lKmRg
+        approved: false
+        fallback_title: The packing list
+        fallback_title_he: רשימת האריזה
+        fallback:
+          - "Passports, and the Visit Japan Web QR codes on the phone."
+          - "A plug adapter with two flat pins (type A)."
+          - "The eSIM, installed at home."
+          - "A small hand towel for each person."
+          - "A coin purse."
+          - "A name card with your phone number in each child's pocket."
+          - "Slip-on shoes, and socks with no holes: shoes come off often."
+          - "Kids' chopsticks for the first meals."
+          - "A small bag for one night, if you send the suitcases ahead."
+        fallback_he:
+          - "דרכונים, וקודי ה-QR של Visit Japan Web בטלפון."
+          - "מתאם לשקע עם שני פינים שטוחים (סוג A)."
+          - "ה-eSIM, מותקן בבית."
+          - "מגבת ידיים קטנה לכל אחד."
+          - "ארנק מטבעות."
+          - "כרטיס שם עם מספר הטלפון שלכם בכיס של כל ילד."
+          - "נעלי שחלה, וגרביים בלי חורים: חולצים נעליים הרבה."
+          - "צ'ופסטיקס לילדים לארוחות הראשונות."
+          - "תיק קטן ללילה אחד, אם שולחים את המזוודות מראש."
+      - kind: flip
+        title: Money in Japan
+        title_he: כסף ביפן
+        text: Tap a card to turn it.
+        text_he: געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/pack/cash.svg"
+            label: "Cash"
+            label_he: "מזומן"
+            japanese: "おかね"
+            reading: "okane"
+            text: "Cards work in most shops, but some small restaurants, temples and shrines take cash only. Keep some yen with you."
+            text_he: "כרטיסי אשראי עובדים ברוב החנויות, אבל חלק מהמסעדות הקטנות, המקדשים וההיכלים מקבלים רק מזומן. מחזיקים קצת ין."
+          - img: "lesson/pack/seven.svg"
+            label: "Seven Bank ATM"
+            label_he: "כספומט של Seven Bank"
+            text: "Every 7-Eleven has a Seven Bank ATM. It takes most foreign cards and has an English menu."
+            text_he: "בכל סבן-אילבן יש כספומט של Seven Bank. הוא מקבל את רוב הכרטיסים מחו\"ל ויש בו תפריט באנגלית."
+          - img: "lesson/pack/postatm.svg"
+            label: "Japan Post ATM"
+            label_he: "הכספומט של הדואר"
+            text: "The ATMs of Japan Post Bank, in the post offices, take foreign cards too."
+            text_he: "גם הכספומטים של בנק הדואר של יפן, בסניפי הדואר, מקבלים כרטיסים מחו\"ל."
+          - img: "lesson/pack/suica.svg"
+            label: "The IC card"
+            label_he: "כרטיס ה-IC"
+            text: "The same card as on the train pays for small things: the konbini, drinks machines and the lockers."
+            text_he: "אותו כרטיס של הרכבת משלם על דברים קטנים: בקונביני, במכונות המשקאות ובלוקרים."
+      - kind: train
+        title: Catch the things to pack!
+        title_he: תפסו את מה שאורזים!
+        text: The plates ride past. Tap the one we ask for, not the other things.
+        text_he: הצלחות נוסעות. געו במה שאנחנו מבקשים, לא בדברים האחרים.
+        belt: [typea, umbrella, chopsticks, euplug, towel, cash, namecard, jrpass, shoes, snacks, purse, ukplug]
+        rounds:
+          - ask: "Catch the plug that fits Japan: two flat pins!"
+            ask_he: "תפסו את התקע שמתאים ליפן: שני פינים שטוחים!"
+            answer: "typea"
+          - ask: "Catch the towel for wet hands!"
+            ask_he: "תפסו את המגבת לידיים רטובות!"
+            answer: "towel"
+          - ask: "Catch the card with your name on it!"
+            ask_he: "תפסו את הכרטיס עם השם שלכם!"
+            answer: "namecard"
+          - ask: "Catch the shoes that come off fast!"
+            ask_he: "תפסו את הנעליים שחולצים מהר!"
+            answer: "shoes"
+      - kind: text
+        title: Taste Japan at home
+        title_he: טועמים את יפן בבית
+        img: lesson/pack/snack-home.svg
+        text: A box of Japanese snacks comes by mail. Open it together and make it a game. Which one is sweet? Which one is salty? Which one is the strangest?
+        text_he: קופסה של חטיפים יפניים מגיעה בדואר. פותחים אותה יחד והופכים את זה למשחק. איזה חטיף מתוק? איזה מלוח? איזה הכי מוזר?
+        tips:
+          - TokyoTreat and Bokksu are two snack boxes from Japan.
+          - Keep the wrappers. In Japan, look for the same snacks in the shops.
+          - Give each snack a score from 1 to 5.
+        tips_he:
+          - TokyoTreat ו-Bokksu הן שתי קופסאות חטיפים מיפן.
+          - שומרים את העטיפות. ביפן, מחפשים את אותם החטיפים בחנויות.
+          - נותנים לכל חטיף ציון מ-1 עד 5.
+        link:
+          id: snack-box
+          url: https://www.tokyotreat.com/
+          label: See TokyoTreat
+          label_he: ל-TokyoTreat
+      - kind: text
+        title: Is the JR Pass worth it?
+        title_he: האם JR Pass משתלם?
+        img: lesson/pack/jr-big.svg
+        text: The JR Pass price went up a lot in October 2023. Now a 7-day pass for a grown-up costs 50,000 yen. Write down your long train trips and add up the single tickets first.
+        text_he: המחיר של JR Pass עלה הרבה באוקטובר 2023. היום כרטיס ל-7 ימים למבוגר עולה 50,000 ין. רושמים את הנסיעות הארוכות ברכבת, ומחברים קודם את המחירים של הכרטיסים הבודדים.
+        tips:
+          - Tokyo to Kyoto and back by Shinkansen costs about 28,000 yen for a grown-up.
+          - Children from 6 to 11 pay half. Children under 6 need no pass.
+          - A pass for one region can cost less. Check the JR site of that region.
+        tips_he:
+          - טוקיו לקיוטו וחזרה בשינקנסן עולה בערך 28,000 ין למבוגר.
+          - ילדים בגיל 6 עד 11 משלמים חצי. ילדים מתחת לגיל 6 לא צריכים כרטיס.
+          - כרטיס לאזור אחד יכול לעלות פחות. בודקים באתר של JR של אותו אזור.
+        link:
+          id: jr-pass
+          url: https://japanrailpass.net/en/
+          label: See the JR Pass
+          label_he: לאתר של JR Pass
+      - kind: pick
+        title: Packing quiz
+        title_he: חידון אריזה
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "Which one gives your phone internet in Japan?"
+            ask_he: "מה נותן לטלפון אינטרנט ביפן?"
+            answer: "esim"
+            choices: [cash, esim, namecard, postatm]
+          - ask: "Which one do you show at the airport in Japan?"
+            ask_he: "מה מראים בשדה התעופה ביפן?"
+            answer: "vjw"
+            choices: [jrpass, suica, vjw, snackbox]
+          - ask: "It rains in Tokyo. What do you buy at the konbini?"
+            ask_he: "יורד גשם בטוקיו. מה קונים בקונביני?"
+            answer: "umbrella"
+            choices: [shoes, purse, typea, umbrella]
+          - ask: "Where do you take out yen with your card?"
+            ask_he: "איפה מוציאים ין עם הכרטיס שלכם?"
+            answer: "seven"
+            choices: [seven, towel, chopsticks, suitcase]
+      - kind: local
+        title: Buy here, buy there
+        title_he: קונים כאן, קונים שם
+        text: Get these at home. Get the rest on the first day in Japan.
+        text_he: את אלה קונים בבית. את השאר קונים ביום הראשון ביפן.
+        groups:
+          - title: At home, before the trip
+            title_he: בבית, לפני הטיול
+            places:
+              - emoji: "🔌"
+                title: "A plug adapter"
+                title_he: "מתאם לשקע"
+                text: "Two flat pins (type A). Buy one for each charger you use at night."
+                text_he: "שני פינים שטוחים (סוג A). קונים אחד לכל מטען שמשתמשים בו בלילה."
+              - emoji: "🥢"
+                title: "Kids' chopsticks"
+                title_he: "צ'ופסטיקס לילדים"
+                text: "Practise at home for a few weeks. The link is on the 'Buy before you go' cards."
+                text_he: "מתאמנים בבית כמה שבועות. הקישור נמצא בכרטיסים של 'לקנות לפני הנסיעה'."
+              - emoji: "📶"
+                title: "An eSIM"
+                title_he: "eSIM"
+                text: "Install it on Wi-Fi a few days before you fly."
+                text_he: "מתקינים אותו על Wi-Fi כמה ימים לפני הטיסה."
+              - emoji: "🛂"
+                title: "Visit Japan Web"
+                title_he: "Visit Japan Web"
+                text: "Fill in the forms for the whole family, and save the QR codes."
+                text_he: "ממלאים את הטפסים לכל המשפחה, ושומרים את קודי ה-QR."
+          - title: On the first day in Japan
+            title_he: ביום הראשון ביפן
+            places:
+              - emoji: "💳"
+                title: "IC cards"
+                title_he: "כרטיסי IC"
+                text: "At the airport station. Add money with cash."
+                text_he: "בתחנה של שדה התעופה. מטעינים כסף במזומן."
+              - emoji: "🏧"
+                title: "Some cash"
+                title_he: "קצת מזומן"
+                text: "From the ATM in a 7-Eleven or a post office."
+                text_he: "מהכספומט בסבן-אילבן או בסניף דואר."
+              - emoji: "🍙"
+                title: "The first konbini"
+                title_he: "הקונביני הראשון"
+                text: "Let each child pick one snack. An umbrella too, if it rains."
+                text_he: "כל ילד בוחר חטיף אחד. ומטרייה, אם יורד גשם."
   # The id stays "buy_in_advance-intro": a new id would delete the old row and the families' course items with it.
   - id: buy_in_advance-intro
-    title: Buy before you go
-    title_he: לקנות לפני הנסיעה
+    title: "Buy before you go: quick review"
+    title_he: "לקנות לפני הנסיעה: חזרה קצרה"
     type: links
     intro: A few things to get, or to do, before the trip. The links open the shop in a new tab. You pay there, not here.
     # Plain shop links, no affiliate ids. Every link goes through /go/ so a click is counted.

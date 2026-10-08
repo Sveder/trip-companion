@@ -541,3 +541,88 @@ class TransportLessonTests(TestCase):
         self.assertIn("ארבעה שלבים לעלות לשינקנסן", html)
         self.assertNotIn("In the station", html)
         self.assertNotIn("Four steps to board the Shinkansen", html)
+
+
+class PackLessonTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("p@example.com", "p@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (40, 5):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="buy_in_advance", slug="pack-lesson")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def page(self, lang="en"):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_lesson_comes_first_and_the_links_are_the_quick_review(self):
+        rows = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
+        self.assertEqual(rows[0][0], "pack-lesson")
+        self.assertEqual(rows[1], ("buy_in_advance-intro", "Buy before you go: quick review"))
+
+    def test_every_kind_and_a_video_slot_near_the_middle(self):
+        kinds = [p["kind"] for p in self.act.data["pages"]]
+        self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
+        self.assertEqual(set(kinds), set(KINDS))
+        self.assertLessEqual(abs(kinds.index("video") - len(kinds) // 2), 1)
+        video = next(p for p in self.act.data["pages"] if p["kind"] == "video")
+        self.assertFalse(video["approved"])
+        self.assertEqual(len(video["fallback"]), len(video["fallback_he"]))
+
+    def test_every_picture_exists_and_every_game_answer_is_a_choice(self):
+        data = self.act.data
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        pics = {p["id"] for p in data["pictures"]}
+        imgs = [p["img"] for p in data["pictures"]] + [p["img"] for p in data["pages"] if p.get("img")]
+        imgs += [c["img"] for p in data["pages"] for c in p.get("cards", [])]
+        for img in imgs:
+            self.assertTrue((static / img).exists(), img)
+        for p in data["pages"]:
+            for r in p.get("rounds", []):
+                self.assertIn(r["answer"], r.get("choices", p.get("belt")))
+                self.assertTrue(set(r.get("choices", p.get("belt"))) <= pics)
+            for spot in p.get("spots", []):
+                self.assertTrue(0 < spot["x"] < 100 and 0 < spot["y"] < 100)
+
+    def test_page_links_are_the_same_as_the_cards_and_go_through_the_click_hook(self):
+        cards = {l["id"]: l["url"] for l in Activity.objects.get(slug="buy_in_advance-intro").data["links"]}
+        links = [p["link"] for p in self.act.data["pages"] if p.get("link")]
+        self.assertEqual({l["id"] for l in links}, {"visit-japan-web", "snack-box", "jr-pass"})
+        for link in links:
+            self.assertEqual(link["url"], cards[link["id"]])
+        html = self.page()
+        self.assertIn(reverse("go", args=[self.item.id, "visit-japan-web"]), html)
+        self.assertNotIn("services.digital.go.jp", html)
+        r = self.client.get(reverse("go", args=[self.item.id, "jr-pass"]))
+        self.assertEqual(r["Location"], "https://japanrailpass.net/en/")
+
+    def test_the_plug_is_type_a(self):
+        plug = next(p for p in self.act.data["pages"] if p["title"] == "Which plug fits?")
+        self.assertEqual(plug["rounds"][0]["answer"], "typea")
+
+    def test_english(self):
+        html = self.page()
+        self.assertEqual(html.count("data-page "), 13)
+        for kind in KINDS:
+            self.assertIn(f"lpage-{kind}", html)
+        self.assertNotIn("comes soon", html)
+        self.assertIn("Page 1 of 13", html)
+        self.assertIn("The packing list", html)                    # the video fallback
+        self.assertNotIn("youtube.com/embed/q8nkH3lKmRg", html)    # not approved
+        self.assertIn('data-plate="typea"', html)
+        self.assertIn("audio/japan/hankachi.mp3", html)
+        self.assertIn("two flat pins (type A), at 100 volts", html)
+
+    def test_hebrew(self):
+        html = self.page("he")
+        self.assertIn("אורזים כמו מקצוענים", html)
+        self.assertIn("דף 1 מתוך 13", html)
+        self.assertIn("רשימת האריזה", html)
+        self.assertNotIn("The open suitcase", html)
+        self.assertNotIn("The packing list", html)
