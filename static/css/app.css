@@ -42,25 +42,25 @@
 html { font-size: 18px; }
 body { margin: 0; background: var(--c-bg) radial-gradient(var(--c-dot) 2px, transparent 2.5px) 0 0 / 28px 28px; color: var(--c-ink); font-family: var(--font); line-height: 1.45; min-height: 100vh; display: flex; flex-direction: column; }
 a { color: var(--c-primary); }
-h1 { font-size: 2.1rem; font-weight: 900; margin: .4em 0 .3em; letter-spacing: -.01em; }
+h1 { font-size: 2rem; font-weight: 900; margin: .2em 0 .25em; letter-spacing: -.01em; }
 h2 { font-weight: 900; }
 h3 { margin: .3em 0; font-size: 1.25rem; }
 /* padding-right keeps the nav clear of the fixed 130 px Sveder corner badge at every width. */
-.top { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding: .8rem 140px .8rem 1.2rem; background: var(--c-surface); border-bottom: 6px solid var(--c-sun); }
+.top { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .3rem 1rem; padding: .5rem 140px .5rem 1.2rem; background: var(--c-surface); border-bottom: 6px solid var(--c-sun); }
 .brand { display: inline-flex; align-items: center; gap: .4rem; font-weight: 900; font-size: 1.25rem; text-decoration: none; color: var(--c-ink); }
 .guide { display: block; }
 .guide.small { width: 2.2rem; height: 2.2rem; }
-.guide.hero-guide { width: 9rem; height: 9rem; margin: 0 auto; }
+.guide.hero-guide { width: 6.5rem; height: 6.5rem; margin: 0 auto; }
 .top-nav { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; }
 .top-nav a { color: var(--c-ink); text-decoration: none; font-weight: 700; }
 .top-nav form { margin: 0; }
-.page { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 1rem 1.2rem 3rem; }
-.foot { text-align: center; padding: 1rem; color: var(--c-muted); font-size: .9rem; }
-.lead { font-size: 1.15rem; color: var(--c-muted); }
+.page { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: .6rem 1rem 1.5rem; }
+.foot { text-align: center; padding: .6rem 1rem; color: var(--c-muted); font-size: .9rem; }
+.lead { font-size: 1.1rem; color: var(--c-muted); margin: .3em 0 .6em; }
 .hint { color: var(--c-muted); font-size: .9rem; }
-.panel { background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.4rem; }
-.narrow { max-width: 520px; margin: 1.5rem auto; }
-.hero { text-align: center; padding: 2rem 1rem; }
+.panel { background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem 1.2rem; }
+.narrow { max-width: 520px; margin: .8rem auto; }
+.hero { text-align: center; padding: .8rem 1rem; }
 .hero-mascot { font-size: 5rem; animation: bob 2.4s ease-in-out infinite; }
 .hero-guide { animation: bob 2.4s ease-in-out infinite; }
 .hero-guide.cheer { animation: cheer .7s ease-in-out 4, bob 2.4s ease-in-out 2.8s infinite; }
@@ -78,20 +78,20 @@ h3 { margin: .3em 0; font-size: 1.25rem; }
 .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,.18); }
 .btn:hover { filter: brightness(1.08); }
 .btn.alt { background: var(--c-sun); color: var(--c-ink); }
-.btn.big { font-size: 1.25rem; padding: .9rem 2rem; margin-top: .8rem; }
+.btn.big { font-size: 1.25rem; padding: .8rem 2rem; margin-top: .5rem; }
 .link { background: none; border: 0; padding: 0; font: inherit; color: var(--c-muted); text-decoration: underline; cursor: pointer; }
 .messages { list-style: none; padding: 0; }
 .msg { background: var(--c-sun); padding: .6rem 1rem; border-radius: 12px; margin-bottom: .5rem; }
 .msg.error { background: #ffd4d1; }
 .section-title { text-align: center; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.1rem; margin: 1rem 0; }
-.card { position: relative; display: block; background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem; border: 4px solid transparent; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .7rem; margin: .7rem 0; }
+.card { position: relative; display: block; background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: .8rem 1rem; border: 4px solid transparent; }
 .card:focus, .card:focus-within { outline: none; border-color: var(--c-accent); }
-.card-emoji { display: inline-flex; align-items: center; justify-content: center; width: 4.2rem; height: 4.2rem; border-radius: 50%; background: var(--c-tint-1); font-size: 2.4rem; line-height: 1; }
+.card-emoji { display: inline-flex; align-items: center; justify-content: center; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--c-tint-1); font-size: 2rem; line-height: 1; }
 .card:nth-child(4n+2) .card-emoji { background: var(--c-tint-2); }
 .card:nth-child(4n+3) .card-emoji { background: var(--c-tint-3); }
 .card:nth-child(4n+4) .card-emoji { background: var(--c-tint-4); }
-.card-emoji.big { width: 7rem; height: 7rem; font-size: 4rem; }
+.card-emoji.big { width: 5rem; height: 5rem; font-size: 2.9rem; }
 .card p { margin: .3em 0 0; }
 .card img { width: 100%; border-radius: calc(var(--radius) - 8px); }
 .badge { display: inline-block; background: var(--c-sun); color: var(--c-ink); border-radius: 999px; padding: .1rem .7rem; font-size: .8rem; font-weight: 800; margin-top: .5rem; }
@@ -104,7 +104,7 @@ a.card.go:hover { transform: translateY(-3px); }
 .pick, .module { cursor: pointer; }
 .pick input, .module input { position: absolute; opacity: 0; }
 .pick:has(input:checked) { border-color: var(--c-primary); }
-.module .switch { position: absolute; top: 1rem; right: 1rem; width: 52px; height: 30px; border-radius: 999px; background: var(--c-line); transition: background .15s; }
+.module .switch { position: absolute; top: .8rem; right: .8rem; width: 52px; height: 30px; border-radius: 999px; background: var(--c-line); transition: background .15s; }
 .module .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: left .15s; }
 .module:has(input:checked) { border-color: var(--c-accent); }
 .module:has(input:checked) .switch { background: var(--c-accent); }
@@ -121,8 +121,43 @@ legend { font-weight: 800; font-size: 1.15rem; }
 .progress .bar { flex-basis: 100%; height: 12px; background: var(--c-line); border-radius: 999px; overflow: hidden; }
 .progress .fill { height: 100%; background: var(--c-accent); border-radius: 999px; transition: width .6s; }
 .facts .fact { text-align: center; }
-.done-form { text-align: center; margin-top: 1.5rem; }
-@media (max-width: 600px) { h1 { font-size: 1.6rem; } .cards { grid-template-columns: 1fr; } }
+.done-form { text-align: center; margin-top: .8rem; }
+/* Phone (T50, "tighter"): cards lie flat, the picture left of the text, so one screen holds three or four of them.
+   The header keeps the brand in row 1 and all links in one short row 2, clear of the corner badge. */
+@media (max-width: 600px) {
+  h1 { font-size: 1.5rem; }
+  .cards { grid-template-columns: 1fr; gap: .55rem; }
+  .card { padding: .6rem .8rem; }
+  .cards .card:has(> .card-emoji) { display: grid; grid-template-columns: auto 1fr; column-gap: .8rem; align-items: center; text-align: start; }
+  .cards .card:has(> .card-emoji) > .card-emoji { grid-row: 1 / span 6; align-self: start; width: 3.6rem; height: 3.6rem; font-size: 2.1rem; }
+  .cards .card:has(> .card-emoji) > * { grid-column: 2; margin: 0; }
+  .cards .card:has(> .card-emoji) > .card-emoji { grid-column: 1; }
+  .cards .card:has(> .card-emoji) h3 { font-size: 1.15rem; }
+  .cards .card:has(> .card-emoji) > .badge { justify-self: start; margin-top: .3rem; }
+  .cards .card.word:has(> .card-emoji) .jp { font-size: 1.6rem; }
+  .cards .card.word:has(> .card-emoji) .reading { font-size: 1.2rem; }
+  .cards .card.module { padding-right: 4.4rem; }
+  .cards.words { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards.words .card.word { display: block; text-align: center; }
+  .cards.words .card.word > .card-emoji { width: 3.4rem; height: 3.4rem; font-size: 2rem; }
+  .cards.words .card.word .jp { font-size: 1.5rem; }
+  .cards.words .card.word .reading { font-size: 1.15rem; margin: .1rem 0; }
+  .cards.words .card.word .meaning { font-size: 1rem; margin: 0; }
+  /* The badge is a 130 px triangle in the top right corner: row 1 ends before x = width - 105, row 2 before width - 90. */
+  .top { padding: .4rem 90px .4rem 1rem; gap: .2rem .8rem; justify-content: flex-start; }
+  .lang-switch { order: 1; font-size: .92rem; }
+  .top-nav { order: 2; flex-basis: 100%; gap: .2rem .7rem; font-size: .88rem; }
+  .brand { font-size: 1.05rem; white-space: nowrap; }
+  .brand .guide.small { width: 1.8rem; height: 1.8rem; }
+  /* Right to left: the brand starts at the badge side, so it keeps clear of it, and the language link goes to the far end. */
+  [dir="rtl"] .brand { margin-right: 40px; }
+  [dir="rtl"] .lang-switch { margin-right: auto; }
+  .guide.hero-guide { width: 5rem; height: 5rem; }
+}
+/* Small phones: row 1 is too short for the brand and the language link, so the link follows the nav. */
+@media (max-width: 380px) {
+  .lang-switch, [dir="rtl"] .lang-switch { order: 3; margin-right: 0; }
+}
 
 /* TV mode (?tv=1 or a smart-TV browser): big type, big cards, one card in focus.
    Kept free of :has() because older webOS browsers do not support it. */
@@ -166,7 +201,7 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .tv .choices { max-width: 70vw; }
 
 /* Steps activity (chopsticks) */
-.steps { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 1rem; }
+.steps { list-style: none; padding: 0; margin: .7rem 0 0; display: grid; gap: .7rem; }
 .step h2 { font-size: 1.25rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .5rem; }
 .step-num { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--c-primary); color: var(--c-primary-ink); font-size: 1rem; flex: none; }
 .step .how { padding-left: 1.3rem; margin: .4rem 0 0; }
@@ -239,12 +274,12 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .prose ul { padding-left: 1.2rem; }
 
 /* Course page: the ordered list of activities */
-.course-list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .7rem; }
-.course-item { display: flex; align-items: center; gap: .9rem; padding: .7rem .9rem; border-radius: var(--radius); background: var(--c-surface); box-shadow: var(--shadow); border: 4px solid transparent; color: var(--c-ink); text-decoration: none; }
+.course-list { list-style: none; padding: 0; margin: .7rem 0; display: grid; gap: .5rem; }
+.course-item { display: flex; align-items: center; gap: .8rem; padding: .5rem .8rem; border-radius: var(--radius); background: var(--c-surface); box-shadow: var(--shadow); border: 4px solid transparent; color: var(--c-ink); text-decoration: none; }
 a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .course-item.next { border-color: var(--c-sun); }
 .course-item.stub { opacity: .6; box-shadow: none; }
-.course-item .card-emoji { width: 3.2rem; height: 3.2rem; font-size: 1.8rem; flex: none; }
+.course-item .card-emoji { width: 2.8rem; height: 2.8rem; font-size: 1.6rem; flex: none; }
 .course-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 1.1rem; }
 .course-text .badge { margin-top: .3rem; }
 .badge.done { background: var(--c-accent); color: #fff; }
