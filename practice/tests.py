@@ -292,3 +292,10 @@ class LessonQuizTests(TestCase):
         # A spot with no reading is never asked, but it can be a wrong choice.
         from .items import quiz_entries
         self.assertTrue(all(e.get("img") or e.get("reading") for _, e in quiz_entries(words)))
+
+    def test_the_cap_keeps_a_mix_of_pages(self):
+        from .items import quiz_entries
+        pages = [e["page"] for _, e in quiz_entries(self.lesson)]
+        self.assertEqual(len(pages), 12)
+        self.assertEqual(len(set(pages)), 3)  # the spots page and both flip pages
+        self.assertNotEqual(pages[0], pages[1])

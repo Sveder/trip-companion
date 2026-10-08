@@ -55,7 +55,12 @@ def quiz_entries(activity, everything=False):
         if everything:
             return entries
         # A spot with no Japanese reading cannot be asked ("Which one is ?"); it still serves as a wrong choice.
-        return [(i, e) for i, e in entries if e.get("img") or e.get("reading")][:LESSON_MAX]
+        askable = [(i, e) for i, e in entries if e.get("img") or e.get("reading")]
+        # Take one from each page in turn, so the cap keeps a mix of pages and the quiz does not ask one page 8 times.
+        pages = sorted({e["page"] for _, e in askable})
+        queues = [[x for x in askable if x[1]["page"] == n] for n in pages]
+        mixed = [q[k] for k in range(max(map(len, queues), default=0)) for q in queues if k < len(q)]
+        return mixed[:LESSON_MAX]
     if activity.type == "words":
         return [(w.get("id") or slugify(w["reading"]), w) for w in data.get("words", [])]
     if activity.type == "cards":
