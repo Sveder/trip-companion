@@ -277,7 +277,7 @@ class StreetViewHuntTests(TestCase):
         self.assertNotIn("You found 0", html)
         self.assertNotIn("Great job!", html)
         self.assertIn("Good try!", html)
-        self.assertIn("look again another day", html)
+        self.assertIn("You can play it again from Our course.", html)
         html = self.client.get(reverse("activity_praise", args=[first.id]) + f"?found=2&of={n}").content.decode()
         self.assertIn(f"You found 2 of {n}!", html)
         self.assertIn("Great job!", html)
@@ -329,6 +329,60 @@ class StreetViewHuntTests(TestCase):
         self.assertRedirects(r, reverse("activity", args=[second.id]), fetch_redirect_response=False)
         first.refresh_from_db()
         self.assertEqual(first.done_at, done_at)
+
+    def test_skip_with_nothing_found_offers_play_again_on_the_course(self):
+        # T42: a hunt skipped with 0 found shows "found 0 of N" and a Play again link; highlights leave it out.
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=4)
+        course = Course.objects.create(trip=trip)
+        hunts = list(Activity.objects.filter(module__slug="streetview", type="streetview")[:3])
+        first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
+        second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
+        CourseItem.objects.create(course=course, order=2, activity=hunts[2])
+        n0, n1 = len(hunts[0].data["spots"]), len(hunts[1].data["spots"])
+        self.client.post(reverse("activity_done", args=[first.id]), {"found": [], "skip": "1"})
+        self.client.post(reverse("activity_done", args=[second.id]), {"found": ["0", "1"], "skip": "1"})
+        first.refresh_from_db()
+        second.refresh_from_db()
+        self.assertEqual((first.found, second.found), (0, 2))
+        html = self.client.get(reverse("course")).content.decode()
+        self.assertIn(f"found 0 of {n0}", html)
+        self.assertIn(f"found 2 of {n1}", html)
+        again = reverse("activity", args=[first.id]) + "?again=1"
+        self.assertIn(f'href="{again}"', html)
+        self.assertEqual(html.count("Play again"), 1)
+        replay = self.client.get(again).content.decode()
+        self.assertEqual(replay.count(" checked>"), 0)
+        # The highlights list the hunt with 2 found, not the one with 0.
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertNotIn(f'href="{reverse("activity", args=[first.id])}"', html)
+        self.assertIn(f'href="{reverse("activity", args=[second.id])}"', html)
+        # A better replay raises the count, a weaker one keeps the best; the link goes away above 0.
+        self.client.post(reverse("activity_done", args=[first.id]), {"found": [str(i) for i in range(n0)]})
+        self.client.post(reverse("activity_done", args=[first.id]), {"found": [], "skip": "1"})
+        first.refresh_from_db()
+        self.assertEqual(first.found, n0)
+        html = self.client.get(reverse("course")).content.decode()
+        self.assertNotIn("Play again", html)
+        self.assertIn(f"found {n0} of {n0}", html)
+        self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
+        CourseItem.objects.filter(id=first.id).update(found=0)
+        html = self.client.get(reverse("course")).content.decode()
+        self.assertIn(f"מצאנו 0 מתוך {n0}", html)
+        self.assertIn("לשחק שוב", html)
+        html = self.client.get(reverse("activity_praise", args=[first.id]) + f"?found=0&of={n0}").content.decode()
+        self.assertIn("אפשר לשחק בו שוב מתוך המסלול שלנו.", html)
+
+    def test_a_course_rebuild_keeps_the_found_count(self):
+        from courses.builder import build_course
+
+        item = self.item()
+        item.mark_done()
+        CourseItem.objects.filter(id=item.id).update(found=0)
+        build_course(item.course.trip, [item.activity.module_id])
+        again = CourseItem.objects.get(course=item.course, activity=item.activity)
+        self.assertEqual(again.found, 0)
+        self.assertIsNotNone(again.done_at)
 
     def test_embed_url_rejects_a_bad_point(self):
         from .streetview import embed_url

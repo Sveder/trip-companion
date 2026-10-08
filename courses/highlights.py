@@ -27,6 +27,8 @@ def highlights(trip, course):
             .select_related("activity__module")
             .order_by("done_at")
         )
+        # A hunt skipped with nothing found is not something "we did" (T42); the course offers it again.
+        done = [i for i in done if i.found != 0]
     clips = list(Clip.objects.filter(trip=trip).order_by("created_at"))
     words = []
     for p in PracticeItem.objects.filter(trip=trip).order_by("added_at", "id"):

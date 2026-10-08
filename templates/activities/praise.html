@@ -8,7 +8,7 @@
   {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
   {% if found == 0 %}
   <h1>{% translate "Good try!" %}</h1>
-  <p class="lead">{% translate "Let's look again another day." %}</p>
+  <p class="lead">{% translate "You can play it again from Our course." %}</p>
   {% else %}
   <h1>{% translate "Great job!" %}</h1>
   {% if found is not None %}<p class="lead">{% blocktranslate %}You found {{ found }} of {{ of }}!{% endblocktranslate %}</p>{% endif %}

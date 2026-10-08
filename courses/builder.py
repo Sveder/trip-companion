@@ -32,12 +32,13 @@ def build_course(trip, module_ids):
     A rebuild keeps the 'done' mark of activities that stay in the course.
     """
     course, created = Course.objects.get_or_create(trip=trip)
-    done = {} if created else {i.activity_id: i.done_at for i in course.items.all()}
+    done = {} if created else {i.activity_id: (i.done_at, i.found) for i in course.items.all()}
     modules = Module.objects.filter(country=trip.destination, id__in=module_ids)
     course.items.all().delete()
     activities = course_order(trip, Activity.objects.filter(module__in=modules))
     CourseItem.objects.bulk_create(
-        CourseItem(course=course, order=n, activity=a, done_at=done.get(a.id)) for n, a in enumerate(activities)
+        CourseItem(course=course, order=n, activity=a, done_at=done.get(a.id, (None, None))[0], found=done.get(a.id, (None, None))[1])
+        for n, a in enumerate(activities)
     )
     course.module_ids = sorted(m.id for m in modules)
     course.built_at = timezone.now()

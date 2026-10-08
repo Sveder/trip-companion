@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-08 23:07+0300\n"
+"POT-Creation-Date: 2026-10-08 23:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,8 +113,8 @@ msgid "Activity %(number)s of %(total)s"
 msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
-#: templates/activities/lesson.html:107 templates/activities/praise.html:21
-#: templates/courses/course.html:21
+#: templates/activities/lesson.html:114 templates/activities/praise.html:21
+#: templates/courses/course.html:22
 msgid "Next"
 msgstr "הבא"
 
@@ -162,7 +162,7 @@ msgstr "דף %(n)s מתוך %(total)s"
 msgid "A grown-up buys it. The shop opens in a new tab."
 msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
 
-#: templates/activities/lesson.html:106
+#: templates/activities/lesson.html:113
 msgid "Back"
 msgstr "אחורה"
 
@@ -191,8 +191,8 @@ msgid "Our guide jumps for joy"
 msgstr "המדריך שלנו קופץ משמחה"
 
 #: templates/activities/praise.html:11
-msgid "Let's look again another day."
-msgstr "בואו נחפש שוב ביום אחר."
+msgid "You can play it again from Our course."
+msgstr "אפשר לשחק בו שוב מתוך המסלול שלנו."
 
 #: templates/activities/praise.html:14
 #, python-format
@@ -295,33 +295,33 @@ msgstr ""
 msgid "Get ready for Japan"
 msgstr "מתכוננים ליפן"
 
-#: templates/base.html:34 templates/courses/course.html:3
+#: templates/base.html:37 templates/courses/course.html:3
 #: templates/courses/finished.html:19 templates/there/hunt.html:46
 msgid "Our course"
 msgstr "המסלול שלנו"
 
-#: templates/base.html:35 templates/practice/empty.html:3
+#: templates/base.html:38 templates/practice/empty.html:3
 #: templates/practice/quiz.html:4
 msgid "Quiz"
 msgstr "חידון"
 
-#: templates/base.html:36
+#: templates/base.html:39
 msgid "In Japan"
 msgstr "ביפן"
 
-#: templates/base.html:37 templates/trips/setup.html:3
+#: templates/base.html:40 templates/trips/setup.html:3
 msgid "Our trip"
 msgstr "הטיול שלנו"
 
-#: templates/base.html:38
+#: templates/base.html:41
 msgid "Sign out"
 msgstr "יציאה"
 
-#: templates/base.html:50
+#: templates/base.html:53
 msgid "Made by"
 msgstr "נוצר על ידי"
 
-#: templates/base.html:50
+#: templates/base.html:53
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -377,10 +377,21 @@ msgid "Coming soon"
 msgstr "בקרוב"
 
 #: templates/courses/course.html:21
+#, python-format
+#| msgid "You found %(found)s of %(of)s!"
+msgid "found %(found)s of %(total)s"
+msgstr "מצאנו %(found)s מתוך %(total)s"
+
+#: templates/courses/course.html:22
 msgid "Done"
 msgstr "בוצע"
 
-#: templates/courses/course.html:28
+#: templates/courses/course.html:25
+#| msgid "Party again!"
+msgid "Play again"
+msgstr "לשחק שוב"
+
+#: templates/courses/course.html:30
 msgid "Change our course"
 msgstr "שינוי המסלול"
 
@@ -812,6 +823,9 @@ msgstr[1] "%(n)d מבוגרים"
 #: trips/views.py:65
 msgid "Have a great trip! Here is your photo list."
 msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
+
+#~ msgid "Let's look again another day."
+#~ msgstr "בואו נחפש שוב ביום אחר."
 
 #~ msgid "Our guide looks around"
 #~ msgstr "המדריך שלנו מסתכל מסביב"

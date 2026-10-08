@@ -79,6 +79,12 @@ def activity_done(request, item_id):
     if act.type == "streetview":
         # A done hunt plays again from no ticks, so the same rules apply on a replay. The item stays done.
         found = request.POST.getlist("found")
+        if streetview.all_found(act.data, found) or request.POST.get("skip") == "1":
+            # The course row shows the best count (T42), so a weaker replay does not lower it.
+            count = streetview.count_found(act.data, found)
+            if item.found is None or count > item.found:
+                item.found = count
+                item.save(update_fields=["found"])
         if not streetview.all_found(act.data, found):
             if request.POST.get("skip") != "1":
                 # First press with things missing: "Keep looking!", the ticks stay, and a skip button appears.

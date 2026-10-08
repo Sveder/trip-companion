@@ -39,6 +39,8 @@ class CourseItem(models.Model):
     order = models.PositiveIntegerField()
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     done_at = models.DateTimeField(null=True, blank=True)
+    # Street View hunts only: the best number of things the family found (T42). None = not a hunt, or not played.
+    found = models.PositiveSmallIntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ["order"]
@@ -51,3 +53,7 @@ class CourseItem(models.Model):
         if self.done_at is None:
             self.done_at = timezone.now()
             self.save(update_fields=["done_at"])
+
+    @property
+    def hunt_total(self):
+        return len((self.activity.data or {}).get("spots", [])) if self.activity.type == "streetview" else None
