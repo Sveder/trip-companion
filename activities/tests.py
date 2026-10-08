@@ -165,6 +165,11 @@ class StreetViewHuntTests(TestCase):
         self.assertIn('<span class="spot-name">Torii gate</span>', html)
         self.assertIn("the home of a kami", html)
 
+    def test_the_big_view_link_says_full_screen(self):
+        html = self.client.get(reverse("activity", args=[self.item().id])).content.decode()
+        self.assertIn('rel="noopener">Full screen</a>', html)
+        self.assertNotIn("Open it big", html)
+
     def test_page_shows_the_embed_and_the_spot_list(self):
         item = self.item()
         r = self.client.get(reverse("activity", args=[item.id]))
