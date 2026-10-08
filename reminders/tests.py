@@ -8,16 +8,18 @@ from django.test import TestCase
 from django.utils import timezone
 
 from courses.builder import build_course, suggestions
-from courses.models import Course
+from courses.models import Course, CourseItem
+from there.models import Photo
 from trips.models import Traveller, Trip
 
-from .logic import due, unsubscribe_token
+from .logic import HuntNote, due, unsubscribe_token
 from .models import Contact, ReminderLog
 
 
-def family(email, start=None):
+def family(email, start=None, length=None):
     user = get_user_model().objects.create_user(email, email)
-    trip = Trip.objects.create(user=user, destination="japan", start_date=start)
+    trip = Trip.objects.create(user=user, destination="japan", start_date=start, length_days=length,
+                               end_date=start + timedelta(days=length - 1) if start and length else None)
     for age in (38, 4):
         Traveller.objects.create(trip=trip, age=age)
     build_course(trip, [m.id for m, on in suggestions(trip) if on])
@@ -83,12 +85,14 @@ class ReminderTests(TestCase):
         run()
         self.assertEqual(len(mail.outbox), 0)
 
-    def test_none_when_trip_started(self):
-        for start, expect in ((date.today(), 0), (date.today() - timedelta(days=3), 0), (date.today() + timedelta(days=9), 1)):
-            mail.outbox = []
-            user = family(f"{start}@example.com", start=start)
+    def test_no_course_item_once_trip_started(self):
+        """From the leave date on, the reminder is the hunt (T78), never a course item."""
+        for start, course_mail in ((date.today(), False), (date.today() - timedelta(days=3), False),
+                                   (date.today() + timedelta(days=9), True)):
+            user = family(f"{start}@example.com", start=start, length=10)
             age_course(user, 3)
-            self.assertEqual(due(user) is not None, bool(expect), start)
+            Trip.objects.filter(user=user).update(created_at=timezone.now() - timedelta(days=3))
+            self.assertEqual(isinstance(due(user), CourseItem), course_mail, start)
             get_user_model().objects.filter(pk=user.pk).delete()
 
     def test_dry_run_lists_and_sends_nothing(self):
@@ -164,3 +168,91 @@ class ReminderLanguageTests(TestCase):
         self.assertIn(item.activity.title, msg.body)
         self.assertNotIn('dir="rtl"', msg.alternatives[0][0])
         self.assertNotIn("הפעילות", msg.body)
+
+
+def in_japan(email, day=2, length=10, lang=None):
+    """A family on day `day` of a `length`-day trip, quiet for three days."""
+    user = family(email, start=date.today() - timedelta(days=day - 1), length=length)
+    age_course(user, 3)
+    Trip.objects.filter(user=user).update(created_at=timezone.now() - timedelta(days=3))
+    if lang:
+        Contact.objects.create(user=user, language=lang, last_seen=timezone.now() - timedelta(days=3))
+    return user
+
+
+class DuringTripReminderTests(TestCase):
+    """T78: in Japan the reminder points to the 'While we are there' hunt, one thing per note."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def test_before_trip_mail_is_unchanged(self):
+        user = family("a@example.com", start=date.today() + timedelta(days=9), length=7)
+        age_course(user, 3)
+        run()
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Your next Japan activity is waiting", mail.outbox[0].subject)
+
+    def test_during_trip_names_first_thing_and_links_to_hunt(self):
+        user = in_japan("a@example.com")
+        note = due(user)
+        self.assertIsInstance(note, HuntNote)
+        self.assertEqual(note.thing["key"], "manhole")
+        run()
+        self.assertEqual(len(mail.outbox), 1)
+        msg = mail.outbox[0]
+        self.assertIn("Today in Japan, find: A pretty manhole cover", msg.subject)
+        self.assertIn("/there/?from=reminder", msg.body)
+        self.assertIn("You found 0 of 10 things.", msg.body)
+        self.assertIn("/reminders/stop/", msg.body)
+        self.assertIn("List-Unsubscribe", msg.extra_headers)
+        log = ReminderLog.objects.get(user=user)
+        self.assertIsNone(log.item)
+        run()  # the gap holds: the hunt mail counts as the last touch
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_skips_things_with_a_photo(self):
+        user = in_japan("a@example.com")
+        trip = Trip.objects.get(user=user)
+        for key in ("manhole", "pikachu"):
+            Photo.objects.create(trip=trip, thing=key, file="photos/x.jpg")
+        run()
+        msg = mail.outbox[0]
+        self.assertIn("A vending machine", msg.subject)
+        self.assertIn("You found 2 of 10 things.", msg.body)
+
+    def test_all_found_sends_nothing(self):
+        from there.things import THINGS
+        user = in_japan("a@example.com")
+        trip = Trip.objects.get(user=user)
+        for t in THINGS:
+            Photo.objects.create(trip=trip, thing=t["key"], file="photos/x.jpg")
+        self.assertIsNone(due(user))
+
+    def test_recent_visit_postpones(self):
+        user = in_japan("a@example.com")
+        Contact.objects.create(user=user, last_seen=timezone.now() - timedelta(hours=10))
+        self.assertIsNone(due(user))
+
+    def test_after_trip_no_mail(self):
+        user = in_japan("a@example.com", day=12, length=10)
+        self.assertIsNone(due(user))
+        run()
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_no_start_date_keeps_course_mail(self):
+        user = family("a@example.com")
+        age_course(user, 3)
+        self.assertIsInstance(due(user), CourseItem)
+
+    def test_hebrew_family_gets_hebrew_hunt_mail(self):
+        in_japan("he@example.com", lang="he")
+        run()
+        msg = mail.outbox[0]
+        self.assertIn("היום ביפן, מצאו: מכסה ביוב יפה", msg.subject)
+        self.assertIn("מצאתם 0 מתוך 10 דברים.", msg.body)
+        html = msg.alternatives[0][0]
+        self.assertIn('dir="rtl"', html)
+        self.assertIn("הסתכלו למטה!", html)
+        self.assertNotIn("Today in Japan", msg.subject + msg.body + html)

@@ -9,7 +9,11 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone, translation
 
+from content_admin.i18n import localize
+from courses.highlights import trip_phase
 from courses.models import Course
+from there.models import Photo
+from there.things import THINGS
 from trips.models import active_trip
 
 from .models import Contact, ReminderLog
@@ -29,9 +33,16 @@ def user_from_token(token):
         return None
 
 
-def _last_touch(user, course):
-    """The newest of: course built, last visit, last reminder."""
-    times = [course.built_at]
+class HuntNote:
+    """The during-trip reminder (T78): one thing from the 'While we are there' hunt, not a course item."""
+
+    def __init__(self, trip, thing, found):
+        self.trip, self.thing, self.found, self.total = trip, thing, found, len(THINGS)
+
+
+def _last_touch(user, start):
+    """The newest of: `start` (course built or trip made), last visit, last reminder."""
+    times = [start]
     contact = Contact.objects.filter(user=user).first()
     if contact and contact.last_seen:
         times.append(contact.last_seen)
@@ -42,7 +53,11 @@ def _last_touch(user, course):
 
 
 def due(user, now=None):
-    """The next CourseItem when this user should get a reminder now, else None."""
+    """What this user should get a reminder about now, else None.
+
+    Before the trip: the next CourseItem. During the trip: a HuntNote for the first thing on /there/
+    with no photo yet. After the trip: nothing.
+    """
     now = now or timezone.now()
     if not user.is_active or not user.email:
         return None
@@ -51,17 +66,30 @@ def due(user, now=None):
     trip = active_trip(user)
     if trip is None:
         return None
-    if trip.start_date and trip.start_date <= timezone.localdate(now):
+    phase = trip_phase(trip, timezone.localdate(now))
+    if phase == "after":
         return None
+    if phase == "during":
+        return _hunt_note(user, trip, now)
     course = Course.objects.filter(trip=trip).first()
     if course is None:
         return None
     item = course.next_item()
     if item is None:
         return None
-    if now - _last_touch(user, course) < GAP:
+    if now - _last_touch(user, course.built_at) < GAP:
         return None
     return item
+
+
+def _hunt_note(user, trip, now):
+    have = set(Photo.objects.filter(trip=trip).values_list("thing", flat=True))
+    left = [t for t in THINGS if t["key"] not in have]
+    if not left:
+        return None
+    if now - _last_touch(user, trip.created_at) < GAP:
+        return None
+    return HuntNote(trip, left[0], len(THINGS) - len(left))
 
 
 def build_email(user, item):
@@ -74,23 +102,41 @@ def build_email(user, item):
 def _build_email(user, item):
     base = settings.SITE_URL.rstrip("/")
     stop = base + reverse("reminders_stop", args=[unsubscribe_token(user)])
-    ctx = {
-        "item": item,
-        "go": base + reverse("activity", args=[item.id]) + "?from=reminder",
-        "stop": stop,
-        "left": item.course.ready_items().filter(done_at__isnull=True).count(),
-    }
-    subject = settings.ACCOUNT_EMAIL_SUBJECT_PREFIX + render_to_string("reminders/subject.txt", ctx).strip()
+    if isinstance(item, HuntNote):
+        name = "there_"
+        ctx = {
+            "thing": localize(item.thing),
+            "found": item.found,
+            "total": item.total,
+            "go": base + reverse("there") + "?from=reminder",
+        }
+    else:
+        name = ""
+        ctx = {
+            "item": item,
+            "go": base + reverse("activity", args=[item.id]) + "?from=reminder",
+            "left": item.course.ready_items().filter(done_at__isnull=True).count(),
+        }
+    ctx["stop"] = stop
+    subject = settings.ACCOUNT_EMAIL_SUBJECT_PREFIX + render_to_string(f"reminders/{name}subject.txt", ctx).strip()
     msg = EmailMultiAlternatives(
         subject,
-        render_to_string("reminders/email.txt", ctx),
+        render_to_string(f"reminders/{name}email.txt", ctx),
         to=[user.email],
         headers={"List-Unsubscribe": f"<{stop}>"},
     )
-    msg.attach_alternative(render_to_string("reminders/email.html", ctx), "text/html")
+    msg.attach_alternative(render_to_string(f"reminders/{name}email.html", ctx), "text/html")
     return msg
+
+
+def describe(item):
+    """One line for the command output."""
+    if isinstance(item, HuntNote):
+        return f"hunt: {item.thing['key']} ({item.found} of {item.total} found)"
+    return f"{item.activity.module.title} / {item.activity.title} (item {item.id})"
 
 
 def send(user, item, now=None):
     build_email(user, item).send()
-    ReminderLog.objects.create(user=user, item=item, sent_at=now or timezone.now())
+    course_item = None if isinstance(item, HuntNote) else item
+    ReminderLog.objects.create(user=user, item=course_item, sent_at=now or timezone.now())

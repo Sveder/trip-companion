@@ -639,9 +639,10 @@ class InJapanNowTests(TestCase):
         self.assertNotIn("We are in Japan now!", self.client.get(reverse("there")).content.decode())
 
     def test_tap_starts_the_trip_today(self):
-        from reminders.logic import due
+        from reminders.logic import HuntNote, due
         later = timezone.now() + timedelta(days=3)
         self.assertIsNotNone(due(self.user, now=later))
+        self.assertNotIsInstance(due(self.user, now=later), HuntNote)
         self.assertEqual(self.client.get(reverse("in_japan_now")).status_code, 405)
         r = self.client.post(reverse("in_japan_now"))
         self.assertRedirects(r, reverse("there"))
@@ -650,7 +651,7 @@ class InJapanNowTests(TestCase):
         self.assertEqual(self.trip.start_date, today)
         self.assertEqual(self.trip.end_date, today + timedelta(days=11))
         self.assertEqual(trip_phase(self.trip), "during")
-        self.assertIsNone(due(self.user, now=later))
+        self.assertIsInstance(due(self.user, now=later), HuntNote)  # T78: in Japan the reminder is the hunt
         self.assertNotIn("We are in Japan now!", self.client.get(reverse("there")).content.decode())
         self.finish_all()
         html = self.client.get("/").content.decode()

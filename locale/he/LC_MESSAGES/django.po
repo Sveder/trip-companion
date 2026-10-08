@@ -1012,3 +1012,29 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #, python-format
 #~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
 #~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
+
+#: templates/reminders/there_subject.txt:1
+#, python-format
+msgid "Today in Japan, find: %(name)s"
+msgstr "היום ביפן, מצאו: %(name)s"
+
+#: templates/reminders/there_email.html:4 templates/reminders/there_email.txt:1
+msgid "Hello from Trip Companion!"
+msgstr "שלום מ-Trip Companion!"
+
+#: templates/reminders/there_email.html:5 templates/reminders/there_email.txt:3
+msgid "Today in Japan, look for this:"
+msgstr "היום ביפן, חפשו את זה:"
+
+#: templates/reminders/there_email.html:8 templates/reminders/there_email.txt:8
+msgid "Found it? Take a photo and add it to your hunt:"
+msgstr "מצאתם? צלמו ותוסיפו את התמונה לציד שלכם:"
+
+#: templates/reminders/there_email.html:9
+msgid "Open the hunt"
+msgstr "לציד"
+
+#: templates/reminders/there_email.html:10 templates/reminders/there_email.txt:11
+#, python-format
+msgid "You found %(found)s of %(total)s things."
+msgstr "מצאתם %(found)s מתוך %(total)s דברים."

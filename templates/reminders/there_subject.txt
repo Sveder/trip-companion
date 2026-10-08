@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktrans trimmed with name=thing.title %}Today in Japan, find: {{ name }}{% endblocktrans %}

@@ -1,0 +1,14 @@
+{% load i18n %}{% get_current_language_bidi as rtl %}<!doctype html>
+<html{% if rtl %} dir="rtl" lang="he"{% endif %}><body style="margin:0;padding:24px;background:#fff8ee;font-family:Arial,Helvetica,sans-serif;color:#2b2b2b">
+<div style="max-width:480px;margin:0 auto;background:#ffffff;border-radius:16px;padding:24px">
+  <p style="font-size:18px;margin:0 0 12px">{% trans "Hello from Trip Companion!" %}</p>
+  <p style="font-size:18px;margin:0 0 8px">{% trans "Today in Japan, look for this:" %}</p>
+  <p style="font-size:24px;margin:0 0 12px"><span style="font-size:40px">{{ thing.emoji }}</span> <strong>{{ thing.title }}</strong></p>
+  <p style="font-size:16px;margin:0 0 20px">{{ thing.hint }}</p>
+  <p style="font-size:16px;margin:0 0 12px">{% trans "Found it? Take a photo and add it to your hunt:" %}</p>
+  <p style="margin:0 0 20px"><a href="{{ go }}" style="display:inline-block;background:#d7263d;color:#ffffff;text-decoration:none;font-size:18px;font-weight:bold;padding:14px 24px;border-radius:999px">{% trans "Open the hunt" %}</a></p>
+  <p style="font-size:14px;margin:0 0 20px">{% blocktrans trimmed with found=found total=total %}You found {{ found }} of {{ total }} things.{% endblocktrans %}</p>
+  <p style="font-size:12px;color:#777;margin:0">{% trans "We send this note every two days at most." %}
+  <a href="{{ stop }}" style="color:#777">{% trans "Stop these emails" %}</a>.</p>
+</div>
+</body></html>

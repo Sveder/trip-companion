@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
-from reminders.logic import due, send
+from reminders.logic import describe, due, send
 
 
 class Command(BaseCommand):
-    help = "Email each family whose next activity has waited two days or more."
+    help = "Email each family whose next activity (or, in Japan, the next hunt thing) has waited two days or more."
 
     def add_arguments(self, parser):
         parser.add_argument("--dry-run", action="store_true", help="List who would get an email; send nothing.")
@@ -17,7 +17,7 @@ class Command(BaseCommand):
             if item is None:
                 continue
             count += 1
-            line = f"{user.email}: {item.activity.module.title} / {item.activity.title} (item {item.id})"
+            line = f"{user.email}: {describe(item)}"
             if dry_run:
                 self.stdout.write("would send " + line)
                 continue
