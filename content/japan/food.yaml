@@ -109,16 +109,16 @@ activities:
             reading: "shari"
             text: "Sushi rice is called shari. A chef shapes it with the hands."
             text_he: "אורז של סושי נקרא שארי. השף מעצב אותו בידיים."
-          - x: 72
-            y: 35
+          - x: 70
+            y: 40
             label: "Seaweed"
             label_he: "אצה"
             japanese: "のり"
             reading: "nori"
             text: "The dark green wrap is nori. It is dried seaweed from the sea."
             text_he: "העטיפה הירוקה הכהה היא נורי. זו אצה מיובשת מהים."
-          - x: 49
-            y: 35
+          - x: 49.5
+            y: 30
             label: "Cucumber"
             label_he: "מלפפון"
             japanese: "かっぱまき"

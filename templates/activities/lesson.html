@@ -23,19 +23,26 @@
 
     {% elif page.kind == "spots" %}
       {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {# A small ring marks each thing; its number sits at the side of the picture with a line to the ring, so no number hides the thing (T103). #}
       <div class="lspots" data-spots data-total="{{ page.spots|length }}">
-        <img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">
-        {% for spot in page.spots %}
-        <button type="button" class="lspot" style="left: {{ spot.x }}%; top: {{ spot.y }}%" data-spot="{{ forloop.counter0 }}" aria-label="{{ spot.label }}">{{ forloop.counter }}</button>
-        {% endfor %}
+        <div class="lspots-pic">
+          <img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">
+          <svg class="lspot-lines" aria-hidden="true"></svg>
+          {% for spot in page.spots %}
+          <span class="lspot-dot" style="left: {{ spot.x }}%; top: {{ spot.y }}%" data-spot="{{ forloop.counter0 }}" aria-hidden="true"></span>
+          <button type="button" class="lspot" style="left: {{ spot.x }}%; top: {{ spot.y }}%" data-spot="{{ forloop.counter0 }}" data-x="{{ spot.x }}" data-y="{{ spot.y }}" aria-label="{{ spot.label }}">{{ forloop.counter }}</button>
+          {% endfor %}
+        </div>
       </div>
       <p class="lspots-count" data-spots-count aria-live="polite"></p>
+      <div class="spot-infos">
       {% for spot in page.spots %}
-      <div class="spot-info" data-spot-info="{{ forloop.counter0 }}" hidden>
+      <div class="spot-info" data-spot-info="{{ forloop.counter0 }}">
         <h3>{{ spot.label }}{% if spot.japanese %} <span class="jp small say-word" lang="ja" data-say="{{ spot.japanese }}" data-say-src="{{ spot.reading|word_audio }}" tabindex="0">{{ spot.japanese }} · {{ spot.reading }}</span>{% endif %}</h3>
         <p>{{ spot.text }}</p>
       </div>
       {% endfor %}
+      </div>
 
     {% elif page.kind == "flip" %}
       {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}

@@ -33,6 +33,30 @@ class SushiLessonTests(TestCase):
         self.assertEqual(r.status_code, 200)
         return r.content.decode()
 
+    def test_michael_feedback_t103(self):
+        """Numbers sit beside the picture, cards keep one size, maki is drawn at an angle, the train speeds up 7% a round."""
+        html = self.page()
+        # (1) Each spot has a ring on the thing and a number button that JavaScript moves to the side.
+        self.assertEqual(html.count('class="lspot-dot"'), html.count('class="lspot"'))
+        self.assertIn('data-x="28" data-y="33"', html)
+        self.assertIn('class="spot-infos"', html)
+        root = Path(settings.BASE_DIR) / "static"
+        js = (root / "js" / "lesson.js").read_text()
+        self.assertIn("function placeSpots", js)
+        self.assertIn("lpage-show", js)
+        # (2) Both faces of a flip card share one grid cell, so a turn does not change the card height.
+        css = (root / "css" / "app.css").read_text()
+        self.assertIn(".flip-front, .flip-back { grid-area: 1 / 1;", css)
+        self.assertNotIn(".flip-back { display: none", css)
+        self.assertIn(".spot-info { grid-area: 1 / 1;", css)
+        # (3) Maki: a cylinder (side path and a top ellipse), not two flat circles.
+        maki = (root / "img" / "lesson" / "sushi" / "maki.svg").read_text()
+        self.assertIn("<ellipse", maki)
+        self.assertNotIn('<circle r="24"', maki)
+        # (4) The belt: x1.07 per finished round, through playbackRate so the plates do not jump.
+        self.assertIn("rate *= 1.07", js)
+        self.assertIn("playbackRate = rate", js)
+
     def test_lesson_has_10_to_20_pages_and_every_kind(self):
         pages = self.act.data["pages"]
         self.assertTrue(10 <= len(pages) <= 20, len(pages))

@@ -328,23 +328,39 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .lesson .big-tips li { margin: .35rem 0; }
 .lesson .how { text-align: start; max-width: 30em; margin: .4rem auto; font-size: 1.1rem; padding-left: 1.5rem; }
 .lesson .how li { margin: .4rem 0; }
-.lspots { position: relative; max-width: 420px; margin: 0 auto; }
+.lspots { max-width: 420px; margin: 0 auto; direction: ltr; }
+.lspots-pic { position: relative; }
+/* With JavaScript the numbers move to the sides of the picture, and a thin line leads to a small ring on the thing (T103). */
+.lspots.edge { max-width: 500px; padding: 18px 40px; }
 .lspot { position: absolute; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; background: var(--c-primary); color: var(--c-primary-ink); font: inherit; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: pulse 1.6s ease-in-out infinite; }
 .lspot.seen { background: var(--c-accent); animation: none; }
 .lspot.on { outline: 4px solid var(--c-sun); }
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.15); } }
+.lspot-dot { display: none; }
+.edge .lspot-dot { display: block; position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--c-primary); cursor: pointer; }
+.edge .lspot-dot::after { content: ""; position: absolute; left: -12px; top: -12px; right: -12px; bottom: -12px; }
+.edge .lspot-dot.seen { box-shadow: 0 0 0 2px var(--c-accent); }
+.edge .lspot-dot.on { box-shadow: 0 0 0 4px var(--c-sun); }
+.lspot-lines { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.lspot-lines .under { stroke: #fff; stroke-width: 5; stroke-linecap: round; }
+.lspot-lines .over { stroke: var(--c-primary); stroke-width: 2.5; stroke-linecap: round; }
+.lspot-lines .seen.over { stroke: var(--c-accent); }
 .lspots-count { color: var(--c-muted); font-weight: 700; margin: .3rem 0; }
-.spot-info { background: var(--c-bg); border-radius: var(--radius); padding: .6rem 1rem; max-width: 32em; margin: .3rem auto; font-size: 1.1rem; }
+/* Every text sits in one grid cell, so the box keeps the height of the longest one: no jump when another dot is tapped. */
+.spot-infos { display: grid; max-width: 32em; margin: .3rem auto; }
+.spot-info { grid-area: 1 / 1; visibility: hidden; background: var(--c-bg); border-radius: var(--radius); padding: .6rem 1rem; font-size: 1.1rem; }
+.spot-info.show { visibility: visible; }
 .spot-info h3 { margin: 0 0 .2rem; }
 .spot-info p { margin: 0; }
 .flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .7rem; margin-top: .6rem; }
-.flip { font: inherit; border: 3px solid var(--c-line); background: var(--c-surface); border-radius: var(--radius); padding: .6rem; min-height: 170px; cursor: pointer; color: var(--c-ink); }
+/* Both faces share one grid cell, so a card has the same size on each side: a turn moves nothing around it (T103). */
+.flip { display: grid; font: inherit; border: 3px solid var(--c-line); background: var(--c-surface); border-radius: var(--radius); padding: .6rem; min-height: 170px; cursor: pointer; color: var(--c-ink); }
 .flip img { width: 100%; max-width: 120px; height: auto; display: block; margin: 0 auto .3rem; }
-.flip-front, .flip-back { display: flex; flex-direction: column; align-items: center; gap: .2rem; }
-.flip-back { display: none; font-size: 1.05rem; }
+.flip-front, .flip-back { grid-area: 1 / 1; align-self: center; display: flex; flex-direction: column; align-items: center; gap: .2rem; }
+.flip-back { visibility: hidden; font-size: 1.05rem; }
 .flip[aria-pressed="true"] { background: var(--c-tint-2); border-color: var(--c-accent); animation: turn .35s ease-out; }
-.flip[aria-pressed="true"] .flip-front { display: none; }
-.flip[aria-pressed="true"] .flip-back { display: flex; }
+.flip[aria-pressed="true"] .flip-front { visibility: hidden; }
+.flip[aria-pressed="true"] .flip-back { visibility: visible; }
 @keyframes turn { 0% { transform: rotateY(90deg); } 100% { transform: rotateY(0); } }
 .game .ask { font-size: 1.3rem; font-weight: 800; margin: .4rem 0; }
 .choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem; max-width: 460px; margin: 0 auto; }
