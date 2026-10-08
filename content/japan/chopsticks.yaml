@@ -8,10 +8,440 @@ audience: all
 order: 70
 ready: true
 activities:
+  - id: chopsticks-lesson
+    title: Chopstick master
+    title_he: אלופי הצ'ופסטיקס
+    type: lesson
+    intro: Swipe through the pages. Tap the pictures, play the games, and practise with real chopsticks!
+    intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ותתאמנו עם צ'ופסטיקס אמיתיים!
+    pictures:
+      - id: "sushi"
+        img: "lesson/sushi/sake.svg"
+        label: "Sushi"
+        label_he: "סושי"
+      - id: "ramen"
+        img: "lesson/manners/noodles.svg"
+        label: "Noodles"
+        label_he: "נודלס"
+      - id: "onigiri"
+        img: "lesson/chopsticks/onigiri.svg"
+        label: "Rice ball"
+        label_he: "כדור אורז"
+      - id: "curry"
+        img: "lesson/chopsticks/curry.svg"
+        label: "Curry rice"
+        label_he: "אורז עם קארי"
+      - id: "grape"
+        img: "lesson/chopsticks/grape.svg"
+        label: "A grape"
+        label_he: "ענב"
+      - id: "peas"
+        img: "lesson/chopsticks/peas.svg"
+        label: "Peas"
+        label_he: "אפונה"
+      - id: "edamame"
+        img: "lesson/chopsticks/edamame.svg"
+        label: "Edamame beans"
+        label_he: "אדממה"
+      - id: "grip-right"
+        img: "lesson/chopsticks/grip-right.svg"
+        label: "The right hold"
+        label_he: "האחיזה הנכונה"
+      - id: "grip-fist"
+        img: "lesson/chopsticks/grip-fist.svg"
+        label: "A fist hold"
+        label_he: "אחיזה באגרוף"
+      - id: "grip-cross"
+        img: "lesson/chopsticks/grip-cross.svg"
+        label: "Crossed tips"
+        label_he: "קצוות מוצלבים"
+      - id: "grip-stab"
+        img: "lesson/chopsticks/grip-stab.svg"
+        label: "Spearing food"
+        label_he: "דוקרים אוכל"
+      - id: "hashioki"
+        img: "lesson/chopsticks/hashioki.svg"
+        label: "Chopstick rest"
+        label_he: "מעמד לצ'ופסטיקס"
+      - id: "renge"
+        img: "lesson/chopsticks/renge.svg"
+        label: "Soup spoon"
+        label_he: "כף למרק"
+      - id: "waribashi"
+        img: "lesson/chopsticks/waribashi.svg"
+        label: "Split wooden chopsticks"
+        label_he: "צ'ופסטיקס מעץ שמפרידים"
+      - id: "kidshashi"
+        img: "lesson/chopsticks/kidshashi.svg"
+        label: "Kids' chopsticks"
+        label_he: "צ'ופסטיקס לילדים"
+      - id: "ch-japan"
+        img: "lesson/chopsticks/ch-japan.svg"
+        label: "Chopsticks from Japan"
+        label_he: "צ'ופסטיקס מיפן"
+      - id: "ch-china"
+        img: "lesson/chopsticks/ch-china.svg"
+        label: "Chopsticks from China"
+        label_he: "צ'ופסטיקס מסין"
+      - id: "ch-korea"
+        img: "lesson/chopsticks/ch-korea.svg"
+        label: "Chopsticks from Korea"
+        label_he: "צ'ופסטיקס מקוריאה"
+    # Michael, 2026-10-08 (feedback T82): no video page in the chopsticks lesson.
+    pages:
+      - kind: text
+        title: "Hashi: chopsticks"
+        title_he: "האשי: צ'ופסטיקס"
+        img: lesson/chopsticks/hashi.svg
+        japanese: 箸
+        reading: hashi
+        text: In Japan, chopsticks are called hashi. People in Japan eat almost everything with them. Rice, noodles, fish, and even salad!
+        text_he: ביפן, לצ'ופסטיקס קוראים האשי. אנשים ביפן אוכלים כמעט הכל איתם. אורז, נודלס, דגים, ואפילו סלט!
+        tips:
+          - Japanese chopsticks are short, with thin pointed tips.
+          - Children in Japan learn to use them when they are small.
+          - Some foods are for your hands, like a rice ball. You find out which ones in this lesson.
+        tips_he:
+          - הצ'ופסטיקס היפניים קצרים, עם קצוות דקים ומחודדים.
+          - ילדים ביפן לומדים להשתמש בהם כשהם קטנים.
+          - יש אוכל שאוכלים בידיים, כמו כדור אורז. בשיעור הזה תגלו איזה.
+      - kind: spots
+        title: A hand with chopsticks
+        title_he: יד עם צ'ופסטיקס
+        img: lesson/chopsticks/hand.svg
+        text: This hand holds chopsticks the Japanese way. Tap each dot to see what each part does.
+        text_he: היד הזאת מחזיקה צ'ופסטיקס כמו ביפן. געו בכל נקודה כדי לראות מה כל חלק עושה.
+        spots:
+          - x: 37
+            y: 50
+            label: "The top stick"
+            label_he: "המקל העליון"
+            text: "The top stick moves. It goes up and down to open and close the tips."
+            text_he: "המקל העליון זז. הוא עולה ויורד כדי לפתוח ולסגור את הקצוות."
+          - x: 27
+            y: 66
+            label: "The bottom stick"
+            label_he: "המקל התחתון"
+            text: "The bottom stick stays still. It does not move at all."
+            text_he: "המקל התחתון נשאר במקום. הוא לא זז בכלל."
+          - x: 63
+            y: 47
+            label: "The thumb"
+            label_he: "האגודל"
+            text: "The thumb holds the top stick against the fingers. The bottom stick rests in the dip at the bottom of the thumb."
+            text_he: "האגודל מחזיק את המקל העליון צמוד לאצבעות. המקל התחתון נח בשקע שבבסיס האגודל."
+          - x: 51
+            y: 38
+            label: "Pointer and middle finger"
+            label_he: "האצבע והאמה"
+            text: "These two fingers move the top stick, like when you hold a pencil."
+            text_he: "שתי האצבעות האלה מזיזות את המקל העליון, כמו כשמחזיקים עיפרון."
+          - x: 65
+            y: 76
+            label: "The ring finger"
+            label_he: "הקמיצה"
+            text: "The bottom stick rests on the side of the ring finger. The ring finger keeps it still."
+            text_he: "המקל התחתון נח על הצד של הקמיצה. הקמיצה שומרת שהוא לא יזוז."
+          - x: 11
+            y: 63
+            label: "The tips"
+            label_he: "הקצוות"
+            text: "Only the tips touch the food. Keep the tips even, so they meet."
+            text_he: "רק הקצוות נוגעים באוכל. שומרים שהקצוות יהיו באותו אורך, כדי שייפגשו."
+      - kind: flip
+        title: Easy or hard?
+        title_he: קל או קשה?
+        text: Which foods are easy to pick up? Tap a card to turn it.
+        text_he: איזה אוכל קל להרים? געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/sushi/sake.svg"
+            label: "Sushi"
+            label_he: "סושי"
+            text: "Easy! One piece is one bite. You can also eat sushi with your fingers. In Japan both are fine."
+            text_he: "קל! חתיכה אחת היא ביס אחד. אפשר לאכול סושי גם עם האצבעות. ביפן שתי הדרכים בסדר."
+          - img: "lesson/manners/noodles.svg"
+            label: "Noodles"
+            label_he: "נודלס"
+            text: "Pick up a few noodles and slurp! In Japan, a slurp is fine with noodles."
+            text_he: "מרימים כמה נודלס ושואבים! ביפן, מותר לשאוב נודלס ברעש."
+          - img: "lesson/chopsticks/grape.svg"
+            label: "A grape"
+            label_he: "ענב"
+            text: "Hard! Round, slippery food rolls away. Pinch gently, and try again."
+            text_he: "קשה! אוכל עגול וחלק מתגלגל. לוחצים בעדינות, ומנסים שוב."
+          - img: "lesson/chopsticks/peas.svg"
+            label: "Peas"
+            label_he: "אפונה"
+            text: "Very hard! Peas are small and round. Try one pea at a time. It is great practice."
+            text_he: "קשה מאוד! אפונה קטנה ועגולה. מנסים אפונה אחת בכל פעם. זה אימון מצוין."
+          - img: "lesson/chopsticks/edamame.svg"
+            label: "Edamame"
+            label_he: "אדממה"
+            japanese: "えだまめ"
+            reading: "edamame"
+            text: "No chopsticks! Hold the pod in your fingers and push the beans into your mouth. Put the empty pods in a dish."
+            text_he: "בלי צ'ופסטיקס! מחזיקים את התרמיל באצבעות ודוחפים את השעועית לפה. את התרמילים הריקים שמים בצלוחית."
+          - img: "lesson/chopsticks/onigiri.svg"
+            label: "Rice ball"
+            label_he: "כדור אורז"
+            japanese: "おにぎり"
+            reading: "onigiri"
+            text: "No chopsticks! A rice ball is food for your hands. Hold it by the seaweed."
+            text_he: "בלי צ'ופסטיקס! כדור אורז אוכלים בידיים. מחזיקים אותו באצה."
+      - kind: pick
+        title: Which hand is right?
+        title_he: איזו יד צודקת?
+        text: Look at each hand. Tap the picture we ask for.
+        text_he: הסתכלו על כל יד. געו בתמונה שאנחנו מבקשים.
+        rounds:
+          - ask: "Which hand holds the chopsticks the right way?"
+            ask_he: "איזו יד מחזיקה את הצ'ופסטיקס נכון?"
+            answer: "grip-right"
+            choices: [grip-fist, grip-right, grip-cross, grip-stab]
+          - ask: "Oops, the tips cross like an X, and the food falls. Which hand is that?"
+            ask_he: "אופס, הקצוות מוצלבים כמו X, והאוכל נופל. איזו יד זאת?"
+            answer: "grip-cross"
+            choices: [grip-right, grip-stab, grip-cross, grip-fist]
+          - ask: "Which hand spears the food? We do not do that!"
+            ask_he: "איזו יד דוקרת את האוכל? את זה לא עושים!"
+            answer: "grip-stab"
+            choices: [grip-stab, grip-right, grip-fist, grip-cross]
+      - kind: flip
+        title: Chopstick rules
+        title_he: חוקי הצ'ופסטיקס
+        text: In Japan, people take these rules seriously. Tap a card to turn it.
+        text_he: ביפן, אנשים מקפידים על החוקים האלה. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/chopsticks/rule-stand.svg"
+            label: "Never stand them in rice"
+            label_he: "לא תוקעים אותם באורז"
+            text: "In Japan, chopsticks stand up in rice only at a funeral, when people say goodbye to someone who died. At the table, lay them down."
+            text_he: "ביפן, צ'ופסטיקס עומדים באורז רק בהלוויה, כשנפרדים ממישהו שמת. ליד השולחן, מניחים אותם."
+          - img: "lesson/chopsticks/rule-pass.svg"
+            label: "Never pass food stick to stick"
+            label_he: "לא מעבירים אוכל ממקל למקל"
+            text: "This is also done only at a funeral. Put the food on the other person's plate, and they pick it up."
+            text_he: "גם את זה עושים רק בהלוויה. שמים את האוכל בצלחת של האדם השני, והוא מרים אותו."
+          - img: "lesson/chopsticks/rule-point.svg"
+            label: "Do not point with them"
+            label_he: "לא מצביעים איתם"
+            text: "Do not point at people or things with your chopsticks. Put them down, then point with your hand."
+            text_he: "לא מצביעים על אנשים או על דברים עם הצ'ופסטיקס. מניחים אותם, ואז מצביעים ביד."
+          - img: "lesson/chopsticks/grip-stab.svg"
+            label: "Do not spear food"
+            label_he: "לא דוקרים אוכל"
+            text: "Pick the food up. Do not stab it. A big piece? Break it with the tips, or take a bite."
+            text_he: "מרימים את האוכל. לא דוקרים אותו. חתיכה גדולה? שוברים אותה עם הקצוות, או נוגסים."
+          - img: "lesson/chopsticks/hashioki.svg"
+            label: "Rest them on the rest"
+            label_he: "מניחים אותם על המעמד"
+            japanese: "はしおき"
+            reading: "hashioki"
+            text: "When you stop to talk or drink, lay your chopsticks side by side on the small rest. It is called a hashioki."
+            text_he: "כשעוצרים לדבר או לשתות, מניחים את הצ'ופסטיקס אחד ליד השני על המעמד הקטן. קוראים לו האשיוקי."
+      - kind: text
+        title: How to hold them
+        title_he: איך מחזיקים אותם
+        img: lesson/chopsticks/hand.svg
+        text: Hold real chopsticks and try it, one step at a time. Go slowly. Everybody drops food at the start!
+        text_he: מחזיקים צ'ופסטיקס אמיתיים ומנסים, צעד אחרי צעד. לאט. כולם מפילים אוכל בהתחלה!
+        tips:
+          - Put the bottom stick in the dip between your thumb and your pointer finger. Let it rest on your ring finger.
+          - Hold the top stick like a pencil, with your thumb, pointer and middle finger.
+          - Tap the tips on the table, so the two sticks are even.
+          - Open and close the top stick, like a bird's beak. The bottom stick stays still.
+          - Start with big, soft food, like a piece of bread.
+        tips_he:
+          - שמים את המקל התחתון בשקע שבין האגודל והאצבע. נותנים לו לנוח על הקמיצה.
+          - מחזיקים את המקל העליון כמו עיפרון, עם האגודל, האצבע והאמה.
+          - מקישים עם הקצוות על השולחן, כדי ששני המקלות יהיו באותו אורך.
+          - פותחים וסוגרים את המקל העליון, כמו מקור של ציפור. המקל התחתון נשאר במקום.
+          - מתחילים עם אוכל גדול ורך, כמו חתיכת לחם.
+      - kind: spots
+        title: A Japanese meal
+        title_he: ארוחה יפנית
+        img: lesson/chopsticks/table.svg
+        text: This is a Japanese meal, seen from above. Tap each dot to see what is on the table.
+        text_he: זו ארוחה יפנית, כמו שרואים אותה מלמעלה. געו בכל נקודה כדי לראות מה יש על השולחן.
+        spots:
+          - x: 16
+            y: 27
+            label: "The wet towel"
+            label_he: "המגבת הרטובה"
+            japanese: "おしぼり"
+            reading: "oshibori"
+            text: "Many restaurants give you a small wet towel. Wipe your hands with it before you eat."
+            text_he: "בהרבה מסעדות מקבלים מגבת קטנה ורטובה. מנגבים איתה את הידיים לפני האוכל."
+          - x: 77
+            y: 23
+            label: "The soup spoon"
+            label_he: "כף המרק"
+            japanese: "れんげ"
+            reading: "renge"
+            text: "A renge is a wide spoon for ramen soup. The chopsticks hold the noodles, and the renge holds the soup."
+            text_he: "רנגה היא כף רחבה למרק של ראמן. הצ'ופסטיקס מחזיקים את הנודלס, והרנגה מחזיקה את המרק."
+          - x: 37
+            y: 57
+            label: "The rice bowl"
+            label_he: "קערת האורז"
+            text: "The rice bowl sits on the left. In Japan, you lift the rice bowl in your hand, close to your mouth. That is good manners."
+            text_he: "קערת האורז עומדת משמאל. ביפן, מרימים את קערת האורז ביד, קרוב לפה. ככה מנומס."
+          - x: 62
+            y: 57
+            label: "The miso soup"
+            label_he: "מרק המיסו"
+            japanese: "みそしる"
+            reading: "misoshiru"
+            text: "The soup sits on the right. Drink the soup from the bowl, and pick up the tofu with your chopsticks."
+            text_he: "המרק עומד מימין. שותים את המרק מהקערה, ומרימים את הטופו עם הצ'ופסטיקס."
+          - x: 33
+            y: 85
+            label: "The chopsticks"
+            label_he: "הצ'ופסטיקס"
+            japanese: "はし"
+            reading: "hashi"
+            text: "The chopsticks lie at the front, with the tips to the left, on a small rest."
+            text_he: "הצ'ופסטיקס מונחים מלפנים, עם הקצוות שמאלה, על מעמד קטן."
+          - x: 83
+            y: 78
+            label: "The paper sleeve"
+            label_he: "שקית הנייר"
+            text: "Chopsticks often come in a paper sleeve. No rest on the table? Some people fold the sleeve into a little rest."
+            text_he: "הרבה פעמים הצ'ופסטיקס מגיעים בשקית נייר. אין מעמד על השולחן? יש אנשים שמקפלים את השקית למעמד קטן."
+      - kind: train
+        title: Catch it!
+        title_he: תפסו את זה!
+        text: The plates ride past. Tap the food we ask for, not the other things.
+        text_he: הצלחות נוסעות. געו באוכל שאנחנו מבקשים, לא בדברים האחרים.
+        belt: [sushi, curry, grape, ramen, hashioki, onigiri, peas, renge, edamame, waribashi]
+        rounds:
+          - ask: "Catch the sushi! Eat it with chopsticks, or with your fingers."
+            ask_he: "תפסו את הסושי! אוכלים אותו עם צ'ופסטיקס, או עם האצבעות."
+            answer: "sushi"
+          - ask: "Catch the noodles! Pick up a few and slurp."
+            ask_he: "תפסו את הנודלס! מרימים כמה ושואבים."
+            answer: "ramen"
+          - ask: "Catch the rice ball! In Japan you eat it with your hands."
+            ask_he: "תפסו את כדור האורז! ביפן אוכלים אותו בידיים."
+            answer: "onigiri"
+          - ask: "Catch the curry rice! In Japan you eat it with a spoon."
+            ask_he: "תפסו את האורז עם הקארי! ביפן אוכלים אותו בכפית."
+            answer: "curry"
+      - kind: text
+        title: Chopsticks around Asia
+        title_he: צ'ופסטיקס באסיה
+        img: lesson/chopsticks/asia.svg
+        text: People eat with chopsticks in many countries in Asia. But the chopsticks are not the same!
+        text_he: אוכלים עם צ'ופסטיקס בהרבה מדינות באסיה. אבל הצ'ופסטיקס לא אותו דבר!
+        tips:
+          - "Japan: short, with thin pointed tips. Often made of wood."
+          - "China: long, with thick, blunt tips."
+          - "Korea: flat, and made of metal. In Korea people eat rice with a spoon."
+        tips_he:
+          - "יפן: קצרים, עם קצוות דקים ומחודדים. הרבה פעמים מעץ."
+          - "סין: ארוכים, עם קצוות עבים ועגולים."
+          - "קוריאה: שטוחים, ועשויים ממתכת. בקוריאה אוכלים אורז בכף."
+      - kind: text
+        title: Kids' chopsticks
+        title_he: צ'ופסטיקס לילדים
+        img: lesson/chopsticks/kidshashi.svg
+        text: Chopsticks are hard at first, also for children in Japan. Kids' chopsticks help. They are joined at the top, and rings show where the fingers go.
+        text_he: צ'ופסטיקס קשים בהתחלה, גם לילדים ביפן. צ'ופסטיקס לילדים עוזרים. הם מחוברים למעלה, וטבעות מראות איפה שמים את האצבעות.
+        tips:
+          - Start with the joined chopsticks.
+          - When they feel easy, try a normal pair.
+        tips_he:
+          - מתחילים עם הצ'ופסטיקס המחוברים.
+          - כשזה מרגיש קל, מנסים זוג רגיל.
+        link:
+          id: kids-chopsticks
+          url: https://www.aliexpress.com/item/1005007683787720.html
+          label: See kids' chopsticks
+          label_he: לצ'ופסטיקס לילדים
+      - kind: flip
+        title: Chopsticks in Japan
+        title_he: צ'ופסטיקס ביפן
+        text: Two kinds you see on the trip. Tap a card to turn it.
+        text_he: שני סוגים שתראו בטיול. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/chopsticks/waribashi.svg"
+            label: "Split chopsticks"
+            label_he: "צ'ופסטיקס שמפרידים"
+            japanese: "わりばし"
+            reading: "waribashi"
+            text: "Two wooden sticks, joined at the top. Pull them apart before you eat. A konbini gives them with a lunch box, and many restaurants have them."
+            text_he: "שני מקלות עץ, מחוברים למעלה. מפרידים אותם לפני האוכל. בקונביני נותנים אותם עם קופסת אוכל, ויש אותם בהרבה מסעדות."
+          - img: "lesson/chopsticks/myhashi.svg"
+            label: "My own chopsticks"
+            label_he: "הצ'ופסטיקס שלי"
+            japanese: "マイはし"
+            reading: "mai hashi"
+            text: "Some people in Japan carry their own chopsticks in a small case. Then they do not use a new wooden pair each time. That is good for the trees!"
+            text_he: "יש אנשים ביפן שמחזיקים צ'ופסטיקס משלהם בנרתיק קטן. ככה הם לא משתמשים בזוג עץ חדש כל פעם. זה טוב לעצים!"
+      - kind: pick
+        title: Chopsticks quiz
+        title_he: חידון צ'ופסטיקס
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "You stop to drink. Where do your chopsticks go?"
+            ask_he: "עוצרים לשתות. לאן הולכים הצ'ופסטיקס?"
+            answer: "hashioki"
+            choices: [onigiri, hashioki, renge, grape]
+          - ask: "Which chopsticks are from Japan?"
+            ask_he: "אילו צ'ופסטיקס הם מיפן?"
+            answer: "ch-japan"
+            choices: [ch-china, ch-korea, ch-japan, peas]
+          - ask: "You buy a lunch box at the konbini. Which chopsticks come with it?"
+            ask_he: "קונים קופסת אוכל בקונביני. אילו צ'ופסטיקס מקבלים איתה?"
+            answer: "waribashi"
+            choices: [kidshashi, curry, ch-korea, waribashi]
+      - kind: local
+        title: Where to practise
+        title_he: איפה מתאמנים
+        text: Chopsticks get easy with practice. A little every day is best.
+        text_he: עם אימון, הצ'ופסטיקס נהיים קלים. קצת כל יום זה הכי טוב.
+        groups:
+          - title: At home
+            title_he: בבית
+            places:
+              - emoji: "🍇"
+                title: "The bowl game"
+                title_he: "משחק הקערות"
+                text: "Move grapes, popcorn or cotton balls from one bowl to another. How many can you move in one minute?"
+                text_he: "מעבירים ענבים, פופקורן או כדורי צמר גפן מקערה לקערה. כמה אפשר להעביר בדקה אחת?"
+              - emoji: "🍜"
+                title: "Chopstick dinner"
+                title_he: "ארוחת צ'ופסטיקס"
+                text: "Eat one dinner a week with chopsticks. Noodles and rice are good to start with."
+                text_he: "אוכלים ארוחת ערב אחת בשבוע עם צ'ופסטיקס. נודלס ואורז טובים להתחלה."
+              - emoji: "🍣"
+                title: "A sushi or noodle restaurant"
+                title_he: "מסעדת סושי או נודלס"
+                text: "Ask for chopsticks and try them before the trip."
+                text_he: "מבקשים צ'ופסטיקס ומנסים אותם לפני הטיול."
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "🍱"
+                title: "Every restaurant"
+                title_he: "בכל מסעדה"
+                text: "Most restaurants put chopsticks on the table. Many family restaurants also have a fork and spoon for children. You can ask."
+                text_he: "ברוב המסעדות יש צ'ופסטיקס על השולחן. בהרבה מסעדות משפחתיות יש גם מזלג וכף לילדים. אפשר לבקש."
+              - emoji: "🏪"
+                title: "The konbini"
+                title_he: "הקונביני"
+                text: "The shop worker often asks if you want chopsticks with your lunch box. Say \"hai\". It means yes."
+                text_he: "המוכר שואל הרבה פעמים אם רוצים צ'ופסטיקס עם קופסת האוכל. אומרים \"היי\". זה אומר כן."
+              - emoji: "🎁"
+                title: "A gift to take home"
+                title_he: "מתנה הביתה"
+                text: "Many shops sell chopsticks with cute pictures, and some write your name on them."
+                text_he: "בהרבה חנויות מוכרים צ'ופסטיקס עם ציורים חמודים, ויש כאלה שכותבים עליהם את השם שלכם."
   # The id stays "chopsticks-intro": a new id would delete the old row and the families' course items with it.
   - id: chopsticks-intro
-    title: Eat with chopsticks
-    title_he: אוכלים עם צ'ופסטיקס
+    title: "Eat with chopsticks: quick review"
+    title_he: "אוכלים עם צ'ופסטיקס: חזרה קצרה"
     type: steps
     intro: In Japan, people eat with chopsticks. Let's learn, then show everyone!
     intro_he: ביפן, אוכלים עם צ'ופסטיקס. בואו נלמד, ואז נראה לכולם!

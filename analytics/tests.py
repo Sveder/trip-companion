@@ -62,7 +62,7 @@ class EventTests(TestCase):
         c.post(reverse("quiz"), {"key": self.client.session["quiz"]["keys"][0], "choice": "nope"})
         self.assertOne("quiz_answer", right=False)
 
-        sticks = course.items.get(activity__module__slug="chopsticks")
+        sticks = course.items.get(activity__slug="chopsticks-intro")
         c.get(reverse("go", args=[sticks.id, "kids-chopsticks"]))
         self.assertOne("referral_click", link="kids-chopsticks")
         r = c.post(reverse("track_video", args=[sticks.id]), {"video": "CBNw5yX1M34"})

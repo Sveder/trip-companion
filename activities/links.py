@@ -20,10 +20,11 @@ def visible_links(data, trip):
 
 
 def find_link(activity, link_id):
-    """The URL of one link in an activity (a `links` item or a `link` step), or None."""
+    """The URL of one link in an activity (a `links` item, a `link` step or a lesson page link), or None."""
     data = activity.data or {}
     entries = list(data.get("links", []))
     entries += [s for s in data.get("steps", []) if s.get("kind") == "link"]
+    entries += [p["link"] for p in data.get("pages", []) if isinstance(p.get("link"), dict)]
     for entry in entries:
         if entry.get("id") == link_id and str(entry.get("url", "")).startswith("https://"):
             return entry["url"]

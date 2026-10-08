@@ -18,6 +18,8 @@
       {% if page.japanese %}<p class="jp say-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0">{{ page.japanese }} <small>{{ page.reading }}</small></p>{% endif %}
       {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
       {% if page.tips %}<ul class="tips big-tips">{% for tip in page.tips %}<li>{{ tip }}</li>{% endfor %}</ul>{% endif %}
+      {% if page.link %}<p><a class="btn alt" href="{% url 'go' item.id page.link.id %}" target="_blank" rel="noopener nofollow">{{ page.link.label }}</a></p>
+      <p class="hint">{% translate "A grown-up buys it. The shop opens in a new tab." %}</p>{% endif %}
 
     {% elif page.kind == "spots" %}
       {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}

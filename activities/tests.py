@@ -49,7 +49,7 @@ class ChopsticksTests(TestCase):
         return r.content.decode()
 
     def test_chopsticks_is_a_ready_steps_activity(self):
-        act = Activity.objects.get(module__slug="chopsticks")
+        act = Activity.objects.get(module__slug="chopsticks", type="steps")
         self.assertTrue(act.module.ready)
         self.assertEqual([s["kind"] for s in act.data["steps"]], ["link", "text", "text", "record"])
 

@@ -317,3 +317,84 @@ class SafetyLessonTests(TestCase):
         self.assertIn("050-3816-2787", html)
         self.assertIn("drive on the LEFT", html)
         self.assertIn("Look right first", html)
+
+
+class ChopsticksLessonTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("c@example.com", "c@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (39, 4):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="chopsticks", slug="chopsticks-lesson")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def page(self, lang="en"):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_lesson_comes_first_and_the_steps_are_the_quick_review(self):
+        slugs = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
+        self.assertEqual(slugs[0][0], "chopsticks-lesson")
+        self.assertEqual(slugs[1], ("chopsticks-intro", "Eat with chopsticks: quick review"))
+
+    def test_no_video_page_and_every_other_kind(self):
+        # Michael, feedback T82: no video in the chopsticks lesson.
+        kinds = [p["kind"] for p in self.act.data["pages"]]
+        self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
+        self.assertNotIn("video", kinds)
+        self.assertEqual(set(kinds), set(KINDS) - {"video"})
+
+    def test_every_picture_exists_and_every_game_answer_is_a_choice(self):
+        data = self.act.data
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        pics = {p["id"] for p in data["pictures"]}
+        imgs = [p["img"] for p in data["pictures"]] + [p["img"] for p in data["pages"] if p.get("img")]
+        imgs += [c["img"] for p in data["pages"] for c in p.get("cards", [])]
+        for img in imgs:
+            self.assertTrue((static / img).exists(), img)
+        for p in data["pages"]:
+            if p["kind"] == "pick":
+                for r in p["rounds"]:
+                    self.assertIn(r["answer"], r["choices"])
+                    self.assertTrue(set(r["choices"]) <= pics)
+            if p["kind"] == "train":
+                for r in p["rounds"]:
+                    self.assertIn(r["answer"], p["belt"])
+                self.assertTrue(set(p["belt"]) <= pics)
+
+    def test_english(self):
+        html = self.page()
+        self.assertEqual(html.count("data-page "), 13)
+        for kind in set(KINDS) - {"video"}:
+            self.assertIn(f"lpage-{kind}", html)
+        self.assertNotIn("lpage-video", html)
+        self.assertNotIn("comes soon", html)
+        self.assertIn("Page 1 of 13", html)
+        self.assertIn("A hand with chopsticks", html)
+        self.assertIn('data-spot="5"', html)               # 6 dots on the hand, 6 on the table
+        self.assertIn('data-plate="onigiri"', html)        # the food train
+        self.assertIn("data-right", html)
+        self.assertIn("audio/japan/oshibori.mp3", html)    # the spot words have a voice
+        self.assertIn("audio/japan/renge.mp3", html)       # a spot word too
+        self.assertIn("never", html.lower())
+
+    def test_kids_chopsticks_link_goes_through_the_click_counter(self):
+        html = self.page()
+        go = reverse("go", args=[self.item.id, "kids-chopsticks"])
+        self.assertIn(go, html)
+        r = self.client.get(go)
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r["Location"], "https://www.aliexpress.com/item/1005007683787720.html")
+
+    def test_hebrew(self):
+        html = self.page("he")
+        self.assertIn("אלופי הצ'ופסטיקס", html.replace("&#x27;", "'"))
+        self.assertIn("דף 1 מתוך 13", html)
+        self.assertIn("לצ'ופסטיקס לילדים", html.replace("&#x27;", "'"))
+        self.assertNotIn("A hand with chopsticks", html)
+        self.assertNotIn("Chopstick rules", html)
