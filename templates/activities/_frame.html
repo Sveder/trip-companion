@@ -11,7 +11,7 @@
 </div>
 {% endif %}
 <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{{ activity.local_title }}</span></h1>
-{% if data.intro %}<p class="lead">{{ data.intro }}</p>{% endif %}
+{% block intro %}{% if data.intro %}<p class="lead">{{ data.intro }}</p>{% endif %}{% endblock %}
 {% block activity %}{% endblock %}
 {% block done %}
 <form method="post" action="{% url 'activity_done' item.id %}" class="done-form">

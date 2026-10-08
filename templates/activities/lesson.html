@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load static %}
 {% load say %}
+{# The intro line sits in page 1 only, so pages 2-N start right under the title (T100). #}
+{% block intro %}{% endblock %}
 {% block activity %}
 {% include "includes/js_strings.html" %}
 {% get_current_language_bidi as bidi %}
@@ -12,6 +14,7 @@
   {% for page in pages %}
   <section class="lpage panel lpage-{{ page.kind }}" data-page data-label="{% blocktranslate with n=forloop.counter total=pages|length %}Page {{ n }} of {{ total }}{% endblocktranslate %}">
     <h2>{% if page.emoji %}<span aria-hidden="true">{{ page.emoji }}</span> {% endif %}{{ page.title }}</h2>
+    {% if forloop.first and data.intro %}<p class="lead lpage-intro">{{ data.intro }}</p>{% endif %}
 
     {% if page.kind == "text" %}
       {% if page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}

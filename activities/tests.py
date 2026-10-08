@@ -9,6 +9,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.html import escape
 
 from content_admin.models import Activity
 from courses.models import Course, CourseItem
@@ -587,3 +588,27 @@ class SpotRingSpacingTests(TestCase):
         for f in sorted((settings.BASE_DIR / "content/japan").glob("*.yaml")):
             walk(yaml.safe_load(f.read_text()), f.name)
         self.assertEqual(touching, [])
+
+
+class LessonIntroTests(TestCase):
+    """T100: the lesson intro line shows on page 1 only, not above every page."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("i@example.com", "i@example.com")
+
+    def test_intro_sits_in_page_one_only_en_and_he(self):
+        self.client.force_login(self.user)
+        course = Course.objects.create(trip=Trip.objects.create(user=self.user, destination="japan"))
+        lessons = [a for a in Activity.objects.all() if a.data.get("pages") and a.data.get("intro")]
+        self.assertGreaterEqual(len(lessons), 8)
+        for n, act in enumerate(lessons):
+            item = CourseItem.objects.create(course=course, order=n, activity=act)
+            for lang, key in (("en", "intro"), ("he", "intro_he")):
+                html = self.client.get(reverse("activity", args=[item.id]) + "?lang=" + lang).content.decode()
+                intro = str(escape(act.data.get(key) or act.data["intro"]))
+                self.assertEqual(html.count(intro), 1, (act.slug, lang))
+                pages = html.split("data-page ")[1:]
+                self.assertIn(intro, pages[0], (act.slug, lang))
+                self.assertEqual(html.count('class="lead'), 1, (act.slug, lang))
