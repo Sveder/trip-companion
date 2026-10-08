@@ -195,3 +195,18 @@ class PhotoShrinkTests(TestCase):
         self.assertFalse(old.exists())
         self.assertEqual(Image.open(photo.file.path).size, (1200, 1600))
         self.assertEqual(photo.size, Path(photo.file.path).stat().st_size)
+
+    def test_a_very_detailed_photo_stays_under_the_budget(self):
+        import io
+        import os
+
+        from PIL import Image
+
+        from .shrink import BUDGET, shrink
+
+        out = io.BytesIO()
+        Image.frombytes("RGB", (2400, 1800), os.urandom(2400 * 1800 * 3)).save(out, "JPEG", quality=95)
+        small, width, height = shrink(out.getvalue())
+        self.assertEqual((width, height), (1600, 1200))
+        self.assertLess(len(small), 600 * 1024)
+        self.assertLessEqual(len(small), BUDGET * 1.3)

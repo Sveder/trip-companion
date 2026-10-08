@@ -6,6 +6,9 @@ from PIL import Image, ImageOps
 
 LONG_SIDE = 1600
 QUALITY = 82
+# A very detailed photo (gravel, leaves) is still big at QUALITY; then step the quality down to this budget.
+BUDGET = 500 * 1024
+LOWER = (76, 70, 64)
 
 
 def shrink(data):
@@ -22,8 +25,11 @@ def shrink(data):
         background.paste(rgba, mask=rgba.split()[-1])
         img = background
     img.thumbnail((LONG_SIDE, LONG_SIDE), Image.LANCZOS)
-    out = io.BytesIO()
-    img.save(out, "JPEG", quality=QUALITY, optimize=True, progressive=True)
+    for quality in (QUALITY, *LOWER):
+        out = io.BytesIO()
+        img.save(out, "JPEG", quality=quality, optimize=True, progressive=True)
+        if out.tell() <= BUDGET:
+            break
     return out.getvalue(), img.width, img.height
 
 
