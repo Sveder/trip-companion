@@ -108,9 +108,11 @@
     return k;
   }
 
+  function shown(el) { var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
+
   function current() {
     var el = document.activeElement;
-    if ((!el || el === document.body || el === root) && last && document.contains(last)) { focus(last); el = last; }
+    if ((!el || el === document.body || el === root) && last && document.contains(last) && shown(last)) { focus(last); el = last; }
     return el;
   }
 
@@ -127,7 +129,8 @@
       if (typing && (dir === 'left' || dir === 'right')) return;
       e.preventDefault();
       el = current();
-      if (!el || el === document.body || el === root) { first(); return; }
+      // A lesson page turn can hide the focused control (Next on the last page): start again on the visible page.
+      if (!el || el === document.body || el === root || !shown(el)) { first(); return; }
       var to = next(el, dir);
       if (to) focus(to);
       else window.scrollBy({ top: dir === 'down' ? 300 : dir === 'up' ? -300 : 0, behavior: 'smooth' });
@@ -220,5 +223,8 @@
   } catch (err) { /* no sessionStorage: no debug box */ }
 
   prepare();
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', first); else first();
+  // Wait until lesson.js has hidden the other lesson pages, or the first pick may sit on a hidden page (T104).
+  function start() { setTimeout(function () { var a = document.activeElement; if (!a || a === document.body || !shown(a)) first(); }, 0); }
+  if (document.readyState === 'complete') start(); else document.addEventListener('DOMContentLoaded', start);
+  window.addEventListener('load', start);
 })();
