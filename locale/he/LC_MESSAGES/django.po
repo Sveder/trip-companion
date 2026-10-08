@@ -815,3 +815,12 @@ msgstr[1] "%(n)d מבוגרים"
 #, python-format
 #~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
 #~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
+
+#: practice/items.py
+#, python-format
+msgid "Which one is %(reading)s?"
+msgstr "איזה מהם נקרא %(reading)s?"
+
+#: practice/items.py
+msgid "What do we say here?"
+msgstr "מה אומרים כאן?"

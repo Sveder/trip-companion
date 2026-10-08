@@ -1,6 +1,8 @@
-"""Quiz items come from the content: every word of a `words` activity, and every card marked `quiz: true`."""
+"""Quiz items come from the content: every word of a `words` activity, every card marked `quiz: true`,
+and the spots and flip cards of a `lesson` (at most LESSON_MAX of them)."""
 import random
 
+from django.templatetags.static import static
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
@@ -11,15 +13,49 @@ from .models import PracticeItem
 
 QUIZ_SIZE = 8
 CHOICES = 4
+# One lesson holds up to ~20 spots and cards. A cap keeps one lesson from filling every daily quiz.
+LESSON_MAX = 12
 
 
 def _card_id(card):
     return card.get("id") or slugify(card.get("title", ""))
 
 
-def quiz_entries(activity):
-    """(item id, entry) pairs in one activity that the quiz can ask."""
+def _lesson_entries(data):
+    """Every spot and flip card of a lesson, in page order, first copy of a repeated id only.
+
+    Each entry is a copy that knows its page (`page`), so the wrong choices come from the same page:
+    two cards on different pages can share one picture (nigiri and salmon both use sake.svg).
+    A spot has no picture of its own, so it carries its page's picture (`page_img`).
+    """
+    out, seen = [], set()
+    for n, page in enumerate(data.get("pages", [])):
+        if page.get("kind") == "spots":
+            items = [dict(s, page=n, page_img=page.get("img", "")) for s in page.get("spots", [])]
+        elif page.get("kind") == "flip":
+            items = [dict(c, page=n) for c in page.get("cards", [])]
+        else:
+            continue
+        for e in items:
+            i = slugify(e.get("reading", "")) or slugify(e.get("label", ""))
+            if i and i not in seen:
+                seen.add(i)
+                out.append((i, e))
+    return out
+
+
+def quiz_entries(activity, everything=False):
+    """(item id, entry) pairs in one activity that the quiz can ask.
+
+    A lesson gives its first LESSON_MAX entries; `everything=True` gives them all (to look up an old key).
+    """
     data = activity.data or {}
+    if activity.type == "lesson":
+        entries = _lesson_entries(data)
+        if everything:
+            return entries
+        # A spot with no Japanese reading cannot be asked ("Which one is ?"); it still serves as a wrong choice.
+        return [(i, e) for i, e in entries if e.get("img") or e.get("reading")][:LESSON_MAX]
     if activity.type == "words":
         return [(w.get("id") or slugify(w["reading"]), w) for w in data.get("words", [])]
     if activity.type == "cards":
@@ -57,7 +93,7 @@ def lookup(trip, key):
     )
     if activity is None:
         return None, None
-    for i, entry in quiz_entries(activity):
+    for i, entry in quiz_entries(activity, everything=True):
         if i == item_id:
             return activity, entry
     return activity, None
@@ -67,7 +103,8 @@ def question(trip, key):
     """A multiple-choice question for one practice item, or None when its content is gone.
 
     Words: the Japanese word, pick its meaning. Fact cards: the picture (or the card's own question), pick the name (or the card's own answer).
-    Wrong choices come from the same activity, so they are the same kind of thing.
+    Lesson flip cards: the picture, pick the name. Lesson spots: the page's picture and the Japanese reading, pick the name.
+    Wrong choices come from the same activity (a lesson: the same page), so they are the same kind of thing.
     """
     activity, entry = lookup(trip, key)
     if entry is None:
@@ -83,6 +120,29 @@ def question(trip, key):
             "japanese": entry.get("japanese", ""),
             "reading": entry["reading"],
             "emoji": "",
+        }
+    elif activity.type == "lesson":
+        answer_of = lambda e: e["label"]
+        every = [localize(e) for _, e in quiz_entries(activity, everything=True)]
+        entries = [e for e in every if e["page"] == entry["page"]]
+        if len(entries) < CHOICES:
+            # A small page (two spots in the shop) borrows from the other pages, but never a card with the same picture.
+            entries = [e for e in every if e["page"] == entry["page"] or not (e.get("img") and e.get("img") == entry.get("img"))]
+        img = entry.get("img") or entry.get("page_img", "")
+        if not entry.get("img"):
+            prompt = _("Which one is %(reading)s?") % {"reading": entry.get("reading", "")}
+        elif activity.module.slug == "words":
+            # A word card: the picture shows when you say the word.
+            prompt = _("What do we say here?")
+        else:
+            prompt = _("What is this?")
+        q = {
+            "kind": "fact",
+            "prompt": prompt,
+            "japanese": entry.get("japanese", ""),
+            "reading": entry.get("reading", ""),
+            "emoji": "",
+            "image": static(f"img/{img}") if img else "",
         }
     else:
         # A card can name its own answer and wrong choices (e.g. "110" for the police card).

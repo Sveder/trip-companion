@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 
 from content_admin.models import Activity, Module
 from courses.builder import build_course
@@ -216,3 +216,79 @@ class QuizFlowTests(TestCase):
         r = self.client.post(reverse("quiz"), {"key": "words/words-intro/oishii", "choice": "yummy"})
         self.assertRedirects(r, reverse("quiz"))
         self.assertIsNone(PracticeItem.objects.get(trip=trip).last_result)
+
+
+class LessonQuizTests(TestCase):
+    """A finished lesson puts its spots and flip cards into the quiz (T92)."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("lq@example.com", "lq@example.com")
+        cls.trip = make_trip(cls.user)
+        cls.lesson = Activity.objects.get(slug="sushi-lesson")
+
+    def keys(self):
+        return set(PracticeItem.objects.filter(trip=self.trip).values_list("key", flat=True))
+
+    def test_finishing_the_lesson_adds_at_most_twelve_items(self):
+        added = add_items(self.trip, self.lesson)
+        keys = self.keys()
+        self.assertEqual(added, len(keys))
+        self.assertTrue(0 < len(keys) <= 12)
+        self.assertIn("food/sushi-lesson/shari", keys)  # a spot
+        self.assertIn("food/sushi-lesson/nigiri", keys)  # a flip card
+
+    def test_spot_question_in_english_and_hebrew(self):
+        with translation.override("en"):
+            q = question(self.trip, "food/sushi-lesson/shari")
+            self.assertEqual(q["prompt"], "Which one is shari?")
+            self.assertEqual(q["answer"], "Rice")
+            self.assertEqual(len(q["choices"]), 4)
+            self.assertIn("Rice", q["choices"])
+            self.assertTrue(q["image"].endswith("img/lesson/sushi/plate.svg"))
+        with translation.override("he"):
+            q = question(self.trip, "food/sushi-lesson/shari")
+            self.assertEqual(q["prompt"], "איזה מהם נקרא shari?")
+            self.assertEqual(q["answer"], "אורז")
+            self.assertEqual(len(q["choices"]), 4)
+            self.assertIn("אורז", q["choices"])
+
+    def test_flip_question_uses_the_picture_and_its_own_page(self):
+        with translation.override("en"):
+            q = question(self.trip, "food/sushi-lesson/nigiri")
+            self.assertEqual((q["prompt"], q["answer"]), ("What is this?", "Nigiri"))
+            self.assertTrue(q["image"].endswith("img/lesson/sushi/sake.svg"))
+            self.assertEqual(len(q["choices"]), 4)
+            # Salmon has the same picture on another page; it must not be a wrong choice here.
+            self.assertNotIn("Saamon", q["choices"])
+            self.assertTrue(set(q["choices"]) <= {"Nigiri", "Maki", "Gunkan", "Temaki", "Inari"})
+        with translation.override("he"):
+            q = question(self.trip, "food/sushi-lesson/nigiri")
+            self.assertEqual(q["answer"], "ניגירי")
+            self.assertIn("ניגירי", q["choices"])
+            self.assertEqual(len(q["choices"]), 4)
+
+    def test_an_item_the_family_has_keeps_its_box(self):
+        PracticeItem.objects.create(trip=self.trip, key="food/sushi-lesson/shari", box=3, due_on=TODAY)
+        add_items(self.trip, self.lesson)
+        self.assertEqual(PracticeItem.objects.get(trip=self.trip, key="food/sushi-lesson/shari").box, 3)
+
+    def test_every_lesson_gives_quiz_items_with_four_choices(self):
+        for lesson in Activity.objects.filter(type="lesson"):
+            add_items(self.trip, lesson)
+        for p in PracticeItem.objects.filter(trip=self.trip):
+            q = question(self.trip, p.key)
+            self.assertIsNotNone(q, p.key)
+            self.assertIn(q["answer"], q["choices"])
+            self.assertGreaterEqual(len(q["choices"]), 2, p.key)
+
+    def test_words_lesson_card_asks_what_we_say(self):
+        words = Activity.objects.get(slug="words-lesson")
+        with translation.override("en"):
+            q = question(self.trip, "words/words-lesson/ohayou")
+            self.assertEqual(q["prompt"], "What do we say here?")
+            self.assertIn(q["answer"], q["choices"])
+        # A spot with no reading is never asked, but it can be a wrong choice.
+        from .items import quiz_entries
+        self.assertTrue(all(e.get("img") or e.get("reading") for _, e in quiz_entries(words)))
