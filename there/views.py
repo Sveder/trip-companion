@@ -13,6 +13,7 @@ from courses.highlights import trip_phase
 from trips.models import active_trip
 
 from .models import Photo
+from .shrink import shrink_upload
 from .things import KEYS, THINGS
 
 PHOTO_TYPES = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp",
@@ -58,9 +59,11 @@ def add_photo(request, thing):
     if content_type not in PHOTO_TYPES:
         return HttpResponseBadRequest("Not a photo.")
     upload.name = f"photo.{PHOTO_TYPES[content_type]}"
+    stored, small_type = shrink_upload(upload)
+    content_type = small_type or content_type
     first = not Photo.objects.filter(trip=trip, thing=thing).exists()
-    Photo.objects.create(trip=trip, thing=thing, file=upload, content_type=content_type, size=upload.size)
-    track("photo_saved", trip=trip, thing=thing, size=upload.size)
+    Photo.objects.create(trip=trip, thing=thing, file=stored, content_type=content_type, size=stored.size)
+    track("photo_saved", trip=trip, thing=thing, size=upload.size, stored=stored.size)
     messages.success(request, _("Great find! 📸") if first else _("One more photo! 📸"))
     return redirect(reverse("there") + f"#{thing}")
 
@@ -68,7 +71,9 @@ def add_photo(request, thing):
 @login_required
 def photo_file(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id, trip__user=request.user)
-    return FileResponse(photo.file.open("rb"), content_type=photo.content_type)
+    response = FileResponse(photo.file.open("rb"), content_type=photo.content_type)
+    response["Cache-Control"] = "private, max-age=86400"
+    return response
 
 
 @login_required

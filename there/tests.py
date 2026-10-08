@@ -121,3 +121,77 @@ class WhileWeAreThereTests(TestCase):
         self.assertIn('dir="rtl"', html)
         for t in THINGS:
             self.assertTrue(t["title_he"] and t["hint_he"], t["key"])
+
+
+def phone_jpeg(width=4000, height=3000, orientation=6):
+    """A real JPEG like a phone writes: big, stored sideways with an EXIF turn, and a GPS position."""
+    import io
+
+    from PIL import Image
+
+    img = Image.new("RGB", (width, height), "red")
+    img.paste((0, 0, 255), (0, 0, width // 2, height))  # left half blue, so the turn can be checked
+    exif = Image.Exif()
+    exif[0x0112] = orientation
+    exif[0x8825] = {1: "N", 2: (35.0, 39.0, 0.0), 3: "E", 4: (139.0, 42.0, 0.0)}
+    out = io.BytesIO()
+    img.save(out, "JPEG", quality=95, exif=exif)
+    return out.getvalue()
+
+
+@override_settings(CLIP_ROOT=PHOTO_DIR)
+class PhotoShrinkTests(TestCase):
+    """T77: a phone photo is stored upright, at most 1600 px, as a small JPEG with no EXIF."""
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("s@example.com", "s@example.com")
+        self.trip = Trip.objects.create(user=self.user, destination="japan")
+        self.client.force_login(self.user)
+
+    def test_big_sideways_photo_is_turned_shrunk_and_stripped(self):
+        from PIL import Image
+
+        data = phone_jpeg()
+        upload = SimpleUploadedFile("IMG_1.JPG", data, content_type="image/jpeg")
+        self.client.post(reverse("there_add", args=["manhole"]), {"photo": upload})
+        photo = Photo.objects.get()
+        self.assertEqual(photo.content_type, "image/jpeg")
+        self.assertTrue(photo.file.name.endswith(".jpg"))
+        stored = Path(photo.file.path).read_bytes()
+        self.assertEqual(photo.size, len(stored))
+        self.assertLess(len(stored), 600 * 1024)
+        img = Image.open(photo.file.path)
+        # Orientation 6 means turn 90 degrees: the 4000x3000 file is a 3000x4000 upright photo.
+        self.assertEqual(img.size, (1200, 1600))
+        self.assertEqual(len(img.getexif()), 0)
+        self.assertNotIn(b"Exif", stored[:4096])
+        # After the turn the blue left half is on top.
+        self.assertGreater(img.getpixel((600, 100))[2], 200)
+        self.assertGreater(img.getpixel((600, 1500))[0], 200)
+        r = self.client.get(reverse("photo", args=[photo.id]))
+        self.assertEqual(r["Cache-Control"], "private, max-age=86400")
+
+    def test_png_with_transparency_becomes_jpeg(self):
+        import io
+
+        from PIL import Image
+
+        out = io.BytesIO()
+        Image.new("RGBA", (800, 600), (0, 0, 0, 0)).save(out, "PNG")
+        upload = SimpleUploadedFile("s.png", out.getvalue(), content_type="image/png")
+        self.client.post(reverse("there_add", args=["pikachu"]), {"photo": upload})
+        photo = Photo.objects.get()
+        self.assertEqual(photo.content_type, "image/jpeg")
+        self.assertEqual(Image.open(photo.file.path).size, (800, 600))
+
+    def test_shrink_command_converts_old_photos(self):
+        from django.core.files.base import ContentFile
+        from PIL import Image
+
+        photo = Photo.objects.create(trip=self.trip, thing="manhole", file=ContentFile(phone_jpeg(), name="old.jpg"))
+        old = Path(photo.file.path)
+        call_command("shrink_photos", stdout=open("/dev/null", "w"))
+        photo.refresh_from_db()
+        self.assertFalse(old.exists())
+        self.assertEqual(Image.open(photo.file.path).size, (1200, 1600))
+        self.assertEqual(photo.size, Path(photo.file.path).stat().st_size)
