@@ -14,6 +14,7 @@ from practice.items import add_items
 
 from .links import find_link, visible_links
 from .models import Clip, ReferralClick
+from .lesson import visible_pages
 from .steps import visible_steps
 from . import streetview
 
@@ -61,6 +62,7 @@ def activity(request, item_id):
             "steps": visible_steps(data, course.trip) if item.activity.type == "steps" else None,
             "hunt": hunt,
             "links": visible_links(data, course.trip) if item.activity.type == "links" else None,
+            "pages": visible_pages(data, course.trip) if item.activity.type == "lesson" else None,
         },
     )
 

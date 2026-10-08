@@ -59,7 +59,24 @@ def load_country(country, content_dir=None, force=False, log=None):
             CourseItem.objects.filter(activity__module=module).update(done_at=None)
         log(f"load {country}/{slug}")
         count += 1
+    add_new_activities(country, log)
     return count
+
+
+def add_new_activities(country, log):
+    """A new activity in a module (e.g. a lesson) joins every course that has that module.
+
+    The course is rebuilt from its own module list; a rebuild keeps the done marks.
+    """
+    from courses.builder import build_course
+    from courses.models import Course
+
+    for course in Course.objects.filter(trip__destination=country).select_related("trip"):
+        have = set(course.items.values_list("activity_id", flat=True))
+        want = set(Activity.objects.filter(module_id__in=course.module_ids).values_list("id", flat=True))
+        if want - have:
+            build_course(course.trip, course.module_ids)
+            log(f"course {course.id}: {len(want - have)} new activities added")
 
 
 def load_previews():

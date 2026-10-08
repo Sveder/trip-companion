@@ -1,0 +1,110 @@
+{% extends "activities/_frame.html" %}
+{% load i18n %}
+{% load static %}
+{% load say %}
+{% block activity %}
+{% include "includes/js_strings.html" %}
+{% get_current_language_bidi as bidi %}
+<script>window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}";</script>
+<div class="lesson" data-lesson>
+  <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
+  <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
+  {% for page in pages %}
+  <section class="lpage panel lpage-{{ page.kind }}" data-page data-label="{% blocktranslate with n=forloop.counter total=pages|length %}Page {{ n }} of {{ total }}{% endblocktranslate %}">
+    <h2>{% if page.emoji %}<span aria-hidden="true">{{ page.emoji }}</span> {% endif %}{{ page.title }}</h2>
+
+    {% if page.kind == "text" %}
+      {% if page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
+      {% if page.japanese %}<p class="jp say-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0">{{ page.japanese }} <small>{{ page.reading }}</small></p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.tips %}<ul class="tips big-tips">{% for tip in page.tips %}<li>{{ tip }}</li>{% endfor %}</ul>{% endif %}
+
+    {% elif page.kind == "spots" %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      <div class="spots" data-spots data-total="{{ page.spots|length }}">
+        <img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">
+        {% for spot in page.spots %}
+        <button type="button" class="spot" style="left: {{ spot.x }}%; top: {{ spot.y }}%" data-spot="{{ forloop.counter0 }}" aria-label="{{ spot.label }}">{{ forloop.counter }}</button>
+        {% endfor %}
+      </div>
+      <p class="spots-count" data-spots-count aria-live="polite"></p>
+      {% for spot in page.spots %}
+      <div class="spot-info" data-spot-info="{{ forloop.counter0 }}" hidden>
+        <h3>{{ spot.label }}{% if spot.japanese %} <span class="jp small say-word" lang="ja" data-say="{{ spot.japanese }}" data-say-src="{{ spot.reading|word_audio }}" tabindex="0">{{ spot.japanese }} · {{ spot.reading }}</span>{% endif %}</h3>
+        <p>{{ spot.text }}</p>
+      </div>
+      {% endfor %}
+
+    {% elif page.kind == "flip" %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      <div class="flips">
+        {% for card in page.cards %}
+        <button type="button" class="flip" data-flip aria-pressed="false">
+          <span class="flip-front"><img src="{% static 'img/'|add:card.img %}" alt=""><strong>{{ card.label }}</strong>{% if card.japanese %}<span class="jp small" lang="ja">{{ card.japanese }}</span>{% endif %}</span>
+          <span class="flip-back"><strong>{{ card.label }}</strong><span>{{ card.text }}</span></span>
+        </button>
+        {% endfor %}
+      </div>
+
+    {% elif page.kind == "pick" %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      <div class="game" data-game>
+        {% for round in page.rounds %}
+        <div class="round" data-round>
+          <p class="ask">{{ round.ask }}</p>
+          <div class="choices">
+            {% for pic in round.choices %}
+            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+        <p class="game-msg" data-game-msg aria-live="polite"></p>
+      </div>
+
+    {% elif page.kind == "train" %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      <div class="game train-game" data-game data-train>
+        {% for round in page.rounds %}
+        <div class="round" data-round data-answer="{{ round.answer }}"><p class="ask">{{ round.ask }}</p></div>
+        {% endfor %}
+        <div class="belt"><div class="belt-track">
+          {% for pass in "ab" %}{% for pic in page.belt %}
+          <button type="button" class="plate" data-plate="{{ pic.id }}"{% if pass == "b" %} aria-hidden="true" tabindex="-1"{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
+          {% endfor %}{% endfor %}
+        </div></div>
+        <p class="game-msg" data-game-msg aria-live="polite"></p>
+      </div>
+
+    {% elif page.kind == "video" %}
+      {% if page.text and page.show_video %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.show_video %}
+      <div class="video-frame" data-video-play="{% url 'track_video' item.id %}" data-video="{{ page.youtube }}">
+        <iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}?rel=0" title="{{ page.title }}"
+          allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+      </div>
+      {% endif %}
+      {% if page.fallback %}
+      {% if not page.show_video and page.fallback_title %}<h3>{{ page.fallback_title }}</h3>{% endif %}
+      <ol class="how">{% for line in page.fallback %}<li>{{ line }}</li>{% endfor %}</ol>
+      {% endif %}
+
+    {% elif page.kind == "local" %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% for group in page.groups %}
+      <h3>{{ group.title }}</h3>
+      <ul class="places">
+        {% for place in group.places %}<li><span class="place-emoji" aria-hidden="true">{{ place.emoji }}</span><span><strong>{{ place.title }}</strong> {{ place.text }}</span></li>{% endfor %}
+      </ul>
+      {% endfor %}
+    {% endif %}
+  </section>
+  {% endfor %}
+  <div class="lesson-nav" data-lesson-nav hidden>
+    <button type="button" class="btn alt" data-prev>{% if bidi %}→{% else %}←{% endif %} {% translate "Back" %}</button>
+    <button type="button" class="btn" data-next>{% translate "Next" %} {% if bidi %}←{% else %}→{% endif %}</button>
+  </div>
+</div>
+<script src="{% static 'js/lesson.js' %}" defer></script>
+<script src="{% static 'js/video_track.js' %}" defer></script>
+{% endblock %}

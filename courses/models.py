@@ -6,7 +6,7 @@ from trips.models import Trip
 
 # Activity types that have a real player. Any other type, or a module with ready=False, is a
 # "coming soon" stub: it cannot be marked done and the course goes past it.
-PLAYABLE_TYPES = ("cards", "links", "steps", "streetview", "words")
+PLAYABLE_TYPES = ("cards", "lesson", "links", "steps", "streetview", "words")
 
 
 class Course(models.Model):

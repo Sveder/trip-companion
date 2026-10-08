@@ -110,6 +110,16 @@ One template per activity type (cards, words, video, streetview, steps, links). 
 the next one. TV mode: arrow keys move focus, OK presses.
 PRD ref: `prd.md > Chopsticks activity`, `prd.md > Street View tour`, `prd.md > Buy in advance`.
 
+### Lesson (type `lesson`)
+A list of `pages` in the YAML, one page per screen. `lesson.js` shows one page at a time with Back, Next, a dot per page and a
+swipe; without JavaScript all pages show in a column. "We did it!" shows on the last page. Page kinds (`activities/lesson.py`):
+`text` (picture or emoji, a Japanese word that speaks, tips), `spots` (numbered dots on a picture at x/y percent; a tap shows
+that part), `flip` (cards that turn over), `pick` (rounds of "tap the right picture"), `train` (plates ride past on a belt; tap
+the plate asked for), `video` (approved YouTube only, else its written lines), `local` (places to try it, grouped). Games and
+the belt take their pictures from the activity's `pictures` list. Pictures are SVG drawings in `static/img/lesson/<topic>/`.
+`load_content` adds a new activity to every course that has its module (a rebuild that keeps the done marks).
+PRD ref: `prd.md > Modules (Japan)`.
+
 ### Chopsticks activity (steps)
 Step 1 shows the children's-chopsticks referral link only if the trip has a child. Step 2 plays the approved YouTube video.
 Step 3 is practice. Step 4 records a short clip with the phone camera in the browser (MediaRecorder) and offers "Share" through

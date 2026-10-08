@@ -83,3 +83,397 @@ activities:
         text: Before they eat, people in Japan say "itadakimasu". It is a way to say thank you for the food.
         text_he: לפני שאוכלים, אנשים ביפן אומרים "איטדקימס". ככה אומרים תודה על האוכל.
         choice: false  # a phrase, not a food: never a wrong choice in the food quiz
+  # A lesson: one short page per screen (activities/lesson.py lists the page kinds).
+  # Pictures are drawings in static/img/lesson/sushi/. Facts checked 2026-10-08.
+  - id: sushi-lesson
+    title: All about sushi
+    title_he: הכל על סושי
+    type: lesson
+    intro: Swipe through the pages. Tap, play and learn!
+    intro_he: עוברים דף אחרי דף. נוגעים, משחקים ולומדים!
+    pictures:
+      - id: "maguro"
+        img: "lesson/sushi/maguro.svg"
+        label: "Tuna"
+        label_he: "טונה"
+        japanese: "まぐろ"
+        reading: "maguro"
+      - id: "sake"
+        img: "lesson/sushi/sake.svg"
+        label: "Salmon"
+        label_he: "סלמון"
+        japanese: "サーモン"
+        reading: "saamon"
+      - id: "ebi"
+        img: "lesson/sushi/ebi.svg"
+        label: "Shrimp"
+        label_he: "שרימפס"
+        japanese: "えび"
+        reading: "ebi"
+      - id: "tamago"
+        img: "lesson/sushi/tamago.svg"
+        label: "Egg"
+        label_he: "ביצה"
+        japanese: "たまご"
+        reading: "tamago"
+      - id: "unagi"
+        img: "lesson/sushi/unagi.svg"
+        label: "Eel"
+        label_he: "צלופח"
+        japanese: "うなぎ"
+        reading: "unagi"
+      - id: "ikura"
+        img: "lesson/sushi/ikura.svg"
+        label: "Battleship"
+        label_he: "ספינת קרב"
+        japanese: "ぐんかん"
+        reading: "gunkan"
+      - id: "maki"
+        img: "lesson/sushi/maki.svg"
+        label: "Roll"
+        label_he: "רול"
+        japanese: "まき"
+        reading: "maki"
+      - id: "temaki"
+        img: "lesson/sushi/temaki.svg"
+        label: "Hand roll"
+        label_he: "רול יד"
+        japanese: "てまき"
+        reading: "temaki"
+      - id: "inari"
+        img: "lesson/sushi/inari.svg"
+        label: "Inari"
+        label_he: "אינארי"
+        japanese: "いなり"
+        reading: "inari"
+    pages:
+      - kind: text
+        title: Sushi time!
+        title_he: זמן סושי!
+        img: lesson/sushi/plate.svg
+        text: Sushi is the most famous food from Japan. Let's look at it page by page.
+        text_he: סושי הוא האוכל הכי מפורסם מיפן. בואו נכיר אותו דף אחרי דף.
+      - kind: text
+        title: What is sushi?
+        title_he: מה זה סושי?
+        img: lesson/sushi/sake.svg
+        japanese: すし
+        reading: sushi
+        text: Sushi is rice with a little vinegar in it, so it tastes a bit sour and a bit sweet. On top or inside, there is fish, egg or vegetables.
+        text_he: סושי זה אורז עם קצת חומץ, אז הטעם שלו קצת חמוץ וקצת מתוק. מעליו או בתוכו יש דג, ביצה או ירקות.
+      - kind: spots
+        title: Tap the plate
+        title_he: געו בצלחת
+        img: lesson/sushi/plate.svg
+        text: Tap each dot. What is on the plate?
+        text_he: געו בכל נקודה. מה יש בצלחת?
+        spots:
+          - x: 28
+            y: 33
+            label: "Fish"
+            label_he: "דג"
+            japanese: "ネタ"
+            reading: "neta"
+            text: "The topping is called neta. Here it is salmon."
+            text_he: "מה שמעל האורז נקרא נטה. כאן זה סלמון."
+          - x: 28
+            y: 49
+            label: "Rice"
+            label_he: "אורז"
+            japanese: "シャリ"
+            reading: "shari"
+            text: "Sushi rice is called shari. A chef shapes it with the hands."
+            text_he: "אורז של סושי נקרא שארי. השף מעצב אותו בידיים."
+          - x: 72
+            y: 35
+            label: "Seaweed"
+            label_he: "אצה"
+            japanese: "のり"
+            reading: "nori"
+            text: "The dark green wrap is nori. It is dried seaweed from the sea."
+            text_he: "העטיפה הירוקה הכהה היא נורי. זו אצה מיובשת מהים."
+          - x: 49
+            y: 35
+            label: "Cucumber"
+            label_he: "מלפפון"
+            japanese: "かっぱまき"
+            reading: "kappamaki"
+            text: "A cucumber roll is called kappa maki. A kappa is a water creature in old Japanese stories, and it loves cucumbers!"
+            text_he: "רול מלפפון נקרא קאפה מאקי. קאפה הוא יצור מים מסיפורים יפניים ישנים, והוא אוהב מלפפונים!"
+          - x: 84
+            y: 64
+            label: "Wasabi"
+            label_he: "וואסבי"
+            japanese: "わさび"
+            reading: "wasabi"
+            text: "Wasabi is a green paste. It is very hot in your nose! Use only a tiny bit."
+            text_he: "וואסבי זו משחה ירוקה. היא מאוד חריפה באף! שמים רק טיפה."
+          - x: 62
+            y: 66
+            label: "Ginger"
+            label_he: "ג'ינג'ר"
+            japanese: "がり"
+            reading: "gari"
+            text: "The pink slices are sweet and sour ginger. Eat one between two sushi pieces."
+            text_he: "הפרוסות הוורודות הן ג'ינג'ר מתוק וחמוץ. אוכלים אחת בין שתי חתיכות סושי."
+          - x: 24
+            y: 68
+            label: "Soy sauce"
+            label_he: "רוטב סויה"
+            japanese: "しょうゆ"
+            reading: "shouyu"
+            text: "Soy sauce is salty. Dip only a little."
+            text_he: "רוטב סויה הוא מלוח. טובלים רק קצת."
+          - x: 55
+            y: 84
+            label: "Chopsticks"
+            label_he: "צ'ופסטיקס"
+            japanese: "はし"
+            reading: "hashi"
+            text: "You can eat sushi with chopsticks or with your fingers."
+            text_he: "אפשר לאכול סושי עם צ'ופסטיקס או עם האצבעות."
+      - kind: flip
+        title: Sushi comes in shapes
+        title_he: לסושי יש צורות
+        text: Tap a card to turn it over.
+        text_he: געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/sushi/sake.svg"
+            label: "Nigiri"
+            label_he: "ניגירי"
+            japanese: "にぎり"
+            reading: "nigiri"
+            text: "A little bed of rice with a topping on it."
+            text_he: "מיטה קטנה של אורז ומשהו מעליה."
+          - img: "lesson/sushi/maki.svg"
+            label: "Maki"
+            label_he: "מאקי"
+            japanese: "まき"
+            reading: "maki"
+            text: "Rice and a filling rolled up in seaweed, then cut into circles."
+            text_he: "אורז ומילוי מגולגלים באצה, ואז חתוכים לעיגולים."
+          - img: "lesson/sushi/ikura.svg"
+            label: "Gunkan"
+            label_he: "גונקאן"
+            japanese: "ぐんかん"
+            reading: "gunkan"
+            text: "\"Battleship\" sushi: a wall of seaweed holds soft things on top, like fish eggs."
+            text_he: "סושי \"ספינת קרב\": קיר של אצה מחזיק דברים רכים למעלה, כמו ביצי דגים."
+          - img: "lesson/sushi/temaki.svg"
+            label: "Temaki"
+            label_he: "טמאקי"
+            japanese: "てまき"
+            reading: "temaki"
+            text: "A hand roll. The seaweed is a cone, like an ice cream cone!"
+            text_he: "רול יד. האצה היא קונוס, כמו גביע של גלידה!"
+          - img: "lesson/sushi/inari.svg"
+            label: "Inari"
+            label_he: "אינארי"
+            japanese: "いなり"
+            reading: "inari"
+            text: "Rice inside a sweet pocket of fried tofu. No fish at all."
+            text_he: "אורז בתוך כיס מתוק של טופו מטוגן. בלי דג בכלל."
+      - kind: pick
+        title: Shape game
+        title_he: משחק הצורות
+        text: Tap the right sushi.
+        text_he: געו בסושי הנכון.
+        rounds:
+          - ask: "Which one is a roll (maki)?"
+            ask_he: "איזה מהם הוא רול (מאקי)?"
+            answer: "maki"
+            choices: [sake, maki, inari, temaki]
+          - ask: "Which one is a hand roll, like a cone?"
+            ask_he: "איזה מהם הוא רול יד, כמו גביע?"
+            answer: "temaki"
+            choices: [temaki, ikura, tamago, maki]
+          - ask: "Which one is a battleship (gunkan)?"
+            ask_he: "איזה מהם הוא ספינת קרב (גונקאן)?"
+            answer: "ikura"
+            choices: [inari, maguro, ikura, ebi]
+          - ask: "Which one has no fish? It is a tofu pocket."
+            ask_he: "באיזה אין דג? זה כיס של טופו."
+            answer: "inari"
+            choices: [unagi, inari, sake, ebi]
+      - kind: flip
+        title: Fish and friends
+        title_he: דגים וחברים
+        text: These go on top of the rice. Tap to turn.
+        text_he: את אלה שמים מעל האורז. געו כדי להפוך.
+        cards:
+          - img: "lesson/sushi/maguro.svg"
+            label: "Maguro"
+            label_he: "מגורו"
+            japanese: "まぐろ"
+            reading: "maguro"
+            text: "Tuna. Deep red. A whole tuna can be bigger than a grown-up!"
+            text_he: "טונה. אדומה כהה. טונה שלמה יכולה להיות גדולה יותר ממבוגר!"
+          - img: "lesson/sushi/sake.svg"
+            label: "Saamon"
+            label_he: "סאמון"
+            japanese: "サーモン"
+            reading: "saamon"
+            text: "Salmon. Orange with white stripes. Many kids in Japan love it most."
+            text_he: "סלמון. כתום עם פסים לבנים. הרבה ילדים ביפן הכי אוהבים אותו."
+          - img: "lesson/sushi/ebi.svg"
+            label: "Ebi"
+            label_he: "אבי"
+            japanese: "えび"
+            reading: "ebi"
+            text: "Shrimp. Cooked, with a little tail at the end."
+            text_he: "שרימפס. מבושל, עם זנב קטן בסוף."
+          - img: "lesson/sushi/tamago.svg"
+            label: "Tamago"
+            label_he: "טמאגו"
+            japanese: "たまご"
+            reading: "tamago"
+            text: "A sweet egg omelette, tied on with a seaweed belt. No fish!"
+            text_he: "חביתה מתוקה, קשורה עם חגורה של אצה. בלי דג!"
+          - img: "lesson/sushi/unagi.svg"
+            label: "Unagi"
+            label_he: "אונאגי"
+            japanese: "うなぎ"
+            reading: "unagi"
+            text: "Eel. Cooked over a grill with a sweet, sticky sauce."
+            text_he: "צלופח. צלוי על גריל עם רוטב מתוק ודביק."
+          - img: "lesson/sushi/ikura.svg"
+            label: "Ikura"
+            label_he: "איקורה"
+            japanese: "いくら"
+            reading: "ikura"
+            text: "Salmon eggs. Shiny orange balls that pop in your mouth!"
+            text_he: "ביצי סלמון. כדורים כתומים מבריקים שמתפוצצים בפה!"
+      - kind: video
+        title: Watch sushi being made
+        title_he: צפו איך מכינים סושי
+        text: Watch the video together. How does the roll stay closed?
+        text_he: צפו בסרטון ביחד. איך הרול נשאר סגור?
+        # Only Michael approves a video. Other candidates: SARU1JO0JPI (Kids Making Sushi, family channel),
+        # 77rPFAtqOwo (DIY conveyor belt sushi, Tokyo Creative with Abroad in Japan).
+        youtube: R7zkF_wpmLI
+        approved: false
+        fallback_title: How to make a roll
+        fallback_title_he: איך מכינים רול
+        fallback:
+          - Put a sheet of seaweed on a bamboo mat.
+          - Spread rice on it with wet fingers.
+          - Lay a line of cucumber across the rice.
+          - Roll the mat up tight, then cut the roll into circles.
+        fallback_he:
+          - שמים דף של אצה על מחצלת במבוק.
+          - מורחים עליו אורז עם אצבעות רטובות.
+          - מניחים שורה של מלפפון לרוחב האורז.
+          - מגלגלים את המחצלת חזק, ואז חותכים את הרול לעיגולים.
+      - kind: text
+        title: The sushi train
+        title_he: רכבת הסושי
+        emoji: "🚂"
+        japanese: かいてんずし
+        reading: kaitenzushi
+        text: In many sushi shops, little plates ride past you on a moving belt. You take the plates you like! You can also order on a screen, and your sushi comes to you on a fast lane.
+        text_he: בהרבה מסעדות סושי, צלחות קטנות נוסעות לידכם על מסוע. לוקחים את הצלחות שאוהבים! אפשר גם להזמין במסך, והסושי מגיע אליכם במסלול מהיר.
+      - kind: train
+        title: Catch it!
+        title_he: תפסו את זה!
+        text: The plates ride past. Tap the one we ask for.
+        text_he: הצלחות נוסעות. געו בצלחת שאנחנו מבקשים.
+        belt: [maguro, sake, ebi, tamago, unagi, ikura, maki, temaki, inari]
+        rounds:
+          - ask: "Catch the salmon!"
+            ask_he: "תפסו את הסלמון!"
+            answer: "sake"
+          - ask: "Catch the egg!"
+            ask_he: "תפסו את הביצה!"
+            answer: "tamago"
+          - ask: "Catch the shrimp!"
+            ask_he: "תפסו את השרימפס!"
+            answer: "ebi"
+          - ask: "Catch the roll!"
+            ask_he: "תפסו את הרול!"
+            answer: "maki"
+      - kind: text
+        title: How to eat sushi
+        title_he: איך אוכלים סושי
+        emoji: "🍣"
+        text: Some easy tips for the table.
+        text_he: כמה טיפים קלים לשולחן.
+        tips:
+          - Say "itadakimasu" before you start.
+          - It is fine to eat sushi with your fingers.
+          - Dip the fish side in the soy sauce, not the rice, so the rice does not fall apart.
+          - Eat each piece in one bite if you can.
+          - Eat a slice of ginger between two kinds of sushi.
+        tips_he:
+          - אומרים "איטדקימס" לפני שמתחילים.
+          - מותר לאכול סושי עם האצבעות.
+          - טובלים ברוטב סויה את צד הדג, לא את האורז, כדי שהאורז לא יתפרק.
+          - אוכלים כל חתיכה בביס אחד, אם אפשר.
+          - אוכלים פרוסת ג'ינג'ר בין שני סוגים של סושי.
+      - kind: text
+        title: No wasabi, please!
+        title_he: בלי וואסבי, בבקשה!
+        emoji: "🌶️"
+        japanese: さびぬき
+        reading: sabinuki
+        text: Some sushi has a little hot wasabi under the fish. Kids can say "sabi-nuki". It means "no wasabi". Many sushi train shops make sushi with no wasabi, and you add it yourself.
+        text_he: בחלק מהסושי יש קצת וואסבי חריף מתחת לדג. ילדים יכולים להגיד "סאבי-נוקי". זה אומר "בלי וואסבי". בהרבה מסעדות של רכבת סושי מכינים סושי בלי וואסבי, ומוסיפים אותו לבד.
+      - kind: pick
+        title: Sushi quiz
+        title_he: חידון סושי
+        text: Last game! Tap the right one.
+        text_he: משחק אחרון! געו בנכון.
+        rounds:
+          - ask: "Which one is tuna (maguro)?"
+            ask_he: "איזה מהם טונה (מגורו)?"
+            answer: "maguro"
+            choices: [sake, ebi, maguro, tamago]
+          - ask: "Which one is egg (tamago)?"
+            ask_he: "איזה מהם ביצה (טמאגו)?"
+            answer: "tamago"
+            choices: [tamago, unagi, inari, maki]
+          - ask: "Which one is eel (unagi)?"
+            ask_he: "איזה מהם צלופח (אונאגי)?"
+            answer: "unagi"
+            choices: [maguro, unagi, ebi, sake]
+      - kind: local
+        title: Where can we eat it?
+        title_he: איפה אפשר לאכול את זה?
+        text: Try sushi at home before the trip. Then find it in Japan.
+        text_he: נסו סושי בבית לפני הטיול. ואז חפשו אותו ביפן.
+        groups:
+          - title: Before the trip
+            title_he: לפני הטיול
+            places:
+              - emoji: "🛒"
+                title: "The supermarket"
+                title_he: "הסופרמרקט"
+                text: "Many big supermarkets sell a small box of sushi. Start with cucumber rolls or egg."
+                text_he: "בהרבה סופרמרקטים גדולים מוכרים קופסה קטנה של סושי. מתחילים עם רולים של מלפפון או ביצה."
+              - emoji: "🍽️"
+                title: "A sushi restaurant near you"
+                title_he: "מסעדת סושי ליד הבית"
+                text: "Order a few kinds and share them. Who likes which one?"
+                text_he: "מזמינים כמה סוגים ומתחלקים. מי אוהב איזה?"
+              - emoji: "🏠"
+                title: "Make rolls at home"
+                title_he: "מכינים רולים בבית"
+                text: "You need seaweed sheets, sushi rice, rice vinegar and a bamboo mat. Cucumber rolls are the easiest."
+                text_he: "צריך דפי אצה, אורז לסושי, חומץ אורז ומחצלת במבוק. רולים של מלפפון הכי קלים."
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "🚂"
+                title: "A sushi train shop"
+                title_he: "מסעדת רכבת סושי"
+                text: "Big sushi train chains are Sushiro, Kura Sushi and Hama Sushi. At Kura Sushi, five empty plates in the slot start a little game with a prize!"
+                text_he: "רשתות גדולות של רכבת סושי הן סושירו, קורה סושי והאמה סושי. בקורה סושי, חמש צלחות ריקות בחריץ מפעילות משחק קטן עם פרס!"
+              - emoji: "🏪"
+                title: "A convenience store"
+                title_he: "מכולת 24 שעות"
+                text: "Shops like 7-Eleven, Lawson and FamilyMart sell sushi and rice balls all day."
+                text_he: "חנויות כמו 7-Eleven, לוסון ופמילי מארט מוכרות סושי וכדורי אורז כל היום."
+              - emoji: "🐟"
+                title: "A fish market"
+                title_he: "שוק דגים"
+                text: "In Tokyo, the Tsukiji Outer Market has small sushi shops and food stands to try."
+                text_he: "בטוקיו, בשוק החיצוני של צוקיג'י יש מסעדות סושי קטנות ודוכני אוכל לטעום."
