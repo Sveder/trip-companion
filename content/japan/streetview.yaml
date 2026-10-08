@@ -14,6 +14,449 @@ ready: true
 # Spots are Japanese things only (buildings, statues, objects, customs), never people or cars that happened to be there.
 # heading = where the view looks first (0 = north).
 activities:
+  - id: streetview-lesson
+    title: What is that? Things on a Japanese street
+    title_he: מה זה? דברים ברחוב ביפן
+    type: lesson
+    intro: Swipe through the pages. Tap the pictures, play the games, and get ready for the three hunts!
+    intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ותתכוננו לשלושת הצידים!
+    pictures:
+      - id: "torii"
+        img: "lesson/street/torii.svg"
+        label: "A torii gate"
+        label_he: "שער טוריאי"
+      - id: "sanmon"
+        img: "lesson/street/sanmon.svg"
+        label: "A temple gate"
+        label_he: "שער של מקדש בודהיסטי"
+      - id: "komainu"
+        img: "lesson/street/komainu.svg"
+        label: "A lion-dog statue"
+        label_he: "פסל של כלב-אריה"
+      - id: "incense"
+        img: "lesson/street/incense.svg"
+        label: "An incense pot"
+        label_he: "סיר קטורת"
+      - id: "jizo"
+        img: "lesson/street/jizo.svg"
+        label: "A Jizo statue"
+        label_he: "פסל ג'יזו"
+      - id: "neko"
+        img: "lesson/street/neko.svg"
+        label: "A lucky cat"
+        label_he: "חתול מזל"
+      - id: "vending"
+        img: "lesson/safety/vending.svg"
+        label: "A vending machine"
+        label_he: "מכונת משקאות"
+      - id: "manhole"
+        img: "lesson/street/manhole.svg"
+        label: "A painted manhole cover"
+        label_he: "מכסה ביוב מצויר"
+      - id: "postbox"
+        img: "lesson/street/postbox.svg"
+        label: "A red post box"
+        label_he: "תיבת דואר אדומה"
+      - id: "bike"
+        img: "lesson/street/bike.svg"
+        label: "A bicycle"
+        label_he: "אופניים"
+      - id: "hot"
+        img: "lesson/street/hot.svg"
+        label: "A hot drink"
+        label_he: "שתייה חמה"
+      - id: "cold"
+        img: "lesson/street/cold.svg"
+        label: "A cold drink"
+        label_he: "שתייה קרה"
+      - id: "car"
+        img: "lesson/safety/car.svg"
+        label: "A car"
+        label_he: "מכונית"
+      - id: "balloon"
+        img: "lesson/safety/balloon.svg"
+        label: "A balloon"
+        label_he: "בלון"
+      - id: "icecream"
+        img: "lesson/safety/icecream.svg"
+        label: "Ice cream"
+        label_he: "גלידה"
+    pages:
+      - kind: text
+        title: Let's go hunting!
+        title_he: יוצאים לצוד!
+        img: lesson/street/hunt.svg
+        japanese: 見つけた
+        reading: mitsuketa
+        text: A street in Japan has many things we do not have at home. This lesson shows you what to look for. Then you play the three hunts and find them in real places!
+        text_he: ברחוב ביפן יש הרבה דברים שאין לנו בבית. השיעור הזה מראה לכם מה לחפש. אחר כך משחקים בשלושת הצידים ומוצאים אותם במקומות אמיתיים!
+        tips:
+          - When you find a thing, shout "mitsuketa!". It means "I found it!".
+          - Look up, look down, and look all around.
+          - A shrine and a temple are two different places. You learn the difference here.
+        tips_he:
+          - כשמוצאים משהו, צועקים "מיצוקטה!". זה אומר "מצאתי!".
+          - מסתכלים למעלה, מסתכלים למטה, ומסתכלים מסביב.
+          - מקדש שינטו ומקדש בודהיסטי הם שני מקומות שונים. כאן לומדים מה ההבדל.
+      - kind: spots
+        title: A street to explore
+        title_he: רחוב לגלות
+        img: lesson/street/street.svg
+        text: This is a small street in Japan. Tap each dot to see what it is.
+        text_he: זה רחוב קטן ביפן. געו בכל נקודה כדי לראות מה זה.
+        spots:
+          - x: 19
+            y: 54
+            label: "The vending machine"
+            label_he: "מכונת המשקאות"
+            japanese: "じどうはんばいき"
+            reading: "jidouhanbaiki"
+            text: "Japan has drinks machines on almost every street, even far from the city. You find a cold drink or a hot drink, all day and all night."
+            text_he: "ביפן יש מכונות משקאות כמעט בכל רחוב, אפילו רחוק מהעיר. מוצאים בהן שתייה קרה או שתייה חמה, כל היום וכל הלילה."
+          - x: 36
+            y: 58
+            label: "The red post box"
+            label_he: "תיבת הדואר האדומה"
+            japanese: "ポスト"
+            reading: "posuto"
+            text: "Post boxes in Japan are red. Look for the mark that looks like a T with a bar on top. It means \"post\"."
+            text_he: "תיבות הדואר ביפן אדומות. מחפשים את הסימן שנראה כמו T עם קו מעליו. הוא אומר \"דואר\"."
+          - x: 45
+            y: 22
+            label: "The power lines"
+            label_he: "חוטי החשמל"
+            text: "Look up! Many streets in Japan have lots of wires on tall poles over the street."
+            text_he: "מסתכלים למעלה! בהרבה רחובות ביפן יש המון חוטים על עמודים גבוהים מעל הרחוב."
+          - x: 47
+            y: 88
+            label: "The painted manhole cover"
+            label_he: "מכסה הביוב המצויר"
+            text: "Look down! Many towns in Japan paint their own picture on the manhole covers: flowers, fish, castles, even Pokémon."
+            text_he: "מסתכלים למטה! הרבה ערים ביפן מציירות תמונה משלהן על מכסי הביוב: פרחים, דגים, טירות, ואפילו פוקימונים."
+          - x: 63
+            y: 53
+            label: "The cloth curtain"
+            label_he: "וילון הבד"
+            japanese: "のれん"
+            reading: "noren"
+            text: "A noren is a short cloth curtain over a shop door. When the noren hangs outside, the shop is open."
+            text_he: "נורן הוא וילון בד קצר מעל דלת של חנות. כשהנורן תלוי בחוץ, החנות פתוחה."
+          - x: 87
+            y: 68
+            label: "The bicycle"
+            label_he: "האופניים"
+            text: "Many families in Japan ride a city bike with a child seat. Bikes often ride on the pavement, so listen for the bell."
+            text_he: "הרבה משפחות ביפן רוכבות על אופני עיר עם כיסא לילד. אופניים נוסעים הרבה על המדרכה, אז מקשיבים לפעמון."
+      - kind: flip
+        title: Shrine or temple?
+        title_he: מקדש שינטו או מקדש בודהיסטי?
+        text: Japan has two kinds of holy places. Tap a card to turn it.
+        text_he: ביפן יש שני סוגים של מקומות קדושים. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/street/torii.svg"
+            label: "The torii gate"
+            label_he: "שער הטוריאי"
+            japanese: "じんじゃ"
+            reading: "jinja"
+            text: "A torii gate shows you a shrine, a jinja. A shrine is a Shinto place for the kami, the spirits of nature."
+            text_he: "שער טוריאי מראה שזה מקדש שינטו, ג'ינג'ה. מקדש שינטו הוא מקום של הקאמי, הרוחות של הטבע."
+          - img: "lesson/street/sanmon.svg"
+            label: "The big wooden gate"
+            label_he: "שער העץ הגדול"
+            japanese: "おてら"
+            reading: "otera"
+            text: "A big wooden gate with a roof shows you a temple, an otera. A temple is a Buddhist place. Often two strong guardians stand in the gate."
+            text_he: "שער עץ גדול עם גג מראה שזה מקדש בודהיסטי, אוטרה. לפעמים עומדים בשער שני שומרים חזקים."
+          - img: "lesson/street/komainu.svg"
+            label: "The guardian animals"
+            label_he: "חיות השמירה"
+            japanese: "こまいぬ"
+            reading: "komainu"
+            text: "Two lion-dogs, komainu, guard the way into many shrines. At a fox shrine, two foxes guard it."
+            text_he: "שני כלבים-אריות, קומאינו, שומרים על הכניסה להרבה מקדשי שינטו. במקדש של שועלים, שני שועלים שומרים."
+          - img: "lesson/street/incense.svg"
+            label: "The smoke pot"
+            label_he: "סיר העשן"
+            text: "Many temples have a big pot of incense. People wave the smoke over their body. They say it is good for your health."
+            text_he: "בהרבה מקדשים בודהיסטיים יש סיר גדול של קטורת. אנשים מנפנפים את העשן על הגוף. אומרים שזה טוב לבריאות."
+      - kind: pick
+        title: Shrine or temple game
+        title_he: משחק מקדשים
+        text: Tap the right picture.
+        text_he: געו בתמונה הנכונה.
+        rounds:
+          - ask: "Which gate shows you a shrine?"
+            ask_he: "איזה שער מראה שזה מקדש שינטו?"
+            answer: "torii"
+            choices: [sanmon, torii, postbox, vending]
+          - ask: "Which one do you find at a temple?"
+            ask_he: "מה מוצאים במקדש בודהיסטי?"
+            answer: "incense"
+            choices: [komainu, manhole, incense, torii]
+          - ask: "Which animal guards a shrine?"
+            ask_he: "איזו חיה שומרת על מקדש שינטו?"
+            answer: "komainu"
+            choices: [neko, bike, jizo, komainu]
+      - kind: spots
+        title: A temple yard
+        title_he: החצר של מקדש בודהיסטי
+        img: lesson/street/temple-yard.svg
+        text: This is the yard of a temple. Tap each dot to see what is there.
+        text_he: זו החצר של מקדש בודהיסטי. געו בכל נקודה כדי לראות מה יש שם.
+        spots:
+          - x: 15
+            y: 54
+            label: "The big gate"
+            label_he: "השער הגדול"
+            text: "The way into a temple goes through a big wooden gate. Look inside it: often two angry-looking guardians stand there. They keep bad things out."
+            text_he: "הדרך למקדש עוברת דרך שער עץ גדול. מסתכלים בפנים: לפעמים עומדים שם שני שומרים עם פרצוף כועס. הם שומרים שדברים רעים לא ייכנסו."
+          - x: 37
+            y: 72
+            label: "The incense pot"
+            label_he: "סיר הקטורת"
+            text: "People light sticks of incense and put them in the pot. Then they wave the smoke over their head and body."
+            text_he: "אנשים מדליקים מקלות קטורת ושמים אותם בסיר. אחר כך הם מנפנפים את העשן על הראש ועל הגוף."
+          - x: 55
+            y: 32
+            label: "The pagoda"
+            label_he: "הפגודה"
+            japanese: "ごじゅうのとう"
+            reading: "gojuunotou"
+            text: "A pagoda is a tall tower with five roofs. Count them: one, two, three, four, five!"
+            text_he: "פגודה היא מגדל גבוה עם חמישה גגות. סופרים: אחת, שתיים, שלוש, ארבע, חמש!"
+          - x: 79
+            y: 57
+            label: "The big bell"
+            label_he: "הפעמון הגדול"
+            text: "A big temple bell has no clapper inside. A monk swings a wooden log to hit it: BONG! On New Year's Eve, many temples ring it 108 times."
+            text_he: "לפעמון גדול של מקדש אין ענבל בפנים. נזיר מניף בול עץ ומכה בו: בונג! בערב השנה החדשה, הרבה מקדשים מצלצלים בו 108 פעמים."
+          - x: 94
+            y: 71
+            label: "The little stone statue"
+            label_he: "פסל האבן הקטן"
+            japanese: "おじぞうさん"
+            reading: "ojizousan"
+            text: "This is Jizo. People say Jizo looks after children and travellers. That is why people put a red bib and a red cap on him."
+            text_he: "זה ג'יזו. אומרים שג'יזו שומר על ילדים ועל מטיילים. בגלל זה שמים עליו סינר אדום וכובע אדום."
+      - kind: text
+        title: The lucky cat
+        title_he: חתול המזל
+        img: lesson/street/cats.svg
+        japanese: 招き猫
+        reading: maneki neko
+        text: The lucky cat, maneki-neko, holds one paw up. In Japan this wave means "come here!". Shops put a lucky cat by the door to call good luck and people in.
+        text_he: חתול המזל, מנקי-נקו, מרים כף יד אחת. ביפן התנועה הזאת אומרת "בוא הנה!". חנויות שמות חתול מזל ליד הדלת כדי לקרוא למזל ולאנשים להיכנס.
+        tips:
+          - The temple Gotoku-ji in Tokyo has thousands of white lucky cats. You visit it in the first hunt!
+          - Count the lucky cats you see in shop windows. Who finds the most?
+          - Back home, look in a Japanese or Chinese shop. A lucky cat often waits by the till.
+        tips_he:
+          - במקדש גוטוקו-ג'י בטוקיו יש אלפי חתולי מזל לבנים. מבקרים בו בציד הראשון!
+          - סופרים את חתולי המזל שרואים בחלונות של חנויות. מי מוצא הכי הרבה?
+          - בבית, מסתכלים בחנות יפנית או סינית. הרבה פעמים חתול מזל מחכה ליד הקופה.
+      - kind: video
+        title: Watch and look
+        title_he: צופים ומחפשים
+        text: Watch, then play the window game below with your family.
+        text_he: צופים, ואז משחקים במשחק החלון עם המשפחה.
+        # Only Michael approves a video. Candidates: QEC3MrWgnMU ("Japan for Kids - A kids guide to Japan.",
+        # Professor Propeller's Planet), S603E1utiwE ("Japan for kids - an amazing and quick guide to Japan", Learning Tail).
+        # A search found no kids' video that walks a Japanese street.
+        youtube: QEC3MrWgnMU
+        approved: false
+        fallback_title: The five-thing walk
+        fallback_title_he: ההליכה של חמשת הדברים
+        fallback:
+          - "Before the trip: walk around your street with your family. Find five things: a post box, a drinks machine, a manhole cover, a shop door and a bicycle."
+          - "Say what is different in Japan: the post box is red, the drinks machine has hot drinks, the manhole cover has a picture."
+          - "In Japan: do the same walk from the hotel on the first day. Shout \"mitsuketa!\" for each thing you find."
+          - "Take a photo of the best manhole cover you find."
+        fallback_he:
+          - "לפני הטיול: מסתובבים ברחוב שלכם עם המשפחה. מוצאים חמישה דברים: תיבת דואר, מכונת משקאות, מכסה ביוב, דלת של חנות ואופניים."
+          - "אומרים מה שונה ביפן: תיבת הדואר אדומה, במכונת המשקאות יש שתייה חמה, ועל מכסה הביוב יש תמונה."
+          - "ביפן: עושים את אותה הליכה מהמלון ביום הראשון. צועקים \"מיצוקטה!\" על כל דבר שמוצאים."
+          - "מצלמים את מכסה הביוב הכי יפה שמוצאים."
+      - kind: flip
+        title: Signs to know
+        title_he: שלטים שכדאי להכיר
+        text: Japanese has its own letters. Learn five signs by their shape. Tap a card to turn it.
+        text_he: ליפנית יש אותיות משלה. לומדים חמישה שלטים לפי הצורה. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/street/sign-exit.svg"
+            label: "Deguchi"
+            label_he: "דגוצ'י"
+            japanese: "でぐち"
+            reading: "deguchi"
+            text: "出口 means \"exit\", the way out. In many stations the exit signs are yellow."
+            text_he: "出口 אומר \"יציאה\", הדרך החוצה. בהרבה תחנות שלטי היציאה צהובים."
+          - img: "lesson/street/sign-in.svg"
+            label: "Iriguchi"
+            label_he: "איריגוצ'י"
+            japanese: "いりぐち"
+            reading: "iriguchi"
+            text: "入口 means \"entrance\", the way in. The first letter looks like a person walking in."
+            text_he: "入口 אומר \"כניסה\", הדרך פנימה. האות הראשונה נראית כמו אדם שנכנס."
+          - img: "lesson/street/sign-eki.svg"
+            label: "Eki"
+            label_he: "אקי"
+            japanese: "えき"
+            reading: "eki"
+            text: "駅 means \"station\". Look for it when you need a train."
+            text_he: "駅 אומר \"תחנה\". מחפשים אותו כשצריכים רכבת."
+          - img: "lesson/street/sign-post.svg"
+            label: "The post mark"
+            label_he: "סימן הדואר"
+            text: "〒 is the post mark. You see it on post boxes and on post offices."
+            text_he: "〒 הוא סימן הדואר. רואים אותו על תיבות דואר ועל סניפי דואר."
+          - img: "lesson/street/sign-toilet.svg"
+            label: "Toire"
+            label_he: "טוירה"
+            japanese: "トイレ"
+            reading: "toire"
+            text: "トイレ says \"toire\". It means \"toilet\". Good to know!"
+            text_he: "トイレ אומר \"טוירה\". זה אומר \"שירותים\". טוב לדעת!"
+      - kind: spots
+        title: A vending machine
+        title_he: מכונת משקאות
+        img: lesson/street/vending-big.svg
+        text: Let's buy a drink! Tap each dot to see how the machine works.
+        text_he: בואו נקנה משהו לשתות! געו בכל נקודה כדי לראות איך המכונה עובדת.
+        spots:
+          - x: 50
+            y: 25
+            label: "The red labels"
+            label_he: "המדבקות האדומות"
+            japanese: "あったかい"
+            reading: "attakai"
+            text: "A red label means the drink is HOT. Careful, the can is hot in your hand!"
+            text_he: "מדבקה אדומה אומרת שהשתייה חמה. זהירות, הפחית חמה ביד!"
+          - x: 50
+            y: 46
+            label: "The blue labels"
+            label_he: "המדבקות הכחולות"
+            japanese: "つめたい"
+            reading: "tsumetai"
+            text: "A blue label means the drink is COLD. Good on a hot summer day."
+            text_he: "מדבקה כחולה אומרת שהשתייה קרה. טוב ביום קיץ חם."
+          - x: 65
+            y: 62
+            label: "The coin slot"
+            label_he: "החריץ למטבעות"
+            text: "Put the coins in here. Then press the button under the drink you want."
+            text_he: "שמים כאן את המטבעות. אחר כך לוחצים על הכפתור מתחת לשתייה שרוצים."
+          - x: 37
+            y: 65
+            label: "The card pad"
+            label_he: "משטח הכרטיס"
+            text: "For grown-ups. Many machines take a train card, like Suica or PASMO. Touch the card here instead of coins."
+            text_he: "למבוגרים. הרבה מכונות מקבלות כרטיס רכבת, כמו סואיקה או פסמו. נוגעים כאן עם הכרטיס במקום מטבעות."
+          - x: 65
+            y: 77
+            label: "The return lever"
+            label_he: "הידית להחזרה"
+            text: "Changed your mind? Turn this lever, and your coins come back."
+            text_he: "התחרטתם? מסובבים את הידית, והמטבעות חוזרים."
+          - x: 50
+            y: 89
+            label: "The drop box"
+            label_he: "תא האיסוף"
+            text: "The drink falls down here with a loud CLUNK. Reach in and take it out."
+            text_he: "השתייה נופלת לכאן עם קול חזק: קלאנק! מכניסים יד ולוקחים אותה."
+      - kind: train
+        title: Catch the Japan things!
+        title_he: תפסו את הדברים של יפן!
+        text: The plates ride past. Tap the thing we ask for, not the other things.
+        text_he: הצלחות נוסעות. געו בדבר שאנחנו מבקשים, לא בדברים האחרים.
+        belt: [car, torii, balloon, neko, icecream, vending, bike, manhole, postbox, jizo]
+        rounds:
+          - ask: "Catch the torii gate!"
+            ask_he: "תפסו את שער הטוריאי!"
+            answer: "torii"
+          - ask: "Catch the lucky cat!"
+            ask_he: "תפסו את חתול המזל!"
+            answer: "neko"
+          - ask: "Catch the vending machine!"
+            ask_he: "תפסו את מכונת המשקאות!"
+            answer: "vending"
+          - ask: "Catch the painted manhole cover!"
+            ask_he: "תפסו את מכסה הביוב המצויר!"
+            answer: "manhole"
+      - kind: text
+        title: Pictures under your feet
+        title_he: תמונות מתחת לרגליים
+        img: lesson/street/manholes.svg
+        japanese: マンホール
+        reading: manhooru
+        text: Many towns in Japan have their own manhole cover. Each one shows a picture from that town, like a flower, a fish, a castle or a festival. Some are painted in bright colours.
+        text_he: להרבה ערים ביפן יש מכסה ביוב משלהן. על כל אחד יש תמונה מהעיר, כמו פרח, דג, טירה או חג. חלק מהם צבועים בצבעים חזקים.
+        tips:
+          - Some manhole covers show Pokémon. They are called "Poké Lids". The first ones came in 2018.
+          - Each Poké Lid shows a Pokémon that fits its town.
+          - Take a photo of each new cover you find, and make a collection.
+        tips_he:
+          - על חלק ממכסי הביוב יש פוקימונים. קוראים להם "פוקה-לידס". הראשונים הגיעו ב-2018.
+          - על כל פוקה-ליד יש פוקימון שמתאים לעיר שלו.
+          - מצלמים כל מכסה חדש שמוצאים, ועושים אוסף.
+      - kind: pick
+        title: Street quiz
+        title_he: חידון הרחוב
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "It is cold outside. Which drink is HOT?"
+            ask_he: "קר בחוץ. איזו שתייה חמה?"
+            answer: "hot"
+            choices: [cold, hot, icecream, balloon]
+          - ask: "Where do you post a letter in Japan?"
+            ask_he: "איפה שולחים מכתב ביפן?"
+            answer: "postbox"
+            choices: [vending, manhole, postbox, car]
+          - ask: "Which statue wears a red bib and looks after children?"
+            ask_he: "איזה פסל לובש סינר אדום ושומר על ילדים?"
+            answer: "jizo"
+            choices: [jizo, neko, komainu, torii]
+      - kind: local
+        title: Where to look
+        title_he: איפה מחפשים
+        text: Train your eyes before the trip, then find the real things in Japan.
+        text_he: מאמנים את העיניים לפני הטיול, ואז מוצאים את הדברים האמיתיים ביפן.
+        groups:
+          - title: Before the trip
+            title_he: לפני הטיול
+            places:
+              - emoji: "🔎"
+                title: "The three hunts"
+                title_he: "שלושת הצידים"
+                text: "Play the three Street View hunts in this course. Each one is a real place in Japan."
+                text_he: "משחקים בשלושת הצידים בסטריט ויו בקורס הזה. כל אחד מהם הוא מקום אמיתי ביפן."
+              - emoji: "🏮"
+                title: "A Japanese shop or restaurant"
+                title_he: "חנות או מסעדה יפנית"
+                text: "Find one near you. Look for a noren curtain over the door or a lucky cat in the window."
+                text_he: "מוצאים אחת קרובה. מחפשים וילון נורן מעל הדלת או חתול מזל בחלון."
+              - emoji: "🖍️"
+                title: "Draw a manhole cover"
+                title_he: "מציירים מכסה ביוב"
+                text: "Draw a manhole cover for your own town. What picture goes on it?"
+                text_he: "מציירים מכסה ביוב לעיר שלכם. איזו תמונה תהיה עליו?"
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "⛩️"
+                title: "A shrine and a temple"
+                title_he: "מקדש שינטו ומקדש בודהיסטי"
+                text: "Visit one of each. Is there a torii gate, or a big wooden gate and an incense pot?"
+                text_he: "מבקרים באחד מכל סוג. יש שער טוריאי, או שער עץ גדול וסיר קטורת?"
+              - emoji: "🥤"
+                title: "A hot drink from a machine"
+                title_he: "שתייה חמה ממכונה"
+                text: "Find a red label and buy a hot drink. Careful, it is hot!"
+                text_he: "מוצאים מדבקה אדומה וקונים שתייה חמה. זהירות, היא חמה!"
+              - emoji: "📷"
+                title: "The street hunt"
+                title_he: "הציד ברחוב"
+                text: "Find a red post box, a lucky cat, a Jizo statue and a painted manhole cover. Shout \"mitsuketa!\"."
+                text_he: "מוצאים תיבת דואר אדומה, חתול מזל, פסל ג'יזו ומכסה ביוב מצויר. צועקים \"מיצוקטה!\"."
   # The first id stays "streetview-intro": a new id would delete the old row and the families' course items with it.
   - id: streetview-intro
     title: "Hunt: the lucky cat temple"

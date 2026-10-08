@@ -398,3 +398,72 @@ class ChopsticksLessonTests(TestCase):
         self.assertIn("לצ'ופסטיקס לילדים", html.replace("&#x27;", "'"))
         self.assertNotIn("A hand with chopsticks", html)
         self.assertNotIn("Chopstick rules", html)
+
+
+class StreetLessonTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("v@example.com", "v@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (40, 6):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="streetview", slug="streetview-lesson")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def page(self, lang="en"):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_lesson_comes_first_and_the_three_hunts_follow(self):
+        rows = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__type"))
+        self.assertEqual(rows[0], ("streetview-lesson", "lesson"))
+        self.assertEqual([t for _, t in rows[1:]], ["streetview"] * 3)
+
+    def test_every_kind_and_a_video_slot_near_the_middle(self):
+        kinds = [p["kind"] for p in self.act.data["pages"]]
+        self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
+        self.assertEqual(set(kinds), set(KINDS))
+        self.assertEqual(kinds.index("video"), len(kinds) // 2)
+        video = next(p for p in self.act.data["pages"] if p["kind"] == "video")
+        self.assertFalse(video["approved"])
+        self.assertEqual(len(video["fallback"]), len(video["fallback_he"]))
+
+    def test_every_picture_exists_and_every_game_answer_is_a_choice(self):
+        data = self.act.data
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        pics = {p["id"] for p in data["pictures"]}
+        imgs = [p["img"] for p in data["pictures"]] + [p["img"] for p in data["pages"] if p.get("img")]
+        imgs += [c["img"] for p in data["pages"] for c in p.get("cards", [])]
+        for img in imgs:
+            self.assertTrue((static / img).exists(), img)
+        for p in data["pages"]:
+            for r in p.get("rounds", []):
+                self.assertIn(r["answer"], r.get("choices", p.get("belt")))
+                self.assertTrue(set(r.get("choices", p.get("belt"))) <= pics)
+            for spot in p.get("spots", []):
+                self.assertTrue(0 < spot["x"] < 100 and 0 < spot["y"] < 100)
+
+    def test_english(self):
+        html = self.page()
+        self.assertEqual(html.count("data-page "), 13)
+        for kind in KINDS:
+            self.assertIn(f"lpage-{kind}", html)
+        self.assertNotIn("comes soon", html)
+        self.assertIn("Page 1 of 13", html)
+        self.assertIn("The five-thing walk", html)            # the video fallback
+        self.assertNotIn("youtube.com/embed/QEC3MrWgnMU", html)  # not approved
+        self.assertIn('data-plate="manhole"', html)
+        self.assertIn("audio/japan/jidouhanbaiki.mp3", html)
+        self.assertIn("A red label means the drink is HOT", html)
+
+    def test_hebrew(self):
+        html = self.page("he")
+        self.assertIn("מה זה? דברים ברחוב ביפן", html)
+        self.assertIn("דף 1 מתוך 13", html)
+        self.assertIn("ההליכה של חמשת הדברים", html)
+        self.assertNotIn("A street to explore", html)
+        self.assertNotIn("The five-thing walk", html)

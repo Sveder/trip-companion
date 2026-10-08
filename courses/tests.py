@@ -121,7 +121,10 @@ class BuilderTests(TestCase):
         ids = [m.id for m, on in suggestions(trip) if on]
         items = list(build_course(trip, ids).items.select_related("activity"))
         types = [i.activity.type for i in items]
-        self.assertIn("streetview", types[:3])
+        # The Street View lesson (T66) is the early kids' item; it shows what to look for, the hunts follow it.
+        acts = [i.activity.slug for i in items]
+        self.assertIn("streetview-lesson", acts[:3])
+        self.assertLess(acts.index("streetview-lesson"), types.index("streetview"))
         self.assertEqual(types.count("streetview"), 3)
         for a, b in zip(types, types[1:]):
             self.assertFalse(a == b == "streetview", types)

@@ -153,7 +153,7 @@ class StreetViewHuntTests(TestCase):
         self.client.force_login(self.user)
 
     def test_streetview_module_is_ready_with_places(self):
-        acts = Activity.objects.filter(module__slug="streetview")
+        acts = Activity.objects.filter(module__slug="streetview", type="streetview")
         self.assertTrue(acts[0].module.ready)
         self.assertGreaterEqual(acts.count(), 2)
         for act in acts:
@@ -163,7 +163,7 @@ class StreetViewHuntTests(TestCase):
     def test_spots_are_japanese_things_not_random_passers_by(self):
         # Michael, feedback 2026-10-08: no "a woman with a pink hat who happened to be there".
         random = ("hat", "people", "cars", "pine tree", "green wall", "shop sign", '"no" sign')
-        for act in Activity.objects.filter(module__slug="streetview"):
+        for act in Activity.objects.filter(module__slug="streetview", type="streetview"):
             for spot in act.data["spots"]:
                 for word in random:
                     self.assertNotIn(word, spot["text"].lower(), (act.slug, spot["text"]))
@@ -172,7 +172,7 @@ class StreetViewHuntTests(TestCase):
 
     def test_every_spot_has_a_proper_name_and_why_it_matters(self):
         # Michael, feedback 2026-10-08: "a big orange gate" is a torii gate; say why each thing is interesting.
-        for act in Activity.objects.filter(module__slug="streetview"):
+        for act in Activity.objects.filter(module__slug="streetview", type="streetview"):
             for spot in act.data["spots"]:
                 self.assertTrue(spot.get("name"), (act.slug, spot["text"]))
                 self.assertGreaterEqual(len(spot.get("about", "")), 40, (act.slug, spot["name"]))
@@ -246,7 +246,7 @@ class StreetViewHuntTests(TestCase):
         trip = Trip.objects.create(user=self.user, destination="japan")
         Traveller.objects.create(trip=trip, age=3)
         course = Course.objects.create(trip=trip)
-        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        hunts = list(Activity.objects.filter(module__slug="streetview", type="streetview")[:2])
         first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
         second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
         url = reverse("activity_done", args=[first.id])
@@ -267,7 +267,7 @@ class StreetViewHuntTests(TestCase):
         trip = Trip.objects.create(user=self.user, destination="japan")
         Traveller.objects.create(trip=trip, age=4)
         course = Course.objects.create(trip=trip)
-        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        hunts = list(Activity.objects.filter(module__slug="streetview", type="streetview")[:2])
         first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
         CourseItem.objects.create(course=course, order=1, activity=hunts[1])
         r = self.client.post(reverse("activity_done", args=[first.id]), {"found": [], "skip": "1"})
@@ -287,7 +287,7 @@ class StreetViewHuntTests(TestCase):
         trip = Trip.objects.create(user=self.user, destination="japan")
         Traveller.objects.create(trip=trip, age=6)
         course = Course.objects.create(trip=trip)
-        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        hunts = list(Activity.objects.filter(module__slug="streetview", type="streetview")[:2])
         other = Activity.objects.exclude(module__slug="streetview").filter(type="steps").first()
         first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
         second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
@@ -305,7 +305,7 @@ class StreetViewHuntTests(TestCase):
         trip = Trip.objects.create(user=self.user, destination="japan")
         Traveller.objects.create(trip=trip, age=4)
         course = Course.objects.create(trip=trip)
-        hunts = list(Activity.objects.filter(module__slug="streetview")[:2])
+        hunts = list(Activity.objects.filter(module__slug="streetview", type="streetview")[:2])
         first = CourseItem.objects.create(course=course, order=0, activity=hunts[0])
         second = CourseItem.objects.create(course=course, order=1, activity=hunts[1])
         url = reverse("activity_done", args=[first.id])
