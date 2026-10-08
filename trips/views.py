@@ -22,8 +22,7 @@ def trip_setup(request):
                 if new:
                     trip = Trip(user=request.user)
                 trip.destination = data["destination"]
-                trip.start_date = data["start_date"]
-                trip.end_date = data["end_date"]
+                trip.set_dates(data["start_date"], data["length_days"])
                 trip.save()
                 trip.travellers.all().delete()
                 Traveller.objects.bulk_create(Traveller(trip=trip, age=a) for a in data["ages"])
@@ -36,7 +35,8 @@ def trip_setup(request):
                 "destination": trip.destination,
                 **trip.group_counts,
                 "start_date": trip.start_date,
-                "end_date": trip.end_date,
+                "length_days": trip.length_days or (
+                    (trip.end_date - trip.start_date).days + 1 if trip.start_date and trip.end_date else None),
             }
         form = TripForm(initial=initial)
     return render(request, "trips/setup.html", {

@@ -57,3 +57,48 @@ class FamilyPlaneTests(TestCase):
     def test_hebrew_page(self):
         page = self.client.get(reverse("trip_setup") + "?lang=he")
         self.assertContains(page, "מטוס")
+
+
+class TripLengthTests(TestCase):
+    """Feedback T54: the leave date is optional, the family gives the trip length, and there is no return date field."""
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("l@example.com", "l@example.com")
+        self.client.force_login(self.user)
+
+    def test_page_asks_for_length_not_return_date(self):
+        page = self.client.get(reverse("trip_setup"))
+        self.assertContains(page, "How many days is the trip?")
+        self.assertContains(page, 'name="length_days"')
+        self.assertContains(page, "We leave on (if you know)")
+        self.assertNotContains(page, "We come home on")
+        self.assertNotContains(page, 'name="end_date"')
+
+    def test_length_without_a_date(self):
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "length_days": 12})
+        self.assertRedirects(r, reverse("builder"))
+        trip = Trip.objects.get()
+        self.assertEqual((trip.length_days, trip.start_date, trip.end_date), (12, None, None))
+
+    def test_date_and_length_give_the_last_day(self):
+        self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1,
+                                                 "start_date": "2026-11-10", "length_days": 10})
+        trip = Trip.objects.get()
+        self.assertEqual(str(trip.end_date), "2026-11-19")
+        page = self.client.get(reverse("trip_setup"))
+        self.assertContains(page, 'value="10"')
+
+    def test_both_are_optional(self):
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1})
+        self.assertRedirects(r, reverse("builder"))
+        self.assertIsNone(Trip.objects.get().length_days)
+
+    def test_length_out_of_range_is_refused(self):
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "length_days": 0})
+        self.assertEqual(r.status_code, 200)
+        self.assertFalse(Trip.objects.exists())
+
+    def test_hebrew_labels(self):
+        page = self.client.get(reverse("trip_setup") + "?lang=he")
+        self.assertContains(page, "כמה ימים נמשך הטיול?")
+        self.assertNotContains(page, "חוזרים הביתה בתאריך")

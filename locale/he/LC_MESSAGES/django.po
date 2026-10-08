@@ -729,13 +729,13 @@ msgstr "מציאה מעולה! 📸"
 msgid "One more photo! 📸"
 msgstr "עוד תמונה! 📸"
 
-#: trips/forms.py:16
-msgid "We leave on"
-msgstr "יוצאים בתאריך"
-
 #: trips/forms.py:17
-msgid "We come home on"
-msgstr "חוזרים הביתה בתאריך"
+msgid "How many days is the trip?"
+msgstr "כמה ימים נמשך הטיול?"
+
+#: trips/forms.py:19
+msgid "We leave on (if you know)"
+msgstr "יוצאים בתאריך (אם אתם יודעים)"
 
 #: trips/forms.py:24
 msgid "Put at least one person on the plane."

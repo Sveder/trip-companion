@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _, ngettext
@@ -41,6 +43,8 @@ class Trip(models.Model):
     destination = models.CharField(max_length=40, default="japan")
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
+    # Feedback T54: the family gives the trip length, not a return date. With a start date, end_date = start + length - 1.
+    length_days = models.PositiveSmallIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -48,6 +52,10 @@ class Trip(models.Model):
 
     def __str__(self):
         return f"{self.user} → {self.destination}"
+
+    def set_dates(self, start, length):
+        self.start_date, self.length_days = start, length
+        self.end_date = start + datetime.timedelta(days=length - 1) if start and length else None
 
     @property
     def ages(self):

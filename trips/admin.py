@@ -10,6 +10,6 @@ class TravellerInline(admin.TabularInline):
 
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
-    list_display = ("user", "destination", "start_date", "end_date", "created_at")
+    list_display = ("user", "destination", "start_date", "length_days", "end_date", "created_at")
     search_fields = ("user__email",)
     inlines = [TravellerInline]

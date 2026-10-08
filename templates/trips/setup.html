@@ -57,8 +57,8 @@
       </div>
     </fieldset>
     <div class="row">
+      <p>{{ form.length_days.label_tag }} {{ form.length_days }}{{ form.length_days.errors }}</p>
       <p>{{ form.start_date.label_tag }} {{ form.start_date }}{{ form.start_date.errors }}</p>
-      <p>{{ form.end_date.label_tag }} {{ form.end_date }}{{ form.end_date.errors }}</p>
     </div>
     <button class="btn big" type="submit">{% translate "Next: choose your course" %}</button>
   </form>

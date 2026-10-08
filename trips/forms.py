@@ -13,8 +13,10 @@ class TripForm(forms.Form):
     kid = forms.IntegerField(min_value=0, max_value=12, required=False, initial=0)
     big = forms.IntegerField(min_value=0, max_value=12, required=False, initial=0)
     grownup = forms.IntegerField(min_value=0, max_value=12, required=False, initial=0)
-    start_date = forms.DateField(required=False, label=_("We leave on"), widget=forms.DateInput(attrs={"type": "date"}))
-    end_date = forms.DateField(required=False, label=_("We come home on"), widget=forms.DateInput(attrs={"type": "date"}))
+    # Feedback T54: the leave date is optional; the family gives the trip length instead of a return date.
+    length_days = forms.IntegerField(min_value=1, max_value=90, required=False, label=_("How many days is the trip?"),
+                                     widget=forms.NumberInput(attrs={"inputmode": "numeric", "placeholder": "10"}))
+    start_date = forms.DateField(required=False, label=_("We leave on (if you know)"), widget=forms.DateInput(attrs={"type": "date"}))
 
     def clean(self):
         data = super().clean()
@@ -26,7 +28,4 @@ class TripForm(forms.Form):
             raise forms.ValidationError(gettext("That is a big family! The app takes up to 12 people."))
         data["counts"] = counts
         data["ages"] = [GROUP_AGES[g] for g in GROUP_IDS for n in range(counts[g])]
-        start, end = data.get("start_date"), data.get("end_date")
-        if start and end and end < start:
-            self.add_error("end_date", gettext("The trip ends before it starts."))
         return data

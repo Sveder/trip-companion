@@ -41,7 +41,7 @@ class EventTests(TestCase):
 
         start = date.today() + timedelta(days=30)
         c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1,
-                                       "start_date": start, "end_date": start + timedelta(days=10)})
+                                       "start_date": start, "length_days": 11})
         self.assertOne("trip_set_up", new=True, travellers=2)
 
         ids = [str(m.id) for m in Module.objects.filter(slug__in=["food", "chopsticks"])]
