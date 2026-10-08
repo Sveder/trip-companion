@@ -1,0 +1,7 @@
+{# The neutral app mark: a paper plane over a sun (Michael, T87: no country guide on app-wide screens). #}
+<svg class="guide mark {{ cls }}" viewBox="0 0 120 120" {% if label %}role="img" aria-label="{{ label }}"{% else %}aria-hidden="true" focusable="false"{% endif %}>
+  <circle cx="60" cy="60" r="50" fill="var(--c-sun)"/>
+  <path d="M60 104 Q38 96 30 76" fill="none" stroke="var(--c-surface)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10"/>
+  <path d="M22 62 L98 26 L72 98 L58 70 Z" fill="var(--c-surface)" stroke="var(--c-ink)" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M58 70 L98 26" fill="none" stroke="var(--c-ink)" stroke-width="5" stroke-linecap="round"/>
+</svg>

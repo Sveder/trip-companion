@@ -68,6 +68,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "tripapp.tv.tv_mode",
                 "tripapp.pages.site_meta",
+                "tripapp.guides.country_guide",
             ],
         },
     },

@@ -457,12 +457,33 @@ class LookTests(TestCase):
     def test_the_theme_and_the_guide(self):
         html = self.client.get(reverse("privacy")).content.decode()
         self.assertIn('<meta name="theme-color" content="#ffffff">', html)  # no red browser bar
-        self.assertIn("var(--guide-antler)", html)  # the deer guide in the header
+        self.assertNotIn("var(--guide-antler)", html)  # T87: no deer on an app-wide page
+        self.assertIn('class="guide mark small"', html)  # the neutral mark in the header
         self.assertRegex(html, r'<template id="penguin-egg">\s*<svg class="penguin"')
         self.assertNotIn("fox", html)
         css = (settings.BASE_DIR / "static/css/app.css").read_text()
         self.assertIn("--c-primary: #bc002d;", css)
         self.assertNotIn("confetti", css)
+
+    def test_the_deer_is_on_japan_screens_only(self):
+        """Feedback T87 (Michael): the Nara deer belongs to Japan. App-wide screens get the neutral mark."""
+        deer = "var(--guide-antler)"
+        for name in ("home", "signin", "privacy"):  # signed out: welcome, sign-in, a site page
+            html = self.client.get(reverse(name)).content.decode()
+            self.assertNotIn(deer, html, name)
+        self.assertNotIn(deer, self.client.get("/no-such-page/").content.decode())
+        user = get_user_model().objects.create_user("deer@example.com", "deer@example.com")
+        self.client.force_login(user)
+        self.assertNotIn(deer, self.client.get(reverse("trip_setup")).content.decode())  # no trip yet
+        call_command("load_content", verbosity=0)
+        item = chopsticks_item(user, [5])
+        self.assertNotIn(deer, self.client.get(reverse("trip_setup")).content.decode())  # app-wide, also with a Japan trip
+        for url in (reverse("course"), reverse("builder"), reverse("activity", args=[item.id]), reverse("there"), reverse("quiz")):
+            html = self.client.get(url, follow=True).content.decode()
+            self.assertIn(deer, html, url)
+        # A country with no guide yet: its screens show no deer.
+        Trip.objects.filter(user=user).update(destination="italy")
+        self.assertNotIn(deer, self.client.get(reverse("course")).content.decode())
 
     def test_the_celebration_script(self):
         js = (settings.BASE_DIR / "static/js/celebrate.js").read_text()

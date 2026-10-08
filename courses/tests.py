@@ -162,7 +162,7 @@ class FlowTests(TestCase):
         r = c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 2, "kid": 1, "little": 1})
         self.assertRedirects(r, reverse("builder"))
         page = c.get(reverse("builder"))
-        self.assertContains(page, "<h1>Choose your course</h1>", html=False)
+        self.assertContains(page, "<span>Choose your course</span></h1>", html=False)
         self.assertContains(page, "Street View hunt")
         # Parent adds "buy before you go" on top of the suggestion (it is suggested anyway here).
         ids = [str(m.id) for m in Module.objects.all()]
@@ -209,9 +209,9 @@ class ThemeTests(TestCase):
         call_command("load_content", verbosity=0)
         cls.user = get_user_model().objects.create_user("t@example.com", "t@example.com")
 
-    def test_welcome_shows_the_guide_and_loads_theme(self):
+    def test_welcome_shows_the_neutral_mark_and_loads_theme(self):
         html = self.client.get("/").content.decode()
-        self.assertIn('class="guide hero-guide"', html)
+        self.assertIn('class="guide mark hero-guide"', html)  # T87: the welcome page is app-wide, no deer
         self.assertIn("css/app.css", html)
         self.assertIn("js/celebrate.js", html)
 
@@ -220,9 +220,9 @@ class ThemeTests(TestCase):
         self.assertRegex(html, r'<a class="card country go" href="/signin/"')
         self.assertNotRegex(html, r'<a class="card country soon')
 
-    def test_header_guide_is_decorative(self):
+    def test_header_mark_is_decorative(self):
         html = self.client.get("/").content.decode()
-        self.assertRegex(html, r'class="guide small"[^>]*aria-hidden="true"')
+        self.assertRegex(html, r'class="guide mark small"[^>]*aria-hidden="true"')
 
     def test_finish_page_celebrates(self):
         trip = make_trip(self.user, [38, 4])

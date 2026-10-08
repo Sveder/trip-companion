@@ -1,5 +1,5 @@
 /* Theme (feedback T83, our 4-year-old and Michael): Japan-flag red ONLY as a highlight (buttons, dots, marks), never a big area;
-   the guide is a Nara deer (templates/includes/guide.html). Nothing else names a colour. */
+   the Japan guide is a Nara deer (templates/includes/guides/japan.html, Japan screens only, T87). Nothing else names a colour. */
 @font-face {
   font-family: "Nunito";
   src: url("../fonts/nunito-latin.woff2") format("woff2");
@@ -53,6 +53,9 @@ h3 { margin: .3em 0; font-size: 1.25rem; }
 .guide { display: block; }
 .guide.small { width: 2.2rem; height: 2.2rem; }
 .guide.hero-guide { width: 6.5rem; height: 6.5rem; margin: 0 auto; }
+/* The country guide beside a Japan screen title (T87). */
+h1.with-guide { display: flex; align-items: center; gap: .5rem; }
+.guide.title-guide { flex: none; width: 2.6rem; height: 2.6rem; }
 .top-nav { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; }
 .top-nav a { color: var(--c-ink); text-decoration: none; font-weight: 700; }
 .top-nav form { margin: 0; }
@@ -163,6 +166,7 @@ legend { font-weight: 800; font-size: 1.15rem; }
   [dir="rtl"] .brand { margin-right: 40px; }
   [dir="rtl"] .lang-switch { margin-right: auto; }
   .guide.hero-guide { width: 5rem; height: 5rem; }
+  .guide.title-guide { width: 2.1rem; height: 2.1rem; }
 }
 /* Small phones: row 1 is too short for the brand and the language link, so the link follows the nav. */
 @media (max-width: 380px) {

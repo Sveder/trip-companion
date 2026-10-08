@@ -2,7 +2,7 @@
 {% load i18n static %}
 {% block content %}
 <section class="hero">
-  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide says hi") %}
+  {% include "includes/mark.html" with cls="hero-guide" %}
   <h1>{% translate "Get ready for your trip!" %}</h1>
   <p class="lead">{% translate "Short, fun activities for the whole family. Learn the food, the words and the fun stuff before you fly." %}</p>
   <a class="btn big" href="{% url 'signin' %}">{% translate "Let's start" %}</a>

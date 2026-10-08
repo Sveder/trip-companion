@@ -3,7 +3,7 @@
 {% block title %}{% translate "Our course" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1>{% translate "Our course for Japan" %}</h1>
+  <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% translate "Our course for Japan" %}</span></h1>
   <p class="lead">{% blocktranslate %}We did {{ done }} of {{ total }}. Tap any one to play it again!{% endblocktranslate %}</p>
   <ol class="course-list">
     {% for item in items %}

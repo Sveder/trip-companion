@@ -3,7 +3,7 @@
 {% block title %}{% translate "Page not found" %}{% endblock %}
 {% block content %}
 <section class="hero">
-  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide looks around") %}
+  {% include "includes/mark.html" with cls="hero-guide" %}
   <h1>{% translate "Oops! We can't find that page." %}</h1>
   <p class="lead">{% translate "Maybe it went on a trip. Let's go back." %}</p>
   <a class="btn big" href="{% url 'home' %}">{% translate "Go home" %}</a>

@@ -3,7 +3,7 @@
 {% block title %}{% translate "Choose your course" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1>{% translate "Choose your course" %}</h1>
+  <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% translate "Choose your course" %}</span></h1>
   <p class="lead">{% blocktranslate with family=trip.family %}We picked these for your family (<bdi>{{ family }}</bdi>). Tap a card to switch it on or off.{% endblocktranslate %}</p>
   <form method="post">
     {% csrf_token %}

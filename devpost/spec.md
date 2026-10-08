@@ -72,7 +72,7 @@ From `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
 - Theme (feedback T83): a warm cream page, Japan-flag red `#bc002d` (`--c-primary`) ONLY on highlights: buttons, step
   numbers, dots, tap spots, links. No red panel, header or browser bar (`theme-color` is white). Every colour is a CSS
   variable at the top of `static/css/app.css`.
-- Guide: a young Nara deer with small antlers and white spots, own SVG, one file `templates/includes/guide.html`.
+- Guide: a young Nara deer with small antlers and white spots, own SVG, `templates/includes/guides/japan.html`. The deer is the JAPAN guide (Michael, T87): it shows on Japan screens only (course, builder, lessons, quiz, photo hunt, celebrations), picked from the trip's destination by `tripapp/guides.py`. App-wide screens (header, welcome, sign-in, trip setup, error pages) show the neutral mark `templates/includes/mark.html`, a paper plane over a sun. Another country gets its own guide with one line in `GUIDES`.
 - Module finish: the praise screen after the LAST activity of a module plays the celebration (`static/js/celebrate.js`): a
   star explosion (canvas, colours `--star-1..5`) and a bell-like chime on the Japanese yo scale (Web Audio, no file). The
   course finish and the quiz finish play it too. Reduced motion: the chime only. A praise screen in the middle of a module

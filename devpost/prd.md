@@ -46,7 +46,7 @@ Works on a phone and in the TV's web browser (big, readable, remote-friendly on 
 - Colour (Michael and our 4-year-old, feedback T83): red like the Japanese flag, but ONLY as a highlight colour (buttons, accents).
   No large red areas; it must not be jarring.
 - Finishing a module (our 4-year-old): a star explosion and a nice sound.
-- Guide animal: a Japanese animal, a Nara deer. our 4-year-old's penguin appears sometimes as an Easter egg (rarely, in a celebration).
+- Guide animal: a Japanese animal, a Nara deer, on the Japan screens only (Michael, T87). Each country can get its own guide later; app-wide screens show a neutral paper-plane mark. our 4-year-old's penguin appears sometimes as an Easter egg (rarely, in a celebration).
   Own artwork only: no copyrighted characters (for example not the Suica penguin).
 
 ## Features and Behavior
