@@ -242,7 +242,7 @@ trip-companion/
 - **YouTube embed** — `https://www.youtube-nocookie.com/embed/<id>`. Free. Every id needs Michael's approval in the content file.
 - **Referral links** — plain outbound links (AliExpress children's chopsticks; a Japan snack box service). Real affiliate ids
   are added when the accounts exist; until then the links work without them.
-- **Sentry** — free developer plan, project "trip-companion"; DSN in server `.env`. Signup with Kurt's email. Free tier limit:
+- **Sentry** — free developer plan, organization "sveder-trip" (EU data region), project "trip-companion"; DSN and JS loader URL in server `.env`. Signup with Kurt's email. Free tier limit:
   5,000 errors a month. https://sentry.io/pricing/
 - **Hosting** — sveder.com droplet (existing), Namecheap DNS (existing), Let's Encrypt certificate (free).
 
