@@ -339,13 +339,13 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .choice.wrong, .plate.wrong { animation: shake .4s; border-color: var(--c-primary); }
 @keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .game-msg { min-height: 1.6em; font-weight: 800; font-size: 1.15rem; margin: .5rem 0 0; }
-.belt { overflow: hidden; margin: .6rem -1.2rem 0; padding: .7rem 0; background: repeating-linear-gradient(90deg, #8a8f99 0 24px, #9aa0aa 24px 48px); }
+.belt { direction: ltr; overflow: hidden; margin: .6rem -1.2rem 0; padding: .7rem 0; background: repeating-linear-gradient(90deg, #8a8f99 0 24px, #9aa0aa 24px 48px); }
 .belt-track { display: flex; gap: .8rem; width: max-content; animation: belt 30s linear infinite; }
 .belt:hover .belt-track, .belt:active .belt-track { animation-play-state: paused; }
 .plate { width: 110px; flex: none; border-radius: 50%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: #fff; border-color: #d8d2c4; }
 .plate img { width: 80%; }
 @keyframes belt { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-[dir="rtl"] .belt-track { animation-direction: reverse; }
+/* The belt runs left to right in Hebrew too: a right-to-left max-content track overflowed the page (T51). */
 .places { list-style: none; padding: 0; max-width: 34em; margin: .2rem auto .6rem; text-align: start; }
 .places li { display: flex; gap: .7rem; align-items: flex-start; padding: .5rem .7rem; margin: .4rem 0; background: var(--c-bg); border-radius: var(--radius); font-size: 1.05rem; }
 .place-emoji { font-size: 1.8rem; line-height: 1; }
