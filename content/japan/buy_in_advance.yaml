@@ -115,8 +115,8 @@ activities:
         text: Tap each dot to see why it goes in the suitcase.
         text_he: געו בכל נקודה כדי לראות למה זה נכנס למזוודה.
         spots:
-          - x: 13
-            y: 45
+          - x: 7
+            y: 50
             label: "The plug adapter"
             label_he: "המתאם לשקע"
             text: "Japan uses plugs with two flat pins (type A), at 100 volts. Most phone and laptop chargers work from 100 to 240 volts; check the label. A hair dryer often does not."
@@ -143,14 +143,14 @@ activities:
             reading: "kozeniire"
             text: "Japan has coins of 1, 5, 10, 50, 100 and 500 yen. You get many coins back. A coin purse keeps them in one place."
             text_he: "ביפן יש מטבעות של 1, 5, 10, 50, 100 ו-500 ין. מקבלים הרבה מטבעות בעודף. ארנק מטבעות שומר אותם במקום אחד."
-          - x: 12
-            y: 69
+          - x: 7
+            y: 76
             label: "A name card"
             label_he: "כרטיס שם"
             text: "A card in each child's pocket, with the child's name and your phone number. If a child gets lost, a helper can call you."
             text_he: "כרטיס בכיס של כל ילד, עם השם של הילד ומספר הטלפון שלכם. אם ילד הולך לאיבוד, מי שעוזר יכול להתקשר אליכם."
-          - x: 35
-            y: 77
+          - x: 29
+            y: 82
             label: "Slip-on shoes"
             label_he: "נעלי שחלה"
             text: "Shoes come off often in Japan: at homes, in temples and in some restaurants. Shoes with no laces make it quick."
