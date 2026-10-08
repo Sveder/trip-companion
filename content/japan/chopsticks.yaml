@@ -27,22 +27,18 @@ activities:
         label: See kids' chopsticks
         label_he: לצ'ופסטיקס לילדים
         url: https://www.aliexpress.com/item/1005007683787720.html
-      - kind: video
-        emoji: "📺"
-        title: Watch how
-        title_he: צפו איך עושים
-        text: Watch the video together. Look at the fingers!
-        # Only Michael approves a video. An unapproved video never shows; the "how" card below shows instead.
-        # Other candidates: 1viLScEkcKA (Easy Chopsticks for Kids, Laura Parker),
-        # fkA07eR0X-Y (How to Hold Chopsticks Properly, SAMUKICHI Japan food studio).
-        text_he: צפו בסרטון ביחד. תסתכלו על האצבעות!
-        youtube: CBNw5yX1M34
-        approved: false
-        fallback:
+      # Michael, 2026-10-08 (feedback T82, answers T22): no video for chopsticks. The written how-to stays.
+      - kind: text
+        emoji: "✋"
+        title: How to hold them
+        title_he: איך מחזיקים אותם
+        text: Look at your fingers. Try each line, slowly.
+        text_he: תסתכלו על האצבעות. נסו כל שורה, לאט.
+        how:
           - The bottom stick rests in the crook of your thumb. It does not move.
           - Hold the top stick like a pencil.
           - Move only the top stick, up and down, to pinch the food.
-        fallback_he:
+        how_he:
           - המקל התחתון נח בשקע של האגודל. הוא לא זז.
           - מחזיקים את המקל העליון כמו עיפרון.
           - מזיזים רק את המקל העליון, למעלה ולמטה, כדי לתפוס את האוכל.

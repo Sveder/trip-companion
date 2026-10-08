@@ -50,14 +50,14 @@ class ExportTests(TestCase):
         self.assertEqual(snapshot(), before)
 
     def test_export_keeps_the_comments(self):
-        steps = Activity.objects.get(slug="chopsticks-intro")
-        steps.data["steps"][1]["approved"] = True
-        steps.save()
+        lesson = Activity.objects.get(slug="sushi-lesson")
+        next(p for p in lesson.data["pages"] if p["kind"] == "video")["approved"] = True
+        lesson.save()
         export_country("japan", self.tmp)
-        text = (self.tmp / "japan" / "chopsticks.yaml").read_text(encoding="utf-8")
+        text = (self.tmp / "japan" / "food.yaml").read_text(encoding="utf-8")
         self.assertIn("# Only Michael approves a video.", text)
         self.assertIn("approved: true", text)
-        source = (CONTENT_DIR / "japan" / "chopsticks.yaml").read_text(encoding="utf-8")
+        source = (CONTENT_DIR / "japan" / "food.yaml").read_text(encoding="utf-8")
         self.assertEqual(text, source.replace("approved: false", "approved: true"))
 
     def test_export_writes_a_new_module_file(self):
@@ -140,4 +140,4 @@ class AdminEditTests(TestCase):
     def test_activity_list_shows_video_approval(self):
         self.client.force_login(self.boss)
         html = self.client.get(reverse("admin:content_admin_activity_changelist")).content.decode()
-        self.assertIn("CBNw5yX1M34 (not approved)", html)
+        self.assertIn("R7zkF_wpmLI (not approved)", html)

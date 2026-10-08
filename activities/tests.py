@@ -51,7 +51,17 @@ class ChopsticksTests(TestCase):
     def test_chopsticks_is_a_ready_steps_activity(self):
         act = Activity.objects.get(module__slug="chopsticks")
         self.assertTrue(act.module.ready)
-        self.assertEqual([s["kind"] for s in act.data["steps"]], ["link", "video", "text", "record"])
+        self.assertEqual([s["kind"] for s in act.data["steps"]], ["link", "text", "text", "record"])
+
+    def test_chopsticks_has_no_video_and_keeps_the_written_how(self):
+        # Michael, feedback T82: no video for chopsticks; the how-to lines, the practice and the record step stay.
+        html = self.page(chopsticks_item(self.user, [38, 4]), HTTP_USER_AGENT=PHONE)
+        self.assertNotIn("data-video-fallback", html)
+        self.assertNotIn("comes soon", html)
+        self.assertIn("How to hold them", html)
+        self.assertIn("Move only the top stick", html)
+        self.assertIn("Practise", html)
+        self.assertIn("data-recorder", html)
 
     def test_referral_step_only_with_a_child(self):
         family = self.page(chopsticks_item(self.user, [38, 4]), HTTP_USER_AGENT=PHONE)
@@ -60,21 +70,25 @@ class ChopsticksTests(TestCase):
         self.assertNotIn("kids-chopsticks", adults)
         self.assertNotIn("kids' chopsticks", adults)
 
+    def with_video(self, item, approved):
+        # Chopsticks has no video now (T82); the steps page still supports one, so the tests add it.
+        data = dict(item.activity.data)
+        vid = {"kind": "video", "title": "Watch how", "youtube": "CBNw5yX1M34", "approved": approved,
+               "fallback": ["Hold the top stick like a pencil."]}
+        data["steps"] = data["steps"][:1] + [vid] + data["steps"][1:]
+        item.activity.data = data
+        item.activity.save()
+        return item
+
     def test_unapproved_video_never_renders(self):
-        item = chopsticks_item(self.user, [38, 4])
-        vid = next(s for s in item.activity.data["steps"] if s["kind"] == "video")
-        self.assertFalse(vid["approved"])
+        item = self.with_video(chopsticks_item(self.user, [38, 4]), False)
         html = self.page(item, HTTP_USER_AGENT=PHONE)
-        self.assertNotIn(vid["youtube"], html)
+        self.assertNotIn("CBNw5yX1M34", html)
         self.assertNotIn("youtube", html)
         self.assertIn("data-video-fallback", html)
 
     def test_approved_video_renders_from_nocookie(self):
-        item = chopsticks_item(self.user, [38, 4])
-        data = dict(item.activity.data)
-        data["steps"] = [dict(s, approved=True) if s["kind"] == "video" else s for s in data["steps"]]
-        item.activity.data = data
-        item.activity.save()
+        item = self.with_video(chopsticks_item(self.user, [38, 4]), True)
         html = self.page(item, HTTP_USER_AGENT=PHONE)
         self.assertIn("https://www.youtube-nocookie.com/embed/CBNw5yX1M34", html)
         self.assertNotIn("data-video-fallback", html)

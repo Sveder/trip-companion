@@ -48,6 +48,10 @@
     {% endif %}
     {% endif %}
 
+    {% if step.how %}
+    <ol class="how">{% for line in step.how %}<li>{{ line }}</li>{% endfor %}</ol>
+    {% endif %}
+
     {% if step.tips %}
     <ul class="tips">{% for tip in step.tips %}<li>{{ tip }}</li>{% endfor %}</ul>
     {% endif %}

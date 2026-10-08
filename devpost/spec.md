@@ -121,7 +121,7 @@ the belt take their pictures from the activity's `pictures` list. Pictures are S
 PRD ref: `prd.md > Modules (Japan)`.
 
 ### Chopsticks activity (steps)
-Step 1 shows the children's-chopsticks referral link only if the trip has a child. Step 2 plays the approved YouTube video.
+Step 1 shows the children's-chopsticks referral link only if the trip has a child. Step 2 is "How to hold them": three written lines, no video (Michael, feedback T82).
 Step 3 is practice. Step 4 records a short clip with the phone camera in the browser (MediaRecorder) and offers "Share" through
 the phone's share sheet (Web Share API), so it can go to Instagram. On a device without a camera (the TV) step 4 says
 "do this on your phone" and still lets the family mark it done.

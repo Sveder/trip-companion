@@ -74,8 +74,8 @@ From `scope.md > The POC Boundary`:
 
 ### Chopsticks activity
 1. If the family has a child: an AliExpress referral link to buy children's chopsticks.
-2. A how-to video from YouTube. The agent proposes it; Michael approves it before it ships.
-3. Watch the video and practise with real chopsticks.
+2. How to hold them: three written lines (no video; Michael, 2026-10-08).
+3. Practise with real chopsticks.
 4. Final test: record a short video of yourself using the chopsticks, and share it (e.g. Instagram).
 - [ ] The referral step shows only when the family has a child.
 - [ ] The video plays inside the activity, also on the TV.
