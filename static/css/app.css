@@ -184,6 +184,7 @@ html.tv { font-size: 30px; }
 .tv .shade { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 40; background: rgba(31, 35, 64, .6); }
 .tv video, .tv iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
 .tv .tv-hint { text-align: center; color: var(--c-muted); font-size: .8rem; }
+.tv-debug { position: fixed; left: .5rem; bottom: .5rem; z-index: 99; max-width: 60vw; padding: .4rem .6rem; background: rgba(0, 0, 0, .8); color: #fff; font: 14px/1.35 monospace; pointer-events: none; }
 
 /* Words and quiz (slice 4) */
 .center { text-align: center; }

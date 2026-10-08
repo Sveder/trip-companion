@@ -17,6 +17,12 @@ class TvModeTests(TestCase):
         ua = "Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0 Safari/537.36 WebAppManager"
         self.assertIn('class="tv"', self.client.get("/", HTTP_USER_AGENT=ua).content.decode())
 
+    def test_lg_tv_browser_from_the_real_tv_gets_tv_mode(self):
+        # The exact User-Agent of Michael's LG 55UP7550PVG browser (webOS 6), from the server log 2026-10-08.
+        ua = ("Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.36 (KHTML, like Gecko) "
+              "Chrome/87.0.3945.79 Safari/537.36 SmartTV/10.0 Colt/2.0")
+        self.assertIn('class="tv"', self.client.get("/", HTTP_USER_AGENT=ua).content.decode())
+
     def test_phone_browser_does_not(self):
         ua = "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
         self.assertNotIn('class="tv"', self.client.get("/", HTTP_USER_AGENT=ua).content.decode())
