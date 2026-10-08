@@ -1,6 +1,9 @@
+import re
 import shutil
 import tempfile
+from pathlib import Path
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management import call_command
@@ -179,6 +182,25 @@ class StreetViewHuntTests(TestCase):
         self.assertNotIn("key=", html)
         self.assertEqual(html.count('name="found"'), 5)
         self.assertIn("A lucky cat with one paw up", html)
+
+    def test_hunt_list_and_lesson_picture_use_different_classes(self):
+        # T73: the lesson picture box once reused .spots/.spot, and its absolute
+        # positioning collapsed every row of the hunt list to height 0.
+        hunt = self.client.get(reverse("activity", args=[self.item().id])).content.decode()
+        self.assertIn('<ul class="spots">', hunt)
+        self.assertIn('class="spot"', hunt)
+        self.assertNotIn("lspot", hunt)
+        lesson_act = Activity.objects.get(module__slug="food", slug="sushi-lesson")
+        course = Course.objects.create(trip=Trip.objects.create(user=self.user, destination="japan"))
+        lesson = CourseItem.objects.create(course=course, order=0, activity=lesson_act)
+        html = self.client.get(reverse("activity", args=[lesson.id])).content.decode()
+        self.assertIn('class="lspots" data-spots', html)
+        self.assertIn('class="lspot"', html)
+        self.assertNotIn('class="spots"', html)
+        self.assertNotIn('class="spot"', html)
+        css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
+        self.assertEqual(len(re.findall(r"^\.spots \{", css, re.M)), 1)
+        self.assertEqual(len(re.findall(r"^\.spot \{", css, re.M)), 1)
 
     def done(self, item, found):
         return self.client.post(reverse("activity_done", args=[item.id]), {"found": found})

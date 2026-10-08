@@ -314,12 +314,12 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .lesson .big-tips li { margin: .35rem 0; }
 .lesson .how { text-align: start; max-width: 30em; margin: .4rem auto; font-size: 1.1rem; padding-left: 1.5rem; }
 .lesson .how li { margin: .4rem 0; }
-.spots { position: relative; max-width: 420px; margin: 0 auto; }
-.spot { position: absolute; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; background: var(--c-primary); color: var(--c-primary-ink); font: inherit; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: pulse 1.6s ease-in-out infinite; }
-.spot.seen { background: var(--c-accent); animation: none; }
-.spot.on { outline: 4px solid var(--c-sun); }
+.lspots { position: relative; max-width: 420px; margin: 0 auto; }
+.lspot { position: absolute; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; background: var(--c-primary); color: var(--c-primary-ink); font: inherit; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: pulse 1.6s ease-in-out infinite; }
+.lspot.seen { background: var(--c-accent); animation: none; }
+.lspot.on { outline: 4px solid var(--c-sun); }
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.15); } }
-.spots-count { color: var(--c-muted); font-weight: 700; margin: .3rem 0; }
+.lspots-count { color: var(--c-muted); font-weight: 700; margin: .3rem 0; }
 .spot-info { background: var(--c-bg); border-radius: var(--radius); padding: .6rem 1rem; max-width: 32em; margin: .3rem auto; font-size: 1.1rem; }
 .spot-info h3 { margin: 0 0 .2rem; }
 .spot-info p { margin: 0; }
@@ -353,7 +353,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 @media (prefers-reduced-motion: reduce) {
   .belt-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
   .belt-track [aria-hidden="true"] { display: none; }
-  .spot { animation: none; }
+  .lspot { animation: none; }
 }
 [dir="rtl"] .lesson .how, [dir="rtl"] .lesson .big-tips { padding-left: 1rem; padding-right: 2rem; }
 .lesson [hidden], .done-form[hidden] { display: none !important; }
