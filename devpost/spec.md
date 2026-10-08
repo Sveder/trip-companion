@@ -235,8 +235,10 @@ trip-companion/
 ## External Services and Dependencies
 - **Amazon SES** (existing account, eu-central-1, sender m@sveder.com) — sign-in links and reminders; `send_email` via boto3.
   Cost: cents per thousand emails. Keys in server `.env`.
-- **Google sign-in** — an OAuth client with redirect `https://trip.sveder.com/accounts/google/login/callback/`. Needs a
-  client id and secret created in Google Cloud Console. Free. Until it exists, email sign-in works alone.
+- **Google sign-in** — an OAuth client with redirect `https://trip.sveder.com/accounts/google/login/callback/`, in the
+  Google Cloud project `trip-companion-511014` on Kurt's Google account (consent screen External, in production, scopes
+  profile and email only, so no Google review). Free. `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` live in the server
+  `.env` only; with no keys the button is hidden and email sign-in works alone.
   https://docs.allauth.org/en/latest/socialaccount/providers/google.html
 - **Google Maps embed** — iframe URLs from Google Maps "Share → Embed a map", Street View included. No key, no billing.
 - **YouTube embed** — `https://www.youtube-nocookie.com/embed/<id>`. Free. Every id needs Michael's approval in the content file.
