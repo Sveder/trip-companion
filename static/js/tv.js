@@ -12,6 +12,9 @@
   // Only UP with nothing above inside the lesson may leave it, to reach the header (T104).
   function inLesson(el) { return !!(el && el.closest && (el.closest('[data-lesson]') || el.closest('.done-form'))); }
 
+  // Back on the first lesson page is visibility:hidden: it has a size, but it cannot take the focus.
+  function shown(el) { var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden'; }
+
   function targets(scope) {
     var all = document.querySelectorAll(SELECTOR), out = [];
     for (var i = 0; i < all.length; i++) {
@@ -20,8 +23,7 @@
       if (el.closest('.sv2')) continue;
       // A control inside a card belongs to the card: the card takes the focus.
       if (!el.classList.contains('card') && el.closest('.card')) continue;
-      var r = el.getBoundingClientRect();
-      if (r.width === 0 || r.height === 0) continue;
+      if (!shown(el)) continue;
       out.push(el);
     }
     return out;
@@ -107,8 +109,6 @@
     if (!k && e.key) k = { ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, Enter: 13, Escape: 27 }[e.key] || 0;
     return k;
   }
-
-  function shown(el) { var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }
 
   function current() {
     var el = document.activeElement;
