@@ -369,3 +369,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .hunt-count { font-size: 1.2rem; }
 .highlights-photos figure { margin: 0; }
 .highlights-photos figcaption { margin-top: .3rem; }
+@media (max-width: 600px) {
+  .cards.highlights-photos { grid-template-columns: 1fr 1fr; }
+  .highlights-photos figcaption { font-size: .85rem; }
+}
