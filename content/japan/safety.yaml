@@ -98,7 +98,7 @@ activities:
         text_he: זו פינת רחוב ביפן. געו בכל נקודה כדי למצוא עוזר.
         spots:
           - x: 12
-            y: 50
+            y: 64
             label: "The police box"
             label_he: "ביתן המשטרה"
             japanese: "こうばん"
