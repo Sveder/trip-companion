@@ -111,6 +111,10 @@ PRD ref: `prd.md > Modules (Japan)`.
 ### Course builder
 Reads the content library, suggests modules whose audience fits the travellers (adults-only → no `child` modules switched on,
 but they stay listed), lets the parent toggle, and on "Build" writes the course in module order.
+Inside a module, the rich lesson comes first. The short card item of that module comes after it, titled
+"<module>: quick review" in the content. With a child in the family, the kids' activities are spread through the course.
+`load_content` puts the items of courses already built in the same order, in place, so item ids and done marks stay.
+The course page shows the module name under every item.
 PRD ref: `prd.md > Trip setup and course builder`.
 
 ### Activity player

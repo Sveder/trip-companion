@@ -114,9 +114,10 @@ class NewActivityJoinsBuiltCourses(TestCase):
         course.items.update(done_at="2026-10-01T10:00Z")
         call_command("load_content", verbosity=0)
         slugs = list(CourseItem.objects.filter(course=course).values_list("activity__slug", "done_at"))
-        self.assertEqual([s for s, _ in slugs], ["food-cards", "sushi-lesson"])
-        self.assertIsNotNone(slugs[0][1])
-        self.assertIsNone(slugs[1][1])
+        # The lesson comes first in its module; the cards are its quick review.
+        self.assertEqual([s for s, _ in slugs], ["sushi-lesson", "food-cards"])
+        self.assertIsNone(slugs[0][1])
+        self.assertIsNotNone(slugs[1][1])
 
 
 class EveryLessonIsWellFormed(TestCase):

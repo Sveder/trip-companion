@@ -67,8 +67,9 @@ def add_new_activities(country, log):
     """A new activity in a module (e.g. a lesson) joins every course that has that module.
 
     The course is rebuilt from its own module list; a rebuild keeps the done marks.
+    A course with no new activity only gets the current order, in place.
     """
-    from courses.builder import build_course
+    from courses.builder import build_course, reorder_course
     from courses.models import Course
 
     for course in Course.objects.filter(trip__destination=country).select_related("trip"):
@@ -77,6 +78,9 @@ def add_new_activities(country, log):
         if want - have:
             build_course(course.trip, course.module_ids)
             log(f"course {course.id}: {len(want - have)} new activities added")
+        elif reorder_course(course):
+            # The content order changed (e.g. a lesson moved first): the items keep their ids.
+            log(f"course {course.id}: items put in the new order")
 
 
 def load_previews():

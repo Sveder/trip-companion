@@ -73,7 +73,7 @@ class HebrewContentTests(TestCase):
 
     def test_words_page_is_hebrew(self):
         html = self.client.get(reverse("activity", args=[self.item("words-intro").id])).content.decode()
-        for text in ("בואו נגיד את זה ביפנית!", "שלום", "תודה", "לחצו כדי לשמוע", "עשינו את זה!"):
+        for text in ("מילים ביפנית: חזרה קצרה", "שלום", "תודה", "לחצו כדי לשמוע", "עשינו את זה!"):
             self.assertIn(text, html)
         self.assertIn("こんにちは", html)  # the Japanese stays
         self.assertNotIn(">hello<", html)

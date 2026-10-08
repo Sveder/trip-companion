@@ -50,7 +50,7 @@ class EventTests(TestCase):
         self.assertFalse(Event.objects.filter(name__in=["module_added", "module_removed"]).exists())
 
         course = Course.objects.get()
-        first = course.items.first()
+        first = course.items.get(activity__slug="food-cards")  # the cards fill the quiz
         c.get(reverse("activity", args=[first.id]))
         self.assertOne("activity_opened", activity=first.activity_id)
         c.post(reverse("activity_done", args=[first.id]))

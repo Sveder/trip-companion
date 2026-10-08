@@ -13,9 +13,9 @@ from django.utils.html import escape
 
 from content_admin.models import Module
 from activities.models import Clip
-from courses.builder import build_course, suggestions
+from courses.builder import build_course, reorder_course, suggestions
 from courses.highlights import trip_phase
-from courses.models import Course
+from courses.models import Course, CourseItem
 from practice.models import PracticeItem
 from trips.models import Traveller, Trip
 
@@ -72,8 +72,49 @@ class BuilderTests(TestCase):
         trip = make_trip(self.user, [40, 38])
         ids = [m.id for m, _ in suggestions(trip)]  # every module, also the kids' ones
         items = list(build_course(trip, ids).items.select_related("activity__module"))
-        keys = [(i.activity.module.order, i.activity.module.slug, i.activity.order, i.activity.slug) for i in items]
+        keys = [
+            (i.activity.module.order, i.activity.module.slug, i.activity.type != "lesson", i.activity.order, i.activity.slug)
+            for i in items
+        ]
         self.assertEqual(keys, sorted(keys))
+
+    def test_lesson_comes_first_in_its_module_and_the_rest_is_a_quick_review(self):
+        for ages in ([40, 38], [40, 38, 6, 2]):
+            trip = make_trip(self.user, ages)
+            ids = [m.id for m, on in suggestions(trip) if on]
+            items = list(build_course(trip, ids).items.select_related("activity__module"))
+            self.assertEqual(items[0].activity.type, "lesson", ages)
+            seen = {}
+            for i in items:
+                seen.setdefault(i.activity.module.slug, []).append(i.activity)
+            for slug, acts in seen.items():
+                if not any(a.type == "lesson" for a in acts):
+                    continue
+                lessons = [n for n, a in enumerate(acts) if a.type == "lesson"]
+                self.assertEqual(lessons, list(range(len(lessons))), slug)
+                for a in acts[len(lessons):]:
+                    if a.type == "streetview":
+                        continue  # each hunt is its own place, not a review
+                    self.assertEqual(a.title, f"{a.module.title}: quick review", slug)
+                    self.assertEqual(a.data.get("title_he"), f"{a.module.title_he}: חזרה קצרה", slug)
+
+    def test_reorder_keeps_item_ids_and_done_marks(self):
+        trip = make_trip(self.user, [38, 4])
+        ids = [m.id for m, on in suggestions(trip) if on]
+        course = build_course(trip, ids)
+        cards = course.items.get(activity__slug="food-cards")
+        cards.mark_done()
+        # An old course: the food cards first, the sushi lesson after them.
+        lesson = course.items.get(activity__slug="sushi-lesson")
+        cards_order, lesson_order = cards.order, lesson.order
+        CourseItem.objects.filter(id=cards.id).update(order=lesson_order)
+        CourseItem.objects.filter(id=lesson.id).update(order=cards_order)
+        before = set(course.items.values_list("id", flat=True))
+        self.assertTrue(reorder_course(course))
+        self.assertFalse(reorder_course(course))
+        self.assertEqual(set(course.items.values_list("id", flat=True)), before)
+        self.assertEqual(course.items.first().activity.slug, "sushi-lesson")
+        self.assertIsNotNone(CourseItem.objects.get(id=cards.id).done_at)
 
     def test_family_course_has_a_hunt_early_and_hunts_apart(self):
         trip = make_trip(self.user, [40, 38, 4, 2])
@@ -515,6 +556,17 @@ class CoursePageTests(TestCase):
         again = self.client.get(reverse("activity", args=[food.id]))
         self.assertEqual(again.status_code, 200)
         self.assertTemplateUsed(again, f"activities/{food.activity.type}.html")
+
+    def test_every_item_shows_its_module_name_in_en_and_he(self):
+        items = list(self.course.items.select_related("activity__module"))
+        for lang, field in (("en", "title"), ("he", "title_he")):
+            self.client.post(reverse("set_language"), {"language": lang, "next": "/"})
+            html = self.client.get(reverse("course")).content.decode()
+            rows = re.findall(r"<li>(.*?)</li>", html, re.S)
+            self.assertEqual(len(rows), len(items), lang)
+            for row, item in zip(rows, items):
+                module = getattr(item.activity.module, field) or item.activity.module.title
+                self.assertIn(f"<small>{escape(module)}</small>", row, (lang, item.activity.slug))
 
     def test_no_course_yet_goes_to_the_builder(self):
         self.course.delete()

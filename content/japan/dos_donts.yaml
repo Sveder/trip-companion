@@ -8,66 +8,6 @@ audience: all
 order: 30
 ready: true
 activities:
-  # The id stays "dos_donts-intro": a new id would delete the old row and the families' course items with it.
-  - id: dos_donts-intro
-    title: Do and don't
-    title_he: מה עושים ומה לא
-    type: cards
-    intro: People in Japan are very polite. Let's learn how to be polite too!
-    intro_he: אנשים ביפן מאוד מנומסים. בואו נלמד להיות מנומסים גם!
-    cards:
-      - title: Bow
-        title_he: קידה
-        emoji: "🙇"
-        text: In Japan, people bow to say hello and thank you. Bend a little at your waist. You can bow too!
-        text_he: ביפן, אנשים קדים כדי להגיד שלום ותודה. מתכופפים קצת במותניים. גם אתם יכולים לקוד!
-        quiz: true
-        question: What do people in Japan do to say hello?
-        question_he: מה אנשים ביפן עושים כדי להגיד שלום?
-      - title: Shoes off
-        title_he: מורידים נעליים
-        emoji: "👟"
-        text: Take your shoes off before you walk into a home. Do it in some hotels and temples too. Look for a step and a row of shoes at the door.
-        text_he: מורידים נעליים לפני שנכנסים לבית. עושים את זה גם בחלק מהמלונות והמקדשים. חפשו מדרגה ושורה של נעליים ליד הדלת.
-        quiz: true
-        question: What do you take off before you go into a home in Japan?
-        question_he: מה מורידים לפני שנכנסים לבית ביפן?
-      - title: Quiet on the train
-        title_he: שקט ברכבת
-        emoji: "🤫"
-        text: On a train, people talk softly. Grown-ups do not talk on the phone on the train.
-        text_he: ברכבת, אנשים מדברים בשקט. מבוגרים לא מדברים בטלפון ברכבת.
-        quiz: true
-        question: How do people talk on a train in Japan?
-        question_he: איך אנשים מדברים ברכבת ביפן?
-      - title: Take your trash with you
-        title_he: לוקחים את הזבל איתנו
-        emoji: "🗑️"
-        text: There are not many trash bins in the street. Keep a small bag for your trash, and throw it away later.
-        text_he: אין הרבה פחי זבל ברחוב. תשמרו שקית קטנה לזבל, ותזרקו אותו אחר כך.
-        quiz: true
-        question: There are not many bins in the street. What do you do with your trash?
-        question_he: אין הרבה פחים ברחוב. מה עושים עם הזבל?
-      - title: Wait in line
-        title_he: מחכים בתור
-        emoji: "🧍"
-        text: People wait in a neat line for the train and the bus. Look for the marks on the floor and stand behind them.
-        text_he: אנשים מחכים בתור מסודר לרכבת ולאוטובוס. חפשו את הסימונים על הרצפה ועמדו מאחוריהם.
-      - title: Eat at the table
-        title_he: אוכלים במקום
-        emoji: "🍡"
-        text: Many people in Japan do not eat while they walk. Stop, eat your snack, then walk on.
-        text_he: הרבה אנשים ביפן לא אוכלים בזמן שהם הולכים. עוצרים, אוכלים את החטיף, ואז ממשיכים ללכת.
-      - title: No tips
-        title_he: בלי טיפים
-        emoji: "💴"
-        text: For grown-ups. In Japan you do not leave a tip. A tip can make the staff feel strange. Just say thank you.
-        text_he: למבוגרים. ביפן לא משאירים טיפ. טיפ יכול להביך את העובדים. פשוט אומרים תודה.
-      - title: Wash before the bath
-        title_he: מתקלחים לפני האמבטיה
-        emoji: "♨️"
-        text: In a hot spring bath (onsen), you wash your whole body first, at the little showers. Then you get into the hot water.
-        text_he: באמבטיה של מעיין חם (אונסן), קודם רוחצים את כל הגוף במקלחות הקטנות. אחר כך נכנסים למים החמים.
   - id: manners-lesson
     title: Polite like a kid in Japan
     title_he: מנומסים כמו ילדים ביפן
@@ -523,3 +463,63 @@ activities:
                 title_he: "אמבטיית מעיין חם"
                 text: "Wash first, towel on the head, and say \"ahhh\"."
                 text_he: "קודם רוחצים, המגבת על הראש, ואומרים \"אהה\"."
+  # The id stays "dos_donts-intro": a new id would delete the old row and the families' course items with it.
+  - id: dos_donts-intro
+    title: "Do and don't: quick review"
+    title_he: "מה עושים ומה לא: חזרה קצרה"
+    type: cards
+    intro: People in Japan are very polite. Let's learn how to be polite too!
+    intro_he: אנשים ביפן מאוד מנומסים. בואו נלמד להיות מנומסים גם!
+    cards:
+      - title: Bow
+        title_he: קידה
+        emoji: "🙇"
+        text: In Japan, people bow to say hello and thank you. Bend a little at your waist. You can bow too!
+        text_he: ביפן, אנשים קדים כדי להגיד שלום ותודה. מתכופפים קצת במותניים. גם אתם יכולים לקוד!
+        quiz: true
+        question: What do people in Japan do to say hello?
+        question_he: מה אנשים ביפן עושים כדי להגיד שלום?
+      - title: Shoes off
+        title_he: מורידים נעליים
+        emoji: "👟"
+        text: Take your shoes off before you walk into a home. Do it in some hotels and temples too. Look for a step and a row of shoes at the door.
+        text_he: מורידים נעליים לפני שנכנסים לבית. עושים את זה גם בחלק מהמלונות והמקדשים. חפשו מדרגה ושורה של נעליים ליד הדלת.
+        quiz: true
+        question: What do you take off before you go into a home in Japan?
+        question_he: מה מורידים לפני שנכנסים לבית ביפן?
+      - title: Quiet on the train
+        title_he: שקט ברכבת
+        emoji: "🤫"
+        text: On a train, people talk softly. Grown-ups do not talk on the phone on the train.
+        text_he: ברכבת, אנשים מדברים בשקט. מבוגרים לא מדברים בטלפון ברכבת.
+        quiz: true
+        question: How do people talk on a train in Japan?
+        question_he: איך אנשים מדברים ברכבת ביפן?
+      - title: Take your trash with you
+        title_he: לוקחים את הזבל איתנו
+        emoji: "🗑️"
+        text: There are not many trash bins in the street. Keep a small bag for your trash, and throw it away later.
+        text_he: אין הרבה פחי זבל ברחוב. תשמרו שקית קטנה לזבל, ותזרקו אותו אחר כך.
+        quiz: true
+        question: There are not many bins in the street. What do you do with your trash?
+        question_he: אין הרבה פחים ברחוב. מה עושים עם הזבל?
+      - title: Wait in line
+        title_he: מחכים בתור
+        emoji: "🧍"
+        text: People wait in a neat line for the train and the bus. Look for the marks on the floor and stand behind them.
+        text_he: אנשים מחכים בתור מסודר לרכבת ולאוטובוס. חפשו את הסימונים על הרצפה ועמדו מאחוריהם.
+      - title: Eat at the table
+        title_he: אוכלים במקום
+        emoji: "🍡"
+        text: Many people in Japan do not eat while they walk. Stop, eat your snack, then walk on.
+        text_he: הרבה אנשים ביפן לא אוכלים בזמן שהם הולכים. עוצרים, אוכלים את החטיף, ואז ממשיכים ללכת.
+      - title: No tips
+        title_he: בלי טיפים
+        emoji: "💴"
+        text: For grown-ups. In Japan you do not leave a tip. A tip can make the staff feel strange. Just say thank you.
+        text_he: למבוגרים. ביפן לא משאירים טיפ. טיפ יכול להביך את העובדים. פשוט אומרים תודה.
+      - title: Wash before the bath
+        title_he: מתקלחים לפני האמבטיה
+        emoji: "♨️"
+        text: In a hot spring bath (onsen), you wash your whole body first, at the little showers. Then you get into the hot water.
+        text_he: באמבטיה של מעיין חם (אונסן), קודם רוחצים את כל הגוף במקלחות הקטנות. אחר כך נכנסים למים החמים.
