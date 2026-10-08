@@ -571,3 +571,24 @@ class CoursePageTests(TestCase):
     def test_no_course_yet_goes_to_the_builder(self):
         self.course.delete()
         self.assertRedirects(self.client.get(reverse("course")), reverse("builder"))
+
+
+class JapanFlagTests(TestCase):
+    """Feedback T86: the Japan card shows a drawn Hinomaru (white field, red disc #bc002d), not the flag emoji."""
+
+    def test_svg_is_a_hinomaru(self):
+        from django.conf import settings
+        svg = (settings.BASE_DIR / "static" / "img" / "flags" / "japan.svg").read_text()
+        self.assertIn('viewBox="0 0 900 600"', svg)  # 2:3
+        self.assertIn('fill="#ffffff"', svg)
+        self.assertIn('<circle cx="450" cy="300" r="180" fill="#bc002d"/>', svg)  # disc is 3/5 of the height, centred
+
+    def test_welcome_and_setup_use_the_svg(self):
+        page = self.client.get(reverse("home")).content.decode()
+        self.assertIn("img/flags/japan.svg", page)
+        self.assertNotIn("🇯🇵", page)
+        user = get_user_model().objects.create_user("flag@example.com", "flag@example.com", "x")
+        self.client.force_login(user)
+        page = self.client.get(reverse("trip_setup")).content.decode()
+        self.assertIn("img/flags/japan.svg", page)
+        self.assertNotIn("🇯🇵", page)

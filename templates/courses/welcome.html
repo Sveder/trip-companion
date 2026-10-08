@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block content %}
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide says hi") %}
@@ -12,14 +12,14 @@
   {% for c in previews %}
   {% if c.ready %}
   <a class="card country go" href="{% url 'signin' %}">
-    <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
+    <div class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>
     <span class="card-go">{% translate "Let's go!" %} <span class="arrow">&rarr;</span></span>
   </a>
   {% else %}
   <div class="card country soon">
-    <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
+    <div class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>
     <span class="badge">{% translate "Coming soon" %}</span>
