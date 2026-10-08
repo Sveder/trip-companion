@@ -37,6 +37,8 @@
     document.addEventListener('keydown', function (e) {
       var rtl = document.documentElement.dir === 'rtl';
       if (e.target.closest && e.target.closest('input, textarea')) return;
+      // On the TV the arrow keys move the focus ring (tv.js marks them handled); OK on Next turns the page (T104).
+      if (e.defaultPrevented || document.documentElement.classList.contains('tv')) return;
       if (e.key === 'ArrowRight') show(at + (rtl ? -1 : 1), false);
       if (e.key === 'ArrowLeft') show(at + (rtl ? 1 : -1), false);
     });
@@ -68,7 +70,7 @@
       sides[x < 50 ? 'l' : 'r'].push({ b: btns[i], x: x * w / 100, y: y * h / 100, side: x < 50 ? 'l' : 'r' });
     }
     // A side with more numbers than fit beside the picture gives the one nearest the middle to the other side.
-    var GAP = 37, fits = Math.floor((h + 24) / GAP) || 1;
+    var GAP = Math.max(37, btns.length ? btns[0].offsetHeight + 2 : 0), fits = Math.floor((h + 24) / GAP) || 1;
     function mid(a, b) { return Math.abs(a.x - w / 2) - Math.abs(b.x - w / 2); }
     ['l', 'r'].forEach(function (k) {
       var other = k === 'l' ? 'r' : 'l';

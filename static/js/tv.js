@@ -8,10 +8,15 @@
   var DIRS = { 37: 'left', 38: 'up', 39: 'right', 40: 'down' };
   var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card, .spot';
 
-  function targets() {
+  // In a lesson the arrows stay inside the lesson (its dots, cards, Back and Next) and the "We did it!" form.
+  // Only UP with nothing above inside the lesson may leave it, to reach the header (T104).
+  function inLesson(el) { return !!(el && el.closest && (el.closest('[data-lesson]') || el.closest('.done-form'))); }
+
+  function targets(scope) {
     var all = document.querySelectorAll(SELECTOR), out = [];
     for (var i = 0; i < all.length; i++) {
       var el = all[i];
+      if (scope && !inLesson(el)) continue;
       if (el.closest('.sv2')) continue;
       // A control inside a card belongs to the card: the card takes the focus.
       if (!el.classList.contains('card') && el.closest('.card')) continue;
@@ -32,9 +37,10 @@
   function centre(r) { return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }
 
   // Pick the nearest target in the pressed direction; sideways distance costs more.
-  function next(from, dir) {
+  function next(from, dir, free) {
+    var scoped = !free && inLesson(from);
     var a = from.getBoundingClientRect(), ca = centre(a), best = null, bestScore = Infinity;
-    var list = targets();
+    var list = targets(scoped);
     for (var i = 0; i < list.length; i++) {
       var el = list[i];
       if (el === from) continue;
@@ -47,6 +53,7 @@
       var score = main + side * 3;
       if (score < bestScore) { bestScore = score; best = el; }
     }
+    if (!best && scoped && dir === 'up') return next(from, dir, true);
     return best;
   }
 
@@ -57,7 +64,8 @@
 
   function first() {
     var main = document.querySelector('main');
-    var pick = main && (main.querySelector('.card') || main.querySelector('.btn, a[href], button, input'));
+    var pick = document.querySelector('[data-lesson]') ? targets(true)[0] : null;
+    pick = pick || (main && (main.querySelector('.card') || main.querySelector('.btn, a[href], button, input')));
     if (pick) focus(pick);
   }
 

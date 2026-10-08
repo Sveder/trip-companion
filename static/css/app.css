@@ -343,9 +343,13 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .lspots-pic { position: relative; }
 /* With JavaScript the numbers move to the sides of the picture, and a thin line leads to a small ring on the thing (T103). */
 .lspots.edge { max-width: 500px; padding: 18px 40px; }
-.lspot { position: absolute; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; background: var(--c-primary); color: var(--c-primary-ink); font: inherit; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: pulse 1.6s ease-in-out infinite; }
+.lspot { position: absolute; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 50%; border: 3px solid #fff; background: var(--c-primary); color: var(--c-primary-ink); font: inherit; font-size: 18px; line-height: 1; padding: 0; font-weight: 900; cursor: pointer; box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: pulse 1.6s ease-in-out infinite; }
 .lspot.seen { background: var(--c-accent); animation: none; }
 .lspot.on { outline: 4px solid var(--c-sun); }
+/* TV: the page font is 30px, so the badge gets its own size; the digit must fit inside the circle (T104). */
+.tv .lspots.edge { padding: 24px 48px; }
+.tv .lspot { width: 42px; height: 42px; font-size: 24px; }
+.tv .lspot:focus { outline: 6px solid var(--c-sun); outline-offset: 2px; }
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.15); } }
 .lspot-dot { display: none; }
 .edge .lspot-dot { display: block; position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--c-primary); cursor: pointer; }
