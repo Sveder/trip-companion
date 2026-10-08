@@ -356,3 +356,16 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 }
 [dir="rtl"] .lesson .how, [dir="rtl"] .lesson .big-tips { padding-left: 1rem; padding-right: 2rem; }
 .lesson [hidden], .done-form[hidden] { display: none !important; }
+
+/* 'While we are there' photo hunt (T52). */
+.there-thing.found { border-color: var(--c-accent); }
+.there-tick { color: var(--c-accent); font-weight: 900; }
+.there-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: .4rem; margin: .5rem 0; }
+.there-photos figure { margin: 0; text-align: center; }
+.there-photos img, .highlights-photos img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; display: block; }
+.there-photos .link.small { font-size: .85rem; }
+.there-add { margin-top: .5rem; }
+.there-add label.btn { cursor: pointer; }
+.hunt-count { font-size: 1.2rem; }
+.highlights-photos figure { margin: 0; }
+.highlights-photos figcaption { margin-top: .3rem; }

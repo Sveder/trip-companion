@@ -33,6 +33,7 @@
     <nav class="top-nav">
       <a href="{% url 'course' %}">{% translate "Our course" %}</a>
       <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>
+      <a href="{% url 'there' %}">{% translate "In Japan" %}</a>
       <a href="{% url 'trip_setup' %}">{% translate "Our trip" %}</a>
       <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>
     </nav>

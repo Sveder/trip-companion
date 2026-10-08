@@ -1,0 +1,48 @@
+"""The 'While we are there' photo hunt: things a family looks for in Japan and takes a photo of.
+
+Every entry has a Hebrew twin (``_he``) for ``title`` and ``hint``. ``localize`` picks the language.
+"""
+THINGS = [
+    {"key": "manhole", "emoji": "🎨",
+     "title": "A pretty manhole cover", "title_he": "מכסה ביוב יפה",
+     "hint": "Look down! Many towns in Japan paint pictures on the round covers in the street.",
+     "hint_he": "הסתכלו למטה! בהרבה ערים ביפן מציירים תמונות על המכסים העגולים ברחוב."},
+    {"key": "pikachu", "emoji": "⚡",
+     "title": "Pikachu", "title_he": "פיקאצ'ו",
+     "hint": "Pikachu is on shops, toys, snacks and even some trains. Who sees him first?",
+     "hint_he": "פיקאצ'ו נמצא על חנויות, צעצועים, חטיפים ואפילו על כמה רכבות. מי רואה אותו ראשון?"},
+    {"key": "vending", "emoji": "🥤",
+     "title": "A vending machine", "title_he": "מכונה לממכר משקאות",
+     "hint": "Japan has lots of drink machines, on almost every street. Find a funny one!",
+     "hint_he": "ביפן יש המון מכונות שתייה, כמעט בכל רחוב. מצאו אחת מצחיקה!"},
+    {"key": "torii", "emoji": "⛩️",
+     "title": "A red torii gate", "title_he": "שער טוריי אדום",
+     "hint": "A torii is the big gate in front of a shrine. Walk through it on the side.",
+     "hint_he": "טוריי הוא השער הגדול שלפני מקדש. עוברים דרכו בצד."},
+    {"key": "lucky_cat", "emoji": "🐱",
+     "title": "A lucky cat", "title_he": "חתול מזל",
+     "hint": "The lucky cat waves one paw. Look in shop and restaurant windows.",
+     "hint_he": "חתול המזל מנופף בכף אחת. חפשו בחלונות של חנויות ומסעדות."},
+    {"key": "gacha", "emoji": "🎁",
+     "title": "Capsule toy machines", "title_he": "מכונות צעצועים בכדור",
+     "hint": "Turn the handle and a toy comes out in a ball. Some shops have a hundred of them!",
+     "hint_he": "מסובבים את הידית, ויוצא צעצוע בתוך כדור. בחלק מהחנויות יש מאה מכונות כאלה!"},
+    {"key": "shinkansen", "emoji": "🚄",
+     "title": "A bullet train", "title_he": "רכבת קליע",
+     "hint": "The Shinkansen has a long nose and goes very fast. Take a photo at the station.",
+     "hint_he": "לשינקנסן יש אף ארוך והוא נוסע מהר מאוד. צלמו אותו בתחנה."},
+    {"key": "konbini", "emoji": "🏪",
+     "title": "A convenience store", "title_he": "חנות נוחות",
+     "hint": "A konbini is open day and night. Find one and say 'konnichiwa' at the door!",
+     "hint_he": "קונביני פתוחה יום ולילה. מצאו אחת ותגידו 'קוניצ'יווה' בכניסה!"},
+    {"key": "koban", "emoji": "👮",
+     "title": "A tiny police box", "title_he": "תחנת משטרה קטנטנה",
+     "hint": "A koban is a small police house on the corner. The police there help people find the way.",
+     "hint_he": "קובאן הוא בית משטרה קטן בפינת הרחוב. השוטרים שם עוזרים לאנשים למצוא את הדרך."},
+    {"key": "own", "emoji": "🌟",
+     "title": "Our own find", "title_he": "המציאה שלנו",
+     "hint": "Something you like that is not on this list. What made you smile?",
+     "hint_he": "משהו שאתם אוהבים ושלא נמצא ברשימה. מה גרם לכם לחייך?"},
+]
+
+KEYS = {t["key"] for t in THINGS}

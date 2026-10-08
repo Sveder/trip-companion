@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "practice",
     "reminders",
     "analytics",
+    "there",
 ]
 
 MIDDLEWARE = [
@@ -101,6 +102,8 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 CLIP_ROOT = Path(os.environ.get("TRIP_CLIP_ROOT", BASE_DIR / "private" / "clips"))
 CLIP_MAX_BYTES = 40 * 1024 * 1024
+# A phone photo. The page shrinks it in the browser first; this limit is for a browser that cannot.
+PHOTO_MAX_BYTES = 25 * 1024 * 1024
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

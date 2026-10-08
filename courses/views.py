@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from analytics.models import track
@@ -24,6 +25,10 @@ def home(request):
     phase = trip_phase(trip)
     if phase == "after":
         return _highlights_page(request, trip, course)
+    if phase == "during" and request.session.get("there_seen") != str(timezone.localdate()):
+        # In Japan, the first visit of the day opens the photo hunt. "Our course" is one tap away.
+        request.session["there_seen"] = str(timezone.localdate())
+        return redirect("there")
     if course is None:
         return redirect("builder")
     item = course.next_item()

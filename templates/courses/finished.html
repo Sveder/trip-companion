@@ -7,11 +7,12 @@
   {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
   <h1>{% translate "You did every activity!" %}</h1>
   {% if phase == "during" %}
-  <p class="lead">{% translate "You are in Japan now! Play the quiz to keep your words fresh." %}</p>
+  <p class="lead">{% translate "You are in Japan now! Look for the things on the photo list, and play the quiz to keep your words fresh." %}</p>
   {% else %}
   <p class="lead">{% translate "Great job. You are ready for Japan. Play the quiz every day until the trip!" %}</p>
   {% endif %}
   {% if more_soon %}<p>{% translate "More activities come soon. We will tell you when they are ready!" %}</p>{% endif %}
+  {% if phase == "during" %}<a class="btn big alt" href="{% url 'there' %}">📸 {% translate "While we are there" %}</a>{% endif %}
   <button class="btn big alt" type="button" data-celebrate-again>{% translate "Party again!" %} 🎉</button>
   <a class="btn big" href="{% url 'quiz' %}?new=1">{% translate "Take the quiz" %} ⭐</a>
   <a class="btn big" href="{% url 'course' %}">{% translate "Our course" %}</a>

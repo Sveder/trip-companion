@@ -1,10 +1,12 @@
-"""What a family did, shown after the trip: activities done, saved clips, words learned."""
+"""What a family did, shown after the trip: activities done, saved clips, photos from the trip, words learned."""
 from django.utils import timezone
 
 from activities.models import Clip
 from content_admin.i18n import localize
 from practice.items import lookup
 from practice.models import PracticeItem
+from there.models import Photo
+from there.things import THINGS
 
 
 def trip_phase(trip, today=None):
@@ -32,4 +34,6 @@ def highlights(trip, course):
         if activity is None or entry is None or activity.type != "words":
             continue
         words.append({"entry": localize(entry), "known": p.box >= 2})
-    return {"done": done, "clips": clips, "words": words}
+    titles = {t["key"]: localize(t)["title"] for t in THINGS}
+    photos = [{"photo": p, "title": titles.get(p.thing, "")} for p in Photo.objects.filter(trip=trip)]
+    return {"done": done, "clips": clips, "photos": photos, "words": words}

@@ -13,6 +13,20 @@
   {% endif %}
 </section>
 
+{% if photos %}
+<h2 class="section-title">📸 {% translate "What we found in Japan" %}</h2>
+<div class="cards highlights-photos">
+  {% for p in photos %}
+  <figure class="card">
+    <a href="{% url 'photo' p.photo.id %}" target="_blank"><img src="{% url 'photo' p.photo.id %}" alt="{{ p.title }}" loading="lazy"></a>
+    <figcaption class="hint">{{ p.title }} · {{ p.photo.created_at|date:"j M" }}</figcaption>
+  </figure>
+  {% endfor %}
+</div>
+{% elif phase == "during" %}
+<p class="center"><a class="btn big alt" href="{% url 'there' %}">📸 {% translate "While we are there" %}</a></p>
+{% endif %}
+
 <h2 class="section-title">⭐ {% translate "What we did" %}</h2>
 {% if done %}
 <div class="cards compact highlights-done">

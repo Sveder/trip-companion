@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% translate "While we are there" %}{% endblock %}
+{% block content %}
+<section class="hero">
+  {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide waves hello") %}
+  <h1>{% translate "While we are there" %}</h1>
+  <p class="lead">{% translate "Look for these things in Japan. When you see one, take a photo!" %}</p>
+  {% if phase == "before" %}<p class="hint">{% translate "This list is for the trip. Open it in Japan, on your phone." %}</p>{% endif %}
+  <p class="hunt-count"><strong>{% blocktranslate %}{{ found }} of {{ total }} found{% endblocktranslate %}</strong></p>
+</section>
+
+<div class="cards there-list">
+  {% for t in things %}
+  <article class="card there-thing{% if t.photos %} found{% endif %}" id="{{ t.key }}">
+    <span class="card-emoji" aria-hidden="true">{{ t.emoji }}</span>
+    <h3>{{ t.title }}{% if t.photos %} <span class="there-tick" aria-label="{% translate 'Found' %}">✓</span>{% endif %}</h3>
+    <p class="hint">{{ t.hint }}</p>
+    {% if t.photos %}
+    <div class="there-photos">
+      {% for p in t.photos %}
+      <figure>
+        <a href="{% url 'photo' p.id %}" target="_blank"><img src="{% url 'photo' p.id %}" alt="{{ t.title }}" loading="lazy"></a>
+        <form method="post" action="{% url 'photo_delete' p.id %}" data-confirm="{% translate 'Remove this photo?' %}">{% csrf_token %}<button class="link small">{% translate "Remove" %}</button></form>
+      </figure>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <form class="there-add" method="post" action="{% url 'there_add' t.key %}" enctype="multipart/form-data">{% csrf_token %}
+      <label class="btn{% if t.photos %} alt{% endif %}">
+        📸 {% if t.photos %}{% translate "Add one more" %}{% else %}{% translate "Take a photo" %}{% endif %}
+        <input type="file" name="photo" accept="image/*" required hidden>
+      </label>
+      <noscript><button class="btn alt">{% translate "Save" %}</button></noscript>
+      <span class="there-busy hint" hidden>{% translate "Saving…" %}</span>
+    </form>
+  </article>
+  {% endfor %}
+</div>
+
+<section class="hero">
+  <p class="hint">{% translate "Only your family sees these photos. After the trip they wait for you in your highlights." %}</p>
+  <a class="btn big" href="{% url 'highlights' %}">{% translate "Our highlights" %} ⭐</a>
+  <a class="btn big alt" href="{% url 'course' %}">{% translate "Our course" %}</a>
+</section>
+<script src="{% static 'js/there.js' %}" defer></script>
+{% endblock %}

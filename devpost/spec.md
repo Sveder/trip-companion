@@ -146,8 +146,18 @@ PRD ref: `prd.md > Reminders`.
 
 ### Highlights (after the trip)
 After the trip end date, home shows highlights: the activities the family completed and their own chopsticks clips that they
-chose to save, plus a "words we learned" list. Confirmed by Michael: no photo upload in the POC.
+chose to save, plus a "words we learned" list. The photos from "While we are there" come first (T52 replaced the old
+"no photo upload in the POC" decision).
 PRD ref: `prd.md > After the trip`.
+
+### While we are there (photo hunt, app `there`)
+`/there/` lists the things in `there/things.py` (English and `_he` twins). Each thing has a "Take a photo" button: a file
+input with `accept="image/*"`, which on a phone offers the camera. `static/js/there.js` sends the photo at once, made smaller
+in the browser (1600 px JPEG) when the browser can read it; else it sends the original (HEIC included). The server takes
+JPEG, PNG, WebP, GIF, HEIC and HEIF up to 25 MB. Photos are private, like the clips: stored under `CLIP_ROOT/photos/<trip>/`,
+served only to the family by `/photos/<id>/`, and the family can remove one. In the trip dates, the first home visit of
+the day opens `/there/`. A header link "In Japan" opens it at any time.
+PRD ref: `prd.md > While we are there`.
 
 ### Super-user admin
 Michael's account is a Django superuser. The admin lists modules and activities (text, images, video ids and their approval
@@ -185,6 +195,7 @@ All in SQLite on the server; it survives restarts and returns.
 - `CourseItem` — course, order, module id, activity id, done_at (null until done).
 - `PracticeItem` — trip, item key (module/activity/item), box (1–5), due_on, last_result.
 - `Clip` — trip, file (chopsticks recording the family saved), created_at. Stored under `media/` on the server.
+- `Photo` — trip, thing (key from `there/things.py`), file, content_type, size, created_at. Private, under `CLIP_ROOT/photos/`.
 - `ReminderLog` — trip, sent_at.
 - `Module`, `Activity` — the content, loaded from `content/` and edited in the admin (activity data as JSON).
 - `Event` — user (nullable), trip (nullable), name, data (JSON), created_at — the analytics.

@@ -96,8 +96,13 @@ From `scope.md > The POC Boundary`:
 ### Reminders
 - [ ] A reminder a few times a week (about every two days), not daily, invites the family to the next activity.
 
+### While we are there (Michael's feedback T52, 2026-10-08)
+- [ ] During the trip, a photo hunt: a list of things to find in Japan (pretty manhole covers, Pikachu, a vending machine, a torii gate, a lucky cat, capsule toys, a bullet train, a convenience store, a police box, and "our own find"). A photo of a thing ticks it off.
+- [ ] Only the family sees its photos. The photos feed the after-trip highlights.
+- [ ] In Japan, the first home visit of the day opens the photo hunt. The course stays one tap away.
+
 ### After the trip
-- [ ] After the trip dates, the app shows trip highlights.
+- [ ] After the trip dates, the app shows trip highlights, with the photos from the hunt first.
 
 ### Super user and analytics (added by Michael, 2026-10-07, after approval)
 - [ ] Michael can sign in as super user and edit any module's content (text, videos, Street View, links); the site shows the change.

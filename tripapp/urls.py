@@ -16,4 +16,5 @@ urlpatterns = [
     path("", include("practice.urls")),
     path("", include("reminders.urls")),
     path("", include("analytics.urls")),
+    path("", include("there.urls")),
 ]

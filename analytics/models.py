@@ -15,6 +15,8 @@ NAMES = {
     "quiz_answer": "Quiz answer",
     "video_play": "Video played",
     "clip_saved": "Clip saved",
+    "hunt_opened": "Photo hunt opened",
+    "photo_saved": "Photo saved",
     "referral_click": "Shop link clicked",
     "reminder_click": "Reminder email opened",
 }
