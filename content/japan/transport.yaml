@@ -8,10 +8,455 @@ audience: adult
 order: 50
 ready: true
 activities:
+  - id: transport-lesson
+    title: Ride like a local
+    title_he: נוסעים כמו מקומיים
+    type: lesson
+    intro: Swipe through the pages. Tap the pictures, play the games, and plan your first ride together!
+    intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ותכננו יחד את הנסיעה הראשונה!
+    pictures:
+      - id: "ic"
+        img: "lesson/transport/ic.svg"
+        label: "IC card"
+        label_he: "כרטיס IC"
+      - id: "welcome"
+        img: "lesson/transport/welcome.svg"
+        label: "Welcome Suica"
+        label_he: "וולקם סואיקה"
+      - id: "phone"
+        img: "lesson/transport/phone.svg"
+        label: "A phone"
+        label_he: "טלפון"
+      - id: "gate"
+        img: "lesson/transport/gate.svg"
+        label: "Ticket gate"
+        label_he: "שער הכרטיסים"
+      - id: "machine"
+        img: "lesson/transport/machine.svg"
+        label: "Ticket machine"
+        label_he: "מכונת כרטיסים"
+      - id: "free"
+        img: "lesson/transport/free.svg"
+        label: "Free"
+        label_he: "בחינם"
+      - id: "half"
+        img: "lesson/transport/half.svg"
+        label: "Half fare"
+        label_he: "חצי מחיר"
+      - id: "adult"
+        img: "lesson/transport/adult.svg"
+        label: "Adult fare"
+        label_he: "מחיר מלא"
+      - id: "local"
+        img: "lesson/transport/local.svg"
+        label: "Local train"
+        label_he: "רכבת מאספת"
+      - id: "rapid"
+        img: "lesson/transport/rapid.svg"
+        label: "Rapid train"
+        label_he: "רכבת מהירה"
+      - id: "ltd"
+        img: "lesson/transport/ltd.svg"
+        label: "Limited express"
+        label_he: "אקספרס"
+      - id: "shinkansen"
+        img: "lesson/transport/shinkansen.svg"
+        label: "Shinkansen"
+        label_he: "שינקנסן"
+      - id: "bus"
+        img: "lesson/transport/bus.svg"
+        label: "Bus"
+        label_he: "אוטובוס"
+      - id: "taxi"
+        img: "lesson/transport/taxi.svg"
+        label: "Taxi"
+        label_he: "מונית"
+      - id: "truck"
+        img: "lesson/transport/truck.svg"
+        label: "Bag delivery truck"
+        label_he: "משאית המזוודות"
+      - id: "suitcase"
+        img: "lesson/transport/suitcase.svg"
+        label: "Suitcase"
+        label_he: "מזוודה"
+      - id: "stroller"
+        img: "lesson/transport/stroller.svg"
+        label: "Stroller"
+        label_he: "עגלה"
+    pages:
+      - kind: text
+        title: Trains go everywhere
+        title_he: רכבות מגיעות לכל מקום
+        img: lesson/transport/trains.svg
+        japanese: 電車
+        reading: densha
+        text: In Japan, most families travel by train. The trains are clean, and they leave on time, to the minute. Let's learn how to ride them!
+        text_he: ביפן, רוב המשפחות נוסעות ברכבת. הרכבות נקיות, והן יוצאות בזמן, בדיוק בדקה. בואו נלמד איך נוסעים בהן!
+        tips:
+          - One card pays for the train, the bus and many shops.
+          - Children under 6 ride for free with a paying grown-up.
+          - The fast Shinkansen goes between the big cities.
+          - Google Maps shows the trains, the platforms and the times.
+        tips_he:
+          - כרטיס אחד משלם על הרכבת, על האוטובוס ועל הרבה חנויות.
+          - ילדים מתחת לגיל 6 נוסעים בחינם עם מבוגר שמשלם.
+          - השינקנסן המהיר נוסע בין הערים הגדולות.
+          - גוגל מפות מראה את הרכבות, את הרציפים ואת השעות.
+      - kind: spots
+        title: In the station
+        title_he: בתחנה
+        img: lesson/transport/station.svg
+        text: This is a station hall. Tap each dot to see what is there.
+        text_he: זה האולם של תחנת רכבת. געו בכל נקודה כדי לראות מה יש שם.
+        spots:
+          - x: 17
+            y: 25
+            label: "The fare map"
+            label_he: "מפת המחירים"
+            text: "A map of the lines over the ticket machines. Each station has a price next to it. With an IC card you do not need it: the gate takes the right fare."
+            text_he: "מפה של הקווים מעל מכונות הכרטיסים. ליד כל תחנה יש מחיר. עם כרטיס IC לא צריך אותה: השער מוריד את המחיר הנכון."
+          - x: 12
+            y: 57
+            label: "The ticket machine"
+            label_he: "מכונת הכרטיסים"
+            text: "Press the English button on the screen. Here you buy a paper ticket or add money to an IC card. Many machines take cash only."
+            text_he: "לוחצים על הכפתור English במסך. כאן קונים כרטיס נייר או מטעינים כסף בכרטיס IC. הרבה מכונות מקבלות רק מזומן."
+          - x: 46
+            y: 50
+            label: "The staff window"
+            label_he: "חלון הקופה"
+            japanese: "みどりのまどぐち"
+            reading: "midori no madoguchi"
+            text: "At JR stations, the ticket office is called the green window. People there sell Shinkansen tickets and help in simple English."
+            text_he: "בתחנות של JR, קופת הכרטיסים נקראת החלון הירוק. העובדים שם מוכרים כרטיסים לשינקנסן ועוזרים באנגלית פשוטה."
+          - x: 64
+            y: 51
+            label: "The ticket gate"
+            label_he: "שער הכרטיסים"
+            japanese: "かいさつ"
+            reading: "kaisatsu"
+            text: "Tap the IC card on the blue reader, then walk through. Tap it again at the gate where you get out. Children love to tap their own card!"
+            text_he: "מצמידים את כרטיס ה-IC לקורא הכחול, ועוברים. מצמידים שוב בשער שבו יוצאים. ילדים אוהבים להצמיד את הכרטיס שלהם!"
+          - x: 85
+            y: 20
+            label: "The platform number"
+            label_he: "מספר הרציף"
+            japanese: "ばんせん"
+            reading: "bansen"
+            text: "Every platform has a number, like 3 bansen. Google Maps tells you the number. Follow the signs with that number."
+            text_he: "לכל רציף יש מספר, כמו 3 באנסן. גוגל מפות אומר לכם את המספר. הולכים לפי השלטים עם המספר הזה."
+          - x: 79
+            y: 90
+            label: "The yellow line"
+            label_he: "הקו הצהוב"
+            text: "On the platform, stand behind the yellow bumpy line until the train stops."
+            text_he: "על הרציף עומדים מאחורי הקו הצהוב עם הבליטות, עד שהרכבת עוצרת."
+      - kind: flip
+        title: The magic card
+        title_he: הכרטיס הקסום
+        text: Tap a card to turn it.
+        text_he: געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/transport/ic.svg"
+            label: "Suica and PASMO"
+            label_he: "סואיקה ופאסמו"
+            text: "Two names, one job. Tap the card at the gate and on the bus. Add money at the machine in any station."
+            text_he: "שני שמות, אותה עבודה. מצמידים את הכרטיס בשער ובאוטובוס. מטעינים כסף במכונה בכל תחנה."
+          - img: "lesson/transport/welcome.svg"
+            label: "Welcome Suica"
+            label_he: "וולקם סואיקה"
+            text: "A card for visitors. It works for 28 days. Buy it at the Narita or Haneda airport station. In Osaka the same kind of card is called ICOCA."
+            text_he: "כרטיס לתיירים. הוא עובד 28 יום. קונים אותו בתחנת הרכבת של נריטה או של הנדה. באוסקה כרטיס מאותו סוג נקרא איקוקה."
+          - img: "lesson/transport/phone.svg"
+            label: "In the phone"
+            label_he: "בתוך הטלפון"
+            text: "For grown-ups. An iPhone can hold a Suica in Apple Wallet. Most Android phones from outside Japan cannot, so buy the plastic card."
+            text_he: "למבוגרים. אייפון יכול להחזיק סואיקה בארנק של אפל. רוב מכשירי האנדרואיד מחוץ ליפן לא יכולים, אז קונים את כרטיס הפלסטיק."
+          - img: "lesson/transport/pays.svg"
+            label: "It pays for more"
+            label_he: "הוא משלם על עוד דברים"
+            text: "The same card pays on the bus, in the konbini, at many drinks machines and at the station lockers."
+            text_he: "אותו כרטיס משלם באוטובוס, בקונביני, בהרבה מכונות משקאות ובלוקרים בתחנה."
+      - kind: pick
+        title: Who pays what?
+        title_he: מי משלם כמה?
+        text: Tap the right ticket.
+        text_he: געו בכרטיס הנכון.
+        rounds:
+          - ask: "A girl of 4 rides the train with her dad. What does she pay?"
+            ask_he: "ילדה בת 4 נוסעת ברכבת עם אבא שלה. כמה היא משלמת?"
+            answer: "free"
+            choices: [half, free, adult]
+          - ask: "A boy of 8 rides the train. What does he pay?"
+            ask_he: "ילד בן 8 נוסע ברכבת. כמה הוא משלם?"
+            answer: "half"
+            choices: [adult, free, half]
+          - ask: "A visitor of 12 rides the train. What does she pay?"
+            ask_he: "תיירת בת 12 נוסעת ברכבת. כמה היא משלמת?"
+            answer: "adult"
+            choices: [free, adult, half]
+      - kind: spots
+        title: Inside the train
+        title_he: בתוך הרכבת
+        img: lesson/transport/car.svg
+        text: Tap each dot to look around the train car.
+        text_he: געו בכל נקודה כדי להסתכל מסביב בקרון.
+        spots:
+          - x: 15
+            y: 43
+            label: "The priority seats"
+            label_he: "המושבים המיוחדים"
+            japanese: "ゆうせんせき"
+            reading: "yuusenseki"
+            text: "These seats are for old people, pregnant women, people who are hurt, and parents with small children. Give the seat to someone who needs it."
+            text_he: "המושבים האלה מיועדים לאנשים מבוגרים, לנשים בהיריון, לאנשים פצועים ולהורים עם ילדים קטנים. נותנים את המקום למי שצריך."
+          - x: 85
+            y: 23
+            label: "The screen over the door"
+            label_he: "המסך מעל הדלת"
+            text: "On many trains, a screen shows the next station in Japanese and in English. Count the stops with the children."
+            text_he: "בהרבה רכבות, מסך מראה את התחנה הבאה ביפנית ובאנגלית. סופרים את התחנות יחד עם הילדים."
+          - x: 24
+            y: 25
+            label: "The luggage rack"
+            label_he: "מדף המזוודות"
+            text: "Put bags on the rack over the seats. Wear a backpack on your front when the train is full."
+            text_he: "שמים תיקים על המדף מעל המושבים. כשהרכבת מלאה, לובשים את התיק על הבטן."
+          - x: 61
+            y: 29
+            label: "The hand straps"
+            label_he: "הידיות"
+            japanese: "つりかわ"
+            reading: "tsurikawa"
+            text: "Hold a strap or a pole when you stand. Children hold a grown-up's hand or the pole."
+            text_he: "כשעומדים, מחזיקים ידית או עמוד. ילדים מחזיקים יד של מבוגר או את העמוד."
+          - x: 59
+            y: 49
+            label: "The pink sign"
+            label_he: "השלט הוורוד"
+            text: "Women only. On many city lines, one car is for women in the morning rush. Boys of primary school age can ride there with their mum."
+            text_he: "רק לנשים. בהרבה קווים בעיר, קרון אחד מיועד לנשים בשעות העומס של הבוקר. בנים בגיל בית ספר יסודי יכולים לנסוע שם עם אמא."
+      - kind: text
+        title: The Shinkansen
+        title_he: השינקנסן
+        img: lesson/transport/shinkansen-big.svg
+        japanese: 新幹線
+        reading: shinkansen
+        text: The Shinkansen is the bullet train. It goes up to 320 km an hour, and it is famous for being on time. Families can eat their lunch box on the train.
+        text_he: השינקנסן הוא רכבת הקליע. היא נוסעת עד 320 קמ"ש, והיא מפורסמת בזה שהיא מגיעה בזמן. משפחות יכולות לאכול על הרכבת את קופסת האוכל שלהן.
+        tips:
+          - Reserved cars need a seat ticket. Reserve one, and the family sits together.
+          - Non-reserved cars have no seat number. Sit in any free seat.
+          - A child under 6 on a grown-up's lap rides for free. A child's own reserved seat costs the child fare.
+          - "Tokyo to Osaka and on to Kyushu: a suitcase over 160 cm (length + width + height) needs a seat with a luggage space. Book it with the ticket."
+        tips_he:
+          - בקרונות השמורים צריך כרטיס עם מקום. שומרים מקומות, והמשפחה יושבת יחד.
+          - בקרונות הלא שמורים אין מספר מושב. יושבים בכל מקום פנוי.
+          - ילד מתחת לגיל 6 על הברכיים של מבוגר נוסע בחינם. מושב שמור משלו עולה מחיר ילד.
+          - "מטוקיו לאוסקה והלאה לקיושו: מזוודה מעל 160 ס\"מ (אורך + רוחב + גובה) צריכה מושב עם מקום למזוודה. מזמינים אותו עם הכרטיס."
+      - kind: video
+        title: Watch and practise
+        title_he: צופים ומתאמנים
+        text: Watch, then play the four boarding steps at home with chairs.
+        text_he: צופים, ואז משחקים בבית עם כיסאות את ארבעת שלבי העלייה לרכבת.
+        # Only Michael approves a video. Candidates: 9-kYEGjG92E ("Various Shinkansen 1 - Bullet Trains for Kids"),
+        # tCD2p__IbsI ("Riding the Shinkansen in Japan | Family Travel Adventure on the Bullet Train"),
+        # xep02qzemx4 ("How to catch shinkansen (bullet train) in Japan with kids").
+        youtube: 9-kYEGjG92E
+        approved: false
+        fallback_title: Four steps to board the Shinkansen
+        fallback_title_he: ארבעה שלבים לעלות לשינקנסן
+        fallback:
+          - "Find the car number on your ticket. The same number is on the platform floor and on the signs above it."
+          - "Wait in line at that number. Let the people get off first."
+          - "Walk in fast: the train stops for only a minute or two. Put big bags on the rack or in the luggage space you booked."
+          - "Find your seats. A row of seats can turn around, so the family can sit face to face. Ask before you turn it."
+        fallback_he:
+          - "מוצאים את מספר הקרון על הכרטיס. אותו מספר כתוב על רצפת הרציף ועל השלטים מעליה."
+          - "מחכים בתור ליד המספר. נותנים לאנשים לרדת קודם."
+          - "נכנסים מהר: הרכבת עומדת רק דקה או שתיים. שמים תיקים גדולים על המדף או במקום למזוודה שהזמנתם."
+          - "מוצאים את המושבים. אפשר לסובב שורת מושבים, כדי שהמשפחה תשב פנים מול פנים. שואלים לפני שמסובבים."
+      - kind: flip
+        title: Which train stops here?
+        title_he: איזו רכבת עוצרת כאן?
+        text: Trains on the same line do not all stop at every station. Tap a card to turn it.
+        text_he: לא כל הרכבות באותו קו עוצרות בכל תחנה. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/transport/local.svg"
+            label: "Local"
+            label_he: "מאספת"
+            japanese: "かくえきていしゃ"
+            reading: "kakueki teisha"
+            text: "The local train stops at every station. Going to a small station? Take this one."
+            text_he: "הרכבת המאספת עוצרת בכל תחנה. נוסעים לתחנה קטנה? לוקחים אותה."
+          - img: "lesson/transport/rapid.svg"
+            label: "Rapid and express"
+            label_he: "מהירה ואקספרס"
+            japanese: "かいそく"
+            reading: "kaisoku"
+            text: "Rapid and express trains skip the small stations. On most lines they cost nothing extra."
+            text_he: "רכבות מהירות ורכבות אקספרס מדלגות על התחנות הקטנות. ברוב הקווים הן לא עולות יותר."
+          - img: "lesson/transport/ltd.svg"
+            label: "Limited express"
+            label_he: "אקספרס מוגבל"
+            japanese: "とっきゅう"
+            reading: "tokkyuu"
+            text: "The limited express makes very few stops. On JR and on some other lines it needs an extra ticket."
+            text_he: "האקספרס המוגבל עוצר בתחנות מעטות מאוד. ב-JR ובעוד כמה קווים צריך בשבילו כרטיס נוסף."
+      - kind: train
+        title: Catch the right ride!
+        title_he: תפסו את הנסיעה הנכונה!
+        text: The plates ride past. Tap the one we ask for, not the other things.
+        text_he: הצלחות נוסעות. געו במה שאנחנו מבקשים, לא בדברים האחרים.
+        belt: [rapid, bus, local, stroller, shinkansen, ic, taxi, ltd, truck, suitcase]
+        rounds:
+          - ask: "We go to a small station. Catch the local train, it stops everywhere!"
+            ask_he: "נוסעים לתחנה קטנה. תפסו את הרכבת המאספת, היא עוצרת בכל מקום!"
+            answer: "local"
+          - ask: "We go far and fast. Catch the Shinkansen!"
+            ask_he: "נוסעים רחוק ומהר. תפסו את השינקנסן!"
+            answer: "shinkansen"
+          - ask: "Catch the bus!"
+            ask_he: "תפסו את האוטובוס!"
+            answer: "bus"
+          - ask: "Our bags go to the next hotel. Catch the truck!"
+            ask_he: "התיקים שלנו נוסעים למלון הבא. תפסו את המשאית!"
+            answer: "truck"
+      - kind: text
+        title: Busy times and strollers
+        title_he: שעות עומס ועגלות
+        img: lesson/transport/rush.svg
+        text: In Tokyo and Osaka, the trains are very full from about 7:30 to 9:30 in the morning. With small children, start the day after that.
+        text_he: בטוקיו ובאוסקה, הרכבות מלאות מאוד בערך מ-7:30 עד 9:30 בבוקר. עם ילדים קטנים, מתחילים את היום אחרי זה.
+        tips:
+          - Look for the elevator sign. Most stations have one, but it can be far from the stairs.
+          - A wide gate at the ticket gates lets a stroller through.
+          - You can take an open stroller on the train. Hold it, and keep it out of the doorway.
+          - Big stations have many exits. Google Maps tells you the right exit name.
+        tips_he:
+          - מחפשים את השלט של המעלית. ברוב התחנות יש מעלית, אבל היא יכולה להיות רחוק מהמדרגות.
+          - בין שערי הכרטיסים יש שער רחב שעגלה עוברת בו.
+          - אפשר לעלות לרכבת עם עגלה פתוחה. מחזיקים אותה, ולא עומדים בפתח הדלת.
+          - בתחנות גדולות יש הרבה יציאות. גוגל מפות אומר לכם את השם של היציאה הנכונה.
+      - kind: spots
+        title: Take a taxi
+        title_he: נוסעים במונית
+        img: lesson/transport/taxi-big.svg
+        text: Tap each dot to learn about taxis in Japan.
+        text_he: געו בכל נקודה כדי ללמוד על מוניות ביפן.
+        spots:
+          - x: 45
+            y: 34
+            label: "The roof lamp"
+            label_he: "המנורה על הגג"
+            japanese: "タクシー"
+            reading: "takushii"
+            text: "The lamp on the roof shows the name of the taxi company."
+            text_he: "המנורה על הגג מראה את השם של חברת המוניות."
+          - x: 33
+            y: 46
+            label: "The red sign"
+            label_he: "השלט האדום"
+            japanese: "くうしゃ"
+            reading: "kuusha"
+            text: "The red sign in the front window says kuusha: the taxi is free. Wave, and it stops for you."
+            text_he: "השלט האדום בחלון הקדמי אומר קושה: המונית פנויה. מנופפים, והיא עוצרת לכם."
+          - x: 58
+            y: 62
+            label: "The back door"
+            label_he: "הדלת האחורית"
+            text: "The driver opens and closes the back door with a lever. Do not touch it! Get in from the side of the pavement."
+            text_he: "הנהג פותח וסוגר את הדלת האחורית עם ידית. לא נוגעים בה! נכנסים מהצד של המדרכה."
+          - x: 91
+            y: 50
+            label: "The address on the phone"
+            label_he: "הכתובת בטלפון"
+            text: "Show the driver the address in Japanese, or the place on the map. Many drivers speak little English."
+            text_he: "מראים לנהג את הכתובת ביפנית, או את המקום במפה. הרבה נהגים מדברים מעט אנגלית."
+      - kind: text
+        title: Send the suitcases ahead
+        title_he: שולחים את המזוודות מראש
+        img: lesson/transport/takkyubin.svg
+        japanese: 宅急便
+        reading: takkyuubin
+        text: Big suitcases make train rides hard. In Japan, the hotel desk or a konbini can send them to your next hotel. You ride with small bags only.
+        text_he: מזוודות גדולות מקשות על הנסיעה ברכבת. ביפן, הדלפק במלון או הקונביני יכולים לשלוח אותן למלון הבא. נוסעים רק עם תיקים קטנים.
+        tips:
+          - The bags usually arrive the next day. Send them the day before you move, or two days before to be safe.
+          - Pack one small bag with the things for one night.
+          - The airports send bags to your hotel too.
+        tips_he:
+          - התיקים מגיעים בדרך כלל למחרת. שולחים אותם יום לפני שעוברים, או יומיים לפני כדי להיות בטוחים.
+          - אורזים תיק קטן אחד עם הדברים ללילה אחד.
+          - גם בשדות התעופה אפשר לשלוח תיקים למלון.
+      - kind: pick
+        title: Ride quiz
+        title_he: חידון נסיעה
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "Where do you tap the IC card?"
+            ask_he: "איפה מצמידים את כרטיס ה-IC?"
+            answer: "gate"
+            choices: [machine, gate, taxi, suitcase]
+          - ask: "Which train stops at every station?"
+            ask_he: "איזו רכבת עוצרת בכל תחנה?"
+            answer: "local"
+            choices: [ltd, shinkansen, local, rapid]
+          - ask: "Which card is for visitors?"
+            ask_he: "איזה כרטיס מיועד לתיירים?"
+            answer: "welcome"
+            choices: [welcome, phone, adult, ic]
+          - ask: "Our suitcases go to the next hotel. Who takes them?"
+            ask_he: "המזוודות שלנו עוברות למלון הבא. מי לוקח אותן?"
+            answer: "truck"
+            choices: [stroller, bus, ic, truck]
+      - kind: local
+        title: Plan the first ride
+        title_he: מתכננים את הנסיעה הראשונה
+        text: Practise at home, then ride like a local from the first day.
+        text_he: מתאמנים בבית, ואז נוסעים כמו מקומיים כבר מהיום הראשון.
+        groups:
+          - title: Before the trip
+            title_he: לפני הטיול
+            places:
+              - emoji: "🗺️"
+                title: "Google Maps"
+                title_he: "גוגל מפות"
+                text: "Plan the ride from the airport to the hotel with the train button. Look at the line, the platform and the exit."
+                text_he: "מתכננים את הנסיעה משדה התעופה למלון עם כפתור הרכבת. מסתכלים על הקו, על הרציף ועל היציאה."
+              - emoji: "💳"
+                title: "The card plan"
+                title_he: "תוכנית הכרטיסים"
+                text: "Decide who gets a card. On an iPhone, add a Suica to Apple Wallet. Children under 6 need no ticket."
+                text_he: "מחליטים מי מקבל כרטיס. באייפון, מוסיפים סואיקה לארנק של אפל. ילדים מתחת לגיל 6 לא צריכים כרטיס."
+              - emoji: "🚌"
+                title: "A bus ride at home"
+                title_he: "נסיעה באוטובוס בבית"
+                text: "Ride a bus or a train at home. Let each child tap the card and count the stops."
+                text_he: "נוסעים באוטובוס או ברכבת בבית. כל ילד מצמיד את הכרטיס וסופר את התחנות."
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "✈️"
+                title: "The airport station"
+                title_he: "התחנה בשדה התעופה"
+                text: "Get your IC cards at the station in the airport, and add money with cash."
+                text_he: "קונים כרטיסי IC בתחנה שבשדה התעופה, ומטעינים כסף במזומן."
+              - emoji: "🚉"
+                title: "The first gate"
+                title_he: "השער הראשון"
+                text: "Let the children tap the cards at the first gate. Find the platform number together."
+                text_he: "נותנים לילדים להצמיד את הכרטיסים בשער הראשון. מוצאים יחד את מספר הרציף."
+              - emoji: "🧳"
+                title: "The hotel desk"
+                title_he: "הדלפק במלון"
+                text: "Ask about sending the suitcases on to the next hotel."
+                text_he: "שואלים על שליחת המזוודות למלון הבא."
   # The id stays "transport-intro": a new id would delete the old row and the families' course items with it.
   - id: transport-intro
-    title: Getting around
-    title_he: מתניידים ביפן
+    title: "Getting around: quick review"
+    title_he: "מתניידים ביפן: חזרה קצרה"
     type: cards
     intro: Trains in Japan are clean and on time. Here is how to ride them with the family.
     cards:

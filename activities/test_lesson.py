@@ -467,3 +467,77 @@ class StreetLessonTests(TestCase):
         self.assertIn("ההליכה של חמשת הדברים", html)
         self.assertNotIn("A street to explore", html)
         self.assertNotIn("The five-thing walk", html)
+
+
+class TransportLessonTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("t@example.com", "t@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (40, 5):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="transport", slug="transport-lesson")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def page(self, lang="en"):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_lesson_comes_first_and_the_cards_are_the_quick_review(self):
+        rows = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
+        self.assertEqual(rows[0][0], "transport-lesson")
+        self.assertEqual(rows[1], ("transport-intro", "Getting around: quick review"))
+
+    def test_every_kind_and_a_video_slot_near_the_middle(self):
+        kinds = [p["kind"] for p in self.act.data["pages"]]
+        self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
+        self.assertEqual(set(kinds), set(KINDS))
+        self.assertLessEqual(abs(kinds.index("video") - len(kinds) // 2), 1)
+        video = next(p for p in self.act.data["pages"] if p["kind"] == "video")
+        self.assertFalse(video["approved"])
+        self.assertEqual(len(video["fallback"]), len(video["fallback_he"]))
+
+    def test_every_picture_exists_and_every_game_answer_is_a_choice(self):
+        data = self.act.data
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        pics = {p["id"] for p in data["pictures"]}
+        imgs = [p["img"] for p in data["pictures"]] + [p["img"] for p in data["pages"] if p.get("img")]
+        imgs += [c["img"] for p in data["pages"] for c in p.get("cards", [])]
+        for img in imgs:
+            self.assertTrue((static / img).exists(), img)
+        for p in data["pages"]:
+            for r in p.get("rounds", []):
+                self.assertIn(r["answer"], r.get("choices", p.get("belt")))
+                self.assertTrue(set(r.get("choices", p.get("belt"))) <= pics)
+            for spot in p.get("spots", []):
+                self.assertTrue(0 < spot["x"] < 100 and 0 < spot["y"] < 100)
+
+    def test_fares_match_the_jr_rule(self):
+        # Under 6 free with a paying adult, 6-11 half, a visitor of 12 pays the adult fare.
+        fares = next(p for p in self.act.data["pages"] if p["title"] == "Who pays what?")
+        self.assertEqual([r["answer"] for r in fares["rounds"]], ["free", "half", "adult"])
+
+    def test_english(self):
+        html = self.page()
+        self.assertEqual(html.count("data-page "), 14)
+        for kind in KINDS:
+            self.assertIn(f"lpage-{kind}", html)
+        self.assertNotIn("comes soon", html)
+        self.assertIn("Page 1 of 14", html)
+        self.assertIn("Four steps to board the Shinkansen", html)  # the video fallback
+        self.assertNotIn("youtube.com/embed/9-kYEGjG92E", html)     # not approved
+        self.assertIn('data-plate="shinkansen"', html)
+        self.assertIn("audio/japan/kaisatsu.mp3", html)
+        self.assertIn("the taxi is free", html)
+
+    def test_hebrew(self):
+        html = self.page("he")
+        self.assertIn("נוסעים כמו מקומיים", html)
+        self.assertIn("דף 1 מתוך 14", html)
+        self.assertIn("ארבעה שלבים לעלות לשינקנסן", html)
+        self.assertNotIn("In the station", html)
+        self.assertNotIn("Four steps to board the Shinkansen", html)

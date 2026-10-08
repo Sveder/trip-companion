@@ -42,7 +42,8 @@ class BuilderTests(TestCase):
         import yaml
         from django.conf import settings
         data = yaml.safe_load(open(settings.BASE_DIR / "content/japan/transport.yaml"))
-        card = next(c for c in data["activities"][0]["cards"] if c["title"] == "Children's fares")
+        cards = next(a for a in data["activities"] if a["id"] == "transport-intro")["cards"]
+        card = next(c for c in cards if c["title"] == "Children's fares")
         self.assertIn("From 12, they pay the adult fare.", card["text"])
         self.assertIn("Japanese elementary school", card["text"])
         self.assertIn("reserved seat", card["text"])
