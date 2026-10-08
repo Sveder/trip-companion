@@ -164,6 +164,7 @@ class EveryLessonIsWellFormed(TestCase):
             pics = {p["id"] for p in data.get("pictures", [])}
             imgs = [p["img"] for p in data.get("pictures", [])] + [p["img"] for p in pages if p.get("img")]
             imgs += [c["img"] for p in pages for c in p.get("cards", [])]
+            imgs += [p["img_he"] for p in data.get("pictures", []) + pages if p.get("img_he")]
             for img in imgs:
                 self.assertTrue((static / img).exists(), (name, img))
             for p in pages:
@@ -360,6 +361,13 @@ class ChopsticksLessonTests(TestCase):
         r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
         self.assertEqual(r.status_code, 200)
         return r.content.decode()
+
+    def test_hebrew_page_shows_the_hebrew_picture(self):
+        # T98: an explanation picture has a Hebrew twin; English pages keep the English picture.
+        self.assertIn("lesson/chopsticks/asia_he.svg", self.page("he"))
+        en = self.page("en")
+        self.assertIn("lesson/chopsticks/asia.svg", en)
+        self.assertNotIn("_he.svg", en)
 
     def test_lesson_comes_first_and_the_steps_are_the_quick_review(self):
         slugs = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
@@ -691,3 +699,22 @@ class FlipSayTests(TestCase):
         self.assertTrue(silent)
         for button in silent:
             self.assertNotIn("data-say", button)
+
+
+class HebrewPictureTwins(TestCase):
+    """T98: a Hebrew twin of a lesson picture has no English explanation label left."""
+
+    # Words that stay English on purpose: Japanese romaji and app names that families see in English.
+    KEEP = {"maigo desu", "tasukete", "eSIM", "VJW", "IC"}
+
+    def test_twins_have_no_english_labels(self):
+        import re
+        root = Path(settings.BASE_DIR) / "static" / "img" / "lesson"
+        twins = sorted(root.rglob("*_he.svg"))
+        self.assertGreaterEqual(len(twins), 6)
+        for twin in twins:
+            self.assertTrue(twin.with_name(twin.name.replace("_he.svg", ".svg")).exists(), twin)
+            for label in re.findall(r"<text[^>]*>([^<]*)</text>", twin.read_text()):
+                latin = " ".join(re.findall(r"[A-Za-z][A-Za-z.]*(?: [A-Za-z.]+)*", label))
+                if latin:
+                    self.assertIn(latin, self.KEEP, (twin.name, label))

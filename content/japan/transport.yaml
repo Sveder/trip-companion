@@ -45,6 +45,7 @@ activities:
         label_he: "חצי מחיר"
       - id: "adult"
         img: "lesson/transport/adult.svg"
+        img_he: "lesson/transport/adult_he.svg"
         label: "Adult fare"
         label_he: "מחיר מלא"
       - id: "local"
@@ -342,6 +343,7 @@ activities:
         title: Take a taxi
         title_he: נוסעים במונית
         img: lesson/transport/taxi-big.svg
+        img_he: lesson/transport/taxi-big_he.svg
         text: Tap each dot to learn about taxis in Japan.
         text_he: געו בכל נקודה כדי ללמוד על מוניות ביפן.
         spots:

@@ -217,6 +217,7 @@ activities:
         title: Visit Japan Web
         title_he: Visit Japan Web
         img: lesson/pack/vjw-big.svg
+        img_he: lesson/pack/vjw-big_he.svg
         text: Visit Japan Web is the free site of the Japanese government. Before you fly, a grown-up fills in the arrival forms for the whole family. You get QR codes for immigration and for customs.
         text_he: Visit Japan Web הוא האתר החינמי של ממשלת יפן. לפני הטיסה, מבוגר ממלא את טופסי הכניסה של כל המשפחה. מקבלים קודי QR לביקורת הגבולות ולמכס.
         tips:
@@ -236,6 +237,7 @@ activities:
         title: The trip phone
         title_he: הטלפון של הטיול
         img: lesson/pack/phone-big.svg
+        img_he: lesson/pack/phone-big_he.svg
         text: Set up the phone at home. Tap each dot to see one app.
         text_he: מכינים את הטלפון בבית. געו בכל נקודה כדי לראות אפליקציה אחת.
         spots:
