@@ -369,6 +369,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .flip img { width: 100%; max-width: 120px; height: auto; display: block; margin: 0 auto .3rem; }
 .flip-front, .flip-back { grid-area: 1 / 1; align-self: center; display: flex; flex-direction: column; align-items: center; gap: .2rem; }
 .flip-back { visibility: hidden; font-size: 1.05rem; }
+.flip-say { font-size: .85rem; }
 .flip[aria-pressed="true"] { background: var(--c-tint-2); border-color: var(--c-accent); animation: turn .35s ease-out; }
 .flip[aria-pressed="true"] .flip-front { visibility: hidden; }
 .flip[aria-pressed="true"] .flip-back { visibility: visible; }

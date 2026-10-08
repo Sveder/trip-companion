@@ -46,7 +46,12 @@
   }
 
   document.addEventListener('click', from);
-  document.addEventListener('keydown', function (e) { if (e.keyCode === 13) from(e); });
+  // A button gets a click from the browser after Enter, so the click path says it; saying it here too would play it twice.
+  document.addEventListener('keydown', function (e) {
+    if (e.keyCode !== 13) return;
+    var el = e.target.closest ? e.target.closest('[data-say]') : null;
+    if (el && el.tagName !== 'BUTTON') say(el);
+  });
   pick();
   if (synth) {
     if (synth.addEventListener) synth.addEventListener('voiceschanged', pick); else synth.onvoiceschanged = pick;

@@ -650,3 +650,44 @@ class PackLessonTests(TestCase):
         self.assertIn("רשימת האריזה", html)
         self.assertNotIn("The open suitcase", html)
         self.assertNotIn("The packing list", html)
+
+
+class FlipSayTests(TestCase):
+    """T91: a flip card with a Japanese word says it on tap; a card without one stays silent."""
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("f@example.com", "f@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (40, 5):
+            Traveller.objects.create(trip=cls.trip, age=age)
+
+    def flips(self, module, slug):
+        import re
+        act = Activity.objects.get(module__slug=module, slug=slug)
+        item = build_course(self.trip, [act.module_id]).items.get(activity=act)
+        self.client.force_login(self.user)
+        html = self.client.get(reverse("activity", args=[item.id]) + "?lang=en").content.decode()
+        return re.findall(r'(<button type="button" class="flip"[^>]*>)\s*<span class="flip-front">(.*?)</span>\s*<span class="flip-back">', html, re.S)
+
+    def test_sushi_flip_cards_say_their_word(self):
+        cards = self.flips("food", "sushi-lesson")
+        self.assertTrue(cards)
+        for button, front in cards:
+            has_word = 'lang="ja"' in front
+            self.assertEqual(has_word, "data-say=" in button, button)
+            if has_word:
+                self.assertIn('data-say-src="/static/audio/japan/', button)
+                self.assertIn("flip-say", front)
+        nigiri = [b for b, f in cards if "nigiri" in b]
+        self.assertTrue(nigiri, "no nigiri flip card")
+        src = nigiri[0].split('data-say-src="')[1].split('"')[0]
+        self.assertTrue(src.endswith("/nigiri.mp3"), src)
+        self.assertTrue((Path(settings.BASE_DIR) / "static/audio/japan/nigiri.mp3").exists())
+
+    def test_card_without_a_word_is_silent(self):
+        cards = self.flips("chopsticks", "chopsticks-lesson")
+        silent = [b for b, f in cards if 'lang="ja"' not in f]
+        self.assertTrue(silent)
+        for button in silent:
+            self.assertNotIn("data-say", button)
