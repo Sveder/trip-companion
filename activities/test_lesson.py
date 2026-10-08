@@ -117,3 +117,86 @@ class NewActivityJoinsBuiltCourses(TestCase):
         self.assertEqual([s for s, _ in slugs], ["food-cards", "sushi-lesson"])
         self.assertIsNotNone(slugs[0][1])
         self.assertIsNone(slugs[1][1])
+
+
+class EveryLessonIsWellFormed(TestCase):
+    """Every lesson in the content: 10-20 pages, real pictures, game answers that can be tapped."""
+
+    def test_every_lesson(self):
+        call_command("load_content", verbosity=0)
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        lessons = Activity.objects.filter(type="lesson")
+        self.assertGreaterEqual(lessons.count(), 2)
+        for act in lessons:
+            data, name = act.data, act.slug
+            pages = data["pages"]
+            self.assertTrue(10 <= len(pages) <= 20, (name, len(pages)))
+            kinds = [p["kind"] for p in pages]
+            self.assertTrue(set(kinds) <= set(KINDS), name)
+            if "video" in kinds:
+                self.assertTrue(len(pages) // 4 <= kinds.index("video") <= 3 * len(pages) // 4, name)
+                self.assertTrue(all(p.get("fallback") for p in pages if p["kind"] == "video"), name)
+            pics = {p["id"] for p in data.get("pictures", [])}
+            imgs = [p["img"] for p in data.get("pictures", [])] + [p["img"] for p in pages if p.get("img")]
+            imgs += [c["img"] for p in pages for c in p.get("cards", [])]
+            for img in imgs:
+                self.assertTrue((static / img).exists(), (name, img))
+            for p in pages:
+                self.assertTrue(p.get("title_he"), (name, p["title"]))
+                for r in p.get("rounds", []):
+                    self.assertTrue(r.get("ask_he"), (name, r["ask"]))
+                    if p["kind"] == "pick":
+                        self.assertIn(r["answer"], r["choices"], name)
+                        self.assertTrue(set(r["choices"]) <= pics, name)
+                    else:
+                        self.assertIn(r["answer"], p["belt"], name)
+                for spot in p.get("spots", []):
+                    self.assertTrue(0 <= spot["x"] <= 100 and 0 <= spot["y"] <= 100, name)
+                    self.assertTrue(spot.get("text_he"), (name, spot["label"]))
+
+
+class WordsLessonTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("w@example.com", "w@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (40, 2):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="words", slug="words-lesson")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def page(self, lang="en"):
+        self.client.force_login(self.user)
+        r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+        self.assertEqual(r.status_code, 200)
+        return r.content.decode()
+
+    def test_every_kind_renders_in_english(self):
+        html = self.page()
+        self.assertEqual(html.count("data-page "), 14)
+        for kind in KINDS:
+            self.assertIn(f"lpage-{kind}", html)
+        self.assertIn("Page 1 of 14", html)
+        self.assertIn("In a Japanese shop", html)
+        self.assertIn('data-spot="4"', html)               # 5 dots in the shop
+        self.assertIn("irasshaimase", html)
+        self.assertIn('data-plate="arigatou"', html)       # the word train
+        self.assertIn("data-right", html)
+        self.assertIn("gochisousama deshita", html)
+        self.assertIn("audio/japan/irasshaimase.mp3", html)  # the spot word has a voice
+
+    def test_hebrew(self):
+        html = self.page("he")
+        self.assertIn("מדברים כמו ילדים ביפן", html)
+        self.assertIn("בחנות ביפן", html)
+        self.assertIn("תפסו את \"אריגטו\", תודה!".replace('"', "&quot;"), html)
+        self.assertIn("דף 1 מתוך 14", html)
+        self.assertNotIn("In a Japanese shop", html)
+
+    def test_unapproved_video_shows_the_written_lines_and_no_id(self):
+        html = self.page()
+        self.assertNotIn("4rY3y5VZcCg", html)
+        self.assertIn("Say it slowly", html)
+        self.assertIn("Clap once for each part", html)

@@ -109,7 +109,7 @@ class QuizContentTests(TestCase):
 
     def test_stub_turned_ready_clears_old_done_marks(self):
         course = build_course(self.trip, list(Module.objects.values_list("id", flat=True)))
-        item = course.items.get(activity__module__slug="words")
+        item = course.items.get(activity__slug="words-intro")
         item.mark_done()
         Module.objects.filter(slug="words").update(ready=False)
         call_command("load_content", verbosity=0)
@@ -157,7 +157,7 @@ class QuizFlowTests(TestCase):
     def test_words_activity_then_quiz_wrong_answer_comes_back(self):
         trip = make_trip(self.user)
         course = build_course(trip, list(Module.objects.filter(slug="words").values_list("id", flat=True)))
-        item = course.items.get()
+        item = course.items.get(activity__slug="words-intro")
         self.client.force_login(self.user)
         page = self.client.get(reverse("activity", args=[item.id]))
         self.assertContains(page, "こんにちは")

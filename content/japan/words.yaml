@@ -63,3 +63,397 @@ activities:
         meaning: excuse me
         meaning_he: סליחה
         emoji: "🙋"
+  - id: words-lesson
+    title: Talk like a kid in Japan
+    title_he: מדברים כמו ילדים ביפן
+    type: lesson
+    intro: Swipe through the pages. Say each word out loud!
+    intro_he: עוברים דף אחרי דף. אומרים כל מילה בקול!
+    pictures:
+      - id: "ohayou"
+        img: "lesson/words/ohayou.svg"
+        label: "Good morning"
+        label_he: "בוקר טוב"
+      - id: "konnichiwa"
+        img: "lesson/words/konnichiwa.svg"
+        label: "Hello"
+        label_he: "שלום"
+      - id: "konbanwa"
+        img: "lesson/words/konbanwa.svg"
+        label: "Good evening"
+        label_he: "ערב טוב"
+      - id: "oyasumi"
+        img: "lesson/words/oyasumi.svg"
+        label: "Good night"
+        label_he: "לילה טוב"
+      - id: "sayounara"
+        img: "lesson/words/sayounara.svg"
+        label: "Goodbye"
+        label_he: "להתראות"
+      - id: "arigatou"
+        img: "lesson/words/arigatou.svg"
+        label: "Thank you"
+        label_he: "תודה"
+      - id: "sumimasen"
+        img: "lesson/words/sumimasen.svg"
+        label: "Excuse me"
+        label_he: "סליחה"
+      - id: "onegaishimasu"
+        img: "lesson/words/please.svg"
+        label: "Please"
+        label_he: "בבקשה"
+      - id: "itadakimasu"
+        img: "lesson/words/itadakimasu.svg"
+        label: "Time to eat"
+        label_he: "זמן לאכול"
+      - id: "hai"
+        img: "lesson/words/hai.svg"
+        label: "Yes"
+        label_he: "כן"
+      - id: "iie"
+        img: "lesson/words/iie.svg"
+        label: "No"
+        label_he: "לא"
+    pages:
+      - kind: text
+        title: Words are like keys
+        title_he: מילים הן כמו מפתחות
+        img: lesson/words/konnichiwa.svg
+        japanese: こんにちは
+        reading: konnichiwa
+        text: A few Japanese words open a lot of smiles. People in Japan are very happy when a visitor says hello in Japanese. Tap the word to hear it.
+        text_he: כמה מילים ביפנית פותחות הרבה חיוכים. אנשים ביפן מאוד שמחים כשאורח אומר שלום ביפנית. געו במילה כדי לשמוע אותה.
+      - kind: flip
+        title: Hello, all day long
+        title_he: שלום, כל היום
+        text: There is a hello for the morning, the day and the evening. Tap a card to turn it.
+        text_he: יש שלום לבוקר, ליום ולערב. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/words/ohayou.svg"
+            label: "Ohayou"
+            label_he: "אוהאיו"
+            japanese: "おはよう"
+            reading: "ohayou"
+            text: "Good morning! Say it when you wake up. To a grown-up, say \"ohayou gozaimasu\"."
+            text_he: "בוקר טוב! אומרים את זה כשמתעוררים. למבוגר אומרים \"אוהאיו גוזאימס\"."
+          - img: "lesson/words/konnichiwa.svg"
+            label: "Konnichiwa"
+            label_he: "קוניצ'יווה"
+            japanese: "こんにちは"
+            reading: "konnichiwa"
+            text: "Hello! Say it in the day, from late morning until it gets dark."
+            text_he: "שלום! אומרים את זה ביום, מסוף הבוקר ועד שמחשיך."
+          - img: "lesson/words/konbanwa.svg"
+            label: "Konbanwa"
+            label_he: "קונבנווה"
+            japanese: "こんばんは"
+            reading: "konbanwa"
+            text: "Good evening! Say it when it is dark outside."
+            text_he: "ערב טוב! אומרים את זה כשבחוץ חושך."
+          - img: "lesson/words/oyasumi.svg"
+            label: "Oyasumi"
+            label_he: "אויאסומי"
+            japanese: "おやすみ"
+            reading: "oyasumi"
+            text: "Good night! Say it before you go to sleep."
+            text_he: "לילה טוב! אומרים את זה לפני שהולכים לישון."
+          - img: "lesson/words/sayounara.svg"
+            label: "Sayounara"
+            label_he: "סאיונרה"
+            japanese: "さようなら"
+            reading: "sayounara"
+            text: "Goodbye! Friends often say \"bai bai\" too, like \"bye bye\"."
+            text_he: "להתראות! חברים אומרים הרבה פעמים גם \"באי באי\", כמו \"ביי ביי\"."
+      - kind: pick
+        title: Which hello?
+        title_he: איזה שלום?
+        text: Look at the sky. Tap the right picture.
+        text_he: מסתכלים על השמיים. געו בתמונה הנכונה.
+        rounds:
+          - ask: "The sun comes up. We say \"ohayou\". Which picture?"
+            ask_he: "השמש עולה. אומרים \"אוהאיו\". איזו תמונה?"
+            answer: "ohayou"
+            choices: [konbanwa, ohayou, oyasumi, sayounara]
+          - ask: "It is time for bed. We say \"oyasumi\". Which picture?"
+            ask_he: "הגיע הזמן לישון. אומרים \"אויאסומי\". איזו תמונה?"
+            answer: "oyasumi"
+            choices: [konnichiwa, ohayou, oyasumi, arigatou]
+          - ask: "The moon is out, and we meet a friend. We say \"konbanwa\". Which picture?"
+            ask_he: "הירח בחוץ, ופוגשים חבר. אומרים \"קונבנווה\". איזו תמונה?"
+            answer: "konbanwa"
+            choices: [sayounara, konbanwa, ohayou, konnichiwa]
+          - ask: "We go home and wave. We say \"sayounara\". Which picture?"
+            ask_he: "הולכים הביתה ומנופפים. אומרים \"סאיונרה\". איזו תמונה?"
+            answer: "sayounara"
+            choices: [oyasumi, arigatou, sayounara, konbanwa]
+      - kind: text
+        title: Bow like this
+        title_he: מתכופפים ככה
+        img: lesson/words/arigatou.svg
+        japanese: おじぎ
+        reading: ojigi
+        text: In Japan, people often bow when they say hello, thank you or sorry. A bow is called ojigi.
+        text_he: ביפן, אנשים הרבה פעמים מתכופפים קדימה כשהם אומרים שלום, תודה או סליחה. הקידה הזו נקראת אוג'יגי.
+        tips:
+          - Stand up straight. Keep your hands at your sides.
+          - Bend forward a little from your waist.
+          - A small bow is for hello. A deeper bow is for a big thank you or sorry.
+          - Kids can just nod the head. That is fine!
+        tips_he:
+          - עומדים ישר. הידיים לצד הגוף.
+          - מתכופפים קצת קדימה מהמותניים.
+          - קידה קטנה היא לשלום. קידה עמוקה יותר היא לתודה גדולה או לסליחה.
+          - ילדים יכולים פשוט להנהן עם הראש. זה בסדר!
+      - kind: flip
+        title: Magic polite words
+        title_he: מילות קסם מנומסות
+        text: These words make people smile. Tap to turn.
+        text_he: המילים האלה גורמות לאנשים לחייך. געו כדי להפוך.
+        cards:
+          - img: "lesson/words/arigatou.svg"
+            label: "Arigatou"
+            label_he: "אריגטו"
+            japanese: "ありがとう"
+            reading: "arigatou"
+            text: "Thank you! To a grown-up or in a shop, say \"arigatou gozaimasu\"."
+            text_he: "תודה! למבוגר או בחנות אומרים \"אריגטו גוזאימס\"."
+          - img: "lesson/words/sumimasen.svg"
+            label: "Sumimasen"
+            label_he: "סומימסן"
+            japanese: "すみません"
+            reading: "sumimasen"
+            text: "Excuse me! Say it to ask for help, to call the waiter, or to pass someone."
+            text_he: "סליחה! אומרים את זה כדי לבקש עזרה, לקרוא למלצר או לעבור ליד מישהו."
+          - img: "lesson/words/please.svg"
+            label: "Onegaishimasu"
+            label_he: "אונגאישימס"
+            japanese: "おねがいします"
+            reading: "onegaishimasu"
+            text: "Please! Point at what you want and say it."
+            text_he: "בבקשה! מצביעים על מה שרוצים ואומרים את זה."
+          - img: "lesson/words/hai.svg"
+            label: "Hai"
+            label_he: "האי"
+            japanese: "はい"
+            reading: "hai"
+            text: "Yes! You also say \"hai\" when someone calls your name, like \"here!\"."
+            text_he: "כן! אומרים \"האי\" גם כשמישהו קורא בשם שלכם, כמו \"כאן!\"."
+          - img: "lesson/words/iie.svg"
+            label: "Iie"
+            label_he: "אייה"
+            japanese: "いいえ"
+            reading: "iie"
+            text: "No. To say \"no, thank you\" in a nice way, say \"daijoubu desu\"."
+            text_he: "לא. כדי להגיד \"לא, תודה\" בצורה נחמדה, אומרים \"דאיג'ובו דס\"."
+      - kind: text
+        title: Circle and cross
+        title_he: עיגול ואיקס
+        img: lesson/words/hai.svg
+        japanese: まる
+        reading: maru
+        text: In Japan, a red circle (maru) means yes or right. A cross (batsu) means no or wrong. Some people make a big X with their arms to say no! On a test in a Japanese school, a circle means a right answer.
+        text_he: ביפן, עיגול אדום (מארו) אומר כן או נכון. איקס (באטסו) אומר לא או לא נכון. יש אנשים שעושים איקס גדול עם הידיים כדי להגיד לא! במבחן בבית ספר ביפן, עיגול אומר תשובה נכונה.
+      - kind: video
+        title: Sing hello in Japanese
+        title_he: שרים שלום ביפנית
+        text: Watch and sing along. How many times do you hear "konnichiwa"?
+        text_he: צופים ושרים ביחד. כמה פעמים שומעים "קוניצ'יווה"?
+        # Only Michael approves a video. Other candidate: MvhC3A1TYj0 (Learn Japanese for Kids! Arigatou &
+        # Konnichiwa Song, Around the World Kids).
+        youtube: 4rY3y5VZcCg
+        approved: false
+        fallback_title: Say it slowly
+        fallback_title_he: אומרים לאט
+        fallback:
+          - "Ko-n-ni-chi-wa: hello. Clap once for each part."
+          - "A-ri-ga-tou: thank you. Bow a little at the end."
+          - "O-ha-you: good morning. Stretch your arms up like the sun."
+          - "O-ya-su-mi: good night. Put your hands under your cheek."
+        fallback_he:
+          - "קו-נ-ני-צ'י-ווה: שלום. מוחאים כף פעם אחת לכל חלק."
+          - "א-רי-גה-טו: תודה. מתכופפים קצת בסוף."
+          - "או-הא-יו: בוקר טוב. מותחים את הידיים למעלה כמו השמש."
+          - "או-יא-סו-מי: לילה טוב. שמים את הידיים מתחת ללחי."
+      - kind: spots
+        title: In a Japanese shop
+        title_he: בחנות ביפן
+        img: lesson/words/shop.svg
+        text: This is a convenience store. Tap each dot. What do people say here?
+        text_he: זו מכולת 24 שעות. געו בכל נקודה. מה אומרים כאן?
+        spots:
+          - x: 37
+            y: 28
+            label: "The shop worker"
+            label_he: "העובד בחנות"
+            japanese: "いらっしゃいませ"
+            reading: "irasshaimase"
+            text: "When you come in, the worker calls \"irasshaimase!\". It means \"welcome!\". You do not need to answer. A smile is enough."
+            text_he: "כשנכנסים, העובד קורא \"איראשאימסה!\". זה אומר \"ברוכים הבאים!\". לא צריך לענות. חיוך מספיק."
+          - x: 57
+            y: 60
+            label: "The money tray"
+            label_he: "מגש הכסף"
+            text: "Put your money on the little tray, not in the hand of the worker. Your change often comes back on the tray too."
+            text_he: "שמים את הכסף על המגש הקטן, לא ביד של העובד. גם העודף הרבה פעמים חוזר על המגש."
+          - x: 74
+            y: 51
+            label: "A bag"
+            label_he: "שקית"
+            japanese: "ふくろ"
+            reading: "fukuro"
+            text: "The worker may ask if you want a bag (fukuro). A bag costs a few yen. Say \"hai\" for yes or \"daijoubu desu\" for no, thank you."
+            text_he: "העובד אולי ישאל אם רוצים שקית (פוקורו). שקית עולה כמה ין. אומרים \"האי\" לכן, או \"דאיג'ובו דס\" ללא, תודה."
+          - x: 14
+            y: 37
+            label: "The microwave"
+            label_he: "המיקרוגל"
+            japanese: "あたためますか"
+            reading: "atatamemasu ka"
+            text: "Buy a lunch box, and the worker may ask \"atatamemasu ka?\". It means \"shall I warm it up?\". The worker heats it for you right there."
+            text_he: "כשקונים קופסת אוכל, העובד אולי ישאל \"אטאטאמֶמאס קה?\". זה אומר \"לחמם לך?\". העובד מחמם אותה בשבילכם במקום."
+          - x: 92
+            y: 50
+            label: "The door"
+            label_he: "הדלת"
+            text: "In many shops, a little tune plays when the door opens. Listen for it!"
+            text_he: "בהרבה חנויות, מנגינה קטנה מתנגנת כשהדלת נפתחת. הקשיבו לה!"
+      - kind: text
+        title: Words for the table
+        title_he: מילים לשולחן
+        img: lesson/words/itadakimasu.svg
+        japanese: いただきます
+        reading: itadakimasu
+        text: Before you eat, put your hands together and say "itadakimasu". After you eat, say "gochisousama deshita". It means "thank you for the meal".
+        text_he: לפני שאוכלים, מצמידים את הידיים ואומרים "איטדקימס". אחרי שאוכלים, אומרים "גוצ'יסוסאמה דשיטה". זה אומר "תודה על הארוחה".
+        tips:
+          - "Itadakimasu: before the first bite."
+          - "Oishii!: it is yummy!"
+          - "Gochisousama deshita: when you finish, or when you leave a restaurant."
+        tips_he:
+          - "איטדקימס: לפני הביס הראשון."
+          - "אוישי!: טעים!"
+          - "גוצ'יסוסאמה דשיטה: כשמסיימים, או כשיוצאים ממסעדה."
+      - kind: train
+        title: Catch the word!
+        title_he: תפסו את המילה!
+        text: The word plates ride past. Tap the one we ask for.
+        text_he: צלחות המילים נוסעות. געו בצלחת שאנחנו מבקשים.
+        belt: [ohayou, konnichiwa, arigatou, konbanwa, hai, oyasumi, sumimasen, iie, itadakimasu, sayounara]
+        rounds:
+          - ask: "Catch \"arigatou\", thank you!"
+            ask_he: "תפסו את \"אריגטו\", תודה!"
+            answer: "arigatou"
+          - ask: "Catch \"hai\", yes!"
+            ask_he: "תפסו את \"האי\", כן!"
+            answer: "hai"
+          - ask: "Catch \"oyasumi\", good night!"
+            ask_he: "תפסו את \"אויאסומי\", לילה טוב!"
+            answer: "oyasumi"
+          - ask: "Catch \"sumimasen\", excuse me!"
+            ask_he: "תפסו את \"סומימסן\", סליחה!"
+            answer: "sumimasen"
+      - kind: text
+        title: Count to five
+        title_he: סופרים עד חמש
+        emoji: "🖐️"
+        japanese: いち、に、さん
+        reading: ichi, ni, san
+        text: Hold up your fingers and count with us!
+        text_he: מרימים את האצבעות וסופרים איתנו!
+        tips:
+          - "1 = ichi"
+          - "2 = ni"
+          - "3 = san"
+          - "4 = yon"
+          - "5 = go"
+          - "In Japan, many people count with an open hand and fold one finger in for each number."
+        tips_he:
+          - "1 = איצ'י"
+          - "2 = ני"
+          - "3 = סאן"
+          - "4 = יון"
+          - "5 = גו"
+          - "ביפן, הרבה אנשים סופרים עם יד פתוחה, ומקפלים אצבע אחת פנימה לכל מספר."
+      - kind: text
+        title: Say your name
+        title_he: אומרים את השם
+        emoji: "🙋"
+        japanese: わたしは … です
+        reading: watashi wa … desu
+        text: Say "watashi wa", then your name, then "desu". It means "I am …". Try it now, everybody!
+        text_he: אומרים "ווטאשי וה", אחר כך את השם, ואז "דס". זה אומר "אני …". נסו עכשיו, כולם!
+        tips:
+          - "Watashi wa Tom desu. (I am Tom.)"
+          - "Then bow a little, and smile."
+        tips_he:
+          - "ווטאשי וה תום דס. (אני תום.)"
+          - "ואז מתכופפים קצת, ומחייכים."
+      - kind: pick
+        title: What do you say?
+        title_he: מה אומרים?
+        text: Last game! Tap the right word.
+        text_he: משחק אחרון! געו במילה הנכונה.
+        rounds:
+          - ask: "A friend gives you a present. What do you say?"
+            ask_he: "חבר נותן לכם מתנה. מה אומרים?"
+            answer: "arigatou"
+            choices: [oyasumi, arigatou, iie, ohayou]
+          - ask: "You need to get past a person on the train. What do you say?"
+            ask_he: "צריך לעבור ליד מישהו ברכבת. מה אומרים?"
+            answer: "sumimasen"
+            choices: [konbanwa, hai, sumimasen, sayounara]
+          - ask: "Dinner is on the table. Time to eat! What do you say?"
+            ask_he: "ארוחת הערב על השולחן. זמן לאכול! מה אומרים?"
+            answer: "itadakimasu"
+            choices: [itadakimasu, sayounara, iie, konnichiwa]
+          - ask: "Do you want ice cream? Yes! What do you say?"
+            ask_he: "רוצים גלידה? כן! מה אומרים?"
+            answer: "hai"
+            choices: [iie, oyasumi, sumimasen, hai]
+      - kind: local
+        title: Where can we practise?
+        title_he: איפה אפשר להתאמן?
+        text: Use the words at home first. Then use them in Japan.
+        text_he: משתמשים במילים קודם בבית. ואז ביפן.
+        groups:
+          - title: Before the trip
+            title_he: לפני הטיול
+            places:
+              - emoji: "🏠"
+                title: "At home"
+                title_he: "בבית"
+                text: "Say \"ohayou\" every morning this week, and \"oyasumi\" at bedtime."
+                text_he: "אומרים \"אוהאיו\" כל בוקר השבוע, ו\"אויאסומי\" לפני השינה."
+              - emoji: "🍜"
+                title: "A Japanese restaurant"
+                title_he: "מסעדה יפנית"
+                text: "Say \"itadakimasu\" before you eat and \"arigatou\" to the waiter."
+                text_he: "אומרים \"איטדקימס\" לפני האוכל ו\"אריגטו\" למלצר."
+              - emoji: "📺"
+                title: "A cartoon in Japanese"
+                title_he: "סרט מצויר ביפנית"
+                text: "Watch a cartoon in Japanese. Can you hear \"arigatou\" or \"hai\"?"
+                text_he: "צופים בסרט מצויר ביפנית. שומעים \"אריגטו\" או \"האי\"?"
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "🏪"
+                title: "A convenience store"
+                title_he: "מכולת 24 שעות"
+                text: "Say \"arigatou gozaimasu\" when you get your things."
+                text_he: "אומרים \"אריגטו גוזאימס\" כשמקבלים את הדברים."
+              - emoji: "🏨"
+                title: "The hotel"
+                title_he: "המלון"
+                text: "Say \"ohayou gozaimasu\" to the people at the desk in the morning."
+                text_he: "אומרים \"אוהאיו גוזאימס\" לאנשים בדלפק בבוקר."
+              - emoji: "🚃"
+                title: "The train"
+                title_he: "הרכבת"
+                text: "Say \"sumimasen\" when you need to get out and people are in the way."
+                text_he: "אומרים \"סומימסן\" כשצריך לצאת ואנשים עומדים בדרך."
+              - emoji: "🍱"
+                title: "A restaurant"
+                title_he: "מסעדה"
+                text: "Say \"gochisousama deshita\" when you leave. The cooks love to hear it!"
+                text_he: "אומרים \"גוצ'יסוסאמה דשיטה\" כשיוצאים. הטבחים מאוד אוהבים לשמוע את זה!"
