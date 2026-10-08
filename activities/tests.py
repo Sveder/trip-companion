@@ -153,6 +153,18 @@ class StreetViewHuntTests(TestCase):
         cats = Activity.objects.get(module__slug="streetview", slug="streetview-intro")
         self.assertIn("lucky cat", cats.data["intro"])
 
+    def test_every_spot_has_a_proper_name_and_why_it_matters(self):
+        # Michael, feedback 2026-10-08: "a big orange gate" is a torii gate; say why each thing is interesting.
+        for act in Activity.objects.filter(module__slug="streetview"):
+            for spot in act.data["spots"]:
+                self.assertTrue(spot.get("name"), (act.slug, spot["text"]))
+                self.assertGreaterEqual(len(spot.get("about", "")), 40, (act.slug, spot["name"]))
+        inari = Activity.objects.get(module__slug="streetview", slug="streetview-inari")
+        self.assertIn("Torii gate", [s["name"] for s in inari.data["spots"]])
+        html = self.client.get(reverse("activity", args=[self.item("streetview-inari").id])).content.decode()
+        self.assertIn('<span class="spot-name">Torii gate</span>', html)
+        self.assertIn("the home of a kami", html)
+
     def test_page_shows_the_embed_and_the_spot_list(self):
         item = self.item()
         r = self.client.get(reverse("activity", args=[item.id]))

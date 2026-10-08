@@ -19,7 +19,11 @@
       <li><label class="spot">
         <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% with n=forloop.counter0|stringformat:"d" %}{% if n in hunt.ticked %} checked{% endif %}{% endwith %}>
         <span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>
-        <span class="spot-text">{{ spot.text }}</span>
+        <span class="spot-body">
+          {% if spot.name %}<span class="spot-name">{{ spot.name }}</span>{% endif %}
+          <span class="spot-text">{{ spot.text }}</span>
+          {% if spot.about %}<span class="spot-about">{{ spot.about }}</span>{% endif %}
+        </span>
         <span class="spot-tick" aria-hidden="true">✓</span>
       </label></li>
       {% endfor %}

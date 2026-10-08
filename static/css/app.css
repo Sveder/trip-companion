@@ -202,10 +202,12 @@ span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
 .sv-help { margin: -.4rem 0 0; }
 .spot-form h2 { margin: 0 0 .5rem; }
 .spots { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; gap: .6rem; }
-.spot { display: flex; align-items: center; gap: .8rem; padding: .7rem 1rem; background: var(--c-surface); border: 4px solid var(--c-line); border-radius: var(--radius); font-weight: 800; font-size: 1.15rem; cursor: pointer; }
+.spot { display: flex; align-items: flex-start; gap: .8rem; padding: .7rem 1rem; background: var(--c-surface); border: 4px solid var(--c-line); border-radius: var(--radius); font-weight: 800; font-size: 1.15rem; cursor: pointer; }
 .spot input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .spot-emoji { font-size: 1.8rem; line-height: 1; }
-.spot-text { flex: 1; }
+.spot-body { flex: 1; display: grid; gap: .15rem; }
+.spot-name { font-size: 1.2rem; color: var(--c-accent); }
+.spot-about { font-weight: 500; font-size: .95rem; line-height: 1.35; }
 .spot-tick { display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 3px solid var(--c-line); color: transparent; font-size: 1.3rem; flex: none; }
 .spot input:checked ~ .spot-tick { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
 .spot input:checked ~ .spot-text { text-decoration: line-through; text-decoration-thickness: 3px; }
