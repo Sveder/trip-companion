@@ -79,6 +79,10 @@ h3 { margin: .3em 0; font-size: 1.25rem; }
 .btn:hover { filter: brightness(1.08); }
 .btn.alt { background: var(--c-sun); color: var(--c-ink); }
 .btn.big { font-size: 1.25rem; padding: .8rem 2rem; margin-top: .5rem; }
+/* Sign-in page: Google button, white like Google asks, with the same round shape as our buttons. */
+.or-line { text-align: center; color: var(--c-muted); font-weight: 700; margin: .8rem 0 0; }
+.btn.google-btn { background: #fff; color: var(--c-ink); border: 2px solid var(--c-line); display: inline-flex; align-items: center; gap: .6rem; }
+.g-mark { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: #4285f4; color: #fff; font-weight: 900; font-size: 1rem; }
 .link { background: none; border: 0; padding: 0; font: inherit; color: var(--c-muted); text-decoration: underline; cursor: pointer; }
 .messages { list-style: none; padding: 0; }
 .msg { background: var(--c-sun); padding: .6rem 1rem; border-radius: 12px; margin-bottom: .5rem; }

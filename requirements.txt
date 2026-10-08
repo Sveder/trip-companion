@@ -1,6 +1,6 @@
 boto3==1.43.108
 Django==5.2.18
-django-allauth==65.19.7
+django-allauth[socialaccount]==65.19.7
 gunicorn==26.2.0
 python-dotenv==1.2.4
 PyYAML==6.0.3

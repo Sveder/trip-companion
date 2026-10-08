@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-08 14:22+0300\n"
+"POT-Creation-Date: 2026-10-08 17:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,6 +93,14 @@ msgstr "הקלידו את האימייל שלכם. נשלח לכם קוד של 6
 #: templates/accounts/signin.html:11
 msgid "Send me a code"
 msgstr "שלחו לי קוד"
+
+#: templates/accounts/signin.html:14
+msgid "or"
+msgstr "או"
+
+#: templates/accounts/signin.html:17
+msgid "Sign in with Google"
+msgstr "כניסה עם Google"
 
 #: templates/activities/_frame.html:6
 #, python-format
@@ -321,7 +329,9 @@ msgstr "בחרו את המסלול שלכם"
 msgid ""
 "We picked these for your family (<bdi>%(family)s</bdi>). Tap a card to "
 "switch it on or off."
-msgstr "בחרנו את אלה בשביל המשפחה שלכם (<bdi>%(family)s</bdi>). לחצו על כרטיס כדי להדליק או לכבות אותו."
+msgstr ""
+"בחרנו את אלה בשביל המשפחה שלכם (<bdi>%(family)s</bdi>). לחצו על כרטיס כדי "
+"להדליק או לכבות אותו."
 
 #: templates/courses/builder.html:18
 msgid "For kids"
@@ -674,8 +684,8 @@ msgstr "שומרים…"
 
 #: templates/there/hunt.html:43
 msgid ""
-"Only your family sees these photos. After the trip they wait for you in your "
-"highlights."
+"Only your family sees these photos. After the trip they wait for you in your"
+" highlights."
 msgstr ""
 "רק המשפחה שלכם רואה את התמונות האלה. אחרי הטיול הן מחכות לכם בדף הרגעים הכי "
 "יפים."
@@ -694,9 +704,10 @@ msgstr "מי נוסע? שימו את כולם על המטוס!"
 
 #: templates/trips/setup.html:35
 msgid ""
-"Drag a person into the plane, or tap them. Tap a person in the plane to take "
-"them off."
-msgstr "גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
+"Drag a person into the plane, or tap them. Tap a person in the plane to take"
+" them off."
+msgstr ""
+"גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
 
 #: templates/trips/setup.html:45
 msgid "The plane is empty."
@@ -737,61 +748,60 @@ msgstr "כמה ימים נמשך הטיול?"
 msgid "We leave on (if you know)"
 msgstr "יוצאים בתאריך (אם אתם יודעים)"
 
-#: trips/forms.py:24
+#: trips/forms.py:26
 msgid "Put at least one person on the plane."
 msgstr "שימו לפחות אדם אחד על המטוס."
 
-#: trips/forms.py:26
+#: trips/forms.py:28
 msgid "That is a big family! The app takes up to 12 people."
 msgstr "איזו משפחה גדולה! האפליקציה מקבלת עד 12 אנשים."
 
-#: trips/forms.py:31
-msgid "The trip ends before it starts."
-msgstr "הטיול נגמר לפני שהוא מתחיל."
-
-#: trips/models.py:11
+#: trips/models.py:13
 msgid "Little ones"
 msgstr "קטנטנים"
 
-#: trips/models.py:12
+#: trips/models.py:14
 msgid "Kids"
 msgstr "ילדים"
 
-#: trips/models.py:13
+#: trips/models.py:15
 msgid "Big kids"
 msgstr "ילדים גדולים"
 
-#: trips/models.py:14
+#: trips/models.py:16
 msgid "Grown-ups"
 msgstr "מבוגרים"
 
-#: trips/models.py:30
+#: trips/models.py:32
 #, python-format
 msgid "%(n)d little one"
 msgid_plural "%(n)d little ones"
 msgstr[0] "קטנטן אחד"
 msgstr[1] "%(n)d קטנטנים"
 
-#: trips/models.py:31
+#: trips/models.py:33
 #, python-format
 msgid "%(n)d kid"
 msgid_plural "%(n)d kids"
 msgstr[0] "ילד אחד"
 msgstr[1] "%(n)d ילדים"
 
-#: trips/models.py:32
+#: trips/models.py:34
 #, python-format
 msgid "%(n)d big kid"
 msgid_plural "%(n)d big kids"
 msgstr[0] "ילד גדול אחד"
 msgstr[1] "%(n)d ילדים גדולים"
 
-#: trips/models.py:33
+#: trips/models.py:35
 #, python-format
 msgid "%(n)d grown-up"
 msgid_plural "%(n)d grown-ups"
 msgstr[0] "מבוגר אחד"
 msgstr[1] "%(n)d מבוגרים"
+
+#~ msgid "The trip ends before it starts."
+#~ msgstr "הטיול נגמר לפני שהוא מתחיל."
 
 #~ msgid "How old is everyone going?"
 #~ msgstr "בני כמה כל מי שנוסע?"

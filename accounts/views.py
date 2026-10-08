@@ -1,6 +1,7 @@
 """One sign-in page: type your email, get a code. New emails get an account on the way."""
 from allauth.account.internal.flows.login_by_code import LoginCodeVerificationProcess
 from allauth.account.models import EmailAddress
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -30,7 +31,12 @@ def signin(request):
         LoginCodeVerificationProcess.initiate(request=request, user=user, email=email)
         url = reverse("account_confirm_login_code")
         return redirect(f"{url}?{urlencode({'next': next_url})}" if next_url else url)
-    return render(request, "accounts/signin.html", {"form": form})
+    return render(request, "accounts/signin.html", {
+        "form": form,
+        "next_url": next_url,
+        # Google sign-in shows only when the server has the OAuth keys.
+        "google_on": bool(settings.GOOGLE_CLIENT_ID),
+    })
 
 
 def user_for_email(email):

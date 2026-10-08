@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n socialaccount %}
 {% block title %}{% translate "Sign in" %}{% endblock %}
 {% block content %}
 <section class="panel narrow">
@@ -10,5 +10,12 @@
     {{ form.as_p }}
     <button class="btn big" type="submit">{% translate "Send me a code" %}</button>
   </form>
+  {% if google_on %}
+  <p class="or-line">{% translate "or" %}</p>
+  <form method="post" action="{% provider_login_url 'google' next=next_url %}" class="form">
+    {% csrf_token %}
+    <button class="btn big google-btn" type="submit"><span class="g-mark" aria-hidden="true">G</span> {% translate "Sign in with Google" %}</button>
+  </form>
+  {% endif %}
 </section>
 {% endblock %}

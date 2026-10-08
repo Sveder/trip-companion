@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     "content_admin",
     "accounts",
     "trips",
@@ -121,6 +123,25 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = "Trip Companion: "
 LOGIN_URL = "signin"
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+
+# Google sign-in (feedback T81). The OAuth client lives in Kurt's Google Cloud project
+# trip-companion-511014. The keys come from the server .env only; with no keys the button is hidden.
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APPS": [{"client_id": GOOGLE_CLIENT_ID, "secret": GOOGLE_CLIENT_SECRET}] if GOOGLE_CLIENT_ID else [],
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"prompt": "select_account"},
+        # Google checks the address, so a family that first used the email code
+        # lands in the same account when it signs in with Google.
+        "EMAIL_AUTHENTICATION": True,
+    }
+}
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_STORE_TOKENS = False
 
 # Absolute links in emails (reminders) start with this.
 SITE_URL = os.environ.get("SITE_URL", "https://trip.sveder.com")
