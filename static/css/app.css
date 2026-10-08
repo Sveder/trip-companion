@@ -421,3 +421,5 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .plane { max-width: 620px; }
 .plane-body path:first-child { stroke-width: 3; }
 .age-range { display: block; white-space: nowrap; font-weight: 800; }
+.in-japan-now { margin: .8rem 0; }
+.in-japan-now .hint { margin-top: .3rem; }

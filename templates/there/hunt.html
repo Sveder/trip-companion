@@ -8,6 +8,7 @@
   <h1>{% translate "While we are there" %}</h1>
   <p class="lead">{% translate "Look for these things in Japan. When you see one, take a photo!" %}</p>
   {% if phase == "before" %}<p class="hint">{% translate "This list is for the trip. Open it in Japan, on your phone." %}</p>{% endif %}
+  {% include "includes/in_japan_now.html" %}
   <p class="hunt-count"><strong>{% blocktranslate %}{{ found }} of {{ total }} found{% endblocktranslate %}</strong></p>
 </section>
 

@@ -50,7 +50,7 @@ def course(request):
     nxt = course.next_item()
     ready = [i for i in items if not i.is_stub]
     return render(request, "courses/course.html", {
-        "trip": trip, "course": course, "items": items, "next_id": nxt.id if nxt else None,
+        "trip": trip, "course": course, "items": items, "next_id": nxt.id if nxt else None, "phase": trip_phase(trip),
         "done": sum(1 for i in ready if i.done_at), "total": len(ready)})
 
 

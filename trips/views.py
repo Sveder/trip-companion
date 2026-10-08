@@ -1,6 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import redirect, render
+from django.utils import timezone
+from django.utils.translation import gettext as _
+from django.views.decorators.http import require_POST
 
 from analytics.models import track
 from content_admin.i18n import localize
@@ -45,3 +49,19 @@ def trip_setup(request):
                     "range": f"{0 if i == 0 else GROUPS[i - 1][2] + 1}-{g[2]}" if g[0] != "grownup" else "13+"}
                    for i, g in enumerate(GROUPS)],
     })
+
+
+@login_required
+@require_POST
+def in_japan_now(request):
+    """T93: a trip with no leave date starts today, so the 'in Japan' part (photo hunt, highlights) switches on."""
+    trip = active_trip(request.user)
+    if trip is None:
+        return redirect("trip_setup")
+    if trip.start_date is None:
+        trip.set_dates(timezone.localdate(), trip.length_days)
+        trip.save(update_fields=["start_date", "end_date", "length_days"])
+        track("trip_started_now", trip=trip)
+        messages.success(request, _("Have a great trip! Here is your photo list."))
+    request.session["there_seen"] = str(timezone.localdate())
+    return redirect("there")

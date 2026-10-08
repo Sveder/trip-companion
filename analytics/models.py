@@ -16,6 +16,7 @@ NAMES = {
     "video_play": "Video played",
     "clip_saved": "Clip saved",
     "hunt_opened": "Photo hunt opened",
+    "trip_started_now": "\"We are in Japan now\" tapped",
     "photo_saved": "Photo saved",
     "referral_click": "Shop link clicked",
     "reminder_click": "Reminder email opened",

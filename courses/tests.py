@@ -596,3 +596,77 @@ class JapanFlagTests(TestCase):
         page = self.client.get(reverse("trip_setup")).content.decode()
         self.assertIn("img/flags/japan.svg", page)
         self.assertNotIn("🇯🇵", page)
+
+
+class InJapanNowTests(TestCase):
+    """T93: a trip with only a length (no leave date) can still reach the 'in Japan' part, with one tap."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("n@example.com", "n@example.com")
+        self.trip = make_trip(self.user, [38, 4])
+        self.trip.set_dates(None, 12)
+        self.trip.save()
+        self.course = build_course(self.trip, [m.id for m, on in suggestions(self.trip) if on])
+        self.client.force_login(self.user)
+
+    def finish_all(self):
+        for item in self.course.items.all():
+            item.mark_done()
+
+    def test_button_shows_on_finished_course_and_there_pages(self):
+        self.finish_all()
+        for url in ("/", reverse("course"), reverse("there")):
+            html = self.client.get(url).content.decode()
+            self.assertIn("We are in Japan now!", html, url)
+            self.assertIn(reverse("in_japan_now"), html, url)
+        self.assertNotIn("While we are there</a>", self.client.get("/").content.decode())
+
+    def test_hebrew_button(self):
+        self.client.cookies["django_language"] = "he"
+        html = self.client.get(reverse("there"), HTTP_ACCEPT_LANGUAGE="he").content.decode()
+        self.assertIn("אנחנו ביפן עכשיו!", html)
+
+    def test_no_button_when_the_trip_has_a_date(self):
+        self.trip.set_dates(timezone.localdate() + timedelta(days=30), 12)
+        self.trip.save()
+        self.assertNotIn("We are in Japan now!", self.client.get(reverse("there")).content.decode())
+        self.trip.set_dates(timezone.localdate() - timedelta(days=1), 12)
+        self.trip.save()
+        self.assertNotIn("We are in Japan now!", self.client.get(reverse("there")).content.decode())
+
+    def test_tap_starts_the_trip_today(self):
+        from reminders.logic import due
+        later = timezone.now() + timedelta(days=3)
+        self.assertIsNotNone(due(self.user, now=later))
+        self.assertEqual(self.client.get(reverse("in_japan_now")).status_code, 405)
+        r = self.client.post(reverse("in_japan_now"))
+        self.assertRedirects(r, reverse("there"))
+        self.trip.refresh_from_db()
+        today = timezone.localdate()
+        self.assertEqual(self.trip.start_date, today)
+        self.assertEqual(self.trip.end_date, today + timedelta(days=11))
+        self.assertEqual(trip_phase(self.trip), "during")
+        self.assertIsNone(due(self.user, now=later))
+        self.assertNotIn("We are in Japan now!", self.client.get(reverse("there")).content.decode())
+        self.finish_all()
+        html = self.client.get("/").content.decode()
+        self.assertIn("While we are there", html)
+
+    def test_first_visit_of_the_day_opens_the_photo_hunt(self):
+        self.client.post(reverse("in_japan_now"))
+        s = self.client.session
+        s.pop("there_seen", None)
+        s.save()
+        self.assertRedirects(self.client.get("/"), reverse("there"))
+
+    def test_second_tap_keeps_the_first_date(self):
+        start = timezone.localdate() - timedelta(days=2)
+        self.trip.set_dates(start, 12)
+        self.trip.save()
+        self.client.post(reverse("in_japan_now"))
+        self.trip.refresh_from_db()
+        self.assertEqual(self.trip.start_date, start)
