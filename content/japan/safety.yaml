@@ -8,10 +8,437 @@ audience: all
 order: 40
 ready: true
 activities:
+  - id: safety-lesson
+    title: Safe like a kid in Japan
+    title_he: בטוחים כמו ילדים ביפן
+    type: lesson
+    intro: Swipe through the pages. Tap the pictures, play the games, and practise each thing at home!
+    intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ותתאמנו על כל דבר בבית!
+    pictures:
+      - id: "police"
+        img: "lesson/safety/police.svg"
+        label: "Police, 110"
+        label_he: "משטרה, 110"
+      - id: "fire"
+        img: "lesson/safety/fire.svg"
+        label: "Fire engine, 119"
+        label_he: "כבאית, 119"
+      - id: "ambulance"
+        img: "lesson/safety/ambulance.svg"
+        label: "Ambulance, 119"
+        label_he: "אמבולנס, 119"
+      - id: "koban"
+        img: "lesson/safety/koban.svg"
+        label: "Police box (koban)"
+        label_he: "ביתן משטרה (קובאן)"
+      - id: "staff"
+        img: "lesson/safety/staff.svg"
+        label: "Station worker"
+        label_he: "עובד תחנה"
+      - id: "clerk"
+        img: "lesson/safety/clerk.svg"
+        label: "Shop worker"
+        label_he: "מוכר בחנות"
+      - id: "vending"
+        img: "lesson/safety/vending.svg"
+        label: "Vending machine"
+        label_he: "מכונת משקאות"
+      - id: "table"
+        img: "lesson/safety/table.svg"
+        label: "Under a table"
+        label_he: "מתחת לשולחן"
+      - id: "stay"
+        img: "lesson/safety/stay.svg"
+        label: "Stay where you are"
+        label_he: "נשארים במקום"
+      - id: "card"
+        img: "lesson/safety/card.svg"
+        label: "Name card"
+        label_he: "כרטיס עם שם"
+      - id: "car"
+        img: "lesson/safety/car.svg"
+        label: "A car"
+        label_he: "מכונית"
+      - id: "balloon"
+        img: "lesson/safety/balloon.svg"
+        label: "A balloon"
+        label_he: "בלון"
+      - id: "icecream"
+        img: "lesson/safety/icecream.svg"
+        label: "Ice cream"
+        label_he: "גלידה"
+      - id: "crossing"
+        img: "lesson/safety/crossing.svg"
+        label: "Green walking person"
+        label_he: "האיש הירוק ברמזור"
+    pages:
+      - kind: text
+        title: Japan is a safe place
+        title_he: יפן היא מקום בטוח
+        img: lesson/safety/safe.svg
+        japanese: 安全
+        reading: anzen
+        text: Japan is one of the safest places in the world. Children there even walk to school on their own! We still learn the plan, so we know what to do if something goes wrong.
+        text_he: יפן היא אחד המקומות הכי בטוחים בעולם. ילדים שם אפילו הולכים לבית הספר לבד! בכל זאת לומדים את התוכנית, כדי שנדע מה לעשות אם משהו משתבש.
+        tips:
+          - Two numbers to remember. 110 is the police. 119 is fire and ambulance.
+          - If you get lost, stay where you are.
+          - If the floor shakes, get under a table.
+          - Cars drive on the left, so look right first.
+        tips_he:
+          - שני מספרים לזכור. 110 זה משטרה. 119 זה כבאות ואמבולנס.
+          - אם הלכתם לאיבוד, נשארים במקום.
+          - אם הרצפה רועדת, נכנסים מתחת לשולחן.
+          - המכוניות נוסעות בצד שמאל, אז מסתכלים קודם ימינה.
+      - kind: spots
+        title: Helpers on the street
+        title_he: עוזרים ברחוב
+        img: lesson/safety/street.svg
+        text: This is a street corner in Japan. Tap each dot to find a helper.
+        text_he: זו פינת רחוב ביפן. געו בכל נקודה כדי למצוא עוזר.
+        spots:
+          - x: 12
+            y: 50
+            label: "The police box"
+            label_he: "ביתן המשטרה"
+            japanese: "こうばん"
+            reading: "koban"
+            text: "A koban is a small police house. Many have the word KOBAN on the front and a red lamp on top. Police officers there help lost children every day."
+            text_he: "קובאן הוא בית משטרה קטן. על הרבה מהם כתוב KOBAN מלפנים, ויש להם מנורה אדומה למעלה. השוטרים שם עוזרים לילדים שהלכו לאיבוד כל יום."
+          - x: 33
+            y: 48
+            label: "The vending machine"
+            label_he: "מכונת המשקאות"
+            text: "For grown-ups. Many drinks machines have a small sticker with the address of the place. Read it to the police on the phone, and they know where you are."
+            text_he: "למבוגרים. על הרבה מכונות משקאות יש מדבקה קטנה עם הכתובת של המקום. מקריאים אותה למשטרה בטלפון, והם יודעים איפה אתם."
+          - x: 42
+            y: 40
+            label: "The crossing light"
+            label_he: "הרמזור"
+            text: "Cross when the person in the light is green. Some crossings play a bird song, \"piyo piyo\", to help people who cannot see."
+            text_he: "עוברים כשהאיש ברמזור ירוק. בחלק מהמעברים מתנגן שיר ציפור, \"פיו פיו\", כדי לעזור לאנשים שלא רואים."
+          - x: 61
+            y: 55
+            label: "The convenience store"
+            label_he: "המכולת"
+            japanese: "コンビニ"
+            reading: "konbini"
+            text: "A konbini is open all day and all night. The people who work there help a child who needs help. It is a good place to wait."
+            text_he: "קונביני פתוחה כל היום וכל הלילה. האנשים שעובדים שם עוזרים לילד שצריך עזרה. זה מקום טוב לחכות בו."
+          - x: 94
+            y: 37
+            label: "The yellow sticker"
+            label_he: "המדבקה הצהובה"
+            text: "A yellow sign that says \"Kodomo 110\" means \"children's help house\". A child in trouble can knock on that door and ask for help."
+            text_he: "שלט צהוב שכתוב עליו \"קודומו 110\" אומר \"בית עזרה לילדים\". ילד בצרה יכול לדפוק בדלת הזאת ולבקש עזרה."
+      - kind: flip
+        title: Who comes when you call?
+        title_he: מי מגיע כשמתקשרים?
+        text: Tap a card to turn it.
+        text_he: געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/safety/police.svg"
+            label: "One, one, zero"
+            label_he: "אחת, אחת, אפס"
+            text: "110 calls the police. Call it if you are lost, or if something was stolen."
+            text_he: "110 מתקשר למשטרה. מתקשרים אם הלכתם לאיבוד, או אם משהו נגנב."
+          - img: "lesson/safety/fire.svg"
+            label: "One, one, nine: fire"
+            label_he: "אחת, אחת, תשע: אש"
+            text: "119 calls the fire engine. Call it if you see fire or a lot of smoke."
+            text_he: "119 מתקשר לכבאית. מתקשרים אם רואים אש או הרבה עשן."
+          - img: "lesson/safety/ambulance.svg"
+            label: "One, one, nine: ambulance"
+            label_he: "אחת, אחת, תשע: אמבולנס"
+            text: "119 also calls the ambulance. Call it if someone is hurt or very sick. The ambulance in Japan is white with a red stripe."
+            text_he: "119 מתקשר גם לאמבולנס. מתקשרים אם מישהו נפצע או חולה מאוד. האמבולנס ביפן לבן עם פס אדום."
+          - img: "lesson/safety/phone.svg"
+            label: "Help in English"
+            label_he: "עזרה באנגלית"
+            text: "For grown-ups. The Japan Visitor Hotline, 050-3816-2787, helps in English all day and all night. In an emergency, call 110 or 119 first."
+            text_he: "למבוגרים. קו העזרה למבקרים ביפן, 050-3816-2787, עוזר באנגלית כל היום וכל הלילה. במקרה חירום, מתקשרים קודם ל-110 או ל-119."
+      - kind: pick
+        title: Which number?
+        title_he: איזה מספר?
+        text: Tap the helper we need.
+        text_he: געו בעוזר שאנחנו צריכים.
+        rounds:
+          - ask: "Oh no, smoke and fire! We call 119. Who comes?"
+            ask_he: "אוי לא, עשן ואש! מתקשרים ל-119. מי מגיע?"
+            answer: "fire"
+            choices: [police, fire, clerk, vending]
+          - ask: "Grandpa fell and hurt his leg. We call 119. Who comes?"
+            ask_he: "סבא נפל ונפגע ברגל. מתקשרים ל-119. מי מגיע?"
+            answer: "ambulance"
+            choices: [ambulance, koban, balloon, police]
+          - ask: "Mum lost her wallet in the street. We call 110. Who comes?"
+            ask_he: "אמא איבדה את הארנק ברחוב. מתקשרים ל-110. מי מגיע?"
+            answer: "police"
+            choices: [fire, icecream, police, ambulance]
+      - kind: text
+        title: If you get lost
+        title_he: אם הלכתם לאיבוד
+        img: lesson/safety/lost.svg
+        japanese: 迷子
+        reading: maigo
+        text: Did you lose your family? Do not run to look for them. Stand still. Your family comes back to the place where they saw you last.
+        text_he: איבדתם את המשפחה? לא רצים לחפש אותם. עומדים במקום. המשפחה חוזרת למקום שבו היא ראתה אתכם בפעם האחרונה.
+        tips:
+          - Stay where you are. Do not leave the shop or the station.
+          - Ask a person who works there, like a shop worker or a station worker. Look for a uniform or a name badge.
+          - Show them the name card in your pocket.
+          - Say "maigo desu". It means "I am lost".
+        tips_he:
+          - נשארים במקום. לא יוצאים מהחנות או מהתחנה.
+          - מבקשים עזרה ממישהו שעובד שם, כמו מוכר בחנות או עובד בתחנה. מחפשים מדים או תג עם שם.
+          - מראים לו את הכרטיס עם השם שבכיס.
+          - אומרים "מאיגו דס". זה אומר "הלכתי לאיבוד".
+      - kind: spots
+        title: My name card
+        title_he: הכרטיס שלי
+        img: lesson/safety/namecard.svg
+        text: Every child gets a card like this in a pocket. Tap each dot to see what is on it.
+        text_he: כל ילד מקבל כרטיס כזה בכיס. געו בכל נקודה כדי לראות מה כתוב עליו.
+        spots:
+          - x: 9
+            y: 25
+            label: "My name"
+            label_he: "השם שלי"
+            text: "Your first name and your family name, in big letters."
+            text_he: "השם הפרטי ושם המשפחה שלכם, באותיות גדולות."
+          - x: 9
+            y: 41
+            label: "The phone number"
+            label_he: "מספר הטלפון"
+            text: "A grown-up's phone number, with the country code. The helper calls it, and your family comes to you."
+            text_he: "מספר הטלפון של מבוגר, עם הקידומת של המדינה. העוזר מתקשר, והמשפחה מגיעה אליכם."
+          - x: 9
+            y: 57
+            label: "The hotel name"
+            label_he: "שם המלון"
+            text: "The name of the hotel and its address. Ask at the hotel desk to write it in Japanese too."
+            text_he: "שם המלון והכתובת שלו. מבקשים בדלפק של המלון לכתוב אותם גם ביפנית."
+          - x: 9
+            y: 73
+            label: "I am lost"
+            label_he: "הלכתי לאיבוד"
+            japanese: "まいごです"
+            reading: "maigo desu"
+            text: "\"Maigo desu\" means \"I am lost\". Every helper in Japan knows these words."
+            text_he: "\"מאיגו דס\" אומר \"הלכתי לאיבוד\". כל עוזר ביפן מכיר את המילים האלה."
+          - x: 9
+            y: 87
+            label: "Help!"
+            label_he: "הצילו!"
+            japanese: "たすけて"
+            reading: "tasukete"
+            text: "\"Tasukete\" means \"help!\". Shout it loud only when you really need help."
+            text_he: "\"טסקטה\" אומר \"הצילו!\". צועקים את זה חזק רק כשבאמת צריכים עזרה."
+      - kind: video
+        title: Watch and practise
+        title_he: צופים ומתאמנים
+        text: Watch, then play the safety drill below with your family.
+        text_he: צופים, ואז מתאמנים בתרגיל הבטיחות עם המשפחה.
+        # Only Michael approves a video. Candidates: eML26rG3Ois ("Turtle Safe", NZGetReady, New Zealand civil defence,
+        # drop, cover and hold on for kids), d08QUmxzdKU ("Kids Earthquake Safety - Disaster Dodgers", Ride the Quake),
+        # 6wkGQEUeOPQ ("What To Do If You Get Lost?", Rainbow Giggles Kids Tv).
+        youtube: eML26rG3Ois
+        approved: false
+        fallback_title: The family safety drill
+        fallback_title_he: תרגיל הבטיחות המשפחתי
+        fallback:
+          - "Turtle time: a grown-up says \"shake!\". Everybody drops to the floor, crawls under the table and holds a leg, like a turtle in its shell. Count to ten."
+          - "Statue game: a grown-up says \"lost!\". Everybody freezes like a statue and stays there until the grown-up finds them."
+          - "Name card check: each child says their name, the hotel name, and \"maigo desu\"."
+          - "Number game: a grown-up says \"fire\", \"hurt\" or \"lost\". The children shout the number: 119, 119 or 110."
+        fallback_he:
+          - "זמן צב: מבוגר אומר \"רעידה!\". כולם יורדים לרצפה, זוחלים מתחת לשולחן ומחזיקים רגל של השולחן, כמו צב בשריון. סופרים עד עשר."
+          - "משחק הפסל: מבוגר אומר \"הלכתי לאיבוד!\". כולם קופאים כמו פסל ונשארים במקום עד שהמבוגר מוצא אותם."
+          - "בדיקת כרטיס: כל ילד אומר את השם שלו, את שם המלון, ו\"מאיגו דס\"."
+          - "משחק המספרים: מבוגר אומר \"אש\", \"נפצע\" או \"הלכתי לאיבוד\". הילדים צועקים את המספר: 119, 119 או 110."
+      - kind: text
+        title: When the floor shakes
+        title_he: כשהרצפה רועדת
+        img: lesson/safety/quake.svg
+        japanese: 地震
+        reading: jishin
+        text: Japan has many small earthquakes. Most of them are so small that people do not feel them. Buildings in Japan are made to stay strong when the ground shakes.
+        text_he: ביפן יש הרבה רעידות אדמה קטנות. רובן כל כך קטנות שאנשים לא מרגישים אותן. הבניינים ביפן בנויים כדי להישאר חזקים כשהאדמה רועדת.
+        tips:
+          - "Drop: get down on your hands and knees."
+          - "Cover: crawl under a table. Protect your head."
+          - "Hold on: hold a leg of the table until the shaking stops."
+          - Stay away from windows. Do not run outside.
+          - A phone in Japan can play a loud alarm a few seconds before a strong shake. When you hear it, get under a table.
+          - For grown-ups. The free "Safety tips" app from the Japan Tourism Agency sends earthquake alerts in English.
+        tips_he:
+          - "יורדים: יורדים לרצפה על הידיים והברכיים."
+          - "מתכסים: זוחלים מתחת לשולחן. מגינים על הראש."
+          - "מחזיקים: מחזיקים ברגל של השולחן עד שהרעידה נגמרת."
+          - מתרחקים מחלונות. לא רצים החוצה.
+          - טלפון ביפן יכול להשמיע אזעקה חזקה כמה שניות לפני רעידה חזקה. כששומעים אותה, נכנסים מתחת לשולחן.
+          - למבוגרים. האפליקציה החינמית "Safety tips" של רשות התיירות היפנית שולחת התראות על רעידות אדמה באנגלית.
+      - kind: spots
+        title: On the train platform
+        title_he: על רציף הרכבת
+        img: lesson/safety/platform.svg
+        text: Train stations in Japan are busy. Tap each dot to learn how to stay safe there.
+        text_he: תחנות הרכבת ביפן עמוסות. געו בכל נקודה כדי ללמוד איך שומרים על עצמנו שם.
+        spots:
+          - x: 50
+            y: 52
+            label: "The yellow bumpy line"
+            label_he: "הקו הצהוב עם הבליטות"
+            text: "Always stand behind the yellow line. The bumps help people who cannot see to feel where the edge is."
+            text_he: "תמיד עומדים מאחורי הקו הצהוב. הבליטות עוזרות לאנשים שלא רואים להרגיש איפה הקצה."
+          - x: 21
+            y: 70
+            label: "The marks on the floor"
+            label_he: "הסימונים על הרצפה"
+            text: "The marks show where the train doors open. Wait in line next to them, not in front of the door."
+            text_he: "הסימונים מראים איפה דלתות הרכבת נפתחות. מחכים בתור לידם, לא מול הדלת."
+          - x: 42
+            y: 63
+            label: "The emergency button"
+            label_he: "כפתור החירום"
+            text: "A red button stops the trains in an emergency, like a person who fell onto the tracks. Children tell a grown-up. Never press it for fun."
+            text_he: "כפתור אדום עוצר את הרכבות במקרה חירום, כמו אדם שנפל למסילה. ילדים אומרים למבוגר. אף פעם לא לוחצים בשביל הכיף."
+          - x: 85
+            y: 72
+            label: "The station worker"
+            label_he: "עובד התחנה"
+            text: "Station workers wear a uniform and a cap. Lost on the platform? Go to a station worker and show your name card."
+            text_he: "עובדי התחנה לובשים מדים וכובע. הלכתם לאיבוד על הרציף? הולכים לעובד תחנה ומראים את הכרטיס עם השם."
+      - kind: text
+        title: Cars drive on the left
+        title_he: המכוניות נוסעות בצד שמאל
+        img: lesson/safety/road.svg
+        text: In Japan, cars drive on the LEFT side of the road. So the first car comes from your right! Look right first.
+        text_he: ביפן, המכוניות נוסעות בצד שמאל של הכביש. אז המכונית הראשונה מגיעה מימין! מסתכלים קודם ימינה.
+        tips:
+          - Look right, then left, then right again.
+          - Cross only when the person in the light is green.
+          - Hold a grown-up's hand on a busy street.
+          - Bicycles in Japan often ride on the pavement. Listen for the bell.
+        tips_he:
+          - מסתכלים ימינה, ואז שמאלה, ואז שוב ימינה.
+          - עוברים רק כשהאיש ברמזור ירוק.
+          - ברחוב עמוס מחזיקים יד של מבוגר.
+          - אופניים ביפן נוסעים הרבה על המדרכה. מקשיבים לפעמון.
+      - kind: train
+        title: Catch the helper!
+        title_he: תפסו את העוזר!
+        text: The plates ride past. Tap the helper we ask for, not the other things.
+        text_he: הצלחות נוסעות. געו בעוזר שאנחנו מבקשים, לא בדברים האחרים.
+        belt: [police, car, staff, balloon, clerk, icecream, koban, vending, ambulance, crossing]
+        rounds:
+          - ask: "Catch the police officer!"
+            ask_he: "תפסו את השוטר!"
+            answer: "police"
+          - ask: "Lost at the station? Catch the station worker!"
+            ask_he: "הלכתם לאיבוד בתחנה? תפסו את עובד התחנה!"
+            answer: "staff"
+          - ask: "Lost in a shop? Catch the shop worker!"
+            ask_he: "הלכתם לאיבוד בחנות? תפסו את המוכר!"
+            answer: "clerk"
+          - ask: "Catch the little police house, the koban!"
+            ask_he: "תפסו את בית המשטרה הקטן, הקובאן!"
+            answer: "koban"
+      - kind: flip
+        title: At the hotel
+        title_he: במלון
+        text: Do these four things on the first day. Tap a card to turn it.
+        text_he: עושים את ארבעת הדברים האלה ביום הראשון. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "lesson/safety/exitmap.svg"
+            label: "The map on the door"
+            label_he: "המפה על הדלת"
+            text: "Hotel rooms have a map on the back of the door. Find the green running person on it. Then walk to the exit stairs together, once."
+            text_he: "בחדרי מלון יש מפה על הצד הפנימי של הדלת. מוצאים עליה את האיש הירוק שרץ. ואז הולכים יחד פעם אחת למדרגות היציאה."
+          - img: "lesson/safety/torch.svg"
+            label: "The torch"
+            label_he: "הפנס"
+            text: "Many hotel rooms in Japan have a torch near the bed. Find it. If the lights go out, you know where it is."
+            text_he: "בהרבה חדרי מלון ביפן יש פנס ליד המיטה. מוצאים אותו. אם האור נכבה, יודעים איפה הוא."
+          - img: "lesson/safety/card.svg"
+            label: "The hotel card"
+            label_he: "כרטיס המלון"
+            text: "Take a card from the hotel desk with the hotel name in Japanese. Show it to a taxi driver or a helper."
+            text_he: "לוקחים מהדלפק כרטיס עם שם המלון ביפנית. מראים אותו לנהג מונית או לעוזר."
+          - img: "lesson/safety/meet.svg"
+            label: "Our meeting place"
+            label_he: "מקום המפגש שלנו"
+            text: "In a big place, like a station or a park, pick a meeting place you can all see, like a big clock. If you lose each other, the grown-up comes there."
+            text_he: "במקום גדול, כמו תחנה או פארק, בוחרים מקום מפגש שכולם רואים, כמו שעון גדול. אם מאבדים אחד את השני, המבוגר מגיע לשם."
+      - kind: pick
+        title: Safety quiz
+        title_he: חידון בטיחות
+        text: Last game! What do we do? Tap the right picture.
+        text_he: משחק אחרון! מה עושים? געו בתמונה הנכונה.
+        rounds:
+          - ask: "The floor shakes. Where do you go?"
+            ask_he: "הרצפה רועדת. לאן הולכים?"
+            answer: "table"
+            choices: [vending, table, car, crossing]
+          - ask: "You cannot see your family in the shop. What do you do first?"
+            ask_he: "אתם לא רואים את המשפחה בחנות. מה עושים קודם?"
+            answer: "stay"
+            choices: [stay, car, balloon, vending]
+          - ask: "A helper asks where you are staying. What do you show?"
+            ask_he: "עוזר שואל איפה אתם גרים. מה מראים?"
+            answer: "card"
+            choices: [icecream, balloon, card, table]
+      - kind: local
+        title: Where to practise
+        title_he: איפה מתאמנים
+        text: A plan works best when everybody has practised it.
+        text_he: תוכנית עובדת הכי טוב כשכולם התאמנו עליה.
+        groups:
+          - title: Before the trip
+            title_he: לפני הטיול
+            places:
+              - emoji: "📞"
+                title: "At home"
+                title_he: "בבית"
+                text: "Say a grown-up's phone number out loud, every day this week. Sing it if that helps!"
+                text_he: "אומרים בקול את מספר הטלפון של מבוגר, כל יום השבוע. אפשר לשיר אותו, אם זה עוזר!"
+              - emoji: "🛒"
+                title: "In a mall"
+                title_he: "בקניון"
+                text: "Play \"I am lost\": point to the people who work there, and practise asking one of them for help."
+                text_he: "משחקים ב\"הלכתי לאיבוד\": מצביעים על האנשים שעובדים שם, ומתאמנים לבקש עזרה מאחד מהם."
+              - emoji: "🐢"
+                title: "Under the table"
+                title_he: "מתחת לשולחן"
+                text: "Do the turtle drill once: drop, cover, hold on, and count to ten."
+                text_he: "עושים פעם אחת את תרגיל הצב: יורדים, מתכסים, מחזיקים, וסופרים עד עשר."
+              - emoji: "🪪"
+                title: "Make the name cards"
+                title_he: "מכינים את הכרטיסים"
+                text: "Write a card for each child and put it in a jacket pocket."
+                text_he: "כותבים כרטיס לכל ילד ושמים אותו בכיס של המעיל."
+          - title: In Japan
+            title_he: ביפן
+            places:
+              - emoji: "🏨"
+                title: "The hotel, day one"
+                title_he: "המלון, ביום הראשון"
+                text: "Find the map on the door, the exit stairs and the torch. Take a hotel card."
+                text_he: "מוצאים את המפה על הדלת, את מדרגות היציאה ואת הפנס. לוקחים כרטיס של המלון."
+              - emoji: "👮"
+                title: "The nearest koban"
+                title_he: "הקובאן הכי קרוב"
+                text: "Find the police box near the hotel on the first walk, and wave hello."
+                text_he: "מוצאים את ביתן המשטרה ליד המלון בטיול הראשון, ומנופפים שלום."
+              - emoji: "🚉"
+                title: "Every station"
+                title_he: "בכל תחנה"
+                text: "Stand behind the yellow line, and pick a meeting place before you go in."
+                text_he: "עומדים מאחורי הקו הצהוב, ובוחרים מקום מפגש לפני שנכנסים."
   # The id stays "safety-intro": a new id would delete the old row and the families' course items with it.
   - id: safety-intro
-    title: Staying safe
-    title_he: שומרים על עצמנו
+    title: "Staying safe: quick review"
+    title_he: "שומרים על עצמנו: חזרה קצרה"
     type: cards
     intro: Japan is a safe place. Let's learn what to do if we need help.
     intro_he: יפן היא מקום בטוח. בואו נלמד מה עושים אם צריך עזרה.
