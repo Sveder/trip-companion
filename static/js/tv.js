@@ -67,7 +67,9 @@
   function first() {
     var main = document.querySelector('main');
     var pick = document.querySelector('[data-lesson]') ? targets(true)[0] : null;
-    pick = pick || (main && (main.querySelector('.card') || main.querySelector('.btn, a[href], button, input')));
+    // Only a control that can take the focus: a hidden input (the CSRF token) took it on the course page (T104).
+    var list = targets().filter(function (el) { return main && main.contains(el); });
+    pick = pick || list.filter(function (el) { return el.classList.contains('card'); })[0] || list[0];
     if (pick) focus(pick);
   }
 
