@@ -102,7 +102,7 @@ activities:
             text: "The topping is called neta. Here it is salmon."
             text_he: "מה שמעל האורז נקרא נטה. כאן זה סלמון."
           - x: 28
-            y: 49
+            y: 51
             label: "Rice"
             label_he: "אורז"
             japanese: "シャリ"
