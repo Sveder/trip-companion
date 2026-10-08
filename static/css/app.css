@@ -112,7 +112,7 @@ a.card.go:hover { transform: translateY(-3px); }
 .card-go { display: inline-block; margin-top: .6rem; font-weight: 800; color: var(--c-primary); }
 .country.soon .card-emoji { filter: grayscale(.5); }
 /* Feedback T86: a drawn Hinomaru, not the flag emoji (some devices draw that black and white). */
-.card-emoji img.flag { width: 72%; height: auto; aspect-ratio: 3 / 2; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0,0,0,.18), 0 1px 3px rgba(0,0,0,.15); background: #fff; }
+.card-emoji img.flag { width: 72%; height: auto; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0,0,0,.18), 0 1px 3px rgba(0,0,0,.15); background: #fff; }
 .pick, .module { cursor: pointer; }
 .pick input, .module input { position: absolute; opacity: 0; }
 .pick:has(input:checked), .pick.on { border-color: var(--c-primary); }

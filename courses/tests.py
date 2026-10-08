@@ -598,6 +598,28 @@ class JapanFlagTests(TestCase):
         self.assertNotIn("🇯🇵", page)
 
 
+
+class UzbekistanFlagTests(TestCase):
+    """T90: the Uzbekistan 'coming soon' card shows a drawn flag (1:2, blue/white/green with red lines), not the emoji."""
+
+    def test_svg_is_the_flag(self):
+        from django.conf import settings
+        svg = (settings.BASE_DIR / "static" / "img" / "flags" / "uzbekistan.svg").read_text()
+        self.assertIn('viewBox="0 0 500 250"', svg)  # 1:2
+        for colour in ("#0099b5", "#ffffff", "#1eb53a", "#ce1126"):
+            self.assertIn(colour, svg)
+        self.assertEqual(svg.count('<use href="#s"'), 12)  # stars in rows of 3, 4 and 5
+
+    def test_welcome_and_setup_use_the_svg(self):
+        page = self.client.get(reverse("home")).content.decode()
+        self.assertIn("img/flags/uzbekistan.svg", page)
+        self.assertNotIn("🇺🇿", page)
+        user = get_user_model().objects.create_user("uzflag@example.com", "uzflag@example.com", "x")
+        self.client.force_login(user)
+        page = self.client.get(reverse("trip_setup")).content.decode()
+        self.assertIn("img/flags/uzbekistan.svg", page)
+        self.assertNotIn("🇺🇿", page)
+
 class InJapanNowTests(TestCase):
     """T93: a trip with only a length (no leave date) can still reach the 'in Japan' part, with one tap."""
 

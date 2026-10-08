@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 250" width="500" height="250">
+  <title>Uzbekistan</title>
+  <rect width="500" height="250" fill="#ffffff"/>
+  <rect width="500" height="80" fill="#0099b5"/>
+  <rect y="80" width="500" height="5" fill="#ce1126"/>
+  <rect y="165" width="500" height="5" fill="#ce1126"/>
+  <rect y="170" width="500" height="80" fill="#1eb53a"/>
+  <defs><polygon id="s" points="0.00,-6.00 1.35,-1.85 5.71,-1.85 2.18,0.71 3.53,4.85 0.00,2.29 -3.53,4.85 -2.18,0.71 -5.71,-1.85 -1.35,-1.85" fill="#ffffff"/></defs>
+  <circle cx="70" cy="40" r="30" fill="#ffffff"/>
+  <circle cx="80" cy="40" r="27" fill="#0099b5"/>
+  <g>
+    <use href="#s" x="146" y="22"/>
+    <use href="#s" x="166" y="22"/>
+    <use href="#s" x="186" y="22"/>
+    <use href="#s" x="126" y="40"/>
+    <use href="#s" x="146" y="40"/>
+    <use href="#s" x="166" y="40"/>
+    <use href="#s" x="186" y="40"/>
+    <use href="#s" x="106" y="58"/>
+    <use href="#s" x="126" y="58"/>
+    <use href="#s" x="146" y="58"/>
+    <use href="#s" x="166" y="58"/>
+    <use href="#s" x="186" y="58"/>
+  </g>
+</svg>
