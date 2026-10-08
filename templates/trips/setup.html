@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{% translate "Our trip" %}{% endblock %}
 {% block content %}
 <section class="panel">
@@ -29,7 +29,33 @@
       </div>
       {{ form.destination.errors }}
     </fieldset>
-    <p>{{ form.ages.label_tag }} {{ form.ages }} <span class="hint">{{ form.ages.help_text }}</span>{{ form.ages.errors }}</p>
+    {# Feedback T53: drag (or tap) each person into the plane. Without JavaScript the number boxes do the same job. #}
+    <fieldset class="family-pick" data-family>
+      <legend>{% translate "Who is coming? Put everyone on the plane!" %}</legend>
+      <p class="hint" data-js-only hidden>{% translate "Drag a person into the plane, or tap them. Tap a person in the plane to take them off." %}</p>
+      {{ form.non_field_errors }}
+      <div class="plane" data-plane aria-live="polite">
+        <svg class="plane-body" viewBox="0 0 400 120" aria-hidden="true" focusable="false">
+          <path d="M60 30 Q20 30 8 60 Q20 90 60 90 L340 90 Q392 90 392 60 Q392 30 340 30 Z" fill="var(--c-surface)" stroke="var(--c-ink)" stroke-width="4"/>
+          <path d="M70 30 L40 4 L84 4 L120 30 Z M70 90 L40 116 L84 116 L120 90 Z" fill="var(--c-primary)"/>
+          <path d="M200 90 L250 118 L290 118 L260 90 Z M200 30 L250 2 L290 2 L260 30 Z" fill="var(--c-accent)"/>
+          <path d="M392 60 Q392 38 360 34 L360 60 Z" fill="var(--c-sun)"/>
+        </svg>
+        <div class="seats" data-seats></div>
+        <p class="plane-empty" data-empty>{% translate "The plane is empty." %}</p>
+      </div>
+      <p class="plane-count" data-count></p>
+      <div class="groups">
+        {% for g in groups %}
+        <div class="group" data-group="{{ g.id }}" data-emoji="{{ g.emoji }}" data-label="{{ g.label }}">
+          <button type="button" class="person" data-person aria-label="{% blocktranslate with who=g.label %}Add one: {{ who }}{% endblocktranslate %}"><span aria-hidden="true">{{ g.emoji }}</span></button>
+          <label for="{{ g.field.id_for_label }}">{{ g.label }} <span class="hint age-range" dir="ltr">{{ g.range }}</span></label>
+          <input type="number" name="{{ g.field.html_name }}" id="{{ g.field.id_for_label }}" min="0" max="12" inputmode="numeric" value="{{ g.field.value|default_if_none:0 }}">
+          {{ g.field.errors }}
+        </div>
+        {% endfor %}
+      </div>
+    </fieldset>
     <div class="row">
       <p>{{ form.start_date.label_tag }} {{ form.start_date }}{{ form.start_date.errors }}</p>
       <p>{{ form.end_date.label_tag }} {{ form.end_date }}{{ form.end_date.errors }}</p>
@@ -37,4 +63,6 @@
     <button class="btn big" type="submit">{% translate "Next: choose your course" %}</button>
   </form>
 </section>
+<script>window.T = window.T || {}; window.T.onPlane = "{{ _("{n} on the plane")|escapejs }}"; window.T.takeOff = "{{ _("Take off the plane: {who}")|escapejs }}";</script>
+<script src="{% static 'js/family.js' %}" defer></script>
 {% endblock %}

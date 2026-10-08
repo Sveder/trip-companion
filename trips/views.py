@@ -7,7 +7,7 @@ from content_admin.i18n import localize
 from content_admin.loader import load_previews
 
 from .forms import TripForm
-from .models import Traveller, Trip, active_trip
+from .models import GROUPS, Traveller, Trip, active_trip
 
 
 @login_required
@@ -34,9 +34,14 @@ def trip_setup(request):
         if trip:
             initial = {
                 "destination": trip.destination,
-                "ages": ", ".join(str(a) for a in trip.ages),
+                **trip.group_counts,
                 "start_date": trip.start_date,
                 "end_date": trip.end_date,
             }
         form = TripForm(initial=initial)
-    return render(request, "trips/setup.html", {"form": form, "previews": localize(load_previews()), "trip": trip})
+    return render(request, "trips/setup.html", {
+        "form": form, "previews": localize(load_previews()), "trip": trip,
+        "groups": [{"id": g[0], "label": g[3], "emoji": g[4], "field": form[g[0]],
+                    "range": f"{0 if i == 0 else GROUPS[i - 1][2] + 1}-{g[2]}" if g[0] != "grownup" else "13+"}
+                   for i, g in enumerate(GROUPS)],
+    })

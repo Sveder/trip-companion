@@ -118,7 +118,7 @@ class FlowTests(TestCase):
         self.assertRedirects(c.get("/"), reverse("trip_setup"))
         # Michael's feedback: the step after setup is "choose your course", on the button and on the next page.
         self.assertContains(c.get(reverse("trip_setup")), "Next: choose your course")
-        r = c.post(reverse("trip_setup"), {"destination": "japan", "ages": "38, 36, 4, 2"})
+        r = c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 2, "kid": 1, "little": 1})
         self.assertRedirects(r, reverse("builder"))
         page = c.get(reverse("builder"))
         self.assertContains(page, "<h1>Choose your course</h1>", html=False)
@@ -154,8 +154,10 @@ class FlowTests(TestCase):
     def test_bad_ages_rejected(self):
         u = get_user_model().objects.create_user("c@example.com", "c@example.com")
         self.client.force_login(u)
-        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "ages": "two"})
-        self.assertContains(r, "is not an age")
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "kid": "two"})
+        self.assertContains(r, "Enter a whole number")
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan"})
+        self.assertContains(r, "Put at least one person on the plane.")
 
 
 class ThemeTests(TestCase):

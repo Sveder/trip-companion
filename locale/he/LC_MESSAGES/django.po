@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-08 14:13+0300\n"
+"POT-Creation-Date: 2026-10-08 14:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -319,11 +319,9 @@ msgstr "בחרו את המסלול שלכם"
 #: templates/courses/builder.html:7
 #, python-format
 msgid ""
-"We picked these for your family (<bdi>%(ages)s</bdi>). Tap a card to switch "
-"it on or off."
-msgstr ""
-"בחרנו את אלה בשביל המשפחה שלכם (<bdi>%(ages)s</bdi>). לחצו על כרטיס כדי "
-"להדליק או לכבות אותו."
+"We picked these for your family (<bdi>%(family)s</bdi>). Tap a card to "
+"switch it on or off."
+msgstr "בחרנו את אלה בשביל המשפחה שלכם (<bdi>%(family)s</bdi>). לחצו על כרטיס כדי להדליק או לכבות אותו."
 
 #: templates/courses/builder.html:18
 msgid "For kids"
@@ -380,7 +378,6 @@ msgid "You did every activity!"
 msgstr "עשיתם את כל הפעילויות!"
 
 #: templates/courses/finished.html:10
-#| msgid "You are in Japan now! Play the quiz to keep your words fresh."
 msgid ""
 "You are in Japan now! Look for the things on the photo list, and play the "
 "quiz to keep your words fresh."
@@ -431,7 +428,6 @@ msgid "Look at everything you did to get ready for Japan!"
 msgstr "תראו את כל מה שעשיתם כדי להתכונן ליפן!"
 
 #: templates/courses/highlights.html:17
-#| msgid "What we did"
 msgid "What we found in Japan"
 msgstr "מה מצאנו ביפן"
 
@@ -645,7 +641,6 @@ msgstr "הרשימה הזאת היא לטיול. פתחו אותה ביפן, ב�
 
 #: templates/there/hunt.html:11
 #, python-format
-#| msgid "%(done)s of %(total)s done"
 msgid "%(found)s of %(total)s found"
 msgstr "נמצאו %(found)s מתוך %(total)s"
 
@@ -679,14 +674,13 @@ msgstr "שומרים…"
 
 #: templates/there/hunt.html:43
 msgid ""
-"Only your family sees these photos. After the trip they wait for you in your"
-" highlights."
+"Only your family sees these photos. After the trip they wait for you in your "
+"highlights."
 msgstr ""
 "רק המשפחה שלכם רואה את התמונות האלה. אחרי הטיול הן מחכות לכם בדף הרגעים הכי "
 "יפים."
 
 #: templates/there/hunt.html:44
-#| msgid "Our trip highlights"
 msgid "Our highlights"
 msgstr "הרגעים הכי יפים שלנו"
 
@@ -694,9 +688,38 @@ msgstr "הרגעים הכי יפים שלנו"
 msgid "Tell us about your trip"
 msgstr "ספרו לנו על הטיול שלכם"
 
-#: templates/trips/setup.html:37
+#: templates/trips/setup.html:34
+msgid "Who is coming? Put everyone on the plane!"
+msgstr "מי נוסע? שימו את כולם על המטוס!"
+
+#: templates/trips/setup.html:35
+msgid ""
+"Drag a person into the plane, or tap them. Tap a person in the plane to take "
+"them off."
+msgstr "גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
+
+#: templates/trips/setup.html:45
+msgid "The plane is empty."
+msgstr "המטוס ריק."
+
+#: templates/trips/setup.html:51
+#, python-format
+msgid "Add one: %(who)s"
+msgstr "להוסיף אחד: %(who)s"
+
+#: templates/trips/setup.html:63
 msgid "Next: choose your course"
 msgstr "הבא: בחרו את המסלול"
+
+#: templates/trips/setup.html:66
+#, python-brace-format
+msgid "{n} on the plane"
+msgstr "{n} על המטוס"
+
+#: templates/trips/setup.html:66
+#, python-brace-format
+msgid "Take off the plane: {who}"
+msgstr "להוריד מהמטוס: {who}"
 
 #: there/views.py:64
 msgid "Great find! 📸"
@@ -706,14 +729,6 @@ msgstr "מציאה מעולה! 📸"
 msgid "One more photo! 📸"
 msgstr "עוד תמונה! 📸"
 
-#: trips/forms.py:12
-msgid "How old is everyone going?"
-msgstr "בני כמה כל מי שנוסע?"
-
-#: trips/forms.py:13
-msgid "One number per person, with commas. For example: 38, 36, 4, 2"
-msgstr "מספר אחד לכל אדם, עם פסיקים. לדוגמה: 38, 36, 4, 2"
-
 #: trips/forms.py:16
 msgid "We leave on"
 msgstr "יוצאים בתאריך"
@@ -722,19 +737,71 @@ msgstr "יוצאים בתאריך"
 msgid "We come home on"
 msgstr "חוזרים הביתה בתאריך"
 
-#: trips/forms.py:22
-msgid "Add at least one age."
-msgstr "הוסיפו לפחות גיל אחד."
+#: trips/forms.py:24
+msgid "Put at least one person on the plane."
+msgstr "שימו לפחות אדם אחד על המטוס."
 
 #: trips/forms.py:26
-#, python-format
-msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
-msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
-
-#: trips/forms.py:29
 msgid "That is a big family! The app takes up to 12 people."
 msgstr "איזו משפחה גדולה! האפליקציה מקבלת עד 12 אנשים."
 
-#: trips/forms.py:36
+#: trips/forms.py:31
 msgid "The trip ends before it starts."
 msgstr "הטיול נגמר לפני שהוא מתחיל."
+
+#: trips/models.py:11
+msgid "Little ones"
+msgstr "קטנטנים"
+
+#: trips/models.py:12
+msgid "Kids"
+msgstr "ילדים"
+
+#: trips/models.py:13
+msgid "Big kids"
+msgstr "ילדים גדולים"
+
+#: trips/models.py:14
+msgid "Grown-ups"
+msgstr "מבוגרים"
+
+#: trips/models.py:30
+#, python-format
+msgid "%(n)d little one"
+msgid_plural "%(n)d little ones"
+msgstr[0] "קטנטן אחד"
+msgstr[1] "%(n)d קטנטנים"
+
+#: trips/models.py:31
+#, python-format
+msgid "%(n)d kid"
+msgid_plural "%(n)d kids"
+msgstr[0] "ילד אחד"
+msgstr[1] "%(n)d ילדים"
+
+#: trips/models.py:32
+#, python-format
+msgid "%(n)d big kid"
+msgid_plural "%(n)d big kids"
+msgstr[0] "ילד גדול אחד"
+msgstr[1] "%(n)d ילדים גדולים"
+
+#: trips/models.py:33
+#, python-format
+msgid "%(n)d grown-up"
+msgid_plural "%(n)d grown-ups"
+msgstr[0] "מבוגר אחד"
+msgstr[1] "%(n)d מבוגרים"
+
+#~ msgid "How old is everyone going?"
+#~ msgstr "בני כמה כל מי שנוסע?"
+
+#~ msgid "One number per person, with commas. For example: 38, 36, 4, 2"
+#~ msgstr "מספר אחד לכל אדם, עם פסיקים. לדוגמה: 38, 36, 4, 2"
+
+#~ msgid "Add at least one age."
+#~ msgstr "הוסיפו לפחות גיל אחד."
+
+#, python-format
+#~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
+#~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."

@@ -40,7 +40,7 @@ class EventTests(TestCase):
         self.assertOne("signed_in")
 
         start = date.today() + timedelta(days=30)
-        c.post(reverse("trip_setup"), {"destination": "japan", "ages": "38, 4",
+        c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1,
                                        "start_date": start, "end_date": start + timedelta(days=10)})
         self.assertOne("trip_set_up", new=True, travellers=2)
 

@@ -1,7 +1,39 @@
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _, ngettext
 
 CHILD_MAX_AGE = 12
+
+# Feedback T53: the family is four age groups, not exact ages. Each group stores one typical age,
+# so "is this a child" and everything built on it keep working.
+GROUPS = [
+    # (id, typical age, top age of the group, label, emoji)
+    ("little", 2, 3, _("Little ones"), "👶"),
+    ("kid", 6, 8, _("Kids"), "🧒"),
+    ("big", 10, 12, _("Big kids"), "👦"),
+    ("grownup", 35, 200, _("Grown-ups"), "🧑"),
+]
+GROUP_IDS = [g[0] for g in GROUPS]
+GROUP_AGES = {g[0]: g[1] for g in GROUPS}
+
+
+def group_of_age(age):
+    for gid, _typical, top, _label, _emoji in GROUPS:
+        if age <= top:
+            return gid
+    return "grownup"
+
+
+def family_line(counts):
+    """"2 grown-ups, 1 kid" for {"grownup": 2, "kid": 1}, in the page language."""
+    words = {
+        "little": lambda n: ngettext("%(n)d little one", "%(n)d little ones", n),
+        "kid": lambda n: ngettext("%(n)d kid", "%(n)d kids", n),
+        "big": lambda n: ngettext("%(n)d big kid", "%(n)d big kids", n),
+        "grownup": lambda n: ngettext("%(n)d grown-up", "%(n)d grown-ups", n),
+    }
+    order = ["grownup", "big", "kid", "little"]
+    return ", ".join(words[g](counts[g]) % {"n": counts[g]} for g in order if counts.get(g))
 
 
 class Trip(models.Model):
@@ -20,6 +52,17 @@ class Trip(models.Model):
     @property
     def ages(self):
         return [t.age for t in self.travellers.all()]
+
+    @property
+    def group_counts(self):
+        counts = dict.fromkeys(GROUP_IDS, 0)
+        for t in self.travellers.all():
+            counts[group_of_age(t.age)] += 1
+        return counts
+
+    @property
+    def family(self):
+        return family_line(self.group_counts)
 
     @property
     def has_child(self):

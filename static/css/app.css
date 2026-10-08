@@ -373,3 +373,36 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   .cards.highlights-photos { grid-template-columns: 1fr 1fr; }
   .highlights-photos figcaption { font-size: .85rem; }
 }
+
+/* Trip setup (feedback T53): the family plane. */
+.family-pick { border: 0; padding: 0; margin: 1.2rem 0; }
+.family-pick legend { font-weight: 900; font-size: 1.25rem; margin-bottom: .3rem; }
+.plane { position: relative; max-width: 560px; margin: .6rem auto 0; aspect-ratio: 400 / 120; border-radius: var(--radius); transition: transform .15s; }
+.plane.over { transform: scale(1.04); }
+.plane.over .plane-body path:first-child { stroke: var(--c-accent); }
+.plane.bump { animation: plane-bump .35s; }
+@keyframes plane-bump { 40% { transform: translateY(-6px) rotate(-1deg); } }
+.plane-body { position: absolute; inset: 0; width: 100%; height: 100%; }
+.seats { position: absolute; left: 22%; right: 12%; top: 30%; bottom: 30%; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2px; direction: ltr; }
+.seat { font-size: clamp(1.1rem, 5vw, 1.8rem); line-height: 1; background: none; border: 0; padding: 0 2px; cursor: pointer; }
+.plane-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; color: var(--c-muted); font-weight: 800; }
+.plane-count { text-align: center; font-weight: 900; min-height: 1.5em; margin: .3rem 0 .6rem; }
+.groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: .7rem; }
+.group { background: var(--c-surface); border: 3px solid var(--c-line); border-radius: var(--radius); padding: .6rem; text-align: center; }
+.group label { margin: .2rem 0; }
+.group input[type=number] { font: inherit; font-size: 1.15rem; width: 4.5rem; padding: .3rem; border-radius: 12px; border: 3px solid var(--c-line); text-align: center; }
+.family-pick.js .group input[type=number] { display: none; }
+.person { font-size: 3rem; line-height: 1; background: var(--c-tint-3); border: 0; border-radius: 50%; width: 4.6rem; height: 4.6rem; cursor: grab; touch-action: none; box-shadow: var(--shadow); }
+.group:nth-child(2) .person { background: var(--c-tint-2); }
+.group:nth-child(3) .person { background: var(--c-tint-4); }
+.group:nth-child(4) .person { background: var(--c-tint-1); }
+.person:active { cursor: grabbing; transform: scale(.95); }
+.person-ghost { position: fixed; z-index: 50; font-size: 3rem; transform: translate(-50%, -50%); pointer-events: none; }
+.plane-empty[hidden] { display: none; }
+.family-pick:not(.js) .plane, .family-pick:not(.js) .person { display: none; }
+.person { position: relative; }
+.person-n { position: absolute; top: -4px; inset-inline-end: -4px; min-width: 1.6rem; height: 1.6rem; border-radius: 999px; background: var(--c-primary); color: var(--c-primary-ink); font-size: 1rem; font-weight: 900; line-height: 1.6rem; }
+.person-n[hidden] { display: none; }
+.plane { max-width: 620px; }
+.plane-body path:first-child { stroke-width: 3; }
+.age-range { display: block; white-space: nowrap; font-weight: 800; }

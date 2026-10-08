@@ -28,7 +28,7 @@ PRD ref: `prd.md > The Core Journey`.
 
 1. **Log in** → the parent enters an email → the site sends a sign-in link by SES → the link logs them in. (Or: "Sign in with
    Google" → Google → back to the site.) → **Accounts**.
-2. **Trip setup** → a form: destination, family size, each traveller's age → saved as a `Trip` with `Traveller` rows → **Trips**.
+2. **Trip setup** → a form: destination, and how many people in each of four age groups (a plane to drag them into, `static/js/family.js`) → saved as a `Trip` with `Traveller` rows → **Trips**.
 3. **Suggested course** → **Course builder** reads every module file for Japan, keeps the ones whose audience fits the
    travellers (adult / child), and shows all modules with the suggested ones switched on.
 4. **Customise** → the parent switches modules on and off.
@@ -83,7 +83,7 @@ Email sign-in code, 6 digits, numbers only (allauth "login by code"; see checkli
 PRD ref: `prd.md > Login`.
 
 ### Trips
-`Trip` (destination, start and end dates) and `Traveller` (age; adult or child is derived from age). One active trip per account.
+`Trip` (destination, start and end dates) and `Traveller` (age; adult or child is derived from age). The form asks for four age groups, not exact ages (feedback T53): little ones 0-3, kids 4-8, big kids 9-12, grown-ups 13+ (`trips/models.py > GROUPS`). Each person is saved with the typical age of the group (2, 6, 10, 35), so the child and adult rules stay the same; old trips with exact ages map back to a group. The page shows a plane: the parent drags a person into it (pointer events, so a finger works) or taps the person; a tap on a person in the plane takes them off. The four number boxes are the real form fields, and without JavaScript they are the form. One active trip per account.
 PRD ref: `prd.md > Trip setup and course builder`.
 
 ### Content library

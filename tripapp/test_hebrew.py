@@ -135,5 +135,5 @@ class CoverageTests(TestCase):
 
     def test_every_interface_string_has_hebrew(self):
         po = polib.pofile(str(Path(settings.BASE_DIR) / "locale/he/LC_MESSAGES/django.po"))
-        self.assertEqual([e.msgid for e in po if not e.msgstr and not e.obsolete], [])
+        self.assertEqual([e.msgid for e in po if not (e.msgstr or all(e.msgstr_plural.values() or [""])) and not e.obsolete], [])
         self.assertTrue((Path(settings.BASE_DIR) / "locale/he/LC_MESSAGES/django.mo").exists())
