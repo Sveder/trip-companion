@@ -412,9 +412,10 @@ activities:
                 title_he: "שוק דגים"
                 text: "In Tokyo, the Tsukiji Outer Market has small sushi shops and food stands to try."
                 text_he: "בטוקיו, בשוק החיצוני של צוקיג'י יש מסעדות סושי קטנות ודוכני אוכל לטעום."
+  # T124: these cards bring new foods, not the sushi lesson again, so the title is not "quick review".
   - id: food-cards
-    title: "Japanese food: quick review"
-    title_he: "אוכל יפני: חזרה קצרה"
+    title: "More Japanese food"
+    title_he: "עוד אוכל יפני"
     type: cards
     intro: Let's meet the foods you can eat in Japan!
     intro_he: בואו נכיר את האוכל שאפשר לאכול ביפן!

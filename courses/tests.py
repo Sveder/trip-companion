@@ -19,6 +19,9 @@ from courses.models import Course, CourseItem
 from practice.models import PracticeItem
 from trips.models import Traveller, Trip
 
+# Card items after a lesson that bring new things, not a review of the lesson (T124).
+NEW_CARDS = {"food-cards": ("More Japanese food", "עוד אוכל יפני")}
+
 
 def make_trip(user, ages):
     trip = Trip.objects.create(user=user, destination="japan")
@@ -96,6 +99,10 @@ class BuilderTests(TestCase):
                 for a in acts[len(lessons):]:
                     if a.type == "streetview":
                         continue  # each hunt is its own place, not a review
+                    if a.slug in NEW_CARDS:
+                        # T124: these cards bring new things, so the title says what they hold.
+                        self.assertEqual((a.title, a.data.get("title_he")), NEW_CARDS[a.slug], slug)
+                        continue
                     self.assertEqual(a.title, f"{a.module.title}: quick review", slug)
                     self.assertEqual(a.data.get("title_he"), f"{a.module.title_he}: חזרה קצרה", slug)
 
@@ -141,7 +148,10 @@ class BuilderTests(TestCase):
             trip = make_trip(self.user, ages)
             ids = [m.id for m, on in suggestions(trip) if on]
             items = list(build_course(trip, ids).items.select_related("activity__module"))
-            reviews = [n for n, i in enumerate(items) if i.activity.title.endswith(": quick review")]
+            reviews = [
+                n for n, i in enumerate(items)
+                if i.activity.title.endswith(": quick review") or i.activity.slug in NEW_CARDS
+            ]
             self.assertTrue(reviews, ages)
             for n in reviews:
                 prev = items[n - 1].activity
