@@ -510,7 +510,8 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .form .field-hint { display: block; margin-top: .25rem; }
 @media (max-width: 600px) {
   .flips { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .5rem; }
-  .flip img { height: 80px; }
+  .flip img { height: 72px; }
+  .flip-front strong { line-height: 1.25; }
   .flip .jp.small { font-size: 1.1rem; }
   .flip-back { font-size: .82rem; line-height: 1.25; }
 }
