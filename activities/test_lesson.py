@@ -738,6 +738,20 @@ class FlipSayTests(TestCase):
         self.assertTrue(src.endswith("/nigiri.mp3"), src)
         self.assertTrue((Path(settings.BASE_DIR) / "static/audio/japan/nigiri.mp3").exists())
 
+    def test_shrine_cards_name_the_place_they_say(self):
+        """T119: the label over じんじゃ names the shrine, the label over おてら names the temple, and every card has a word and an mp3."""
+        act = Activity.objects.get(module__slug="streetview", slug="streetview-lesson")
+        page = next(p for p in act.data["pages"] if p.get("title") == "Shrine or temple?")
+        by_reading = {c.get("reading"): c for c in page["cards"]}
+        self.assertIn("Shrine", by_reading["jinja"]["label"])
+        self.assertIn("שינטו", by_reading["jinja"]["label_he"])
+        self.assertIn("Temple", by_reading["otera"]["label"])
+        self.assertIn("בודהיסטי", by_reading["otera"]["label_he"])
+        self.assertIn("incense", by_reading["joukouro"]["label"])
+        for c in page["cards"]:
+            self.assertTrue(c.get("japanese"), c["label"])
+            self.assertTrue((Path(settings.BASE_DIR) / f"static/audio/japan/{c['reading']}.mp3").exists(), c["reading"])
+
     def test_card_without_a_word_is_silent(self):
         cards = self.flips("chopsticks", "chopsticks-lesson")
         silent = [b for b, f in cards if 'lang="ja"' not in f]
