@@ -9,7 +9,7 @@
     {% csrf_token %}
     <div class="cards modules">
       {% for row in modules %}
-      <label class="card module {% if row.suggested %}suggested{% endif %}">
+      <label class="card module {% if row.on %}on{% else %}off{% endif %}{% if row.suggested %} suggested{% endif %}">
         <input type="checkbox" name="modules" value="{{ row.module.id }}" {% if row.on %}checked{% endif %}>
         <span class="card-emoji" aria-hidden="true">{{ row.module.emoji }}</span>
         <h3>{{ row.module.local_title }}</h3>

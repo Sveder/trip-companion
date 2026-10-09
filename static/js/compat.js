@@ -1,13 +1,16 @@
 // Old browsers (the LG TV runs Chrome 87) have no CSS :has(). The CSS keeps :has() for new
 // browsers and also styles a class that this script sets: .on on a .pick or .module label
-// whose input is checked, .kb-focus while its input has the focus.
+// whose input is checked, .off on a .module whose input is not, .kb-focus while its input has the focus.
 (function () {
   var SEL = '.pick, .module';
   function sync() {
     var labels = document.querySelectorAll(SEL);
     for (var i = 0; i < labels.length; i++) {
       var input = labels[i].querySelector('input');
-      if (input) labels[i].classList.toggle('on', input.checked);
+      if (!input) continue;
+      labels[i].classList.toggle('on', input.checked);
+      // T106: a switched-off module card looks like the 'Not picked for you' card (grey border).
+      if (labels[i].classList.contains('module')) labels[i].classList.toggle('off', !input.checked);
     }
   }
   function onFocus(e, on) {

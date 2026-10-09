@@ -181,6 +181,11 @@ class FlowTests(TestCase):
         page = c.get(reverse("builder"))
         self.assertContains(page, "<span>Choose your course</span></h1>", html=False)
         self.assertContains(page, "Street View hunt")
+        # T106: the server marks each card on or off, so an off card is grey before any script runs.
+        cards = re.findall(r'<label class="card module ([^"]*)">\s*<input type="checkbox" name="modules" value="\d+" ?(checked)?', page.content.decode())
+        self.assertTrue(cards)
+        for cls, checked in cards:
+            self.assertIn("on" if checked else "off", cls.split())
         # Parent adds "buy before you go" on top of the suggestion (it is suggested anyway here).
         ids = [str(m.id) for m in Module.objects.all()]
         r = c.post(reverse("builder"), {"modules": ids})
@@ -208,6 +213,19 @@ class FlowTests(TestCase):
         self.client.force_login(b)
         r = self.client.get(reverse("activity", args=[course.items.first().id]))
         self.assertEqual(r.status_code, 404)
+
+    def test_builder_marks_a_switched_off_card_off(self):
+        # T106: a module the family switched off gets the 'off' class (grey border), the others 'on'.
+        u = get_user_model().objects.create_user("t106@example.com", "t106@example.com")
+        trip = make_trip(u, [35, 6])
+        food = Module.objects.get(slug="food")
+        build_course(trip, [food.id])
+        self.client.force_login(u)
+        html = self.client.get(reverse("builder")).content.decode()
+        cards = re.findall(r'<label class="card module ([^"]*)">\s*<input type="checkbox" name="modules" value="(\d+)"', html)
+        self.assertEqual(len(cards), Module.objects.filter(country="japan").count())
+        for cls, mid in cards:
+            self.assertIn("on" if int(mid) == food.id else "off", cls.split())
 
     def test_bad_ages_rejected(self):
         u = get_user_model().objects.create_user("c@example.com", "c@example.com")

@@ -121,6 +121,8 @@ a.card.go:hover { transform: translateY(-3px); }
 .pick:has(input:checked), .pick.on { border-color: var(--c-primary); }
 .module .switch { position: absolute; top: .8rem; right: .8rem; width: 52px; height: 30px; border-radius: 999px; background: var(--c-line); transition: background .15s; }
 .module .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: left .15s; }
+/* T106: an off card is white with a grey border, whatever the focus; on is green. Same border width, so no jump. */
+.module, .module:focus, .module:focus-within, .module.off { border-color: var(--c-line); }
 /* Each :has() rule has a twin on a class that static/js/compat.js sets: Chrome 87 (the LG TV) has no :has() (T101). */
 .module.on { border-color: var(--c-accent); }
 .module.on .switch { background: var(--c-accent); }
@@ -157,7 +159,7 @@ legend { font-weight: 800; font-size: 1.15rem; }
   .cards .card:has(> .card-emoji) > .badge { justify-self: start; margin-top: .3rem; }
   .cards .card.word:has(> .card-emoji) .jp { font-size: 1.6rem; }
   .cards .card.word:has(> .card-emoji) .reading { font-size: 1.2rem; }
-  .cards .card.module { padding-right: 4.4rem; }
+  .cards .card.module { padding-right: .8rem; padding-inline-end: 4.4rem; }
   .cards.words { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cards.words .card.word { display: block; text-align: center; }
   .cards.words .card.word > .card-emoji { width: 3.4rem; height: 3.4rem; font-size: 2rem; }
