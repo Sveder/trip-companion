@@ -71,6 +71,8 @@ activities:
         label_he: "אינארי"
         japanese: "いなり"
         reading: "inari"
+        meaning: "rice in a tofu pocket"
+        meaning_he: "אורז בכיס טופו"
     pages:
       - kind: text
         title: Sushi time!
@@ -176,6 +178,8 @@ activities:
             label_he: "ניגירי"
             japanese: "にぎり"
             reading: "nigiri"
+            meaning: "rice with a topping"
+            meaning_he: "אורז עם תוספת מעל"
             text: "A little bed of rice with a topping on it."
             text_he: "מיטה קטנה של אורז ומשהו מעליה."
           - img: "lesson/sushi/maki.svg"
@@ -204,6 +208,8 @@ activities:
             label_he: "אינארי"
             japanese: "いなり"
             reading: "inari"
+            meaning: "rice in a tofu pocket"
+            meaning_he: "אורז בכיס טופו"
             text: "Rice inside a sweet pocket of fried tofu. No fish at all."
             text_he: "אורז בתוך כיס מתוק של טופו מטוגן. בלי דג בכלל."
       - kind: pick
@@ -274,6 +280,8 @@ activities:
             label_he: "איקורה"
             japanese: "いくら"
             reading: "ikura"
+            meaning: "salmon eggs"
+            meaning_he: "ביצי סלמון"
             text: "Salmon eggs. Shiny orange balls that pop in your mouth!"
             text_he: "ביצי סלמון. כדורים כתומים מבריקים שמתפוצצים בפה!"
       - kind: video

@@ -4,7 +4,7 @@ from django.utils import timezone
 from activities.models import Clip
 from content_admin.i18n import localize
 from content_admin.models import Activity
-from practice.items import lookup
+from practice.items import lookup, quiz_entries
 from practice.models import PracticeItem
 from there.models import Photo
 from there.things import THINGS
@@ -48,13 +48,21 @@ def met_words(trip):
 
     One card per Japanese word, at most WORDS_MAX. The meaning of a word comes from, in order (T134):
     a `words` activity entry with the same Japanese word ("thank you" for ありがとう, also when the family met it in a lesson),
-    the entry's own `meaning`, then its label. A label that only repeats the reading ("Nigiri" / nigiri) gives no meaning.
+    the entry's own `meaning`, then a lesson label for the same word on another page ("Tuna" names the まぐろ flip card),
+    then its own label. A label that only repeats the reading ("Ebi" / ebi) gives no meaning.
     """
-    meanings = {}
-    for a in Activity.objects.filter(type="words", module__country=trip.destination):
-        for w in (a.data or {}).get("words", []):
-            if w.get("japanese") and w.get("meaning"):
-                meanings.setdefault(w["japanese"], localize(w)["meaning"])
+    meanings, names = {}, {}
+    for a in Activity.objects.filter(type__in=["words", "lesson"], module__country=trip.destination):
+        # A lesson's `pictures` (the game pictures) name words too: "Tuna" for まぐろ.
+        for e in [e for _, e in quiz_entries(a, everything=True)] + (a.data or {}).get("pictures", []):
+            if not e.get("japanese"):
+                continue
+            if e.get("meaning"):
+                # A words-module meaning wins over a lesson's own meaning.
+                if a.type == "words" or e["japanese"] not in meanings:
+                    meanings[e["japanese"]] = localize(e)["meaning"]
+            elif e.get("label") and e["label"].lower() != e.get("reading", "").lower():
+                names.setdefault(e["japanese"], localize(e)["label"])
     first, rest, seen = [], [], set()
     for p in PracticeItem.objects.filter(trip=trip).order_by("added_at", "id"):
         activity, entry = lookup(trip, p.key)
@@ -66,7 +74,7 @@ def met_words(trip):
         if entry["japanese"] in seen:
             continue
         seen.add(entry["japanese"])
-        meaning = meanings.get(entry["japanese"]) or entry.get("meaning")
+        meaning = meanings.get(entry["japanese"]) or names.get(entry["japanese"])
         if not meaning:
             meaning = "" if reading_only else entry.get("label", "")
         entry["meaning"] = meaning

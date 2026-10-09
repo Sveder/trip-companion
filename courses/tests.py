@@ -395,9 +395,14 @@ class AfterTheTripTests(TestCase):
         self.assertIn("ネタ", japanese)
         neta = next(w["entry"] for w in words if w["entry"]["japanese"] == "ネタ")
         self.assertEqual(neta["meaning"], "Fish")
-        # A flip card whose label only repeats the reading gets no meaning line.
+        # A flip card whose label only repeats the reading takes its own meaning (T134), or the label of the same word on another page.
         nigiri = next(w["entry"] for w in words if w["entry"]["japanese"] == "にぎり")
-        self.assertEqual(nigiri["meaning"], "")
+        self.assertEqual(nigiri["meaning"], "rice with a topping")
+        by_reading = {w["entry"]["reading"]: w["entry"]["meaning"] for w in words}
+        for reading, meaning in [("maguro", "Tuna"), ("ebi", "Shrimp"), ("saamon", "Salmon")]:
+            if reading in by_reading:
+                self.assertEqual(by_reading[reading], meaning)
+        self.assertTrue(all(by_reading.values()), by_reading)
         html = self.client.get(reverse("highlights")).content.decode()
         self.assertNotIn("No words yet", html)
         self.assertIn("ネタ", html)
