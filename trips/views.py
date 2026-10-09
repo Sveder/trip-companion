@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 from analytics.models import track
 from content_admin.i18n import localize
 from content_admin.loader import load_previews
+from courses.models import Course
 
 from .forms import TripForm
 from .models import GROUPS, Traveller, Trip, active_trip
@@ -25,13 +26,19 @@ def trip_setup(request):
                 new = trip is None
                 if new:
                     trip = Trip(user=request.user)
+                moved = not new and trip.destination != data["destination"]
                 trip.destination = data["destination"]
                 trip.set_dates(data["start_date"], data["length_days"])
                 trip.save()
                 trip.travellers.all().delete()
                 Traveller.objects.bulk_create(Traveller(trip=trip, age=a) for a in data["ages"])
             track("trip_set_up", trip=trip, new=new, travellers=len(data["ages"]))
-            return redirect("builder")
+            # T132: a new trip, a new place or no course yet goes to the builder; an edit of the
+            # length or the people goes back to the course.
+            if new or moved or not Course.objects.filter(trip=trip).exists():
+                return redirect("builder")
+            messages.success(request, _("Trip updated."))
+            return redirect("course")
     else:
         initial = {}
         if trip:

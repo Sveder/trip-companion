@@ -1084,3 +1084,7 @@ msgstr "ברוכים השבים! הנה מה שעשיתם."
 #, python-format
 #~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
 #~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
+
+#: trips/views.py:40
+msgid "Trip updated."
+msgstr "הטיול עודכן."

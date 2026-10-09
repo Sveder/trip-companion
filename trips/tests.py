@@ -104,3 +104,59 @@ class TripLengthTests(TestCase):
         page = self.client.get(reverse("trip_setup") + "?lang=he")
         self.assertContains(page, "כמה ימים נמשך הטיול?")
         self.assertNotContains(page, "חוזרים הביתה בתאריך")
+
+
+class TripEditTests(TestCase):
+    """T132: an edit of the length or the people goes back to the course, not through the builder again."""
+
+    FAMILY = {"destination": "japan", "grownup": 2, "kid": 1, "length_days": 10}
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("e@example.com", "e@example.com")
+        self.client.force_login(self.user)
+
+    def _with_course(self):
+        from courses.models import Course
+        self.client.post(reverse("trip_setup"), self.FAMILY)
+        trip = Trip.objects.get()
+        Course.objects.create(trip=trip)
+        return trip
+
+    def _messages(self, r):
+        from django.contrib.messages import get_messages
+        return [str(m) for m in get_messages(r.wsgi_request)]
+
+    def test_new_trip_goes_to_builder(self):
+        r = self.client.post(reverse("trip_setup"), self.FAMILY)
+        self.assertRedirects(r, reverse("builder"))
+
+    def test_edit_without_course_goes_to_builder(self):
+        self.client.post(reverse("trip_setup"), self.FAMILY)
+        r = self.client.post(reverse("trip_setup"), {**self.FAMILY, "length_days": 14})
+        self.assertRedirects(r, reverse("builder"))
+
+    def test_changed_destination_goes_to_builder(self):
+        trip = self._with_course()
+        Trip.objects.filter(pk=trip.pk).update(destination="elsewhere")
+        r = self.client.post(reverse("trip_setup"), self.FAMILY)
+        self.assertRedirects(r, reverse("builder"))
+
+    def test_length_edit_goes_to_course(self):
+        self._with_course()
+        r = self.client.post(reverse("trip_setup"), {**self.FAMILY, "length_days": 14})
+        self.assertRedirects(r, reverse("course"), fetch_redirect_response=False)
+        self.assertIn("Trip updated.", self._messages(r))
+        self.assertEqual(Trip.objects.get().length_days, 14)
+
+    def test_people_edit_goes_to_course(self):
+        self._with_course()
+        r = self.client.post(reverse("trip_setup"), {**self.FAMILY, "little": 1})
+        self.assertRedirects(r, reverse("course"), fetch_redirect_response=False)
+        self.assertEqual(Trip.objects.get().group_counts["little"], 1)
+
+    def test_hebrew_success_line(self):
+        self._with_course()
+        r = self.client.post(reverse("trip_setup") + "?lang=he", {**self.FAMILY, "length_days": 7},
+                             HTTP_ACCEPT_LANGUAGE="he")
+        self.assertRedirects(r, reverse("course"), fetch_redirect_response=False)
+        self.assertIn("הטיול עודכן.", self._messages(r))
