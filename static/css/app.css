@@ -497,6 +497,17 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .person:active { cursor: grabbing; transform: scale(.95); }
 .person-ghost { position: fixed; z-index: 50; font-size: 3rem; transform: translate(-50%, -50%); pointer-events: none; }
 .plane-empty[hidden] { display: none; }
+/* Phone and tablet: a taller plane with bigger people (T133, T143). The SVG stretches (preserveAspectRatio none). */
+@media (max-width: 600px) {
+  .plane::before { padding-top: 46%; }
+  .seats { top: 25%; bottom: 25%; }
+  .seat { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .plane::before { padding-top: 44%; }
+  .seats { top: 25%; bottom: 25%; }
+  .seat { font-size: 3.1rem; }
+}
 .family-pick:not(.js) .plane, .family-pick:not(.js) .person { display: none; }
 .person { position: relative; }
 .person-n { position: absolute; top: -4px; inset-inline-end: -4px; min-width: 1.6rem; height: 1.6rem; border-radius: 999px; background: var(--c-primary); color: var(--c-primary-ink); font-size: 1rem; font-weight: 900; line-height: 1.6rem; }

@@ -24,6 +24,8 @@ class FamilyPlaneTests(TestCase):
         self.assertContains(page, "js/family.js")
         # T109: the trip-length example is a hint under the box, not only a placeholder.
         self.assertContains(page, "For example 10")
+        # T133/T143: the plane body stretches with the taller phone and tablet plane box.
+        self.assertContains(page, 'viewBox="0 0 400 120" preserveAspectRatio="none"')
 
     def test_counts_become_travellers(self):
         r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 2, "kid": 1, "little": 1})
