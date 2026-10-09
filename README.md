@@ -3,7 +3,32 @@
 A web app that gets a family ready and excited for a trip to Japan: short activities for kids and grown-ups,
 picked for the family, one at a time. Works on a phone, a laptop and a TV browser.
 
+![The 'Tap the plate' page of the sushi lesson](docs/readme/sushi-tap-the-plate.png)
+
 Live: https://trip.sveder.com
+
+## For judges
+
+Try these in about 3 minutes on https://trip.sveder.com:
+
+1. Sign in with your email. A one-time code arrives by email. There is no password.
+2. Put the family on the plane: drag (or tap) each person into the plane.
+3. Build the course. The app picks the activities for this family.
+4. Open "All about sushi" and swipe through the pages.
+5. On "Tap the plate", tap each dot on the sushi plate.
+6. Open a Street View hunt and find the things on a real Japanese street.
+7. Add `?lang=he` to any page for Hebrew (right to left). The header link switches back.
+8. Add `?tv=1` to any page for the TV mode: big cards for a remote control.
+
+## How it was built
+
+- The plan came first, with the Devpost plan-first skill pack:
+  [scope](devpost/scope.md), [PRD](devpost/prd.md), [spec](devpost/spec.md) and [checklist](devpost/checklist.md).
+- The checklist splits the build into slices. Each slice has a build line, a verify line and a commit.
+- A factory of agent runs built the slices one at a time, from the checklist, and wrote each change to the plan
+  under "Revisions".
+- Django on the server. Plain CSS and plain JavaScript in the browser, with no build step.
+- The pictures are SVG files drawn for this app. The content of each module is one YAML file in `content/japan/`.
 
 ## Run it locally
 
