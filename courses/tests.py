@@ -420,6 +420,15 @@ class AfterTheTripTests(TestCase):
         self.assertIsNotNone(rule)
         self.assertIn("white-space: nowrap", rule.group(1))
 
+    def test_word_grid_column_fits_the_longest_word(self):
+        """T120: a desktop word card is wide enough for an 8-kana word plus an emoji (about 172 px)."""
+        from pathlib import Path
+        from django.conf import settings
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()
+        rule = re.search(r"\.cards\.word-grid \{ grid-template-columns: repeat\(auto-fit, minmax\((\d+)px", css)
+        self.assertIsNotNone(rule)
+        self.assertGreaterEqual(int(rule.group(1)), 190)
+
     def test_after_the_trip_with_nothing_done(self):
         self.set_dates(-20, -1)
         html = self.client.get("/").content.decode()
