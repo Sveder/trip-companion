@@ -190,6 +190,17 @@ class EveryLessonIsWellFormed(TestCase):
                     self.assertTrue(spot.get("text_he"), (name, spot["label"]))
 
 
+class FlipBacksAreShort(TestCase):
+    """T118: a flip card keeps the height of its longer side, so a long back text leaves the front half empty."""
+
+    def test_every_flip_back_is_at_most_20_words(self):
+        call_command("load_content", verbosity=0)
+        for act in Activity.objects.filter(type="lesson"):
+            for p in act.data["pages"]:
+                for c in p.get("cards", []) if p["kind"] == "flip" else []:
+                    self.assertLessEqual(len(c["text"].split()), 20, (act.slug, c["label"]))
+                    self.assertLessEqual(len(c["text_he"].split()), 20, (act.slug, c["label"]))
+
 class VideoPagesWithNoVideo(TestCase):
     """T107: in every lesson, a video page with no approved video says nothing about 'watch' or 'video'."""
     BANNED = ("watch", "video", "צפו", "צופים", "סרטון")

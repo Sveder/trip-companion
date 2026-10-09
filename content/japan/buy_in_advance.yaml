@@ -175,8 +175,8 @@ activities:
           - img: "lesson/pack/esim.svg"
             label: "The eSIM"
             label_he: "ה-eSIM"
-            text: "Buy before. An eSIM gives the phone data in Japan. Your phone must take an eSIM and must not be locked to your company."
-            text_he: "קונים לפני. eSIM נותן לטלפון אינטרנט ביפן. הטלפון צריך לתמוך ב-eSIM ולא להיות נעול לחברה שלכם."
+            text: "Buy before. It gives your phone data in Japan. Check that your phone takes an eSIM and is not locked."
+            text_he: "קונים לפני. הוא נותן לטלפון אינטרנט ביפן. בודקים שהטלפון תומך ב-eSIM ולא נעול."
           - img: "lesson/pack/vjw.svg"
             label: "Visit Japan Web"
             label_he: "Visit Japan Web"
@@ -185,8 +185,8 @@ activities:
           - img: "lesson/pack/suica.svg"
             label: "The IC card"
             label_he: "כרטיס ה-IC"
-            text: "Buy there, at the airport station. The Welcome Suica is a card for visitors. On an iPhone, you can add a Suica before you fly."
-            text_he: "קונים שם, בתחנה של שדה התעופה. וולקם סואיקה הוא כרטיס לתיירים. באייפון אפשר להוסיף סואיקה עוד לפני הטיסה."
+            text: "Buy there, at the airport station: a Welcome Suica. An iPhone can add a Suica before you fly."
+            text_he: "קונים שם, בתחנה של שדה התעופה: וולקם סואיקה. באייפון אפשר להוסיף סואיקה עוד לפני הטיסה."
           - img: "lesson/pack/umbrella.svg"
             label: "An umbrella"
             label_he: "מטרייה"
@@ -336,8 +336,8 @@ activities:
           - img: "lesson/pack/suica.svg"
             label: "The IC card"
             label_he: "כרטיס ה-IC"
-            text: "The same card as on the train pays for small things: the konbini, drinks machines and the lockers."
-            text_he: "אותו כרטיס של הרכבת משלם על דברים קטנים: בקונביני, במכונות המשקאות ובלוקרים."
+            text: "The train card also pays at the konbini, the drinks machines and the lockers."
+            text_he: "כרטיס הרכבת משלם גם בקונביני, במכונות המשקאות ובלוקרים."
       - kind: train
         title: Catch the things to pack!
         title_he: תפסו את מה שאורזים!

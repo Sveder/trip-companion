@@ -158,14 +158,14 @@ activities:
             label_he: "שער הטוריאי"
             japanese: "じんじゃ"
             reading: "jinja"
-            text: "A torii gate shows you a shrine, a jinja. A shrine is a Shinto place for the kami, the spirits of nature."
-            text_he: "שער טוריאי מראה שזה מקדש שינטו, ג'ינג'ה. מקדש שינטו הוא מקום של הקאמי, הרוחות של הטבע."
+            text: "A torii gate shows you a shrine, a jinja: a Shinto place for the kami, the spirits of nature."
+            text_he: "שער טוריאי מראה שזה מקדש שינטו, ג'ינג'ה: מקום של הקאמי, הרוחות של הטבע."
           - img: "lesson/street/sanmon.svg"
             label: "The big wooden gate"
             label_he: "שער העץ הגדול"
             japanese: "おてら"
             reading: "otera"
-            text: "A big wooden gate with a roof shows you a temple, an otera. A temple is a Buddhist place. Often two strong guardians stand in the gate."
+            text: "A big wooden gate with a roof shows a Buddhist temple, an otera. Two strong guardians often stand in it."
             text_he: "שער עץ גדול עם גג מראה שזה מקדש בודהיסטי, אוטרה. לפעמים עומדים בשער שני שומרים חזקים."
           - img: "lesson/street/komainu.svg"
             label: "The guardian animals"
@@ -177,8 +177,8 @@ activities:
           - img: "lesson/street/incense.svg"
             label: "The smoke pot"
             label_he: "סיר העשן"
-            text: "Many temples have a big pot of incense. People wave the smoke over their body. They say it is good for your health."
-            text_he: "בהרבה מקדשים בודהיסטיים יש סיר גדול של קטורת. אנשים מנפנפים את העשן על הגוף. אומרים שזה טוב לבריאות."
+            text: "Many temples have a big pot of incense. People wave the smoke over their body, for good health."
+            text_he: "בהרבה מקדשים בודהיסטיים יש סיר גדול של קטורת. מנפנפים את העשן על הגוף, לבריאות טובה."
       - kind: pick
         title: Shrine or temple game
         title_he: משחק מקדשים

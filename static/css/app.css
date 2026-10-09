@@ -413,10 +413,14 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 }
 .flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 200px)); justify-content: center; gap: .7rem; margin-top: .6rem; }
 /* Both faces share one grid cell, so a card has the same size on each side: a turn moves nothing around it (T103). */
-.flip { display: grid; font: inherit; border: 3px solid var(--c-line); background: var(--c-surface); border-radius: var(--radius); padding: .6rem; min-height: 170px; cursor: pointer; color: var(--c-ink); }
-.flip img { width: 100%; max-width: 120px; height: auto; display: block; margin: 0 auto .3rem; }
+/* T118: the back text must not make the card taller than the front. Every picture gets the same height (a wide one gets wider),
+   the front fills the card with the name at the bottom, so names line up across a row, and the back text is smaller. */
+.flip { display: grid; font: inherit; border: 3px solid var(--c-line); background: var(--c-surface); border-radius: var(--radius); padding: .5rem; cursor: pointer; color: var(--c-ink); }
+.flip img { width: auto; max-width: 100%; height: 110px; object-fit: contain; display: block; margin: 0 auto .3rem; }
 .flip-front, .flip-back { grid-area: 1 / 1; align-self: center; display: flex; flex-direction: column; align-items: center; gap: .2rem; }
-.flip-back { visibility: hidden; font-size: 1.05rem; }
+.flip-front { align-self: stretch; justify-content: space-between; }
+.flip-back { visibility: hidden; font-size: .9rem; line-height: 1.3; }
+.flip-back strong { font-size: .95rem; }
 .flip-say { font-size: .85rem; }
 .flip[aria-pressed="true"] { background: var(--c-tint-2); border-color: var(--c-accent); animation: turn .35s ease-out; }
 .flip[aria-pressed="true"] .flip-front { visibility: hidden; }
@@ -504,4 +508,9 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 /* T109: the empty trip-length box shows a light grey example, so it does not look filled in. */
 .form input::placeholder { color: var(--c-muted); opacity: .55; font-weight: 400; }
 .form .field-hint { display: block; margin-top: .25rem; }
-@media (max-width: 600px) { .flips { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
+@media (max-width: 600px) {
+  .flips { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .5rem; }
+  .flip img { height: 80px; }
+  .flip .jp.small { font-size: 1.1rem; }
+  .flip-back { font-size: .82rem; line-height: 1.25; }
+}
