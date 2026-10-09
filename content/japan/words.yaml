@@ -209,6 +209,8 @@ activities:
         approved: false
         fallback_title: Say it slowly
         fallback_title_he: אומרים לאט
+        fallback_text: "Say each word slowly together, then do the move."
+        fallback_text_he: "אומרים כל מילה לאט ביחד, ואז עושים את התנועה."
         fallback:
           - "Ko-n-ni-chi-wa: hello. Clap once for each part."
           - "A-ri-ga-tou: thank you. Bow a little at the end."

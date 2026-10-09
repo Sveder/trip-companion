@@ -288,6 +288,8 @@ activities:
         approved: false
         fallback_title: The packing list
         fallback_title_he: רשימת האריזה
+        fallback_text: "Tick the list together."
+        fallback_text_he: "מסמנים יחד את הרשימה."
         fallback:
           - "Passports, and the Visit Japan Web QR codes on the phone."
           - "A plug adapter with two flat pins (type A)."

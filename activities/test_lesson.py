@@ -117,6 +117,15 @@ class SushiLessonTests(TestCase):
         video = next(p for p in pages if p["kind"] == "video")
         self.assertTrue(video["show_video"])
         self.assertEqual(video["youtube"], "R7zkF_wpmLI")
+        self.assertEqual(video["title"], "Watch sushi being made")
+        self.assertIn("Watch the video", video["text"])
+
+    def test_unapproved_video_uses_the_fallback_title_and_text(self):
+        """T107: a page with no approved video does not promise one."""
+        video = next(p for p in visible_pages(self.act.data, self.trip) if p["kind"] == "video")
+        self.assertFalse(video["show_video"])
+        self.assertEqual(video["title"], "How to make a roll")
+        self.assertNotIn("atch", video["text"])
 
     def test_done_marks_the_lesson_done(self):
         self.client.force_login(self.user)
@@ -179,6 +188,31 @@ class EveryLessonIsWellFormed(TestCase):
                 for spot in p.get("spots", []):
                     self.assertTrue(0 <= spot["x"] <= 100 and 0 <= spot["y"] <= 100, name)
                     self.assertTrue(spot.get("text_he"), (name, spot["label"]))
+
+
+class VideoPagesWithNoVideo(TestCase):
+    """T107: in every lesson, a video page with no approved video says nothing about 'watch' or 'video'."""
+    BANNED = ("watch", "video", "צפו", "צופים", "סרטון")
+
+    def test_every_lesson_in_both_languages(self):
+        call_command("load_content", verbosity=0)
+        user = get_user_model().objects.create_user("v@example.com", "v@example.com")
+        trip = Trip.objects.create(user=user, destination="japan")
+        for age in (40, 5):
+            Traveller.objects.create(trip=trip, age=age)
+        lessons = [a for a in Activity.objects.filter(type="lesson") if any(p["kind"] == "video" for p in a.data["pages"])]
+        self.assertGreaterEqual(len(lessons), 7)
+        course = build_course(trip, sorted({a.module_id for a in lessons}))
+        self.client.force_login(user)
+        for act in lessons:
+            item = course.items.get(activity=act)
+            for lang in ("en", "he"):
+                html = self.client.get(reverse("activity", args=[item.id]) + f"?lang={lang}").content.decode()
+                start = html.index(">", html.index("lpage-video"))
+                section = html[start:html.index("</section>", start)].lower()
+                self.assertIn('class="ltext"', section, (act.slug, lang))
+                for word in self.BANNED:
+                    self.assertNotIn(word, section, (act.slug, lang, word))
 
 
 class WordsLessonTests(TestCase):

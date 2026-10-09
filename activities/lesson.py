@@ -32,6 +32,10 @@ def visible_pages(data, trip):
             if not page["show_video"]:
                 # Never let an unapproved id reach the page, not even in an attribute.
                 page.pop("youtube", None)
+                # The title and text say 'watch'; the written lines get their own, so no page promises a video.
+                if page.get("fallback_title"):
+                    page["title"] = page["fallback_title"]
+                page["text"] = page.get("fallback_text", "")
         if page["kind"] in ("pick", "train"):
             pics = {p["id"]: p for p in data.get("pictures", [])}
             page["rounds"] = [dict(r, choices=[pics[c] for c in r.get("choices", []) if c in pics]) for r in page.get("rounds", [])]

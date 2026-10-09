@@ -264,6 +264,8 @@ activities:
         approved: false
         fallback_title: The manners game
         fallback_title_he: משחק הנימוסים
+        fallback_text: "Play the manners game with your family."
+        fallback_text_he: "משחקים במשחק הנימוסים עם המשפחה."
         fallback:
           - "Bow hello: everybody stands up, bends a little, and says \"konnichiwa\". Who makes the smallest bow? Who makes the biggest?"
           - "Shoe race: run to the door, take your shoes off, and turn them with the toes to the door. Fastest neat pair wins!"

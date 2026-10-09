@@ -279,6 +279,8 @@ activities:
         approved: false
         fallback_title: How to make a roll
         fallback_title_he: איך מכינים רול
+        fallback_text: "Make a cucumber roll at home. How does the roll stay closed?"
+        fallback_text_he: "מכינים בבית רול מלפפון. איך הרול נשאר סגור?"
         fallback:
           - Put a sheet of seaweed on a bamboo mat.
           - Spread rice on it with wet fingers.

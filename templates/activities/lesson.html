@@ -90,7 +90,7 @@
       </div>
 
     {% elif page.kind == "video" %}
-      {% if page.text and page.show_video %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
       {% if page.show_video %}
       <div class="video-frame" data-video-play="{% url 'track_video' item.id %}" data-video="{{ page.youtube }}">
         <iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}?rel=0" title="{{ page.title }}"
@@ -98,7 +98,6 @@
       </div>
       {% endif %}
       {% if page.fallback %}
-      {% if not page.show_video and page.fallback_title %}<h3>{{ page.fallback_title }}</h3>{% endif %}
       <ol class="how">{% for line in page.fallback %}<li>{{ line }}</li>{% endfor %}</ol>
       {% endif %}
 
