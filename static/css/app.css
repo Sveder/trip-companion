@@ -184,7 +184,7 @@ legend { font-weight: 800; font-size: 1.15rem; }
 /* Narrow phones (360-399 px): the Menu button keeps only its icon, so the brand name fits beside it. */
 @media (max-width: 399px) {
   .menu-btn .menu-word { display: none; }
-  .menu-btn { padding: .45rem .8rem; font-size: 1.15rem; }
+  .menu-btn { padding: .45rem .8rem; }
 }
 /* Small phones: the brand drops its name and keeps the mark. */
 @media (max-width: 340px) {
