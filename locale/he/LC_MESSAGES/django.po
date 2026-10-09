@@ -1038,3 +1038,7 @@ msgstr "לציד"
 #, python-format
 msgid "You found %(found)s of %(total)s things."
 msgstr "מצאתם %(found)s מתוך %(total)s דברים."
+
+#: templates/base.html
+msgid "Menu"
+msgstr "תפריט"

@@ -32,19 +32,30 @@
 <body class="{% block body_class %}{% endblock %}"{% block body_attrs %}{% endblock %}>
   <header class="top">
     <a class="brand" href="{% url 'home' %}">{% include "includes/mark.html" with cls="small" %} Trip Companion</a>
-    {% if user.is_authenticated %}
-    <nav class="top-nav">
-      <a href="{% url 'course' %}">{% translate "Our course" %}</a>
-      <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>
-      <a href="{% url 'there' %}">{% translate "In Japan" %}</a>
-      <a href="{% url 'trip_setup' %}">{% translate "Our trip" %}</a>
-      <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>
-    </nav>
-    {% endif %}
-    <form class="lang-switch" method="post" action="{% url 'set_language' %}">{% csrf_token %}
-      <input type="hidden" name="next" value="{{ request.path }}">
-      {% if LANG == "he" %}<button class="link" name="language" value="en" lang="en">English</button>{% else %}<button class="link" name="language" value="he" lang="he">עברית</button>{% endif %}
-    </form>
+    {% if user.is_authenticated %}<button type="button" class="menu-btn link" aria-expanded="false" aria-controls="top-menu"><span aria-hidden="true">&#9776;</span> {% translate "Menu" %}</button>{% endif %}
+    {# On a phone the signed-in menu folds behind the Menu button, so the header stays one line (T105). #}
+    <div class="top-menu{% if user.is_authenticated %} foldable{% endif %}" id="top-menu">
+      {% if user.is_authenticated %}
+      <nav class="top-nav">
+        <a href="{% url 'course' %}">{% translate "Our course" %}</a>
+        <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>
+        <a href="{% url 'there' %}">{% translate "In Japan" %}</a>
+        <a href="{% url 'trip_setup' %}">{% translate "Our trip" %}</a>
+        <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>
+      </nav>
+      {% endif %}
+      <form class="lang-switch" method="post" action="{% url 'set_language' %}">{% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        {% if LANG == "he" %}<button class="link" name="language" value="en" lang="en">English</button>{% else %}<button class="link" name="language" value="he" lang="he">עברית</button>{% endif %}
+      </form>
+    </div>
+    {% if user.is_authenticated %}<script>(function () {
+      var top = document.currentScript.parentNode, btn = top.querySelector('.menu-btn');
+      function set(open) { top.classList.toggle('open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+      btn.addEventListener('click', function () { set(!top.classList.contains('open')); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && top.classList.contains('open')) { set(false); btn.focus(); } });
+      document.addEventListener('click', function (e) { if (!top.contains(e.target)) set(false); });
+    })();</script>{% endif %}
   </header>
   <main class="page">
     {% if messages %}<ul class="messages">{% for m in messages %}<li class="msg {{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}

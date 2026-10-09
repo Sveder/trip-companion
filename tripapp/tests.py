@@ -111,6 +111,38 @@ class HeaderClearOfBadgeTests(TestCase):
             right = int(re.search(r"padding: \S+ (\d+)px", block).group(1))
             self.assertGreaterEqual(right, 130, block)
 
+    def test_phone_badge_scrolls_away_and_is_smaller(self):
+        # T105: under 600 px the badge is 80 px and absolute, so the phone header pads only 70 px.
+        import re
+        from pathlib import Path
+        from django.conf import settings
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()
+        phone = css[css.index("T105: the header is ONE line"):]
+        self.assertRegex(phone, r"html \.sv2 \{ position: absolute; --sv: 80px !important; \}")
+        right = int(re.search(r"\.top \{[^}]*padding: \S+ (\d+)px", phone).group(1))
+        self.assertGreaterEqual(right, 70 - 1)
+
+
+class HeaderMenuTests(TestCase):
+    """T105: a signed-in phone header folds the links behind one Menu button."""
+
+    def test_signed_in_header_has_the_menu_button_and_the_links(self):
+        from django.contrib.auth import get_user_model
+        u = get_user_model().objects.create_user("m@example.com", "m@example.com", "pw-123456")
+        self.client.force_login(u)
+        html = self.client.get("/", follow=True).content.decode()
+        self.assertIn('class="menu-btn link" aria-expanded="false" aria-controls="top-menu"', html)
+        self.assertIn('class="top-menu foldable" id="top-menu"', html)
+        self.assertIn("Our course", html)
+        self.client.cookies.load({"django_language": "he"})
+        self.assertIn("תפריט", self.client.get("/", follow=True).content.decode())
+
+    def test_signed_out_header_has_no_menu_button(self):
+        html = self.client.get("/").content.decode()
+        self.assertNotIn("menu-btn", html)
+        self.assertIn('class="top-menu" id="top-menu"', html)
+        self.assertIn("lang-switch", html)
+
 
 class OldTvBrowserTests(TestCase):
     """The LG TV runs Chrome 87: no CSS aspect-ratio, no :has(), no Array.prototype.at (T101)."""

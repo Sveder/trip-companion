@@ -59,6 +59,9 @@ h1.with-guide { display: flex; align-items: center; gap: .5rem; }
 .top-nav { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; }
 .top-nav a { color: var(--c-ink); text-decoration: none; font-weight: 700; }
 .top-nav form { margin: 0; }
+.top-menu { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; }
+.top-menu .lang-switch { margin: 0; }
+.menu-btn { display: none; color: var(--c-ink); font-weight: 800; white-space: nowrap; }
 .page { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: .6rem 1rem 1.5rem; }
 .foot { text-align: center; padding: .6rem 1rem; color: var(--c-muted); font-size: .9rem; }
 .lead { font-size: 1.1rem; color: var(--c-muted); margin: .3em 0 .6em; }
@@ -161,21 +164,26 @@ legend { font-weight: 800; font-size: 1.15rem; }
   .cards.words .card.word .jp { font-size: 1.5rem; }
   .cards.words .card.word .reading { font-size: 1.15rem; margin: .1rem 0; }
   .cards.words .card.word .meaning { font-size: 1rem; margin: 0; }
-  /* The badge is a 130 px triangle in the top right corner: row 1 ends before x = width - 105, row 2 before width - 90. */
-  .top { padding: .4rem 90px .4rem 1rem; gap: .2rem .8rem; justify-content: flex-start; }
-  .lang-switch { order: 1; font-size: .92rem; }
-  .top-nav { order: 2; flex-basis: 100%; gap: .2rem .7rem; font-size: .88rem; }
+  /* T105: the header is ONE line, at most 60 px: the brand, then the language link (signed out) or a Menu button
+     that opens the links in a panel. The badge scrolls away with the page and is 80 px, so 70 px clears it. */
+  .top { flex-wrap: nowrap; padding: .3rem 70px .3rem .8rem; gap: .6rem; justify-content: flex-start; }
   .brand { font-size: 1.05rem; white-space: nowrap; }
   .brand .guide.small { width: 1.8rem; height: 1.8rem; }
-  /* Right to left: the brand starts at the badge side, so it keeps clear of it, and the language link goes to the far end. */
-  [dir="rtl"] .brand { margin-right: 40px; }
-  [dir="rtl"] .lang-switch { margin-right: auto; }
+  .top-menu { margin-inline-start: auto; font-size: .92rem; }
+  .menu-btn { display: inline-flex; gap: .3rem; align-items: center; margin-inline-start: auto; padding: .45rem .7rem; border-radius: 999px; background: var(--c-bg); text-decoration: none; }
+  .top-menu.foldable { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 50; margin: 0; flex-direction: column; align-items: stretch; gap: 0; padding: .3rem 1.6rem .6rem; background: var(--c-surface); border-bottom: 6px solid var(--c-sun); box-shadow: var(--shadow); font-size: 1rem; }
+  .top.open .top-menu.foldable { display: flex; }
+  .top-menu.foldable .top-nav { flex-direction: column; align-items: stretch; gap: 0; }
+  .top-menu.foldable .top-nav a, .top-menu.foldable .link { display: block; width: 100%; padding: .65rem .2rem; text-align: start; border-bottom: 1px solid var(--c-line); }
+  .top-menu.foldable .lang-switch .link { border-bottom: 0; }
+  /* The script makes div.sv2 with position: fixed and an inline --sv size; html .sv2 outranks its own rule. */
+  html .sv2 { position: absolute; --sv: 80px !important; }
   .guide.hero-guide { width: 5rem; height: 5rem; }
   .guide.title-guide { width: 2.1rem; height: 2.1rem; }
 }
-/* Small phones: row 1 is too short for the brand and the language link, so the link follows the nav. */
-@media (max-width: 380px) {
-  .lang-switch, [dir="rtl"] .lang-switch { order: 3; margin-right: 0; }
+/* Small phones: the brand drops its name and keeps the mark, so the Menu button fits beside it. */
+@media (max-width: 340px) {
+  .top .brand { font-size: 0; gap: 0; }
 }
 
 /* TV mode (?tv=1 or a smart-TV browser): big type, big cards, one card in focus.
