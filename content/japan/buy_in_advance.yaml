@@ -133,6 +133,7 @@ activities:
             label_he: "מגבת ידיים קטנה"
             japanese: "ハンカチ"
             reading: "hankachi"
+            reading_hebrew: "הנקאצ'י"
             text: "Many public toilets in Japan have no paper towels. People carry a small towel to dry their hands. Give each child one."
             text_he: "בהרבה שירותים ציבוריים ביפן אין מגבות נייר. אנשים מחזיקים מגבת קטנה כדי לייבש את הידיים. תנו לכל ילד אחת."
           - x: 85
@@ -141,6 +142,7 @@ activities:
             label_he: "ארנק מטבעות"
             japanese: "こぜにいれ"
             reading: "kozeniire"
+            reading_hebrew: "קוזניאירה"
             text: "Japan has coins of 1, 5, 10, 50, 100 and 500 yen. You get many coins back. A coin purse keeps them in one place."
             text_he: "ביפן יש מטבעות של 1, 5, 10, 50, 100 ו-500 ין. מקבלים הרבה מטבעות בעודף. ארנק מטבעות שומר אותם במקום אחד."
           - x: 7

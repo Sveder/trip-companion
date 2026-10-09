@@ -128,6 +128,7 @@ activities:
             label_he: "חלון הקופה"
             japanese: "みどりのまどぐち"
             reading: "midori no madoguchi"
+            reading_hebrew: "מידורי נו מדוגוצ'י"
             text: "At JR stations, the ticket office is called the green window. People there sell Shinkansen tickets and help in simple English."
             text_he: "בתחנות של JR, קופת הכרטיסים נקראת החלון הירוק. העובדים שם מוכרים כרטיסים לשינקנסן ועוזרים באנגלית פשוטה."
           - x: 64
@@ -136,6 +137,7 @@ activities:
             label_he: "שער הכרטיסים"
             japanese: "かいさつ"
             reading: "kaisatsu"
+            reading_hebrew: "קאיסאטסו"
             text: "Tap the IC card on the blue reader, then walk through. Tap it again at the gate where you get out. Children love to tap their own card!"
             text_he: "מצמידים את כרטיס ה-IC לקורא הכחול, ועוברים. מצמידים שוב בשער שבו יוצאים. ילדים אוהבים להצמיד את הכרטיס שלהם!"
           - x: 78
@@ -144,6 +146,7 @@ activities:
             label_he: "מספר הרציף"
             japanese: "ばんせん"
             reading: "bansen"
+            reading_hebrew: "באנסן"
             text: "Every platform has a number, like 3 bansen. Google Maps tells you the number. Follow the signs with that number."
             text_he: "לכל רציף יש מספר, כמו 3 באנסן. גוגל מפות אומר לכם את המספר. הולכים לפי השלטים עם המספר הזה."
           - x: 79
@@ -209,6 +212,7 @@ activities:
             label_he: "המושבים המיוחדים"
             japanese: "ゆうせんせき"
             reading: "yuusenseki"
+            reading_hebrew: "יוסנסקי"
             text: "These seats are for old people, pregnant women, people who are hurt, and parents with small children. Give the seat to someone who needs it."
             text_he: "המושבים האלה מיועדים לאנשים מבוגרים, לנשים בהיריון, לאנשים פצועים ולהורים עם ילדים קטנים. נותנים את המקום למי שצריך."
           - x: 85
@@ -229,6 +233,7 @@ activities:
             label_he: "הידיות"
             japanese: "つりかわ"
             reading: "tsurikawa"
+            reading_hebrew: "צוריקאווה"
             text: "Hold a strap or a pole when you stand. Children hold a grown-up's hand or the pole."
             text_he: "כשעומדים, מחזיקים ידית או עמוד. ילדים מחזיקים יד של מבוגר או את העמוד."
           - x: 59
@@ -355,6 +360,7 @@ activities:
             label_he: "המנורה על הגג"
             japanese: "タクシー"
             reading: "takushii"
+            reading_hebrew: "טאקשי"
             text: "The lamp on the roof shows the name of the taxi company."
             text_he: "המנורה על הגג מראה את השם של חברת המוניות."
           - x: 28
@@ -363,6 +369,7 @@ activities:
             label_he: "השלט האדום"
             japanese: "くうしゃ"
             reading: "kuusha"
+            reading_hebrew: "קושה"
             text: "The red sign in the front window says kuusha: the taxi is free. Wave, and it stops for you."
             text_he: "השלט האדום בחלון הקדמי אומר קושה: המונית פנויה. מנופפים, והיא עוצרת לכם."
           - x: 58

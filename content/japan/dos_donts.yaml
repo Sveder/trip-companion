@@ -111,6 +111,7 @@ activities:
             label_he: "המדרגה"
             japanese: "げんかん"
             reading: "genkan"
+            reading_hebrew: "גנקאן"
             text: "The low part by the door is the genkan. Shoes stay down here. The floor above the step is for socks and slippers only. Never step up with shoes on!"
             text_he: "החלק הנמוך ליד הדלת נקרא גנקאן. הנעליים נשארות כאן למטה. על הרצפה שמעל המדרגה הולכים רק עם גרביים או נעלי בית. אף פעם לא עולים עם נעליים!"
           - x: 25
@@ -131,6 +132,7 @@ activities:
             label_he: "ארון הנעליים"
             japanese: "げたばこ"
             reading: "getabako"
+            reading_hebrew: "גטאבאקו"
             text: "A getabako is a cupboard for shoes. Its name means \"clog box\", from the wooden sandals people wore long ago."
             text_he: "גטאבאקו הוא ארון לנעליים. השם אומר \"קופסת קבקבים\", על שם סנדלי העץ שאנשים נעלו פעם."
           - x: 56
@@ -225,6 +227,7 @@ activities:
             label_he: "השער האדום"
             japanese: "とりい"
             reading: "torii"
+            reading_hebrew: "טוריאי"
             text: "The gate is called a torii. Stop in front of it and bow once. Then walk through."
             text_he: "השער נקרא טוריאי. עוצרים לפניו וקדים פעם אחת. ואז עוברים דרכו."
           - x: 25
@@ -239,6 +242,7 @@ activities:
             label_he: "אגן המים"
             japanese: "てみずや"
             reading: "temizuya"
+            reading_hebrew: "טמיזויה"
             text: "Take a ladle with your right hand and pour water over your left hand. Swap hands and wash the right hand. Pour a little water into your left hand to rinse your mouth. Never drink from the ladle."
             text_he: "לוקחים מצקת ביד ימין ושופכים מים על יד שמאל. מחליפים ידיים ורוחצים את יד ימין. שופכים קצת מים לתוך יד שמאל כדי לשטוף את הפה. אף פעם לא שותים מהמצקת."
           - x: 82
@@ -310,6 +314,7 @@ activities:
             label_he: "המגבת הרטובה"
             japanese: "おしぼり"
             reading: "oshibori"
+            reading_hebrew: "אושיבורי"
             text: "You get a wet towel before you eat. Wipe your hands with it. Not your face!"
             text_he: "מקבלים מגבת רטובה לפני האוכל. מנגבים בה את הידיים. לא את הפנים!"
           - img: "lesson/manners/hands.svg"

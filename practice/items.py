@@ -6,7 +6,7 @@ from django.templatetags.static import static
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
-from content_admin.i18n import localize
+from content_admin.i18n import is_hebrew, localize
 from content_admin.models import Activity
 
 from .models import PracticeItem
@@ -135,7 +135,9 @@ def question(trip, key):
             entries = [e for e in every if e["page"] == entry["page"] or not (e.get("img") and e.get("img") == entry.get("img"))]
         img = entry.get("img") or entry.get("page_img", "")
         if not entry.get("img"):
-            prompt = _("Which one is %(reading)s?") % {"reading": entry.get("reading", "")}
+            # Hebrew asks with the reading in Hebrew letters ("נטה", not "neta"); `reading` stays Latin for the audio file (T123).
+            reading = (is_hebrew() and entry.get("reading_hebrew")) or entry.get("reading", "")
+            prompt = _("Which one is %(reading)s?") % {"reading": reading}
         elif activity.module.slug == "words":
             # A word card: the picture shows when you say the word.
             prompt = _("What do we say here?")

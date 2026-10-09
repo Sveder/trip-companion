@@ -270,6 +270,7 @@ activities:
             label_he: "המגבת הרטובה"
             japanese: "おしぼり"
             reading: "oshibori"
+            reading_hebrew: "אושיבורי"
             text: "Many restaurants give you a small wet towel. Wipe your hands with it before you eat."
             text_he: "בהרבה מסעדות מקבלים מגבת קטנה ורטובה. מנגבים איתה את הידיים לפני האוכל."
           - x: 77
@@ -278,6 +279,7 @@ activities:
             label_he: "כף המרק"
             japanese: "れんげ"
             reading: "renge"
+            reading_hebrew: "רנגה"
             text: "A renge is a wide spoon for ramen soup. The chopsticks hold the noodles, and the renge holds the soup."
             text_he: "רנגה היא כף רחבה למרק של ראמן. הצ'ופסטיקס מחזיקים את הנודלס, והרנגה מחזיקה את המרק."
           - x: 37
@@ -292,6 +294,7 @@ activities:
             label_he: "מרק המיסו"
             japanese: "みそしる"
             reading: "misoshiru"
+            reading_hebrew: "מיסושירו"
             text: "The soup sits on the right. Drink the soup from the bowl, and pick up the tofu with your chopsticks."
             text_he: "המרק עומד מימין. שותים את המרק מהקערה, ומרימים את הטופו עם הצ'ופסטיקס."
           - x: 33
@@ -300,6 +303,7 @@ activities:
             label_he: "הצ'ופסטיקס"
             japanese: "はし"
             reading: "hashi"
+            reading_hebrew: "האשי"
             text: "The chopsticks lie at the front, with the tips to the left, on a small rest."
             text_he: "הצ'ופסטיקס מונחים מלפנים, עם הקצוות שמאלה, על מעמד קטן."
           - x: 83

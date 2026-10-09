@@ -99,6 +99,7 @@ activities:
             label_he: "דג"
             japanese: "ネタ"
             reading: "neta"
+            reading_hebrew: "נטה"
             text: "The topping is called neta. Here it is salmon."
             text_he: "מה שמעל האורז נקרא נטה. כאן זה סלמון."
           - x: 28
@@ -107,6 +108,7 @@ activities:
             label_he: "אורז"
             japanese: "シャリ"
             reading: "shari"
+            reading_hebrew: "שארי"
             text: "Sushi rice is called shari. A chef shapes it with the hands."
             text_he: "אורז של סושי נקרא שארי. השף מעצב אותו בידיים."
           - x: 70
@@ -115,6 +117,7 @@ activities:
             label_he: "אצה"
             japanese: "のり"
             reading: "nori"
+            reading_hebrew: "נורי"
             text: "The dark green wrap is nori. It is dried seaweed from the sea."
             text_he: "העטיפה הירוקה הכהה היא נורי. זו אצה מיובשת מהים."
           - x: 49.5
@@ -123,6 +126,7 @@ activities:
             label_he: "מלפפון"
             japanese: "かっぱまき"
             reading: "kappamaki"
+            reading_hebrew: "קאפה מאקי"
             text: "A cucumber roll is called kappa maki. A kappa is a water creature in old Japanese stories, and it loves cucumbers!"
             text_he: "רול מלפפון נקרא קאפה מאקי. קאפה הוא יצור מים מסיפורים יפניים ישנים, והוא אוהב מלפפונים!"
           - x: 84
@@ -131,6 +135,7 @@ activities:
             label_he: "וואסבי"
             japanese: "わさび"
             reading: "wasabi"
+            reading_hebrew: "וואסבי"
             text: "Wasabi is a green paste. It is very hot in your nose! Use only a tiny bit."
             text_he: "וואסבי זו משחה ירוקה. היא מאוד חריפה באף! שמים רק טיפה."
           - x: 62
@@ -139,6 +144,7 @@ activities:
             label_he: "ג'ינג'ר"
             japanese: "がり"
             reading: "gari"
+            reading_hebrew: "גארי"
             text: "The pink slices are sweet and sour ginger. Eat one between two sushi pieces."
             text_he: "הפרוסות הוורודות הן ג'ינג'ר מתוק וחמוץ. אוכלים אחת בין שתי חתיכות סושי."
           - x: 24
@@ -147,6 +153,7 @@ activities:
             label_he: "רוטב סויה"
             japanese: "しょうゆ"
             reading: "shouyu"
+            reading_hebrew: "שויו"
             text: "Soy sauce is salty. Dip only a little."
             text_he: "רוטב סויה הוא מלוח. טובלים רק קצת."
           - x: 55
@@ -155,6 +162,7 @@ activities:
             label_he: "צ'ופסטיקס"
             japanese: "はし"
             reading: "hashi"
+            reading_hebrew: "האשי"
             text: "You can eat sushi with chopsticks or with your fingers."
             text_he: "אפשר לאכול סושי עם צ'ופסטיקס או עם האצבעות."
       - kind: flip

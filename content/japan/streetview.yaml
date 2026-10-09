@@ -111,6 +111,7 @@ activities:
             label_he: "מכונת המשקאות"
             japanese: "じどうはんばいき"
             reading: "jidouhanbaiki"
+            reading_hebrew: "ג'ידוהנבאיקי"
             text: "Japan has drinks machines on almost every street, even far from the city. You find a cold drink or a hot drink, all day and all night."
             text_he: "ביפן יש מכונות משקאות כמעט בכל רחוב, אפילו רחוק מהעיר. מוצאים בהן שתייה קרה או שתייה חמה, כל היום וכל הלילה."
           - x: 36
@@ -119,6 +120,7 @@ activities:
             label_he: "תיבת הדואר האדומה"
             japanese: "ポスト"
             reading: "posuto"
+            reading_hebrew: "פוסטו"
             text: "Post boxes in Japan are red. Look for the mark that looks like a T with a bar on top. It means \"post\"."
             text_he: "תיבות הדואר ביפן אדומות. מחפשים את הסימן שנראה כמו T עם קו מעליו. הוא אומר \"דואר\"."
           - x: 45
@@ -139,6 +141,7 @@ activities:
             label_he: "וילון הבד"
             japanese: "のれん"
             reading: "noren"
+            reading_hebrew: "נורן"
             text: "A noren is a short cloth curtain over a shop door. When the noren hangs outside, the shop is open."
             text_he: "נורן הוא וילון בד קצר מעל דלת של חנות. כשהנורן תלוי בחוץ, החנות פתוחה."
           - x: 87
@@ -224,6 +227,7 @@ activities:
             label_he: "הפגודה"
             japanese: "ごじゅうのとう"
             reading: "gojuunotou"
+            reading_hebrew: "גוג'ונוטו"
             text: "A pagoda is a tall tower with five roofs. Count them: one, two, three, four, five!"
             text_he: "פגודה היא מגדל גבוה עם חמישה גגות. סופרים: אחת, שתיים, שלוש, ארבע, חמש!"
           - x: 79
@@ -238,6 +242,7 @@ activities:
             label_he: "פסל האבן הקטן"
             japanese: "おじぞうさん"
             reading: "ojizousan"
+            reading_hebrew: "אוג'יזוסאן"
             text: "This is Jizo. People say Jizo looks after children and travellers. That is why people put a red bib and a red cap on him."
             text_he: "זה ג'יזו. אומרים שג'יזו שומר על ילדים ועל מטיילים. בגלל זה שמים עליו סינר אדום וכובע אדום."
       - kind: text
@@ -332,6 +337,7 @@ activities:
             label_he: "המדבקות האדומות"
             japanese: "あったかい"
             reading: "attakai"
+            reading_hebrew: "אטאקאי"
             text: "A red label means the drink is HOT. Careful, the can is hot in your hand!"
             text_he: "מדבקה אדומה אומרת שהשתייה חמה. זהירות, הפחית חמה ביד!"
           - x: 50
@@ -340,6 +346,7 @@ activities:
             label_he: "המדבקות הכחולות"
             japanese: "つめたい"
             reading: "tsumetai"
+            reading_hebrew: "צומטאי"
             text: "A blue label means the drink is COLD. Good on a hot summer day."
             text_he: "מדבקה כחולה אומרת שהשתייה קרה. טוב ביום קיץ חם."
           - x: 65

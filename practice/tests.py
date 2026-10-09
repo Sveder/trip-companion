@@ -249,10 +249,31 @@ class LessonQuizTests(TestCase):
             self.assertTrue(q["image"].endswith("img/lesson/sushi/plate.svg"))
         with translation.override("he"):
             q = question(self.trip, "food/sushi-lesson/shari")
-            self.assertEqual(q["prompt"], "איזה מהם נקרא shari?")
+            self.assertEqual(q["prompt"], "איזה מהם נקרא שארי?")
             self.assertEqual(q["answer"], "אורז")
             self.assertEqual(len(q["choices"]), 4)
             self.assertIn("אורז", q["choices"])
+
+    def test_every_hebrew_spot_prompt_has_no_latin_letters(self):
+        """T123: in Hebrew every spots question of every lesson asks with Hebrew letters ('נטה', not 'neta')."""
+        import re
+
+        from .items import item_key, quiz_entries
+
+        asked = 0
+        for lesson in Activity.objects.filter(type="lesson"):
+            for item_id, entry in quiz_entries(lesson, everything=True):
+                if entry.get("img") or not entry.get("reading"):
+                    continue
+                with translation.override("he"):
+                    q = question(self.trip, item_key(lesson, item_id))
+                self.assertIsNotNone(q, item_id)
+                self.assertNotRegex(q["prompt"], r"[A-Za-z]", f"{lesson.slug}/{item_id}")
+                self.assertEqual(q["reading"], entry["reading"])  # the audio file name stays Latin
+                asked += 1
+        self.assertGreaterEqual(asked, 39)
+        with translation.override("en"):
+            self.assertEqual(question(self.trip, "food/sushi-lesson/neta")["prompt"], "Which one is neta?")
 
     def test_spot_question_rings_the_asked_part(self):
         """T108: 'Which one is neta?' puts a ring on the topping; a flip card question has no ring."""
