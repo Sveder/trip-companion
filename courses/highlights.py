@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from activities.models import Clip
 from content_admin.i18n import localize
+from content_admin.models import Activity
 from practice.items import lookup
 from practice.models import PracticeItem
 from there.models import Photo
@@ -45,20 +46,29 @@ def highlights(trip, course):
 def met_words(trip):
     """Every practice item with a Japanese word: the words module first, then lesson spots and flip cards (T112).
 
-    One card per Japanese word, at most WORDS_MAX. A lesson entry has no `meaning`; its label is the meaning,
-    unless the label only repeats the reading ("Nigiri" / nigiri).
+    One card per Japanese word, at most WORDS_MAX. The meaning of a word comes from, in order (T134):
+    a `words` activity entry with the same Japanese word ("thank you" for ありがとう, also when the family met it in a lesson),
+    the entry's own `meaning`, then its label. A label that only repeats the reading ("Nigiri" / nigiri) gives no meaning.
     """
+    meanings = {}
+    for a in Activity.objects.filter(type="words", module__country=trip.destination):
+        for w in (a.data or {}).get("words", []):
+            if w.get("japanese") and w.get("meaning"):
+                meanings.setdefault(w["japanese"], localize(w)["meaning"])
     first, rest, seen = [], [], set()
     for p in PracticeItem.objects.filter(trip=trip).order_by("added_at", "id"):
         activity, entry = lookup(trip, p.key)
         if activity is None or entry is None or not entry.get("japanese"):
             continue
+        # The English label decides "only the reading": the Hebrew label is a transliteration (אריגטו) in that case too.
+        reading_only = entry.get("label", "").lower() == entry.get("reading", "").lower()
         entry = localize(entry)
         if entry["japanese"] in seen:
             continue
         seen.add(entry["japanese"])
-        if not entry.get("meaning"):
-            label = entry.get("label", "")
-            entry["meaning"] = "" if label.lower() == entry.get("reading", "").lower() else label
+        meaning = meanings.get(entry["japanese"]) or entry.get("meaning")
+        if not meaning:
+            meaning = "" if reading_only else entry.get("label", "")
+        entry["meaning"] = meaning
         (first if activity.type == "words" or activity.module.slug == "words" else rest).append({"entry": entry, "known": p.box >= 2})
     return (first + rest)[:WORDS_MAX]

@@ -404,6 +404,27 @@ class AfterTheTripTests(TestCase):
         # Advisor bug 3 (fixed by T92): the finished lesson gives the quiz something to ask.
         self.assertTrue(due_items(self.trip, timezone.localdate()))
 
+    def test_highlights_words_lesson_shows_real_meanings(self):
+        """T134: a family that did only the words lesson sees 'thank you' / 'תודה', not a label or a transliteration."""
+        from courses.highlights import highlights
+        from practice.items import add_items
+        self.set_dates(-20, -1)
+        add_items(self.trip, self.lesson("words", "words-lesson"))
+        words = {w["entry"]["reading"]: w["entry"]["meaning"] for w in highlights(self.trip, self.course)["words"]}
+        self.assertEqual(words["arigatou"], "thank you")
+        self.assertEqual(words["ohayou"], "good morning")
+        self.assertEqual(words["irasshaimase"], "welcome!")
+        self.assertEqual(words["atatamemasu ka"], "shall I warm it up?")
+        self.assertNotIn("The shop worker", words.values())
+        self.assertTrue(all(words.values()), words)
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertIn("thank you", html)
+        html = self.client.get(reverse("highlights") + "?lang=he").content.decode()
+        self.assertIn('<p class="meaning">תודה</p>', html)
+        self.assertIn('<p class="meaning">בוקר טוב</p>', html)
+        self.assertNotIn('<p class="meaning">אריגטו</p>', html)
+        self.assertNotIn("העובד בחנות</p>", html)
+
     def test_highlights_list_words_module_first(self):
         """T112: lesson words come after the words module, and the list stops at WORDS_MAX."""
         from courses.highlights import WORDS_MAX, highlights

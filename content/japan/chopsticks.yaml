@@ -237,6 +237,8 @@ activities:
             label_he: "מניחים אותם על המעמד"
             japanese: "はしおき"
             reading: "hashioki"
+            meaning: "chopstick rest"
+            meaning_he: "מעמד לצ'ופסטיקס"
             text: "When you stop to talk or drink, lay your chopsticks side by side on the small rest, the hashioki."
             text_he: "כשעוצרים לדבר או לשתות, מניחים את הצ'ופסטיקס אחד ליד השני על המעמד הקטן, האשיוקי."
       - kind: text
