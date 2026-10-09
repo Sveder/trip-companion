@@ -1,10 +1,12 @@
 from datetime import date, timedelta
 from io import StringIO
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.management import call_command
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 
 from courses.builder import build_course, suggestions
@@ -136,6 +138,35 @@ class ReminderLanguageTests(TestCase):
         self.assertEqual(Contact.objects.get(user=user).language, "he")
         self.client.get("/")  # the cookie keeps Hebrew
         self.assertEqual(Contact.objects.get(user=user).language, "he")
+
+    def test_a_second_device_keeps_the_saved_hebrew(self):
+        """T127: no cookie and no ?lang on a new device: the page is Hebrew and the saved language stays."""
+        user = family("tv@example.com")
+        Contact.objects.create(user=user, language="he")
+        self.client.force_login(user)
+        r = self.client.get("/course/")
+        self.assertIn('dir="rtl"', r.content.decode())
+        self.assertEqual(r.cookies[settings.LANGUAGE_COOKIE_NAME].value, "he")
+        self.assertEqual(Contact.objects.get(user=user).language, "he")
+        self.client.get("/")  # now the cookie carries it
+        self.assertEqual(Contact.objects.get(user=user).language, "he")
+
+    def test_the_switch_still_changes_the_saved_language(self):
+        user = family("sw@example.com")
+        Contact.objects.create(user=user, language="he")
+        self.client.force_login(user)
+        self.client.post(reverse("set_language"), {"language": "en", "next": "/"})
+        self.assertEqual(Contact.objects.get(user=user).language, "en")
+        self.assertIn('dir="ltr"', self.client.get("/course/").content.decode())
+        self.client.get("/?lang=he")
+        self.assertEqual(Contact.objects.get(user=user).language, "he")
+
+    def test_a_visitor_keeps_the_cookie_rules(self):
+        r = self.client.get("/")
+        self.assertIn('dir="ltr"', r.content.decode())
+        self.assertNotIn(settings.LANGUAGE_COOKIE_NAME, r.cookies)
+        self.assertIn('dir="rtl"', self.client.get("/?lang=he").content.decode())
+        self.assertIn('dir="rtl"', self.client.get("/").content.decode())
 
     def test_hebrew_family_gets_hebrew_mail(self):
         user = family("he@example.com")
