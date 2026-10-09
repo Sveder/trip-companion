@@ -367,6 +367,50 @@ class AfterTheTripTests(TestCase):
         self.assertIn('class="cards word-grid"', html)
         self.assertEqual(html.count("⭐</h3>"), 1)
 
+    def lesson(self, module, slug):
+        from content_admin.models import Activity
+        return Activity.objects.select_related("module").get(module__country=self.trip.destination, module__slug=module, slug=slug)
+
+    def test_highlights_count_lesson_words(self):
+        """T112: a finished sushi lesson and no words module still fills 'Words we met', one card per word."""
+        from courses.highlights import highlights
+        from practice.items import add_items, due_items
+        self.set_dates(-20, -1)
+        add_items(self.trip, self.lesson("food", "sushi-lesson"))
+        add_items(self.trip, self.lesson("food", "sushi-lesson"))
+        words = highlights(self.trip, self.course)["words"]
+        japanese = [w["entry"]["japanese"] for w in words]
+        self.assertGreaterEqual(len(words), 5)
+        self.assertEqual(len(japanese), len(set(japanese)))
+        self.assertIn("ネタ", japanese)
+        neta = next(w["entry"] for w in words if w["entry"]["japanese"] == "ネタ")
+        self.assertEqual(neta["meaning"], "Fish")
+        # A flip card whose label only repeats the reading gets no meaning line.
+        nigiri = next(w["entry"] for w in words if w["entry"]["japanese"] == "にぎり")
+        self.assertEqual(nigiri["meaning"], "")
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertNotIn("No words yet", html)
+        self.assertIn("ネタ", html)
+        # Advisor bug 3 (fixed by T92): the finished lesson gives the quiz something to ask.
+        self.assertTrue(due_items(self.trip, timezone.localdate()))
+
+    def test_highlights_list_words_module_first(self):
+        """T112: lesson words come after the words module, and the list stops at WORDS_MAX."""
+        from courses.highlights import WORDS_MAX, highlights
+        from practice.items import add_items
+        self.set_dates(-20, -1)
+        add_items(self.trip, self.lesson("food", "sushi-lesson"))
+        add_items(self.trip, self.lesson("words", "words-intro"))
+        for module, slug in [("streetview", "streetview-lesson"), ("transport", "transport-lesson"), ("safety", "safety-lesson")]:
+            add_items(self.trip, self.lesson(module, slug))
+        words = highlights(self.trip, self.course)["words"]
+        self.assertEqual(words[0]["entry"]["reading"], "konnichiwa")
+        self.assertNotEqual(words[-1]["entry"]["reading"], "konnichiwa")
+        self.assertLessEqual(len(words), WORDS_MAX)
+        self.client.cookies["lang"] = "he"
+        html = self.client.get(reverse("highlights") + "?lang=he").content.decode()
+        self.assertIn("דג", html)
+
     def test_word_grid_keeps_japanese_on_one_line(self):
         """T41: いただきます must not break in the middle of the word in the 2-column grid."""
         from pathlib import Path
