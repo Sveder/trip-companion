@@ -131,7 +131,7 @@ class HeaderMenuTests(TestCase):
         u = get_user_model().objects.create_user("m@example.com", "m@example.com", "pw-123456")
         self.client.force_login(u)
         html = self.client.get("/", follow=True).content.decode()
-        self.assertIn('class="menu-btn link" aria-expanded="false" aria-controls="top-menu"', html)
+        self.assertIn('class="menu-btn link" aria-expanded="false" aria-controls="top-menu" aria-label="Menu"', html)
         self.assertIn('class="top-menu foldable" id="top-menu"', html)
         self.assertIn("Our course", html)
         self.client.cookies.load({"django_language": "he"})

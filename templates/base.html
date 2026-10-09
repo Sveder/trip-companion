@@ -32,7 +32,7 @@
 <body class="{% block body_class %}{% endblock %}"{% block body_attrs %}{% endblock %}>
   <header class="top">
     <a class="brand" href="{% url 'home' %}">{% include "includes/mark.html" with cls="small" %} Trip Companion</a>
-    {% if user.is_authenticated %}<button type="button" class="menu-btn link" aria-expanded="false" aria-controls="top-menu"><span aria-hidden="true">&#9776;</span> {% translate "Menu" %}</button>{% endif %}
+    {% if user.is_authenticated %}<button type="button" class="menu-btn link" aria-expanded="false" aria-controls="top-menu" aria-label="{% translate "Menu" %}"><span aria-hidden="true">&#9776;</span> <span class="menu-word">{% translate "Menu" %}</span></button>{% endif %}
     {# On a phone the signed-in menu folds behind the Menu button, so the header stays one line (T105). #}
     <div class="top-menu{% if user.is_authenticated %} foldable{% endif %}" id="top-menu">
       {% if user.is_authenticated %}

@@ -181,7 +181,12 @@ legend { font-weight: 800; font-size: 1.15rem; }
   .guide.hero-guide { width: 5rem; height: 5rem; }
   .guide.title-guide { width: 2.1rem; height: 2.1rem; }
 }
-/* Small phones: the brand drops its name and keeps the mark, so the Menu button fits beside it. */
+/* Narrow phones (360-399 px): the Menu button keeps only its icon, so the brand name fits beside it. */
+@media (max-width: 399px) {
+  .menu-btn .menu-word { display: none; }
+  .menu-btn { padding: .45rem .8rem; font-size: 1.15rem; }
+}
+/* Small phones: the brand drops its name and keeps the mark. */
 @media (max-width: 340px) {
   .top .brand { font-size: 0; gap: 0; }
 }
