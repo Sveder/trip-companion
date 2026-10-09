@@ -387,6 +387,13 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .tv .lspots.edge { padding: 24px 48px; }
 .tv .lspot { width: 42px; height: 42px; font-size: 24px; }
 .tv .lspot:focus { outline: 6px solid var(--c-sun); outline-offset: 2px; }
+/* T116: on a phone the picture gets most of the card. Smaller numbers, a thinner side band that reaches into the card padding.
+   lesson.js puts each number half its width plus 3 px outside the picture, so a 20 px number needs 23 px of band. */
+@media (max-width: 600px) {
+  .lspots.edge { padding: 14px 24px; margin: 0 -14px; }
+  .lspot { width: 20px; height: 20px; border-width: 2px; font-size: 12px; box-shadow: 0 2px 0 rgba(0,0,0,.25); }
+  .spot-info { font-size: 1rem; padding: .4rem .8rem; }
+}
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.15); } }
 .lspot-dot { display: none; }
 .edge .lspot-dot { display: block; position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--c-primary); cursor: pointer; }

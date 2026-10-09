@@ -612,3 +612,17 @@ class LessonIntroTests(TestCase):
                 pages = html.split("data-page ")[1:]
                 self.assertIn(intro, pages[0], (act.slug, lang))
                 self.assertEqual(html.count('class="lead'), 1, (act.slug, lang))
+
+
+class PhoneSpotsTests(TestCase):
+    """T116 (feedback #7): on a phone the tap-the-dots picture gets most of the card, and the numbers still sit beside it."""
+
+    def test_phone_rule_and_number_offset(self):
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        rule = re.search(r"/\* T116.*?@media \(max-width: 600px\) \{(.*?)\n\}", css, re.S).group(1)
+        self.assertIn(".lspots.edge { padding: 14px 24px; margin: 0 -14px; }", rule)
+        self.assertIn(".lspot { width: 20px; height: 20px;", rule)
+        self.assertIn(".spot-info { font-size: 1rem; padding: .4rem .8rem; }", rule)
+        # A 20 px number sits 13 px outside the picture (inside the 24 px band); desktop and TV keep 20 px.
+        js = (settings.BASE_DIR / "static/js/lesson.js").read_text()
+        self.assertIn("var off = Math.min(20, s.b.offsetWidth / 2 + 3)", js)
