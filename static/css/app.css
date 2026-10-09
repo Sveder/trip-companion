@@ -74,7 +74,17 @@ h1.with-guide { display: flex; align-items: center; gap: .5rem; }
 .hero-guide.cheer { animation: cheer .7s ease-in-out 4, bob 2.4s ease-in-out 2.8s infinite; }
 @keyframes bob { 50% { transform: translateY(-10px) rotate(-6deg); } }
 @keyframes cheer { 0%, 100% { transform: translateY(0) scale(1); } 40% { transform: translateY(-34px) scale(1.08, .94); } 60% { transform: translateY(-34px) rotate(8deg); } }
-.praise .praise-emoji { font-size: 3.5rem; line-height: 1; animation: pop .6s ease-out; }
+/* T108: the emoji is a round badge at the guide's lower outer corner, not above its head (the cheer jump hit it). */
+.praise-top { position: relative; width: 6.5rem; margin: 1.2rem auto .4rem; }
+.praise .praise-emoji { position: absolute; bottom: -.3rem; inset-inline-end: -2.4rem; width: 3rem; height: 3rem; display: grid; place-items: center;
+  font-size: 1.9rem; line-height: 1; background: var(--c-surface); border: 3px solid var(--c-sun); border-radius: 50%; box-shadow: var(--shadow); animation: pop .6s ease-out; }
+.next-up { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "label label" "emoji title" "emoji module"; align-items: center; gap: .1rem .8rem;
+  max-width: 420px; margin: 2rem auto 0; padding: .9rem 1.1rem; text-align: start; text-decoration: none; color: var(--c-ink);
+  background: var(--c-surface); border: 3px solid var(--c-line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.next-up .next-up-label { grid-area: label; font-size: .85rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--c-accent); }
+.next-up .next-up-emoji { grid-area: emoji; font-size: 2.4rem; line-height: 1; }
+.next-up strong { grid-area: title; font-size: 1.2rem; }
+.next-up .hint { grid-area: module; }
 .praise .progress { max-width: 420px; margin: 1.2rem auto 1.6rem; justify-content: center; font-size: 1.15rem; }
 .praise .bar { height: 18px; }
 .praise-fill { animation: grow 1.2s ease-out .3s both; }
@@ -231,7 +241,16 @@ html.tv { font-size: 30px; }
 .btn.choice:focus { outline: none; border-color: var(--c-accent); }
 span.choice { display: block; background: var(--c-surface); border: 4px solid var(--c-line); font-weight: 800; }
 span.choice.is-answer { border-color: var(--c-accent); background: var(--c-tint-2); }
-span.choice.is-wrong { border-style: dashed; color: var(--c-muted); }
+span.choice.is-wrong { border-color: var(--c-primary); background: var(--c-tint-1); color: var(--c-ink); }
+span.choice.is-wrong::before { content: "✗ "; color: var(--c-primary); }
+span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
+/* T108: a spot question rings the asked part of the picture. */
+.ask-pic { position: relative; display: block; }
+.ask-pic img { display: block; width: 100%; height: auto; }
+.ask-ring { position: absolute; width: 18%; height: 0; padding-top: 18%; box-sizing: content-box; /* a square without aspect-ratio (Chrome 87, T101) */ transform: translate(-50%, -50%); border: 5px solid var(--c-primary); border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--c-surface), 0 0 0 7px rgba(188, 0, 45, .25); pointer-events: none; animation: ring-pulse 1.6s ease-in-out infinite; }
+@keyframes ring-pulse { 50% { transform: translate(-50%, -50%) scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { .ask-ring { animation: none; } }
 .answer-note .big-line { font-size: 1.5rem; font-weight: 900; margin: .4rem 0; }
 .tv .choices { max-width: 70vw; }
 

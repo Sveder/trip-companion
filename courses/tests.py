@@ -504,6 +504,10 @@ class PraiseTests(TestCase):
         self.assertContains(page, f"1 of {len(self.ready)} done")
         self.assertEqual(page.context["progress"]["before"], 0)
         self.assertRedirects(self.client.get("/"), reverse("activity", args=[self.ready[1].id]))
+        # T108: the emoji is a badge beside the guide, and a 'Next up' card names the next activity.
+        self.assertContains(page, 'class="praise-top"')
+        self.assertContains(page, "Next up")
+        self.assertContains(page, self.ready[1].activity.local_title)
 
     def test_praise_before_done_goes_to_the_activity(self):
         first = self.ready[0]

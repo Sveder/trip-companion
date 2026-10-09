@@ -149,6 +149,9 @@ def question(trip, key):
             "emoji": "",
             "image": static(f"img/{img}") if img else "",
         }
+        if not entry.get("img") and "x" in entry and "y" in entry:
+            # A spot: a ring on the asked part of the page picture, so "Which one is neta?" points at the topping (T108).
+            q["spot"] = {"x": entry["x"], "y": entry["y"]}
     else:
         # A card can name its own answer and wrong choices (e.g. "110" for the police card).
         # `choice: false` keeps a card that is not the same kind of thing (a phrase among foods) out of the wrong choices.

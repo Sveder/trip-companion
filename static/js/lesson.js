@@ -30,7 +30,22 @@
       prev.style.visibility = at === 0 ? 'hidden' : '';
       next.hidden = at === pages.length - 1;
       if (done) done.hidden = at !== pages.length - 1;
-      if (scroll) root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      if (scroll) toTop();
+    }
+    // After Next or Back the new page starts at its top: the lesson title sits just under the header, or under a
+    // fixed or sticky header when one covers the page top (T108). A title already near the top does not move.
+    var title = document.querySelector('h1.with-guide') || root;
+    function toTop() {
+      var cover = 0, head = document.querySelector('header');
+      if (head) {
+        var pos = getComputedStyle(head).position;
+        if (pos === 'fixed' || pos === 'sticky') cover = head.getBoundingClientRect().bottom;
+      }
+      var top = title.getBoundingClientRect().top;
+      if (top >= cover && top < window.innerHeight / 3) return;
+      var y = top + window.pageYOffset - cover - 8;
+      var smooth = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      window.scrollTo({ top: Math.max(0, y), behavior: smooth ? 'smooth' : 'auto' });
     }
     prev.addEventListener('click', function () { show(at - 1, true); });
     next.addEventListener('click', function () { show(at + 1, true); });

@@ -125,6 +125,7 @@ def activity_praise(request, item_id):
     return render(request, "activities/praise.html", {
         "module_done": module_done,
         "item": item, "next_url": reverse("activity", args=[nxt.id]) if nxt else reverse("home"), "activity": item.activity, "module": item.activity.module,
+        "next_activity": nxt.activity if nxt else None,
         "found": found if of and found < of else None, "of": of,
         "progress": {"done": done, "before": max(done - 1, 0), "total": total},
     })

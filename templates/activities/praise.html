@@ -4,8 +4,11 @@
 {% block body_attrs %}{% if module_done %} data-celebrate{% endif %}{% endblock %}
 {% block content %}
 <section class="hero praise">
-  <div class="praise-emoji" aria-hidden="true">{{ module.emoji|default:"⭐" }}</div>
-  {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
+  {# The module emoji is a badge at the guide's lower corner, so the jumping guide never covers it (T108). #}
+  <div class="praise-top">
+    {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
+    <div class="praise-emoji" aria-hidden="true">{{ module.emoji|default:"⭐" }}</div>
+  </div>
   {% if found == 0 %}
   <h1>{% translate "Good try!" %}</h1>
   <p class="lead">{% translate "You can play it again from Our course." %}</p>
@@ -19,5 +22,13 @@
     <div class="bar"><div class="fill praise-fill" style="--from: {% widthratio progress.before progress.total 100 %}%; width: {% widthratio progress.done progress.total 100 %}%"></div></div>
   </div>
   <a class="btn big" href="{{ next_url }}" autofocus>{% translate "Next" %} <span class="arrow">➜</span></a>
+  {% if next_activity %}
+  <a class="card next-up" href="{{ next_url }}" tabindex="-1">
+    <span class="next-up-label">{% translate "Next up" %}</span>
+    <span class="next-up-emoji" aria-hidden="true">{{ next_activity.module.emoji|default:"⭐" }}</span>
+    <strong>{{ next_activity.local_title }}</strong>
+    <span class="hint">{{ next_activity.module.local_title }}</span>
+  </a>
+  {% endif %}
 </section>
 {% endblock %}

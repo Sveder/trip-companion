@@ -254,6 +254,24 @@ class LessonQuizTests(TestCase):
             self.assertEqual(len(q["choices"]), 4)
             self.assertIn("אורז", q["choices"])
 
+    def test_spot_question_rings_the_asked_part(self):
+        """T108: 'Which one is neta?' puts a ring on the topping; a flip card question has no ring."""
+        lesson_spots = [s for p in self.lesson.data["pages"] if p.get("kind") == "spots" for s in p["spots"]]
+        neta = next(s for s in lesson_spots if s.get("reading") == "neta")
+        with translation.override("en"):
+            q = question(self.trip, "food/sushi-lesson/neta")
+            self.assertEqual(q["spot"], {"x": neta["x"], "y": neta["y"]})
+            self.assertNotIn("spot", question(self.trip, "food/sushi-lesson/nigiri"))
+        PracticeItem.objects.create(trip=self.trip, key="food/sushi-lesson/neta", due_on=TODAY)
+        self.client.force_login(self.user)
+        page = self.client.get(reverse("quiz") + "?new=1")
+        self.assertContains(page, 'class="ask-ring"')
+        self.assertContains(page, f'left: {neta["x"]}%; top: {neta["y"]}%')
+        # A wrong pick is marked on the answer page.
+        wrong = next(c for c in page.context["q"]["choices"] if c != "Fish")
+        page = self.client.post(reverse("quiz"), {"key": "food/sushi-lesson/neta", "choice": wrong}, follow=True)
+        self.assertContains(page, "is-wrong")
+
     def test_flip_question_uses_the_picture_and_its_own_page(self):
         with translation.override("en"):
             q = question(self.trip, "food/sushi-lesson/nigiri")

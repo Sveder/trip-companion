@@ -17,6 +17,7 @@
       <p class="jp big" lang="ja">{{ q.japanese }}</p>
       <h2 class="reading">{{ q.reading }}</h2>
       <span class="say-hint" data-say-hint hidden>🔊 {% translate "Tap to hear it" %}</span>
+    {% elif q.image and q.spot %}<div class="ask-pic"><img src="{{ q.image }}" alt=""><span class="ask-ring" style="left: {{ q.spot.x }}%; top: {{ q.spot.y }}%" aria-hidden="true"></span></div>
     {% elif q.image %}<img src="{{ q.image }}" alt="">
     {% else %}<div class="card-emoji huge" aria-hidden="true">{{ q.emoji }}</div>{% endif %}
     {% if q.kind != "word" and result and q.japanese %}
