@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-08 23:57+0300\n"
+"POT-Creation-Date: 2026-10-09 03:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,9 +42,22 @@ msgstr "איזה מהם נקרא %(reading)s?"
 msgid "What do we say here?"
 msgstr "מה אומרים כאן?"
 
-#: practice/items.py:143 practice/items.py:159
+#: practice/items.py:143 practice/items.py:162
 msgid "What is this?"
 msgstr "מה זה?"
+
+#: templates/403.html:3 templates/403.html:7
+msgid "This page is for the team"
+msgstr "הדף הזה מיועד לצוות"
+
+#: templates/403.html:8
+msgid "Only the people who make the app can open it. Let's go back."
+msgstr "רק מי שבונים את האפליקציה יכולים לפתוח אותו. בואו נחזור."
+
+#: templates/403.html:9 templates/practice/done.html:10
+#: templates/practice/empty.html:17 templates/reminders/stop.html:17
+msgid "Back home"
+msgstr "חזרה לדף הבית"
 
 #: templates/404.html:3
 msgid "Page not found"
@@ -113,7 +126,7 @@ msgid "Activity %(number)s of %(total)s"
 msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
-#: templates/activities/lesson.html:114 templates/activities/praise.html:21
+#: templates/activities/lesson.html:117 templates/activities/praise.html:24
 #: templates/courses/course.html:22
 msgid "Next"
 msgstr "הבא"
@@ -123,7 +136,7 @@ msgid "We did it!"
 msgstr "עשינו את זה!"
 
 #: templates/activities/cards.html:12 templates/activities/words.html:12
-#: templates/practice/quiz.html:19 templates/practice/quiz.html:24
+#: templates/practice/quiz.html:19 templates/practice/quiz.html:25
 msgid "Tap to hear it"
 msgstr "לחצו כדי לשמוע"
 
@@ -131,38 +144,38 @@ msgstr "לחצו כדי לשמוע"
 msgid "This activity is coming soon. We will tell you when it is ready!"
 msgstr "הפעילות הזאת תגיע בקרוב. נגיד לכם כשהיא מוכנה!"
 
-#: templates/activities/lesson.html:8
+#: templates/activities/lesson.html:10
 msgid "Yes! Well done!"
 msgstr "כן! כל הכבוד!"
 
-#: templates/activities/lesson.html:8
+#: templates/activities/lesson.html:10
 msgid "Not that one. Try again!"
 msgstr "לא זה. נסו שוב!"
 
-#: templates/activities/lesson.html:8
+#: templates/activities/lesson.html:10
 msgid "You did every round! 🎉"
 msgstr "עשיתם את כל הסיבובים! 🎉"
 
-#: templates/activities/lesson.html:8 templates/includes/js_strings.html:2
+#: templates/activities/lesson.html:10 templates/includes/js_strings.html:2
 #, python-brace-format
 msgid "{n} of {total} found"
 msgstr "נמצאו {n} מתוך {total}"
 
-#: templates/activities/lesson.html:10
+#: templates/activities/lesson.html:12
 #, python-format
 msgid "Page 1 of %(total)s"
 msgstr "דף 1 מתוך %(total)s"
 
-#: templates/activities/lesson.html:13
+#: templates/activities/lesson.html:15
 #, python-format
 msgid "Page %(n)s of %(total)s"
 msgstr "דף %(n)s מתוך %(total)s"
 
-#: templates/activities/lesson.html:22 templates/activities/steps.html:14
+#: templates/activities/lesson.html:25 templates/activities/steps.html:14
 msgid "A grown-up buys it. The shop opens in a new tab."
 msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
 
-#: templates/activities/lesson.html:113
+#: templates/activities/lesson.html:116
 msgid "Back"
 msgstr "אחורה"
 
@@ -177,42 +190,46 @@ msgid ""
 msgstr ""
 "מבוגר קונה את אלה. החנות נפתחת בלשונית חדשה. באפליקציה הזאת לא משלמים כלום."
 
-#: templates/activities/praise.html:3 templates/activities/praise.html:10
+#: templates/activities/praise.html:3 templates/activities/praise.html:13
 msgid "Good try!"
 msgstr "ניסיון יפה!"
 
-#: templates/activities/praise.html:3 templates/activities/praise.html:13
+#: templates/activities/praise.html:3 templates/activities/praise.html:16
 msgid "Great job!"
 msgstr "כל הכבוד!"
 
-#: templates/activities/praise.html:8 templates/courses/finished.html:7
+#: templates/activities/praise.html:9 templates/courses/finished.html:7
 #: templates/practice/done.html:7
 msgid "Our guide jumps for joy"
 msgstr "המדריך שלנו קופץ משמחה"
 
-#: templates/activities/praise.html:11
+#: templates/activities/praise.html:14
 msgid "You can play it again from Our course."
 msgstr "אפשר לשחק בו שוב מתוך המסלול שלנו."
 
-#: templates/activities/praise.html:14
+#: templates/activities/praise.html:17
 #, python-format
 msgid "You found %(found)s of %(of)s!"
 msgstr "מצאתם %(found)s מתוך %(of)s!"
 
-#: templates/activities/praise.html:16
+#: templates/activities/praise.html:19
 #, python-format
 msgid "You finished %(name)s!"
 msgstr "סיימתם את %(name)s!"
 
-#: templates/activities/praise.html:17
+#: templates/activities/praise.html:20
 #, python-format
 msgid "%(done)s of %(total)s activities done"
 msgstr "%(done)s מתוך %(total)s פעילויות הושלמו"
 
-#: templates/activities/praise.html:18
+#: templates/activities/praise.html:21
 #, python-format
 msgid "%(done)s of %(total)s done"
 msgstr "%(done)s מתוך %(total)s הושלמו"
+
+#: templates/activities/praise.html:27
+msgid "Next up"
+msgstr "הבא בתור"
 
 #: templates/activities/steps.html:24
 msgid "The video comes soon. Here is how:"
@@ -295,33 +312,37 @@ msgstr ""
 msgid "Get ready for Japan"
 msgstr "מתכוננים ליפן"
 
-#: templates/base.html:37 templates/courses/course.html:3
+#: templates/base.html:35
+msgid "Menu"
+msgstr "תפריט"
+
+#: templates/base.html:40 templates/courses/course.html:3
 #: templates/courses/finished.html:19 templates/there/hunt.html:46
 msgid "Our course"
 msgstr "המסלול שלנו"
 
-#: templates/base.html:38 templates/practice/empty.html:3
+#: templates/base.html:41 templates/practice/empty.html:3
 #: templates/practice/quiz.html:4
 msgid "Quiz"
 msgstr "חידון"
 
-#: templates/base.html:39
+#: templates/base.html:42
 msgid "In Japan"
 msgstr "ביפן"
 
-#: templates/base.html:40 templates/trips/setup.html:3
+#: templates/base.html:43 templates/trips/setup.html:3
 msgid "Our trip"
 msgstr "הטיול שלנו"
 
-#: templates/base.html:41
+#: templates/base.html:44
 msgid "Sign out"
 msgstr "יציאה"
 
-#: templates/base.html:53
+#: templates/base.html:64
 msgid "Made by"
 msgstr "נוצר על ידי"
 
-#: templates/base.html:53 templates/privacy.html:3 templates/privacy.html:6
+#: templates/base.html:64 templates/privacy.html:3 templates/privacy.html:6
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -565,11 +586,6 @@ msgstr "מה שפספסנו יחזור מחר."
 msgid "Every one! Wow!"
 msgstr "על כולן! וואו!"
 
-#: templates/practice/done.html:10 templates/practice/empty.html:17
-#: templates/reminders/stop.html:17
-msgid "Back home"
-msgstr "חזרה לדף הבית"
-
 #: templates/practice/empty.html:6
 msgid "Our guide"
 msgstr "המדריך שלנו"
@@ -612,24 +628,24 @@ msgstr "שאלה %(number)s מתוך %(total)s"
 msgid "Quiz time"
 msgstr "זמן חידון"
 
-#: templates/practice/quiz.html:30
+#: templates/practice/quiz.html:31
 msgid "Yes! Great job!"
 msgstr "כן! כל הכבוד!"
 
-#: templates/practice/quiz.html:32
+#: templates/practice/quiz.html:33
 #, python-format
 msgid "Not this time. It is <strong>%(answer)s</strong>."
 msgstr "לא הפעם. התשובה היא <strong>%(answer)s</strong>."
 
-#: templates/practice/quiz.html:33
+#: templates/practice/quiz.html:34
 msgid "No problem! We ask this one again tomorrow."
 msgstr "לא נורא! נשאל את זה שוב מחר."
 
-#: templates/practice/quiz.html:39
+#: templates/practice/quiz.html:40
 msgid "See how we did"
 msgstr "בואו נראה איך הלך"
 
-#: templates/practice/quiz.html:39
+#: templates/practice/quiz.html:40
 msgid "Next question"
 msgstr "לשאלה הבאה"
 
@@ -638,12 +654,10 @@ msgid "Trip Companion is for families. We keep as little as we can."
 msgstr "Trip Companion נועד למשפחות. אנחנו שומרים כמה שפחות."
 
 #: templates/privacy.html:8
-#| msgid "What we did"
 msgid "What we keep"
 msgstr "מה אנחנו שומרים"
 
 #: templates/privacy.html:10
-#| msgid "Your email"
 msgid "Your email address."
 msgstr "כתובת האימייל שלכם."
 
@@ -656,7 +670,6 @@ msgstr ""
 "אם הפסקתם אותה."
 
 #: templates/privacy.html:11
-#| msgid "Our trip"
 msgid "Your trip."
 msgstr "הטיול שלכם."
 
@@ -670,7 +683,6 @@ msgstr ""
 "גיל (קטנטנים, ילדים, ילדים גדולים, מבוגרים). אנחנו לא שואלים שמות."
 
 #: templates/privacy.html:12
-#| msgid "Our course"
 msgid "Your course."
 msgstr "המסלול שלכם."
 
@@ -719,7 +731,6 @@ msgstr ""
 "כתובת האימייל שלכם."
 
 #: templates/privacy.html:17
-#| msgid "What we did"
 msgid "What we do not do"
 msgstr "מה אנחנו לא עושים"
 
@@ -781,13 +792,12 @@ msgstr[0] "פעילות אחת מחכה לפני הטיול."
 msgstr[1] "%(left)s פעילויות מחכות לפני הטיול."
 
 #: templates/reminders/email.html:9 templates/reminders/email.txt:13
-#| msgid ""
-#| "We send a short email every two days at most, with your next activity."
+#: templates/reminders/there_email.html:11
+#: templates/reminders/there_email.txt:13
 msgid "We send this note every two days at most."
 msgstr "אנחנו שולחים את ההודעה הזאת לכל היותר פעם ביומיים."
 
-#: templates/reminders/email.html:10
-#| msgid "Stop the reminder emails"
+#: templates/reminders/email.html:10 templates/reminders/there_email.html:12
 msgid "Stop these emails"
 msgstr "הפסיקו את האימיילים האלה"
 
@@ -795,7 +805,7 @@ msgstr "הפסיקו את האימיילים האלה"
 msgid "Open it here:"
 msgstr "פותחים אותה כאן:"
 
-#: templates/reminders/email.txt:14
+#: templates/reminders/email.txt:14 templates/reminders/there_email.txt:14
 msgid "To stop these emails, open this link:"
 msgstr "כדי להפסיק את האימיילים האלה, פתחו את הקישור הזה:"
 
@@ -824,6 +834,36 @@ msgstr "אנחנו שולחים אימייל קצר לכל היותר פעם ב�
 #: templates/reminders/subject.txt:1
 msgid "Your next Japan activity is waiting"
 msgstr "הפעילות הבאה שלכם על יפן מחכה"
+
+#: templates/reminders/there_email.html:4
+#: templates/reminders/there_email.txt:1
+msgid "Hello from Trip Companion!"
+msgstr "שלום מ-Trip Companion!"
+
+#: templates/reminders/there_email.html:5
+#: templates/reminders/there_email.txt:3
+msgid "Today in Japan, look for this:"
+msgstr "היום ביפן, חפשו את זה:"
+
+#: templates/reminders/there_email.html:8
+#: templates/reminders/there_email.txt:8
+msgid "Found it? Take a photo and add it to your hunt:"
+msgstr "מצאתם? צלמו ותוסיפו את התמונה לציד שלכם:"
+
+#: templates/reminders/there_email.html:9
+msgid "Open the hunt"
+msgstr "לציד"
+
+#: templates/reminders/there_email.html:10
+#: templates/reminders/there_email.txt:11
+#, python-format
+msgid "You found %(found)s of %(total)s things."
+msgstr "מצאתם %(found)s מתוך %(total)s דברים."
+
+#: templates/reminders/there_subject.txt:1
+#, python-format
+msgid "Today in Japan, find: %(name)s"
+msgstr "היום ביפן, מצאו: %(name)s"
 
 #: templates/there/hunt.html:9
 msgid "Look for these things in Japan. When you see one, take a photo!"
@@ -901,6 +941,10 @@ msgstr "המטוס ריק."
 #, python-format
 msgid "Add one: %(who)s"
 msgstr "להוסיף אחד: %(who)s"
+
+#: templates/trips/setup.html:60
+msgid "For example 10"
+msgstr "למשל 10"
 
 #: templates/trips/setup.html:63
 msgid "Next: choose your course"
@@ -987,44 +1031,6 @@ msgstr[1] "%(n)d מבוגרים"
 #: trips/views.py:65
 msgid "Have a great trip! Here is your photo list."
 msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
-
-#: templates/reminders/there_subject.txt:1
-#, python-format
-msgid "Today in Japan, find: %(name)s"
-msgstr "היום ביפן, מצאו: %(name)s"
-
-#: templates/reminders/there_email.html:4
-#: templates/reminders/there_email.txt:1
-msgid "Hello from Trip Companion!"
-msgstr "שלום מ-Trip Companion!"
-
-#: templates/reminders/there_email.html:5
-#: templates/reminders/there_email.txt:3
-msgid "Today in Japan, look for this:"
-msgstr "היום ביפן, חפשו את זה:"
-
-#: templates/reminders/there_email.html:8
-#: templates/reminders/there_email.txt:8
-msgid "Found it? Take a photo and add it to your hunt:"
-msgstr "מצאתם? צלמו ותוסיפו את התמונה לציד שלכם:"
-
-#: templates/reminders/there_email.html:9
-msgid "Open the hunt"
-msgstr "לציד"
-
-#: templates/reminders/there_email.html:10
-#: templates/reminders/there_email.txt:11
-#, python-format
-msgid "You found %(found)s of %(total)s things."
-msgstr "מצאתם %(found)s מתוך %(total)s דברים."
-
-#: templates/base.html
-msgid "Menu"
-msgstr "תפריט"
-
-#: templates/activities/praise.html
-msgid "Next up"
-msgstr "הבא בתור"
 
 #~ msgid "Let's look again another day."
 #~ msgstr "בואו נחפש שוב ביום אחר."

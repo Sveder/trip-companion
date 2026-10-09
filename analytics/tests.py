@@ -121,6 +121,16 @@ class StatsPageTests(TestCase):
         self.client.force_login(self.parent)
         self.assertEqual(self.client.get(reverse("stats")).status_code, 403)
 
+    def test_403_is_the_styled_page_in_both_languages(self):
+        # T109: no raw '403 Forbidden'; the family sees the app page with a way home.
+        self.client.force_login(self.parent)
+        r = self.client.get(reverse("stats"))
+        self.assertTemplateUsed(r, "403.html")
+        self.assertContains(r, "This page is for the team", status_code=403)
+        self.assertContains(r, 'href="%s"' % reverse("home"), status_code=403)
+        self.client.cookies["django_language"] = "he"
+        self.assertContains(self.client.get(reverse("stats")), "הדף הזה מיועד לצוות", status_code=403)
+
     def test_signed_out_goes_to_sign_in(self):
         r = self.client.get(reverse("stats"))
         self.assertEqual(r.status_code, 302)

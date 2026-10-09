@@ -99,14 +99,17 @@ a.card.next-up { display: grid; grid-template-columns: auto 1fr; grid-template-a
 .btn.big { font-size: 1.25rem; padding: .8rem 2rem; margin-top: .5rem; }
 /* Sign-in page: Google button, white like Google asks, with the same round shape as our buttons. */
 .or-line { text-align: center; color: var(--c-muted); font-weight: 700; margin: .8rem 0 0; }
-.btn.google-btn { background: #fff; color: var(--c-ink); border: 2px solid var(--c-line); display: inline-flex; align-items: center; gap: .6rem; }
+.btn.google-btn { background: #fff; color: var(--c-ink); border: 2px solid var(--c-line); display: inline-flex; align-items: center; justify-content: center; gap: .6rem; white-space: nowrap; padding-left: 1.3rem; padding-right: 1.3rem; }
+/* T109: one line on a 412 px phone, the mark centred beside the text. */
+@media (max-width: 440px) { .btn.big.google-btn { font-size: 1.1rem; padding-left: 1rem; padding-right: 1rem; } }
 .g-mark { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: #4285f4; color: #fff; font-weight: 900; font-size: 1rem; }
 .link { background: none; border: 0; padding: 0; font: inherit; color: var(--c-muted); text-decoration: underline; cursor: pointer; }
 .messages { list-style: none; padding: 0; }
 .msg { background: var(--c-sun); padding: .6rem 1rem; border-radius: 12px; margin-bottom: .5rem; }
 .msg.error { background: #ffd4d1; }
 .section-title { text-align: center; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .7rem; margin: .7rem 0; }
+/* T109: auto-fit with a capped width, so a short row of cards sits in the centre under its centred heading. */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 256px)); justify-content: center; gap: .7rem; margin: .7rem 0; }
 .card { position: relative; display: block; background: var(--c-surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: .8rem 1rem; border: 4px solid transparent; }
 .card:focus, .card:focus-within { outline: none; border-color: var(--c-accent); }
 .card-emoji { display: inline-flex; align-items: center; justify-content: center; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: var(--c-tint-1); font-size: 2rem; line-height: 1; }
@@ -119,7 +122,8 @@ a.card.next-up { display: grid; grid-template-columns: auto 1fr; grid-template-a
 .badge { display: inline-block; background: var(--c-sun); color: var(--c-ink); border-radius: 999px; padding: .1rem .7rem; font-size: .8rem; font-weight: 800; margin-top: .5rem; }
 .badge.muted { background: var(--c-line); color: var(--c-muted); }
 .country.soon { border: 4px dashed var(--c-line); }
-a.card.go { color: var(--c-ink); text-decoration: none; cursor: pointer; transition: transform .15s; }
+a.card.go, a.card { color: var(--c-ink); text-decoration: none; cursor: pointer; transition: transform .15s; }
+a.card:hover { transform: translateY(-3px); }
 a.card.go:hover { transform: translateY(-3px); }
 .card-go { display: inline-block; margin-top: .6rem; font-weight: 800; color: var(--c-primary); }
 .country.soon .card-emoji { filter: grayscale(.5); }
@@ -269,12 +273,12 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .clip-view { width: 100%; max-height: 50vh; border-radius: var(--radius); background: #000; display: block; }
 .word.known { border-color: var(--c-sun); }
 /* Highlights: short rows and small word tiles, so the page stays short on a phone. */
-.cards.compact { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .6rem; }
+.cards.compact { grid-template-columns: repeat(auto-fit, minmax(240px, 255px)); gap: .6rem; }
 .cards.compact .card { display: grid; grid-template-columns: auto 1fr; column-gap: .8rem; align-items: center; padding: .6rem .9rem; }
 .cards.compact .card-emoji { grid-row: span 2; width: 2.6rem; height: 2.6rem; font-size: 1.5rem; }
 .cards.compact h3 { margin: 0; font-size: 1.05rem; }
 .cards.compact .hint { margin: 0; font-size: .9rem; }
-.cards.word-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .6rem; }
+.cards.word-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 160px)); gap: .6rem; }
 .cards.word-grid .card { padding: .6rem .5rem; }
 .cards.word-grid .jp.small { font-size: 1.15rem; white-space: nowrap; }
 .cards.word-grid .reading { font-size: 1.1rem; margin: .2rem 0 0; }
@@ -400,7 +404,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .spot-info.show { visibility: visible; }
 .spot-info h3 { margin: 0 0 .2rem; }
 .spot-info p { margin: 0; }
-.flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .7rem; margin-top: .6rem; }
+.flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 200px)); justify-content: center; gap: .7rem; margin-top: .6rem; }
 /* Both faces share one grid cell, so a card has the same size on each side: a turn moves nothing around it (T103). */
 .flip { display: grid; font: inherit; border: 3px solid var(--c-line); background: var(--c-surface); border-radius: var(--radius); padding: .6rem; min-height: 170px; cursor: pointer; color: var(--c-ink); }
 .flip img { width: 100%; max-width: 120px; height: auto; display: block; margin: 0 auto .3rem; }
@@ -490,3 +494,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .age-range { display: block; white-space: nowrap; font-weight: 800; }
 .in-japan-now { margin: .8rem 0; }
 .in-japan-now .hint { margin-top: .3rem; }
+/* T109: the empty trip-length box shows a light grey example, so it does not look filled in. */
+.form input::placeholder { color: var(--c-muted); opacity: .55; font-weight: 400; }
+.form .field-hint { display: block; margin-top: .25rem; }
+@media (max-width: 600px) { .flips { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }

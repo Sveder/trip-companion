@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "This page is for the team" %}{% endblock %}
+{% block content %}
+<section class="hero">
+  {% include "includes/mark.html" with cls="hero-guide" %}
+  <h1>{% translate "This page is for the team" %}</h1>
+  <p class="lead">{% translate "Only the people who make the app can open it. Let's go back." %}</p>
+  <a class="btn big" href="{% url 'home' %}">{% translate "Back home" %}</a>
+</section>
+{% endblock %}
