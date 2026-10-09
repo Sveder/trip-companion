@@ -165,8 +165,8 @@ legend { font-weight: 800; font-size: 1.15rem; }
   .cards.words .card.word .reading { font-size: 1.15rem; margin: .1rem 0; }
   .cards.words .card.word .meaning { font-size: 1rem; margin: 0; }
   /* T105: the header is ONE line, at most 60 px: the brand, then the language link (signed out) or a Menu button
-     that opens the links in a panel. The badge scrolls away with the page and is 80 px, so 70 px clears it. */
-  .top { flex-wrap: nowrap; padding: .3rem 70px .3rem .8rem; gap: .6rem; justify-content: flex-start; }
+     that opens the links in a panel. The badge scrolls away with the page and is 80 px, so 82 px clears it. */
+  .top { flex-wrap: nowrap; padding: .3rem 82px .3rem .8rem; gap: .6rem; justify-content: flex-start; }
   .brand { font-size: 1.05rem; white-space: nowrap; }
   .brand .guide.small { width: 1.8rem; height: 1.8rem; }
   .top-menu { margin-inline-start: auto; font-size: .92rem; }

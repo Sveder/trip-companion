@@ -112,7 +112,7 @@ class HeaderClearOfBadgeTests(TestCase):
             self.assertGreaterEqual(right, 130, block)
 
     def test_phone_badge_scrolls_away_and_is_smaller(self):
-        # T105: under 600 px the badge is 80 px and absolute, so the phone header pads only 70 px.
+        # T105: under 600 px the badge is 80 px and absolute, so the phone header pads 80 px or more.
         import re
         from pathlib import Path
         from django.conf import settings
@@ -120,7 +120,7 @@ class HeaderClearOfBadgeTests(TestCase):
         phone = css[css.index("T105: the header is ONE line"):]
         self.assertRegex(phone, r"html \.sv2 \{ position: absolute; --sv: 80px !important; \}")
         right = int(re.search(r"\.top \{[^}]*padding: \S+ (\d+)px", phone).group(1))
-        self.assertGreaterEqual(right, 70 - 1)
+        self.assertGreaterEqual(right, 80)
 
 
 class HeaderMenuTests(TestCase):
