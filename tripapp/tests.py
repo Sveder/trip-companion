@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 
 class TvModeTests(TestCase):
@@ -155,6 +155,13 @@ class OldTvBrowserTests(TestCase):
         html = self.client.get("/").content.decode()
         self.assertIn("js/compat.js", html)
         self.assertIn("C.prototype.at", html)
+
+    @override_settings(SENTRY_JS_LOADER="https://js.sentry-cdn.example/loader.min.js")
+    def test_the_at_polyfill_runs_before_the_sentry_loader(self):
+        # The loader pulls web-vitals, which calls .at() (TRIP-COMPANION-3, T126).
+        html = self.client.get("/").content.decode()
+        self.assertIn("loader.min.js", html)
+        self.assertLess(html.index("C.prototype.at"), html.index("loader.min.js"))
 
     def test_boxes_that_hold_absolute_children_do_not_need_aspect_ratio(self):
         css = self.css()
