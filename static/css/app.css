@@ -387,6 +387,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .tv .lspots.edge { padding: 24px 48px; }
 .tv .lspot { width: 42px; height: 42px; font-size: 24px; }
 .tv .lspot:focus { outline: 6px solid var(--c-sun); outline-offset: 2px; }
+.tv .say-word:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; border-radius: 8px; }
 @keyframes pulse { 50% { transform: translate(-50%, -50%) scale(1.15); } }
 .lspot-dot { display: none; }
 .edge .lspot-dot { display: block; position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--c-primary); cursor: pointer; }

@@ -6,7 +6,8 @@
 
   var BACK = { 461: 1, 27: 1, 8: 1 }; // webOS Back, Escape, Backspace
   var DIRS = { 37: 'left', 38: 'up', 39: 'right', 40: 'down' };
-  var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card, .spot';
+  // .say-word: the Japanese word on a lesson page; OK on it plays the word (speak.js) (T137).
+  var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card, .spot, .say-word[tabindex]';
 
   // In a lesson the arrows stay inside the lesson (its dots, cards, Back and Next) and the "We did it!" form.
   // Only UP with nothing above inside the lesson may leave it, to reach the header (T104).

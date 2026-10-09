@@ -23,6 +23,21 @@ class TvModeTests(TestCase):
               "Chrome/87.0.3945.79 Safari/537.36 SmartTV/10.0 Colt/2.0")
         self.assertIn('class="tv"', self.client.get("/", HTTP_USER_AGENT=ua).content.decode())
 
+    def test_remote_can_reach_the_spoken_word(self):
+        # T137: the arrows must reach the Japanese word on a lesson page, so OK can play it.
+        import re
+        from pathlib import Path
+        from django.conf import settings
+        base = Path(settings.BASE_DIR)
+        js = (base / "static/js/tv.js").read_text()
+        self.assertRegex(js, r"var SELECTOR = '[^']*\.say-word\[tabindex\]")
+        lesson = (base / "templates/activities/lesson.html").read_text()
+        words = re.findall(r'<[^>]*class="[^"]*say-word[^"]*"[^>]*>', lesson)
+        self.assertTrue(words)
+        for tag in words:
+            self.assertIn('tabindex="0"', tag)
+        self.assertIn(".tv .say-word:focus", (base / "static/css/app.css").read_text())
+
     def test_phone_browser_does_not(self):
         ua = "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
         self.assertNotIn('class="tv"', self.client.get("/", HTTP_USER_AGENT=ua).content.decode())
