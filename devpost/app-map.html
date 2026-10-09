@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip Companion: app map</title>
+<style>
+  :root { --ink: #1d2433; --soft: #5a6478; --line: #d7dce6; --bg: #f7f8fb; --card: #fff; --accent: #e5484d; --blue: #2f6fde; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--bg); }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 18px 48px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.25rem; margin: 32px 0 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .sub { color: var(--soft); margin: 0 0 16px; }
+  .note { background: #fff7e0; border: 1px solid #f0d58a; border-radius: 8px; padding: 10px 14px; }
+  .pieces { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; padding: 0; list-style: none; }
+  .pieces li { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .pieces b { display: block; }
+  code { font: 0.92em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #eef1f6; padding: 1px 4px; border-radius: 4px; overflow-wrap: anywhere; }
+  pre { background: #1d2433; color: #f4f6fb; padding: 12px 14px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; color: inherit; }
+  ol.route > li { margin-bottom: 14px; }
+  .tag { display: inline-block; font-size: 0.8rem; font-weight: 600; color: #fff; background: var(--soft); border-radius: 999px; padding: 1px 10px; vertical-align: middle; }
+  table { border-collapse: collapse; width: 100%; background: var(--card); }
+  th, td { text-align: left; border: 1px solid var(--line); padding: 8px 10px; vertical-align: top; }
+  th { background: #eef1f6; }
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin-top: 10px; }
+  summary { cursor: pointer; font-weight: 600; }
+  summary:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .scroll { overflow-x: auto; }
+  .scroll svg { min-width: 640px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+  figcaption { color: var(--soft); font-size: 0.9rem; margin-top: 6px; }
+  svg { width: 100%; height: auto; display: block; }
+  a { color: var(--blue); }
+</style>
+</head>
+<body>
+<main>
+<h1>Trip Companion: app map</h1>
+<p class="sub">A one-page guide to where things live in the code. Made from commit <code>6a53ee3</code> on 2026-10-09.</p>
+<p class="note">This map is a snapshot. The code keeps changing, so a path or a name here can drift. Check the source when in doubt.</p>
+
+<h2 id="overview">1. What the app does</h2>
+<p>Trip Companion gets a family ready for a trip to Japan. The family puts its people on a plane, the app picks short
+activities that fit those ages, and the family does one activity at a time: picture lessons, words, manners, safety and
+a Street View hunt. A short quiz brings back what they met. In Japan, a photo list and a highlights page keep the memories.
+It works on a phone, a laptop and a TV browser, in English and in Hebrew.</p>
+<ul class="pieces">
+  <li><b>Accounts</b><code>accounts/</code> Email sign-in with a one-time code (django-allauth), no password.</li>
+  <li><b>Trips</b><code>trips/</code> The trip: the place, the length and the people on the plane.</li>
+  <li><b>Courses</b><code>courses/</code> Picks the modules that fit the family and puts the activities in order.</li>
+  <li><b>Activities and content</b><code>activities/</code>, <code>content/japan/*.yaml</code> One YAML file per module holds the pages; templates show each kind.</li>
+  <li><b>Practice</b><code>practice/</code> A small quiz with Leitner boxes. Things the family met come back later.</li>
+  <li><b>There and highlights</b><code>there/</code>, <code>courses/highlights.py</code> The "while you are there" photo list and the highlights page.</li>
+  <li><b>Reminders</b><code>reminders/</code> Email nudges for the next activity, with an unsubscribe link.</li>
+</ul>
+
+<h2 id="action">2. One action, from tap to quiz</h2>
+<p>The action: in "All about sushi", the family opens the page "Tap the plate" and taps the dots on the sushi plate.</p>
+<figure>
+<div class="scroll" tabindex="0" aria-label="Diagram, scroll sideways on a small screen">
+<svg viewBox="0 0 820 250" role="img" aria-labelledby="dtitle ddesc">
+  <title id="dtitle">From a tap on the sushi plate to a quiz question</title>
+  <desc id="ddesc">Four boxes from left to right. One: the lesson page from templates/activities/lesson.html. Two: static/js/lesson.js, setupSpots, shows the dot's text in the browser. Three: the Done button posts to activity_done in activities/views.py, which calls add_items in practice/items.py and stores PracticeItem rows in the database. Four: the quiz in practice/views.py asks the due items.</desc>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5a6478"/></marker></defs>
+  <g font-family="system-ui, sans-serif" font-size="13" fill="#1d2433">
+    <rect x="8" y="30" width="180" height="120" rx="10" fill="#fff" stroke="#2f6fde" stroke-width="2"/>
+    <text x="20" y="54" font-weight="700">1. The page</text>
+    <text x="20" y="76">templates/activities/</text>
+    <text x="20" y="94">lesson.html</text>
+    <text x="20" y="118" fill="#5a6478">picture + numbered dots</text>
+    <text x="20" y="136" fill="#5a6478">(data-spots)</text>
+
+    <rect x="218" y="30" width="180" height="120" rx="10" fill="#fff" stroke="#2f6fde" stroke-width="2"/>
+    <text x="230" y="54" font-weight="700">2. The tap</text>
+    <text x="230" y="76">static/js/lesson.js</text>
+    <text x="230" y="94">setupSpots</text>
+    <text x="230" y="118" fill="#5a6478">shows the dot's text,</text>
+    <text x="230" y="136" fill="#5a6478">counts "2 of 8 found"</text>
+
+    <rect x="428" y="30" width="180" height="120" rx="10" fill="#fff" stroke="#e5484d" stroke-width="2"/>
+    <text x="440" y="54" font-weight="700">3. Done = saved</text>
+    <text x="440" y="76">activity_done</text>
+    <text x="440" y="94">→ add_items</text>
+    <text x="440" y="118" fill="#5a6478">one PracticeItem</text>
+    <text x="440" y="136" fill="#5a6478">per spot, box 1</text>
+
+    <rect x="638" y="30" width="174" height="120" rx="10" fill="#fff" stroke="#2f6fde" stroke-width="2"/>
+    <text x="650" y="54" font-weight="700">4. The quiz</text>
+    <text x="650" y="76">practice/views.py</text>
+    <text x="650" y="94">quiz → due_items</text>
+    <text x="650" y="118" fill="#5a6478">"Which one is neta?"</text>
+    <text x="650" y="136" fill="#5a6478">right: next ask later</text>
+
+    <line x1="188" y1="90" x2="216" y2="90" stroke="#5a6478" stroke-width="2" marker-end="url(#ar)"/>
+    <line x1="398" y1="90" x2="426" y2="90" stroke="#5a6478" stroke-width="2" marker-end="url(#ar)"/>
+    <line x1="608" y1="90" x2="636" y2="90" stroke="#5a6478" stroke-width="2" marker-end="url(#ar)"/>
+
+    <rect x="428" y="185" width="180" height="50" rx="25" fill="#eef1f6" stroke="#d7dce6"/>
+    <text x="518" y="215" text-anchor="middle">SQLite: PracticeItem</text>
+    <line x1="518" y1="150" x2="518" y2="183" stroke="#5a6478" stroke-width="2" marker-end="url(#ar)"/>
+    <line x1="610" y1="210" x2="725" y2="210" stroke="#5a6478" stroke-width="2"/>
+    <line x1="725" y1="210" x2="725" y2="152" stroke="#5a6478" stroke-width="2" marker-end="url(#ar)"/>
+    <text x="104" y="185" text-anchor="middle" fill="#5a6478">in the browser</text>
+    <text x="104" y="203" text-anchor="middle" fill="#5a6478">(steps 1-2, no save)</text>
+  </g>
+</svg>
+</div>
+<figcaption>A tap only changes the page in the browser. The save happens when the family presses Done at the end of the lesson.
+New items are due the same day. A right answer moves an item up one box, and the next ask comes 1, 2, 4, 7 or 14 days later.</figcaption>
+</figure>
+
+<h2 id="route">3. The route through the code <span class="tag">reference route, not toured</span></h2>
+<p>Search for the anchor in each file. The anchors are names, not line numbers, so they survive small edits.</p>
+<ol class="route">
+  <li><b><code>templates/activities/lesson.html</code></b>, search <code>data-spots</code>.
+    The server renders every page of the lesson from <code>content/japan/food.yaml</code> (the <code>sushi-lesson</code> entry, page
+    <code>kind: spots</code>, "Tap the plate"). Each dot is a button with <code>data-spot</code>; its text sits in a
+    <code>data-spot-info</code> box.</li>
+  <li><b><code>static/js/lesson.js</code></b>, search <code>function setupSpots</code> and <code>function placeSpots</code>.
+    <code>placeSpots</code> puts the number badges beside the picture and draws the lines. <code>setupSpots</code> listens for a tap,
+    shows the matching info text and updates the "found" count. Nothing goes to the server here.</li>
+  <li><b><code>activities/views.py</code></b>, search <code>def activity_done</code>, then <b><code>practice/items.py</code></b>,
+    search <code>def add_items</code> and <code>def quiz_entries</code>.
+    Done marks the activity as finished and calls <code>add_items</code>. For a lesson, <code>quiz_entries</code> takes the spot and flip
+    cards, one page at a time, and <code>add_items</code> stores a <code>PracticeItem</code> (<code>practice/models.py</code>) for each new one.
+    <code>practice/views.py</code> <code>def quiz</code> then asks the due items, and <code>PracticeItem.answer</code> sets the next date.</li>
+</ol>
+<details>
+  <summary>Where the tests for this route live</summary>
+  <p><code>practice/tests.py</code>: <code>LessonQuizTests</code> (for example <code>test_finishing_the_lesson_adds_at_most_twelve_items</code>
+  and <code>test_spot_question_in_english_and_hebrew</code>) and <code>LeitnerTests</code> (the box intervals).
+  Run them with <code>venv/bin/python manage.py test practice</code>.</p>
+</details>
+
+<h2 id="change">4. To change this, start here</h2>
+<table>
+  <tr><th>You want to change</th><th>Start here</th></tr>
+  <tr><td>The text or a picture on a lesson page</td><td><code>content/japan/food.yaml</code> (one YAML file per module in <code>content/japan/</code>), then <code>manage.py load_content japan</code></td></tr>
+  <tr><td>A Hebrew word on a button or a heading</td><td><code>locale/he/LC_MESSAGES/django.po</code>, then <code>manage.py compilemessages</code>. Lesson text in Hebrew is in the YAML (<code>title_he</code>, <code>text_he</code>).</td></tr>
+  <tr><td>The order of the course</td><td><code>courses/builder.py</code>, <code>def course_order</code> and <code>def kids_first</code></td></tr>
+  <tr><td>The reminder email text</td><td><code>templates/reminders/email.txt</code>, <code>email.html</code> and <code>subject.txt</code>; the logic is in <code>reminders/logic.py</code></td></tr>
+</table>
+
+<h2 id="practice">5. A practice to reuse</h2>
+<p><b>Check the real device's browser before the real-device test.</b> The family TV in the test is an LG webOS 6 set, and its browser is
+Chrome 87. That browser has no CSS <code>aspect-ratio</code> and no <code>:has()</code>. On the TV the trip-setup plane was 0 px tall and
+the builder switches all looked off, while every desktop check was green.</p>
+<p>The fix had two parts. Each new-only CSS feature got a twin that old browsers understand: a <code>::before</code> spacer for the height,
+and a class set by <code>static/js/compat.js</code> for each <code>:has()</code> rule. Then a script removed those features from a
+normal browser and measured the pages again, before anyone touched the TV.</p>
+<p>Reference: <code>devpost/checklist.md</code>, under <code>## Revisions</code>, the line that starts "2026-10-08, T101".
+On another project: find out the oldest browser the users really have, look up its version, and run one check with the
+new features switched off.</p>
+
+<h2 id="run">6. Run it again</h2>
+<pre><code>python3 -m venv venv
+venv/bin/pip install -r requirements.txt
+venv/bin/python manage.py migrate
+venv/bin/python manage.py load_content japan
+venv/bin/python manage.py runserver</code></pre>
+<p>Then open <code>http://127.0.0.1:8000/</code>. Add <code>?lang=he</code> for Hebrew and <code>?tv=1</code> for the TV mode.
+The live app is at <a href="https://trip.sveder.com">trip.sveder.com</a>.</p>
+<p>Source commit for this map: <code>6a53ee3</code>. To open this map again, open <code>devpost/app-map.html</code> in any browser.
+It needs no network.</p>
+</main>
+</body>
+</html>
