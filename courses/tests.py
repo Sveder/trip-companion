@@ -649,6 +649,49 @@ class CoursePageTests(TestCase):
         self.assertEqual(again.status_code, 200)
         self.assertTemplateUsed(again, f"activities/{food.activity.type}.html")
 
+    def _finish_all(self, skip_hunts=False):
+        hunts = []
+        for item in self.course.ready_items().select_related("activity"):
+            if skip_hunts and item.activity.type == "streetview":
+                self.client.post(reverse("activity_done", args=[item.id]), {"skip": "1"})
+                hunts.append(item)
+            else:
+                found = [str(i) for i in range(len(item.activity.data.get("spots", [])))]
+                self.client.post(reverse("activity_done", args=[item.id]), {"found": found})
+        return hunts
+
+    def test_a_hunt_skipped_with_none_found_is_not_done(self):
+        # T121: found 0 shows 'Skipped' and 'Play again', and does not count in 'We did N of M'.
+        hunts = self._finish_all(skip_hunts=True)
+        self.assertTrue(hunts)
+        total = self.course.ready_items().count()
+        page = self.client.get(reverse("course"))
+        self.assertEqual(page.context["done"], total - len(hunts))
+        self.assertContains(page, f"We did {total - len(hunts)} of {total}.")
+        self.assertContains(page, "Skipped", count=len(hunts))
+        self.assertContains(page, "✓ Done", count=total - len(hunts))
+        self.assertContains(page, "Play again", count=len(hunts))
+        # The course goes past the hunts, but the end page is no every-activity party.
+        home = self.client.get("/")
+        self.assertTemplateUsed(home, "courses/finished.html")
+        self.assertNotContains(home, "You did every activity!")
+        self.assertContains(home, f"{len(hunts)} hunts are still waiting")
+        self.client.post(reverse("set_language"), {"language": "he", "next": "/"})
+        self.assertContains(self.client.get(reverse("course")), "דילגנו", count=len(hunts))
+        self.assertNotContains(self.client.get("/"), "עשיתם את כל הפעילויות!")
+
+    def test_a_hunt_with_one_found_stays_done(self):
+        self._finish_all()
+        hunt = self.course.ready_items().filter(activity__type="streetview").first()
+        hunt.found = 1
+        hunt.save(update_fields=["found"])
+        total = self.course.ready_items().count()
+        page = self.client.get(reverse("course"))
+        self.assertEqual(page.context["done"], total)
+        self.assertNotContains(page, "Skipped")
+        self.assertContains(page, "✓ Done", count=total)
+        self.assertContains(self.client.get("/"), "You did every activity!")
+
     def test_every_item_shows_its_module_name_in_en_and_he(self):
         items = list(self.course.items.select_related("activity__module"))
         for lang, field in (("en", "title"), ("he", "title_he")):

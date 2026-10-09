@@ -23,6 +23,9 @@ class Course(models.Model):
     def has_stubs(self):
         return self.items.count() > self.ready_items().count()
 
+    def skipped_items(self):
+        return self.ready_items().filter(done_at__isnull=False, found=0)
+
     def next_item(self, after=None):
         """The first unfinished activity. With `after`, the first unfinished one after that item,
         so a family that picks activity 9 on the course page goes on to 10, not back to 6."""
@@ -53,6 +56,16 @@ class CourseItem(models.Model):
         if self.done_at is None:
             self.done_at = timezone.now()
             self.save(update_fields=["done_at"])
+
+    @property
+    def skipped(self):
+        """A hunt ended with the skip button and nothing found (T121). It is played, so the course goes
+        past it, but it is not done: no Done badge, no count in 'We did N of M', no every-activity party."""
+        return self.done_at is not None and self.found == 0
+
+    @property
+    def is_done(self):
+        return self.done_at is not None and not self.skipped
 
     @property
     def hunt_total(self):

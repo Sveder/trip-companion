@@ -33,7 +33,8 @@ def home(request):
         return redirect("builder")
     item = course.next_item()
     if item is None:
-        return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase, "more_soon": course.has_stubs()})
+        return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase, "more_soon": course.has_stubs(),
+                                                              "skipped": course.skipped_items().count()})
     return redirect("activity", item_id=item.id)
 
 
@@ -51,7 +52,7 @@ def course(request):
     ready = [i for i in items if not i.is_stub]
     return render(request, "courses/course.html", {
         "trip": trip, "course": course, "items": items, "next_id": nxt.id if nxt else None, "phase": trip_phase(trip),
-        "done": sum(1 for i in ready if i.done_at), "total": len(ready)})
+        "done": sum(1 for i in ready if i.is_done), "total": len(ready)})
 
 
 @login_required

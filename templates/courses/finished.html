@@ -5,7 +5,12 @@
 {% block content %}
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
+  {% if skipped %}
+  <h1>{% translate "You got to the end of the course!" %}</h1>
+  <p class="lead">{% blocktranslate count n=skipped %}One hunt is still waiting. Try it again on the course page!{% plural %}{{ n }} hunts are still waiting. Try them again on the course page!{% endblocktranslate %}</p>
+  {% else %}
   <h1>{% translate "You did every activity!" %}</h1>
+  {% endif %}
   {% if phase == "during" %}
   <p class="lead">{% translate "You are in Japan now! Look for the things on the photo list, and play the quiz to keep your words fresh." %}</p>
   {% else %}
