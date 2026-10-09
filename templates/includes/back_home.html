@@ -1,0 +1,6 @@
+{% load i18n %}{% if phase == "during" %}
+<form class="in-japan-now" method="post" action="{% url 'back_home' %}" data-confirm="{% translate 'Is the trip over? Then the app shows your highlights.' %}">{% csrf_token %}
+  <button class="btn big alt" type="submit">🏠 {% translate "We are home!" %}</button>
+  <p class="hint">{% translate "Tap this when you are back home. Then the app shows your highlights." %}</p>
+</form>
+{% endif %}

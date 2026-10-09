@@ -65,3 +65,21 @@ def in_japan_now(request):
         messages.success(request, _("Have a great trip! Here is your photo list."))
     request.session["there_seen"] = str(timezone.localdate())
     return redirect("there")
+
+
+@login_required
+@require_POST
+def back_home(request):
+    """T110: 'We are home!' ends the trip today, so home shows the highlights."""
+    trip = active_trip(request.user)
+    if trip is None:
+        return redirect("trip_setup")
+    today = timezone.localdate()
+    if trip.start_date is None or trip.start_date > today:
+        trip.start_date = today
+    trip.end_date, trip.home_on = today, today
+    trip.length_days = (today - trip.start_date).days + 1
+    trip.save(update_fields=["start_date", "end_date", "length_days", "home_on"])
+    track("trip_ended_now", trip=trip)
+    messages.success(request, _("Welcome home! Here is what you did."))
+    return redirect("home")

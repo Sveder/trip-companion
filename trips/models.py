@@ -38,6 +38,10 @@ def family_line(counts):
     return ", ".join(words[g](counts[g]) % {"n": counts[g]} for g in order if counts.get(g))
 
 
+# T110: a family that gives no trip length gets a 14-day trip (a common family trip to Japan).
+DEFAULT_TRIP_DAYS = 14
+
+
 class Trip(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="trips")
     destination = models.CharField(max_length=40, default="japan")
@@ -45,6 +49,8 @@ class Trip(models.Model):
     end_date = models.DateField(null=True, blank=True)
     # Feedback T54: the family gives the trip length, not a return date. With a start date, end_date = start + length - 1.
     length_days = models.PositiveSmallIntegerField(null=True, blank=True)
+    # T110: the day the family tapped "We are home!". From that day the app shows the after-trip page.
+    home_on = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -56,6 +62,16 @@ class Trip(models.Model):
     def set_dates(self, start, length):
         self.start_date, self.length_days = start, length
         self.end_date = start + datetime.timedelta(days=length - 1) if start and length else None
+        self.home_on = None
+
+    @property
+    def last_day(self):
+        """The last day in Japan. A trip with a start but no length lasts DEFAULT_TRIP_DAYS (T110)."""
+        if self.end_date:
+            return self.end_date
+        if self.start_date:
+            return self.start_date + datetime.timedelta(days=DEFAULT_TRIP_DAYS - 1)
+        return None
 
     @property
     def ages(self):

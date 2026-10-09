@@ -10,9 +10,13 @@ from there.things import THINGS
 
 
 def trip_phase(trip, today=None):
-    """'before', 'during' or 'after' the trip. A trip with no dates stays 'before'."""
+    """'before', 'during' or 'after' the trip. A trip with no dates stays 'before'.
+    A trip with a start and no length ends after DEFAULT_TRIP_DAYS; "We are home!" ends it that day (T110)."""
     today = today or timezone.localdate()
-    if trip.end_date and today > trip.end_date:
+    if trip.home_on and today >= trip.home_on:
+        return "after"
+    last = trip.last_day
+    if last and today > last:
         return "after"
     if trip.start_date and today >= trip.start_date:
         return "during"

@@ -91,7 +91,7 @@ Email sign-in code, 6 digits, numbers only (allauth "login by code"; see checkli
 PRD ref: `prd.md > Login`.
 
 ### Trips
-`Trip` (destination, an optional start date and the trip length in days; feedback T54) and `Traveller` (age; adult or child is derived from age). The form asks for four age groups, not exact ages (feedback T53): little ones 0-3, kids 4-8, big kids 9-12, grown-ups 13+ (`trips/models.py > GROUPS`). Each person is saved with the typical age of the group (2, 6, 10, 35), so the child and adult rules stay the same; old trips with exact ages map back to a group. The page shows a plane: the parent drags a person into it (pointer events, so a finger works) or taps the person; a tap on a person in the plane takes them off. The four number boxes are the real form fields, and without JavaScript they are the form. The form asks "How many days is the trip?" and "We leave on (if you know)"; both are optional, and there is no return date field. With a start date and a length, `end_date` = start + length - 1, so the home switch by date works as before. One active trip per account.
+`Trip` (destination, an optional start date and the trip length in days; feedback T54) and `Traveller` (age; adult or child is derived from age). The form asks for four age groups, not exact ages (feedback T53): little ones 0-3, kids 4-8, big kids 9-12, grown-ups 13+ (`trips/models.py > GROUPS`). Each person is saved with the typical age of the group (2, 6, 10, 35), so the child and adult rules stay the same; old trips with exact ages map back to a group. The page shows a plane: the parent drags a person into it (pointer events, so a finger works) or taps the person; a tap on a person in the plane takes them off. The four number boxes are the real form fields, and without JavaScript they are the form. The form asks "How many days is the trip?" and "We leave on (if you know)"; both are optional, and there is no return date field. With a start date and a length, `end_date` = start + length - 1, so the home switch by date works as before. A trip with a start date and no length lasts 14 days (`DEFAULT_TRIP_DAYS`, T110), so it still reaches the after-trip page. During the trip the photo list shows a "We are home!" button; it sets `end_date` and `home_on` to today, and from that day home shows the highlights. New dates in the trip form clear `home_on`. One active trip per account.
 PRD ref: `prd.md > Trip setup and course builder`.
 
 ### Content library
@@ -201,7 +201,7 @@ PRD ref: `prd.md > Screens and Layout`.
 ## Data Model
 All in SQLite on the server; it survives restarts and returns.
 - `User` (allauth) — email; Google account link if used.
-- `Trip` — user, destination (`japan`), start_date, length_days, end_date (computed from the two).
+- `Trip` — user, destination (`japan`), start_date, length_days, end_date (computed from the two), home_on (the day the family tapped "We are home!").
 - `Traveller` — trip, age.
 - `Course` — trip, built_at, chosen module ids (JSON).
 - `CourseItem` — course, order, module id, activity id, done_at (null until done).

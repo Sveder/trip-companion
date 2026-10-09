@@ -1056,3 +1056,19 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #, python-format
 #~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
 #~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
+
+#: templates/includes/back_home.html:2
+msgid "Is the trip over? Then the app shows your highlights."
+msgstr "הטיול נגמר? אז האפליקציה תראה לכם את הרגעים הכי יפים שלכם."
+
+#: templates/includes/back_home.html:3
+msgid "We are home!"
+msgstr "חזרנו הביתה!"
+
+#: templates/includes/back_home.html:4
+msgid "Tap this when you are back home. Then the app shows your highlights."
+msgstr "לחצו כאן כשחזרתם הביתה. אז האפליקציה תראה לכם את הרגעים הכי יפים שלכם."
+
+#: trips/views.py
+msgid "Welcome home! Here is what you did."
+msgstr "ברוכים השבים! הנה מה שעשיתם."

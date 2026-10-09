@@ -728,3 +728,67 @@ class InJapanNowTests(TestCase):
         self.client.post(reverse("in_japan_now"))
         self.trip.refresh_from_db()
         self.assertEqual(self.trip.start_date, start)
+
+
+class TripEndTests(TestCase):
+    """T110: a trip with no length and no date still ends: after DEFAULT_TRIP_DAYS, or when the family taps 'We are home!'."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("h@example.com", "h@example.com")
+        self.trip = make_trip(self.user, [38, 4])
+        self.course = build_course(self.trip, [m.id for m, on in suggestions(self.trip) if on])
+        self.client.force_login(self.user)
+
+    def test_no_length_trip_ends_after_the_default_days(self):
+        self.assertIsNone(self.trip.start_date)
+        self.assertIsNone(self.trip.length_days)
+        self.client.post(reverse("in_japan_now"))
+        self.trip.refresh_from_db()
+        today = timezone.localdate()
+        self.assertEqual(trip_phase(self.trip, today + timedelta(days=13)), "during")
+        self.assertEqual(trip_phase(self.trip, today + timedelta(days=15)), "after")
+        self.assertEqual(trip_phase(self.trip, today + timedelta(days=14)), "after")
+
+    def test_we_are_home_ends_the_trip_today(self):
+        self.client.post(reverse("in_japan_now"))
+        html = self.client.get(reverse("there")).content.decode()
+        self.assertIn("We are home!", html)
+        self.assertIn(reverse("back_home"), html)
+        self.assertEqual(self.client.get(reverse("back_home")).status_code, 405)
+        r = self.client.post(reverse("back_home"))
+        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+        self.trip.refresh_from_db()
+        today = timezone.localdate()
+        self.assertEqual(self.trip.end_date, today)
+        self.assertEqual(self.trip.home_on, today)
+        self.assertEqual(trip_phase(self.trip), "after")
+        home = self.client.get("/").content.decode()
+        self.assertIn("Words we met", home)
+        self.assertNotIn("We are home!", self.client.get(reverse("there")).content.decode())
+
+    def test_home_button_only_during_the_trip(self):
+        self.assertNotIn("We are home!", self.client.get(reverse("there")).content.decode())
+
+    def test_hebrew_home_button(self):
+        self.client.post(reverse("in_japan_now"))
+        self.client.cookies["django_language"] = "he"
+        self.assertIn("חזרנו הביתה!", self.client.get(reverse("there")).content.decode())
+
+    def test_new_dates_reopen_an_ended_trip(self):
+        self.client.post(reverse("in_japan_now"))
+        self.client.post(reverse("back_home"))
+        self.trip.refresh_from_db()
+        self.trip.set_dates(timezone.localdate() + timedelta(days=30), 10)
+        self.trip.save()
+        self.assertEqual(trip_phase(self.trip), "before")
+
+    def test_reminders_stop_after_we_are_home(self):
+        from reminders.logic import HuntNote, due
+        self.client.post(reverse("in_japan_now"))
+        self.client.post(reverse("back_home"))
+        later = timezone.now() + timedelta(days=3)
+        self.assertNotIsInstance(due(self.user, now=later), HuntNote)
