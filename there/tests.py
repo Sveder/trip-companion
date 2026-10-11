@@ -122,6 +122,14 @@ class WhileWeAreThereTests(TestCase):
         for t in THINGS:
             self.assertTrue(t["title_he"] and t["hint_he"], t["key"])
 
+    def test_konbini_hint_matches_words_lesson(self):
+        # The words lesson says the worker calls irasshaimase and a child need not answer (T136).
+        konbini = next(t for t in THINGS if t["key"] == "konbini")
+        self.assertIn("irasshaimase", konbini["hint"])
+        self.assertIn("איראשאימסה", konbini["hint_he"])
+        self.assertNotIn("konnichiwa", konbini["hint"])
+        self.assertNotIn("קוניצ'יווה", konbini["hint_he"])
+
 
 def phone_jpeg(width=4000, height=3000, orientation=6):
     """A real JPEG like a phone writes: big, stored sideways with an EXIF turn, and a GPS position."""
