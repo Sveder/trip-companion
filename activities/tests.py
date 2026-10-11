@@ -640,3 +640,15 @@ class TvFlipCardTests(TestCase):
         # Phone and desktop keep the T118 rules.
         self.assertIn(".flip-front { align-self: stretch; justify-content: space-between; }", css)
         self.assertIn(".flip img, .flip img.flip-photo { height: 72px; }", css)
+
+
+class TabletSpotsTests(TestCase):
+    """T141: on a tablet or a desktop the tap-the-dots picture grows past 420 px; the TV and the phone keep their own rules."""
+
+    def test_tablet_rule(self):
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        rule = re.search(r"/\* T141.*?@media \(min-width: 601px\) \{(.*?)\n\}", css, re.S).group(1)
+        self.assertIn("html:not(.tv) .lspots.edge { max-width: 760px; }", rule)
+        self.assertIn("html:not(.tv) .lspots .lpic { max-width: none; }", rule)
+        # The base rules stay for the TV and for a page with no JavaScript.
+        self.assertIn(".lspots.edge { max-width: 500px; padding: 18px 40px; }", css)

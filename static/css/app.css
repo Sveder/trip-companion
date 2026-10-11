@@ -457,6 +457,11 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   .lspot { width: 20px; height: 20px; border-width: 2px; font-size: 12px; box-shadow: 0 2px 0 rgba(0,0,0,.25); }
   .spot-info { font-size: 1rem; padding: .4rem .8rem; }
 }
+/* T141: on a tablet or a desktop the picture grows to 680 px (it stopped at 420 px). The TV keeps its own size. */
+@media (min-width: 601px) {
+  html:not(.tv) .lspots.edge { max-width: 760px; }
+  html:not(.tv) .lspots .lpic { max-width: none; }
+}
 .flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 200px)); justify-content: center; gap: .7rem; margin-top: .6rem; }
 /* Both faces share one grid cell, so a card has the same size on each side: a turn moves nothing around it (T103). */
 /* T118: the back text must not make the card taller than the front. Every picture gets the same height (a wide one gets wider),
