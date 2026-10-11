@@ -25,9 +25,13 @@ def trip_setup(request):
             data = form.cleaned_data
             with transaction.atomic():
                 new = trip is None
-                if new:
-                    trip = Trip(user=request.user)
                 moved = not new and trip.destination != data["destination"]
+                # T175: a new place on a trip that has a course starts a new trip (as 'New course' does),
+                # so the old course and its done marks stay under 'Our past courses'.
+                if moved and Course.objects.filter(trip=trip).exists():
+                    trip, new = None, True
+                if trip is None:
+                    trip = Trip(user=request.user)
                 trip.destination = data["destination"]
                 trip.set_dates(data["start_date"], data["length_days"])
                 trip.save()

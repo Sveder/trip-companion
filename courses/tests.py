@@ -1113,6 +1113,22 @@ class NewCourseTests(TestCase):
         self.assertContains(old_page, self.first.activity.local_title)
         self.assertNotContains(old_page, "Our past courses")
 
+    def test_place_card_keeps_the_old_course(self):
+        """T175: a country card on home (/trip/?destination=...) with a course already built starts a new trip."""
+        r = self.client.post(reverse("trip_setup"), {"destination": "uzbekistan", "grownup": 1, "kid": 1})
+        self.assertRedirects(r, reverse("builder"), fetch_redirect_response=False)
+        trips = Trip.objects.filter(user=self.user).order_by("created_at", "id")
+        self.assertEqual([t.destination for t in trips], [self.trip.destination, "uzbekistan"])
+        self.assertTrue(Course.objects.filter(trip=self.trip).exists())
+        self.first.refresh_from_db()
+        self.assertIsNotNone(self.first.done_at)
+        page = self.client.get(reverse("highlights"))
+        self.assertContains(page, "Our past courses")
+        self.assertContains(page, f"?trip={self.trip.id}")
+        # An edit of the people on the same place still changes the same trip.
+        self.client.post(reverse("trip_setup"), {"destination": "uzbekistan", "grownup": 2, "kid": 1})
+        self.assertEqual(Trip.objects.filter(user=self.user).count(), 2)
+
     def test_other_family_trip_is_not_shown(self):
         other = make_trip(get_user_model().objects.create_user("o@example.com", "o@example.com"), [40])
         oc = build_course(other, [m.id for m, on in suggestions(other) if on])
