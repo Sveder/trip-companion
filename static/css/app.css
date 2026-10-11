@@ -496,7 +496,9 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .game-msg { min-height: 1.6em; font-weight: 800; font-size: 1.15rem; margin: .5rem 0 0; }
 .belt { direction: ltr; overflow: hidden; margin: .6rem -1.2rem 0; padding: .7rem 0; background: repeating-linear-gradient(90deg, #8a8f99 0 24px, #9aa0aa 24px 48px); }
 .belt-track { display: flex; gap: .8rem; width: max-content; animation: belt 21s linear infinite; }
-.belt:hover .belt-track, .belt:active .belt-track { animation-play-state: paused; }
+/* Hover pauses the belt only with a mouse: on a touch screen :hover sticks after one tap, and the belt stopped for good (T185). */
+@media (hover: hover) { .belt:hover .belt-track { animation-play-state: paused; } }
+.belt:active .belt-track { animation-play-state: paused; }
 .plate { width: 110px; flex: none; border-radius: 50%; height: 110px; display: flex; align-items: center; justify-content: center; background: #fff; border-color: #d8d2c4; }
 .plate img { width: 80%; }
 .train-more { margin: .6rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }

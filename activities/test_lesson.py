@@ -1,4 +1,5 @@
 """Lessons (feedback T51): a course of 10-20 short pages with pictures, games and a video slot."""
+import re
 from pathlib import Path
 
 from django.conf import settings
@@ -68,6 +69,13 @@ class SushiLessonTests(TestCase):
         js = (Path(settings.BASE_DIR) / "static" / "js" / "lesson.js").read_text()
         self.assertIn("start.classList.remove('show')", js)
         self.assertIn("[data-spot-name]", js)
+
+    def test_touch_tap_does_not_stop_the_belt_t185(self):
+        """Hover pauses the belt only on a device with a mouse; on a touch screen :hover sticks after one tap."""
+        css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
+        self.assertIn("@media (hover: hover) { .belt:hover .belt-track { animation-play-state: paused; } }", css)
+        outside = re.sub(r"@media \(hover: hover\) \{[^\n]*\}\s*\}", "", css)
+        self.assertNotIn(".belt:hover", outside)
 
     def test_michael_feedback_t157(self):
         """The belt is 30 percent faster (21 s), and 'Keep going!' starts endless rounds with a kept best score."""
