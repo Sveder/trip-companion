@@ -275,3 +275,23 @@ class SoundToggleAndHintTests(TestCase):
         self.assertIn("if (!soundOn()) return;", speak)
         self.assertIn("localStorage.setItem('tc_hint_say', '1')", speak)
         self.assertIn("window.tcSoundOn()", self.read("static/js/celebrate.js"))
+
+
+class SqliteLockSettingsTests(TestCase):
+    """T178: two writers at the same second must wait, not fail with 'database is locked'."""
+
+    def test_file_database_uses_wal_immediate_and_a_busy_timeout(self):
+        import tempfile
+        from django.conf import settings
+        from django.db.backends.sqlite3.base import DatabaseWrapper
+        cfg = dict(settings.DATABASES["default"])
+        with tempfile.TemporaryDirectory() as d:
+            cfg["NAME"] = f"{d}/t.sqlite3"
+            conn = DatabaseWrapper(cfg, alias="t178")
+            try:
+                with conn.cursor() as c:
+                    self.assertEqual(c.execute("PRAGMA journal_mode").fetchone()[0], "wal")
+                    self.assertEqual(c.execute("PRAGMA busy_timeout").fetchone()[0], 20000)
+                self.assertEqual(conn.transaction_mode, "IMMEDIATE")
+            finally:
+                conn.close()

@@ -87,6 +87,15 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.environ.get("DJANGO_DB_PATH", BASE_DIR / "db.sqlite3"),
+        # T178: two gunicorn workers write at the same second. A deferred transaction that
+        # upgrades a read lock to a write lock fails at once with "database is locked".
+        # IMMEDIATE takes the write lock at BEGIN, the timeout makes the second writer wait,
+        # and WAL lets readers go on while one worker writes.
+        "OPTIONS": {
+            "transaction_mode": "IMMEDIATE",
+            "timeout": 20,
+            "init_command": "PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;",
+        },
     }
 }
 
