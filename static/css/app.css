@@ -226,6 +226,8 @@ html.tv { font-size: 30px; }
 .tv a:focus, .tv .btn:focus, .tv .link:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
 /* T166: the family step on the TV: the remote must show where it is on a person, a seat or a box. */
 .tv .person:focus, .tv .seat:focus, .tv .form input:focus, .tv .form select:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
+/* OK on a number or date box: the arrows change the value (T170). */
+.tv .form input.tv-editing:focus { outline-color: var(--c-accent); background: #fff8d6; }
 .tv .card.open { position: fixed; top: 4vh; right: 6vw; bottom: 4vh; left: 6vw; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: none; opacity: 1; font-size: 1.5rem; }
 .tv .card.open .card-emoji.big { width: 14rem; height: 14rem; font-size: 9rem; }
 .tv .card.open h3 { font-size: 2.4rem; }

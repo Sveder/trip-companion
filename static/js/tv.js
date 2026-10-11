@@ -133,8 +133,20 @@
     return el;
   }
 
+  // A number or date box (the days and 'We leave on' boxes on /trip/, T170): the arrows move the focus, so LEFT/RIGHT
+  // can leave it. OK starts an edit: then UP/DOWN change the value and LEFT/RIGHT move between the date parts.
+  // OK or Back ends the edit. Only a text box keeps LEFT/RIGHT for the caret all the time.
+  var editing = null;
+  function stepBox(el) { return el && el.tagName === 'INPUT' && /^(number|date|month|week|time|datetime-local)$/.test(el.type); }
+  function stopEdit() { if (editing) editing.classList.remove('tv-editing'); editing = null; }
+
   function handle(e, key) {
     var el = document.activeElement;
+    if (editing && editing !== el) stopEdit();
+    if (editing) {
+      if (key === 13 || BACK[key]) { e.preventDefault(); stopEdit(); return; }
+      if (DIRS[key]) return;
+    }
     if (BACK[key]) {
       if (opened) { close(); e.preventDefault(); return; }
       var dlg = document.querySelector('dialog[open]');
@@ -144,7 +156,7 @@
     var dir = DIRS[key];
     if (dir) {
       if (opened) { e.preventDefault(); return; }
-      var typing = el && /INPUT|TEXTAREA/.test(el.tagName) && el.type !== 'checkbox';
+      var typing = el && /INPUT|TEXTAREA/.test(el.tagName) && el.type !== 'checkbox' && !stepBox(el);
       if (typing && (dir === 'left' || dir === 'right')) return;
       e.preventDefault();
       el = current();
@@ -156,6 +168,7 @@
       return;
     }
     if (key === 13) {
+      if (stepBox(el)) { e.preventDefault(); editing = el; el.classList.add('tv-editing'); return; }
       var lost = !el || el === document.body || el === root;
       el = current();
       if (el && el.classList && el.classList.contains('card')) { e.preventDefault(); activate(el); }
@@ -182,6 +195,7 @@
 
   document.addEventListener('focusin', function (e) {
     var el = e.target;
+    if (editing && el !== editing) stopEdit();
     if (el && el.matches && el.matches(SELECTOR) && !el.closest('.sv2')) last = el;
     debug('focus ' + describe(el));
   });
