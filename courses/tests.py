@@ -1,3 +1,4 @@
+from django.conf import settings
 import re
 import tempfile
 from datetime import date, timedelta
@@ -512,6 +513,16 @@ class AfterTheTripTests(TestCase):
         self.set_dates(-2, 5)
         html = self.client.get(reverse("highlights")).content.decode()
         self.assertNotIn("Welcome back", html)
+
+    def test_highlights_done_date_sits_in_a_nowrap_span(self):
+        # T140: on a desktop card the date broke in two ('· 9' / 'Oct').
+        self.set_dates(10, 20)
+        item = self.course.items.select_related("activity__module").filter(activity__module__ready=True).first()
+        item.mark_done()
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertIn('<span class="hl-date">· ', html)
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn(".hl-date { white-space: nowrap; }", css)
 
     def test_highlights_page_after_the_trip_says_welcome_back(self):
         self.set_dates(-20, -1)
