@@ -56,7 +56,7 @@ def _key(text):
 @lru_cache(maxsize=8)
 def _hebrew(country):
     """Hebrew spelling -> reading, from every content item whose English label or title is the reading itself
-    (a flip card 'Ohayou' / 'אוהאיו', the food card 'Itadakimasu!' / 'איטדקימס!')."""
+    (a flip card 'Ohayou' / 'אוהאיו', the food picture 'Itadakimasu' / 'איטדקימס')."""
     out = {}
 
     def walk(node):

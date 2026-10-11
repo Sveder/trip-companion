@@ -25,7 +25,7 @@
   {% if next_activity %}
   <a class="card next-up" href="{{ next_url }}" tabindex="-1">
     <span class="next-up-label">{% translate "Next up" %}</span>
-    <span class="next-up-emoji" aria-hidden="true">{{ next_activity.module.emoji|default:"⭐" }}</span>
+    <span class="next-up-emoji" aria-hidden="true">{{ next_activity.emoji|default:"⭐" }}</span>
     <strong>{{ next_activity.local_title }}</strong>
   </a>
   {% endif %}

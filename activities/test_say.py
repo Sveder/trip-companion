@@ -133,6 +133,6 @@ class EveryWordTalksTests(TestCase):
                 seen.append(f"{item.activity.slug} {lang}")
             silent += [f"{item.activity.slug} {lang}: {s}" for s in p.silent]
         self.assertEqual(silent, [])
-        for slug in ("words-lesson", "food-cards", "sushi-lesson", "manners-lesson"):
+        for slug in ("words-lesson", "food-around-japan", "sushi-lesson", "manners-lesson"):
             self.assertIn(f"{slug} en", seen)
             self.assertIn(f"{slug} he", seen)

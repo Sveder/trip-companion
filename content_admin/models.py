@@ -64,3 +64,11 @@ class Activity(models.Model):
     def local_title(self):
         """The title in the active language. The Hebrew title sits in the data as ``title_he``."""
         return (self.data or {}).get("title_he") or self.title if is_hebrew() else self.title
+
+    @property
+    def emoji(self):
+        """The activity's own icon (``emoji`` in the data), else its module's icon.
+
+        Two lessons of one module side by side on the course page need different icons (T179).
+        """
+        return (self.data or {}).get("emoji") or self.module.emoji

@@ -34,7 +34,7 @@
 <div class="cards compact highlights-done">
   {% for item in done %}
   <a class="card" href="{% url 'activity' item.id %}">
-    <span class="card-emoji" aria-hidden="true">{{ item.activity.module.emoji|default:"✅" }}</span>
+    <span class="card-emoji" aria-hidden="true">{{ item.activity.emoji|default:"✅" }}</span>
     <h3>{{ item.activity.local_title }}</h3>
     <p class="hint">{{ item.activity.module.local_title }} <span class="hl-date">{{ item.done_at|date:"j M" }}</span></p>
   </a>

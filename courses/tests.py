@@ -22,7 +22,7 @@ from practice.models import PracticeItem
 from trips.models import Traveller, Trip
 
 # Card items after a lesson that bring new things, not a review of the lesson (T124).
-NEW_CARDS = {"food-cards": ("More Japanese food", "עוד אוכל יפני")}
+NEW_CARDS = {}  # T179: the only one, the food cards, is gone; its foods are photo pages in "Food around Japan".
 
 
 def make_trip(user, ages):
@@ -112,10 +112,10 @@ class BuilderTests(TestCase):
         trip = make_trip(self.user, [38, 4])
         ids = [m.id for m, on in suggestions(trip) if on]
         course = build_course(trip, ids)
-        cards = course.items.get(activity__slug="food-cards")
+        cards = course.items.get(activity__slug="dos_donts-intro")
         cards.mark_done()
-        # An old course: the food cards first, the sushi lesson after them.
-        lesson = course.items.get(activity__slug="sushi-lesson")
+        # An old course: the manners cards first, the manners lesson after them.
+        lesson = course.items.get(activity__slug="manners-lesson")
         cards_order, lesson_order = cards.order, lesson.order
         CourseItem.objects.filter(id=cards.id).update(order=lesson_order)
         CourseItem.objects.filter(id=lesson.id).update(order=cards_order)
@@ -123,7 +123,7 @@ class BuilderTests(TestCase):
         self.assertTrue(reorder_course(course))
         self.assertFalse(reorder_course(course))
         self.assertEqual(set(course.items.values_list("id", flat=True)), before)
-        self.assertEqual(course.items.first().activity.slug, "sushi-lesson")
+        self.assertLess(course.items.get(id=lesson.id).order, course.items.get(id=cards.id).order)
         self.assertIsNotNone(CourseItem.objects.get(id=cards.id).done_at)
 
     def test_family_course_has_a_hunt_early_and_hunts_apart(self):

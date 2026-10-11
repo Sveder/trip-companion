@@ -39,13 +39,13 @@ class ExportTests(TestCase):
         self.assertEqual(export_country("japan", self.tmp), [])
 
     def test_export_load_round_trip(self):
-        food = Activity.objects.get(slug="food-cards")
-        food.data["cards"][0]["text"] = "Sushi is rice with fish on top."
-        food.save()
+        cards = Activity.objects.get(slug="dos_donts-intro")
+        cards.data["cards"][0]["text"] = "Bow to say hello."
+        cards.save()
         before = snapshot()
         changed = export_country("japan", self.tmp)
-        self.assertEqual([p.name for p in changed], ["food.yaml"])
-        Activity.objects.filter(slug="food-cards").update(data={})  # spoil the database
+        self.assertEqual([p.name for p in changed], ["dos_donts.yaml"])
+        Activity.objects.filter(slug="dos_donts-intro").update(data={})  # spoil the database
         load_country("japan", content_dir=self.tmp, force=True)
         self.assertEqual(snapshot(), before)
 
@@ -99,7 +99,7 @@ class AdminEditTests(TestCase):
         trip = Trip.objects.create(user=self.family, destination="japan")
         Traveller.objects.create(trip=trip, age=4)
         course = Course.objects.create(trip=trip)
-        self.item = CourseItem.objects.create(course=course, order=0, activity=Activity.objects.get(slug="food-cards"))
+        self.item = CourseItem.objects.create(course=course, order=0, activity=Activity.objects.get(slug="dos_donts-intro"))
 
     def test_make_superuser_has_no_password(self):
         self.assertTrue(self.boss.is_superuser and self.boss.is_staff)
@@ -119,7 +119,7 @@ class AdminEditTests(TestCase):
         self.assertEqual(r["Location"], reverse("account_confirm_login_code"))
 
     def test_admin_edit_changes_the_rendered_page(self):
-        act = Activity.objects.get(slug="food-cards")
+        act = Activity.objects.get(slug="dos_donts-intro")
         self.client.force_login(self.boss)
         url = reverse("admin:content_admin_activity_change", args=[act.pk])
         page = self.client.get(url)
@@ -127,15 +127,15 @@ class AdminEditTests(TestCase):
         form = page.context["adminform"].form
         post = {name: form[name].value() for name in form.fields}
         data = dict(act.data)
-        data["cards"] = [dict(data["cards"][0], text="Sushi is a small treat of rice and fish.")] + data["cards"][1:]
+        data["cards"] = [dict(data["cards"][0], text="Bow a little to say hello.")] + data["cards"][1:]
         post["data"] = json.dumps(data)
         post["module"] = act.module_id
         r = self.client.post(url, post)
         self.assertEqual(r.status_code, 302, r.content[:2000])
-        self.assertTrue(Module.objects.get(slug="food").edited)
+        self.assertTrue(Module.objects.get(slug="dos_donts").edited)
         self.client.force_login(self.family)
         html = self.client.get(reverse("activity", args=[self.item.id])).content.decode()
-        self.assertIn("Sushi is a small treat of rice and fish.", html)
+        self.assertIn("Bow a little to say hello.", html)
 
     def test_activity_list_shows_video_approval(self):
         self.client.force_login(self.boss)

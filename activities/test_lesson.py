@@ -169,18 +169,16 @@ class NewActivityJoinsBuiltCourses(TestCase):
         user = get_user_model().objects.create_user("n@example.com", "n@example.com")
         trip = Trip.objects.create(user=user, destination="japan")
         Traveller.objects.create(trip=trip, age=40)
-        food = Activity.objects.get(slug="food-cards").module
+        food = Activity.objects.get(slug="sushi-lesson").module
         course = build_course(trip, [food.id])
-        # A course built before the lesson existed: only the cards, done.
-        course.items.exclude(activity__slug="food-cards").delete()
+        # A course built before the second lesson existed: only the sushi lesson, done.
+        course.items.exclude(activity__slug="sushi-lesson").delete()
         course.items.update(done_at="2026-10-01T10:00Z")
         call_command("load_content", verbosity=0)
         slugs = list(CourseItem.objects.filter(course=course).values_list("activity__slug", "done_at"))
-        # The lesson comes first in its module; the cards are its quick review.
-        self.assertEqual([s for s, _ in slugs], ["sushi-lesson", "food-around-japan", "food-cards"])
-        self.assertIsNone(slugs[0][1])
+        self.assertEqual([s for s, _ in slugs], ["sushi-lesson", "food-around-japan"])
+        self.assertIsNotNone(slugs[0][1])
         self.assertIsNone(slugs[1][1])
-        self.assertIsNotNone(slugs[2][1])
 
 
 class EveryLessonIsWellFormed(TestCase):
@@ -890,7 +888,7 @@ class FoodAroundJapanTests(TestCase):
         static = Path(settings.BASE_DIR) / "static" / "img"
         pages = self.act.data["pages"]
         food = [p for p in pages if p.get("photo_credit")]
-        self.assertEqual(len(food), 9)
+        self.assertEqual(len(food), 13)
         for p in pages:
             self.assertTrue(p.get("source", "").startswith("https://"), p["title"])
         for p in food:
@@ -907,9 +905,24 @@ class FoodAroundJapanTests(TestCase):
             self.assertEqual(r.status_code, 200)
             html = r.content.decode()
             self.assertIn(word, html)
-            self.assertEqual(html.count('class="lphoto-credit"'), 9, lang)
+            self.assertEqual(html.count('class="lphoto-credit"'), 13, lang)
             self.assertIn("food-ekiben.jpg", html)
             self.assertNotIn("wikipedia.org", html)  # the source is for us, not shown
+
+    def test_no_food_twice_in_the_food_module(self):
+        """T179: the old emoji card list is gone; each food shows once, and each food lesson has its own icon."""
+        acts = list(Activity.objects.filter(module__slug="food"))
+        self.assertEqual(sorted(a.slug for a in acts), ["food-around-japan", "sushi-lesson"])
+        readings = [p["reading"] for p in self.act.data["pages"] if p.get("reading")]
+        self.assertEqual(len(readings), len(set(readings)), readings)
+        self.assertNotIn("sushi", readings)  # sushi has its own lesson
+        for food in ("tempura", "misoshiru", "bento", "itadakimasu"):
+            self.assertIn(food, readings)
+        self.assertEqual(len({a.emoji for a in acts}), len(acts))
+        self.client.force_login(self.user)
+        html = self.client.get(reverse("course")).content.decode()
+        for a in acts:
+            self.assertIn(f'<span class="card-emoji" aria-hidden="true">{a.emoji}</span>', html)
 
 
 class WordsPicturesTests(TestCase):

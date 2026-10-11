@@ -153,3 +153,31 @@
   licence: CC0
   licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
   source_url: https://commons.wikimedia.org/wiki/File:Farg%27onacha_osh.jpg
+- id: food-tempura
+  file: photo/food/food-tempura.jpg
+  title: Shrimp and vegetables tempura - Massachusetts.jpg
+  author: Daderot
+  licence: CC0
+  licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  source_url: https://commons.wikimedia.org/wiki/File:Shrimp_and_vegetables_tempura_-_Massachusetts.jpg
+- id: food-miso
+  file: photo/food/food-miso.jpg
+  title: Miso soup - Massachusetts.jpg
+  author: Daderot
+  licence: CC0
+  licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  source_url: https://commons.wikimedia.org/wiki/File:Miso_soup_-_Massachusetts.jpg
+- id: food-bento
+  file: photo/food/food-bento.jpg
+  title: Bento at Hanabishi, Koyasan.jpg
+  author: Blue Lotus
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Bento_at_Hanabishi,_Koyasan.jpg
+- id: food-itadakimasu
+  file: photo/food/food-itadakimasu.jpg
+  title: SchoolLunch KyushokuToban.jpg
+  author: Kanko* from Nagasaki, JAPAN
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:SchoolLunch_KyushokuToban.jpg

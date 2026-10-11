@@ -14,6 +14,7 @@ activities:
     title: All about sushi
     title_he: הכל על סושי
     type: lesson
+    emoji: "🍣"
     intro: Swipe through the pages. Tap, play and learn!
     intro_he: עוברים דף אחרי דף. נוגעים, משחקים ולומדים!
     pictures:
@@ -438,6 +439,7 @@ activities:
     title: Food around Japan
     title_he: אוכל מסביב ליפן
     type: lesson
+    emoji: "🗾"
     intro: Every part of Japan has its own special food. Let's go and see!
     intro_he: לכל מקום ביפן יש אוכל מיוחד משלו. בואו נראה!
     pictures:
@@ -450,13 +452,18 @@ activities:
       - {id: udon, img: photo/food/food-udon.jpg, label: Udon, label_he: אודון, japanese: うどん, reading: udon}
       - {id: taiyaki, img: photo/food/food-taiyaki.jpg, label: Taiyaki, label_he: טאיאקי, japanese: たいやき, reading: taiyaki}
       - {id: champuru, img: photo/food/food-okinawa.jpg, label: Champuru, label_he: צ'אמפורו, japanese: チャンプルー, reading: champuru}
+      - {id: bento, img: photo/food/food-bento.jpg, label: Bento, label_he: בנטו, japanese: おべんとう, reading: bento}
+      - {id: tempura, img: photo/food/food-tempura.jpg, label: Tempura, label_he: טמפורה, japanese: てんぷら, reading: tempura}
+      - {id: miso, img: photo/food/food-miso.jpg, label: Miso soup, label_he: מרק מיסו, japanese: みそしる, reading: misoshiru}
+      # Not a quiz choice: this entry tells the say tag that "איטדקימס" in Hebrew text is the word itadakimasu.
+      - {id: itadakimasu, img: photo/food/food-itadakimasu.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu}
     pages:
       - kind: text
         title: A food trip!
         title_he: טיול של אוכל!
         emoji: "🗾"
-        text: In the north it is cold, in the south it is warm, and every city cooks something it is proud of. Turn the page and meet nine foods.
-        text_he: בצפון קר, בדרום חם, ולכל עיר יש מאכל שהיא גאה בו. הפכו את הדף ותכירו תשעה מאכלים.
+        text: In the north it is cold, in the south it is warm, and every city cooks something it is proud of. Turn the page and meet them.
+        text_he: בצפון קר, בדרום חם, ולכל עיר יש מאכל שהיא גאה בו. הפכו את הדף ותכירו אותם.
         source: https://en.wikipedia.org/wiki/Japanese_cuisine
       - kind: text
         title: Ramen around Japan
@@ -495,14 +502,32 @@ activities:
           - העטיפה שומרת על האצה פריכה. מושכים את הלשוניות לפי הסדר, 1, 2, 3, והאצה עוטפת את האורז.
         source: https://en.wikipedia.org/wiki/Onigiri
       - kind: text
+        title: Bento, the lunch box
+        title_he: בנטו, קופסת האוכל
+        img: photo/food/food-bento.jpg
+        photo_credit: food-bento
+        japanese: おべんとう
+        reading: bento
+        text: A bento is a lunch box with many little foods inside. Each food sits in its own corner.
+        text_he: בנטו זו קופסת אוכל עם הרבה מאכלים קטנים בפנים. כל מאכל יושב בפינה משלו.
+        tips:
+          - Kids in Japan take a bento on school trips and picnics.
+          - Some parents make the rice look like a bear or a cartoon face. That is called kyaraben.
+          - You can buy a bento in every konbini shop.
+        tips_he:
+          - ילדים ביפן לוקחים בנטו לטיולים של בית הספר ולפיקניקים.
+          - יש הורים שמכינים את האורז בצורה של דובי או של פרצוף מסרט מצויר. זה נקרא קיאראבן.
+          - אפשר לקנות בנטו בכל חנות קונביני.
+        source: https://en.wikipedia.org/wiki/Bento
+      - kind: text
         title: Ekiben, the train lunch box
         title_he: אקיבן, קופסת האוכל של הרכבת
         img: photo/food/food-ekiben.jpg
         photo_credit: food-ekiben
         japanese: えきべん
         reading: ekiben
-        text: '"Eki" means train station. An ekiben is a lunch box you buy at the station and eat on the train.'
-        text_he: '"אקי" זה תחנת רכבת. אקיבן היא קופסת אוכל שקונים בתחנה ואוכלים ברכבת.'
+        text: '"Eki" means train station. An ekiben is a bento you buy at the station and eat on the train.'
+        text_he: '"אקי" זה תחנת רכבת. אקיבן הוא בנטו שקונים בתחנה ואוכלים ברכבת.'
         tips:
           - Many stations have their own ekiben, with food from that place.
           - You can eat it on the Shinkansen, the fast bullet train.
@@ -549,6 +574,24 @@ activities:
           - בפנים הם חמים מאוד. קודם נושפים!
         source: https://en.wikipedia.org/wiki/Takoyaki
       - kind: text
+        title: Tempura
+        title_he: טמפורה
+        img: photo/food/food-tempura.jpg
+        photo_credit: food-tempura
+        japanese: てんぷら
+        reading: tempura
+        text: Tempura is shrimp or vegetables in a thin, light batter, fried until it is crispy.
+        text_he: טמפורה זה שרימפס או ירקות בבלילה דקה וקלה, מטוגנים עד שהם פריכים.
+        tips:
+          - Dip it in a little bowl of warm sauce, then crunch!
+          - Sweet potato, pumpkin and mushroom tempura are good to try too.
+          - Tempura on a bowl of rice is called tendon.
+        tips_he:
+          - טובלים בקערה קטנה של רוטב חם, ואז קראנץ'!
+          - כדאי לנסות גם טמפורה של בטטה, דלעת ופטריות.
+          - טמפורה על קערת אורז נקראת טנדון.
+        source: https://en.wikipedia.org/wiki/Tempura
+      - kind: text
         title: Curry rice
         title_he: קארי עם אורז
         img: photo/food/food-curry.jpg
@@ -582,6 +625,22 @@ activities:
           - סובה עשויה מכוסמת. נאגאנו מפורסמת בסובה שלה.
           - בקיץ אוכלים אותן קרות, וטובלים ברוטב.
         source: https://en.wikipedia.org/wiki/Soba
+      - kind: text
+        title: Miso soup
+        title_he: מרק מיסו
+        img: photo/food/food-miso.jpg
+        photo_credit: food-miso
+        japanese: みそしる
+        reading: misoshiru
+        text: Miso soup is a warm soup made from miso, a paste of soy beans. Many people in Japan eat it at breakfast.
+        text_he: מרק מיסו הוא מרק חם שעשוי ממיסו, ממרח של פולי סויה. הרבה אנשים ביפן אוכלים אותו בארוחת בוקר.
+        tips:
+          - Inside there is often tofu, seaweed and green onion.
+          - There is no spoon. You drink the soup from the bowl, and use chopsticks for the tofu.
+        tips_he:
+          - בפנים יש הרבה פעמים טופו, אצות ובצל ירוק.
+          - אין כף. שותים את המרק מהקערה, ואת הטופו אוכלים עם מקלות.
+        source: https://en.wikipedia.org/wiki/Miso_soup
       - kind: text
         title: Sweet treats
         title_he: ממתקים
@@ -618,6 +677,24 @@ activities:
           - הבטטה שם יכולה להיות סגולה מבפנים!
           - סאטה אנדאגי הם סופגניות עגולות ומתוקות.
         source: https://en.wikipedia.org/wiki/Champur%C5%AB
+      - kind: text
+        title: Thank you for the food
+        title_he: תודה על האוכל
+        img: photo/food/food-itadakimasu.jpg
+        photo_credit: food-itadakimasu
+        japanese: いただきます
+        reading: itadakimasu
+        text: Before they eat, people in Japan put their hands together and say "itadakimasu". It is a way to say thank you for the food.
+        text_he: לפני שאוכלים, אנשים ביפן מצמידים את הידיים ואומרים "איטדקימס". ככה אומרים תודה על האוכל.
+        tips:
+          - In the picture, school kids carry lunch to their class. In Japan the kids serve lunch to each other.
+          - Then the whole class says "itadakimasu" together.
+          - After the meal, say "gochisousama deshita". It means "thank you, that was a good meal".
+        tips_he:
+          - בתמונה ילדים בבית ספר סוחבים את ארוחת הצהריים לכיתה. ביפן הילדים מגישים את האוכל אחד לשני.
+          - אחר כך כל הכיתה אומרת יחד "איטדקימס".
+          - אחרי האוכל אומרים "גוצ'יסוסאמה דשיטה". זה אומר "תודה, זו הייתה ארוחה טובה".
+        source: https://en.wikipedia.org/wiki/Itadakimasu
       - kind: pick
         title: Food quiz
         title_he: חידון אוכל
@@ -645,79 +722,11 @@ activities:
             ask_he: "איזו עוגה נראית כמו דג (טאיאקי)?"
             answer: taiyaki
             choices: [champuru, ekiben, taiyaki, onigiri]
-  # T124: these cards bring new foods, not the sushi lesson again, so the title is not "quick review".
-  - id: food-cards
-    title: "More Japanese food"
-    title_he: "עוד אוכל יפני"
-    type: cards
-    intro: Let's meet the foods you can eat in Japan!
-    intro_he: בואו נכיר את האוכל שאפשר לאכול ביפן!
-    cards:
-      - title: Sushi
-        title_he: סושי
-        japanese: すし
-        reading: sushi
-        emoji: "🍣"
-        text: Sushi is rice with a little sour taste, and a topping on top. The topping is often fish. Some sushi rides past you on a little train!
-        text_he: סושי זה אורז עם טעם קצת חמוץ, ומשהו מעליו. הרבה פעמים זה דג. יש סושי שנוסע לידכם על רכבת קטנה!
-        quiz: true
-      - title: Onigiri
-        title_he: אוניגירי
-        japanese: おにぎり
-        reading: onigiri
-        emoji: "🍙"
-        text: Onigiri is a rice ball. Many come wrapped in crunchy seaweed. You can buy one in any small shop.
-        text_he: אוניגירי זה כדור אורז. הרבה מהם עטופים באצה פריכה. אפשר לקנות אותו בכל חנות קטנה.
-        quiz: true
-      - title: Ramen
-        title_he: ראמן
-        japanese: ラーメン
-        reading: ramen
-        emoji: "🍜"
-        text: Ramen is noodles in a hot soup. In Japan it is okay to slurp your noodles. Slurp!
-        text_he: ראמן זה אטריות במרק חם. ביפן מותר לשאוב את האטריות ברעש. סלורפ!
-        quiz: true
-      - title: Udon
-        title_he: אודון
-        japanese: うどん
-        reading: udon
-        emoji: "🍲"
-        text: Udon are big, fat, soft noodles. You eat them in soup, hot or cold.
-        text_he: אודון הן אטריות גדולות, עבות ורכות. אוכלים אותן במרק, חם או קר.
-      - title: Tempura
-        title_he: טמפורה
-        japanese: てんぷら
-        reading: tempura
-        emoji: "🍤"
-        text: Tempura is food fried in a light, crispy coat. Shrimp tempura is a favourite.
-        text_he: טמפורה זה אוכל מטוגן בציפוי קליל ופריך. טמפורה של שרימפס אהובה במיוחד.
-      - title: Miso soup
-        title_he: מרק מיסו
-        japanese: みそしる
-        reading: misoshiru
-        emoji: "🥣"
-        text: Miso soup is a warm soup made from beans. Many people in Japan eat it at breakfast.
-        text_he: מרק מיסו הוא מרק חם שעשוי משעועית סויה. הרבה אנשים ביפן אוכלים אותו בארוחת בוקר.
-      - title: Mochi
-        title_he: מוצ'י
-        japanese: もち
-        reading: mochi
-        emoji: "🍡"
-        text: Mochi is a soft, sticky, sweet treat made from rice. It is squishy and chewy.
-        text_he: מוצ'י זה חטיף רך, דביק ומתוק שעשוי מאורז. הוא רך ולעיס.
-        quiz: true
-      - title: Bento
-        title_he: בנטו
-        japanese: おべんとう
-        reading: bento
-        emoji: "🍱"
-        text: A bento is a lunch box with many little foods inside, all in their own corner.
-        text_he: בנטו זו קופסת אוכל עם הרבה מאכלים קטנים בפנים, כל אחד בפינה משלו.
-      - title: Itadakimasu!
-        title_he: איטדקימס!
-        japanese: いただきます
-        reading: itadakimasu
-        emoji: "🥢"
-        text: Before they eat, people in Japan say "itadakimasu". It is a way to say thank you for the food.
-        text_he: לפני שאוכלים, אנשים ביפן אומרים "איטדקימס". ככה אומרים תודה על האוכל.
-        choice: false  # a phrase, not a food: never a wrong choice in the food quiz
+          - ask: "Which one is crispy and fried (tempura)?"
+            ask_he: "איזה מהם פריך ומטוגן (טמפורה)?"
+            answer: tempura
+            choices: [miso, tempura, bento, curry]
+          - ask: "Which soup do people eat at breakfast (miso soup)?"
+            ask_he: "איזה מרק אוכלים בארוחת בוקר (מרק מיסו)?"
+            answer: miso
+            choices: [ramen, udon, miso, bento]

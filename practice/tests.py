@@ -12,7 +12,7 @@ from courses.builder import build_course
 from courses.models import CourseItem
 from trips.models import Traveller, Trip
 
-from .items import add_items, due_items, question
+from .items import _card_id, add_items, due_items, question
 from .models import PracticeItem
 
 TODAY = date(2026, 10, 7)
@@ -74,30 +74,35 @@ class QuizContentTests(TestCase):
         self.assertEqual(add_items(self.trip, words), 0, "a second pass adds nothing")
 
     def test_only_cards_marked_quiz_become_items(self):
-        food = Activity.objects.get(slug="food-cards")
-        add_items(self.trip, food)
+        # T179: the food card list is gone; the manners cards are a card list with quiz marks.
+        cards = Activity.objects.get(slug="dos_donts-intro")
+        add_items(self.trip, cards)
         keys = set(PracticeItem.objects.filter(trip=self.trip).values_list("key", flat=True))
-        marked = {c["title"] for c in food.data["cards"] if c.get("quiz")}
+        marked = [c for c in cards.data["cards"] if c.get("quiz")]
+        self.assertTrue(0 < len(marked) < len(cards.data["cards"]))
         self.assertEqual(len(keys), len(marked))
-        self.assertIn("food/food-cards/sushi", keys)
-        self.assertNotIn("food/food-cards/udon", keys)
+        self.assertIn("dos_donts/dos_donts-intro/bow", keys)
+        for c in cards.data["cards"]:
+            if not c.get("quiz"):
+                self.assertNotIn(f"dos_donts/dos_donts-intro/{_card_id(c)}", keys)
 
     def test_question_has_the_answer_among_four_choices(self):
         q = question(self.trip, "words/words-intro/konnichiwa")
         self.assertEqual(q["answer"], "hello")
         self.assertEqual(len(q["choices"]), 4)
         self.assertIn("hello", q["choices"])
-        q = question(self.trip, "food/food-cards/sushi")
-        self.assertEqual(q["answer"], "Sushi")
-        self.assertIn("Sushi", q["choices"])
-        self.assertIsNone(question(self.trip, "food/food-cards/gone"))
+        q = question(self.trip, "dos_donts/dos_donts-intro/bow")
+        self.assertIn(q["answer"], q["choices"])
+        self.assertEqual(len(q["choices"]), 4)
+        self.assertIsNone(question(self.trip, "food/food-cards/sushi"), "T179: the old food cards are gone")
 
     def test_food_quiz_asks_only_about_foods(self):
-        food = Activity.objects.get(slug="food-cards")
-        add_items(self.trip, food)
+        for food in Activity.objects.filter(module__slug="food"):
+            add_items(self.trip, food)
         keys = PracticeItem.objects.filter(trip=self.trip, key__startswith="food/").values_list("key", flat=True)
-        self.assertNotIn("food/food-cards/itadakimasu", keys)
+        self.assertTrue(keys)
         for key in keys:
+            self.assertNotIn("itadakimasu", key)
             q = question(self.trip, key)
             self.assertNotIn("Itadakimasu!", q["choices"])
             self.assertNotEqual(q["answer"], "Itadakimasu!")
@@ -129,24 +134,24 @@ class QuizFlowTests(TestCase):
         missing = [w["reading"] for w in words if not finders.find(f"audio/japan/{w['reading']}.mp3")]
         self.assertEqual(missing, [], "run deploy/make_word_audio.py")
 
-    def test_every_food_card_says_its_name(self):
-        """A 4-year-old cannot read 'Onigiri': each food card plays a pre-made mp3 on a tap."""
+    def test_every_food_page_says_its_name(self):
+        """A 4-year-old cannot read 'Onigiri': each food photo page plays a pre-made mp3 on a tap (T179: the old cards are pages now)."""
         from django.contrib.staticfiles import finders
-        cards = Activity.objects.get(slug="food-cards").data["cards"]
-        self.assertEqual([c["title"] for c in cards if not c.get("japanese") or not c.get("reading")], [])
-        missing = [c["reading"] for c in cards if not finders.find(f"audio/japan/{c['reading']}.mp3")]
+        pages = [p for p in Activity.objects.get(slug="food-around-japan").data["pages"] if p.get("photo_credit")]
+        self.assertEqual([p["title"] for p in pages if not p.get("japanese") or not p.get("reading")], [])
+        missing = [p["reading"] for p in pages if not finders.find(f"audio/japan/{p['reading']}.mp3")]
         self.assertEqual(missing, [], "run deploy/make_word_audio.py")
         trip = make_trip(self.user)
         course = build_course(trip, list(Module.objects.filter(slug="food").values_list("id", flat=True)))
-        item = course.items.get(activity__slug="food-cards")
+        item = course.items.get(activity__slug="food-around-japan")
         self.client.force_login(self.user)
         page = self.client.get(reverse("activity", args=[item.id]))
-        self.assertContains(page, 'data-say="すし" data-say-src="/static/audio/japan/sushi.mp3"')
-        self.assertContains(page, "Tap to hear it", count=len(cards))
+        for reading in ("tempura", "misoshiru", "bento", "itadakimasu"):
+            self.assertContains(page, f'data-say-src="/static/audio/japan/{reading}.mp3"')
 
     def test_food_quiz_says_the_name_only_after_the_answer(self):
         trip = make_trip(self.user)
-        add_items(trip, Activity.objects.get(slug="food-cards"))
+        add_items(trip, Activity.objects.get(slug="sushi-lesson"))
         self.client.force_login(self.user)
         page = self.client.get(reverse("quiz"))
         q = page.context["q"]
