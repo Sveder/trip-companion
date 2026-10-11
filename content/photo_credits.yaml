@@ -76,13 +76,6 @@
   licence: CC BY 2.0
   licence_url: https://creativecommons.org/licenses/by/2.0
   source_url: https://commons.wikimedia.org/wiki/File:Takoyaki_by_yomi955.jpg
-- id: food-curry
-  file: photo/food/food-curry.jpg
-  title: Chicken katsu curry rice - Korpan 2023-08-23.jpg
-  author: Andy Li
-  licence: CC0
-  licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
-  source_url: https://commons.wikimedia.org/wiki/File:Chicken_katsu_curry_rice_-_Korpan_2023-08-23.jpg
 - id: food-udon
   file: photo/food/food-udon.jpg
   title: Sanuki udon by open-arms.jpg
@@ -181,3 +174,10 @@
   licence: CC BY 2.0
   licence_url: https://creativecommons.org/licenses/by/2.0
   source_url: https://commons.wikimedia.org/wiki/File:SchoolLunch_KyushokuToban.jpg
+- id: food-curry
+  file: photo/food/food-curry-rice.jpg
+  title: Beef curry rice 003.jpg
+  author: Ocdp
+  licence: CC0
+  licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  source_url: https://commons.wikimedia.org/wiki/File:Beef_curry_rice_003.jpg

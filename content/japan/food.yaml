@@ -448,7 +448,7 @@ activities:
       - {id: ekiben, img: photo/food/food-ekiben.jpg, label: Ekiben, label_he: אקיבן, japanese: えきべん, reading: ekiben}
       - {id: okonomiyaki, img: photo/food/food-okonomiyaki.jpg, label: Okonomiyaki, label_he: אוקונומיאקי, japanese: おこのみやき, reading: okonomiyaki}
       - {id: takoyaki, img: photo/food/food-takoyaki.jpg, label: Takoyaki, label_he: טאקויאקי, japanese: たこやき, reading: takoyaki}
-      - {id: curry, img: photo/food/food-curry.jpg, label: Curry rice, label_he: קארה ראיסו, japanese: カレーライス, reading: karee raisu}
+      - {id: curry, img: photo/food/food-curry-rice.jpg, label: Curry rice, label_he: קארה ראיסו, japanese: カレーライス, reading: karee raisu}
       - {id: udon, img: photo/food/food-udon.jpg, label: Udon, label_he: אודון, japanese: うどん, reading: udon}
       - {id: taiyaki, img: photo/food/food-taiyaki.jpg, label: Taiyaki, label_he: טאיאקי, japanese: たいやき, reading: taiyaki}
       - {id: champuru, img: photo/food/food-okinawa.jpg, label: Champuru, label_he: צ'אמפורו, japanese: チャンプルー, reading: champuru}
@@ -594,7 +594,7 @@ activities:
       - kind: text
         title: Curry rice
         title_he: קארי עם אורז
-        img: photo/food/food-curry.jpg
+        img: photo/food/food-curry-rice.jpg
         photo_credit: food-curry
         japanese: カレーライス
         reading: karee raisu

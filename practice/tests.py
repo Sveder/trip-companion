@@ -399,3 +399,35 @@ class WordAudioScriptTests(SimpleTestCase):
             with self.assertRaises(RuntimeError):
                 mod.google("すし", path)
             self.assertFalse(path.exists())
+
+
+class PhotoFileTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def test_every_photo_exists_and_matches_its_credit(self):
+        """T181: a swapped photo gets a new file name (no hashed static names), so every path and credit must follow it."""
+        import yaml
+        from django.conf import settings
+        from django.contrib.staticfiles import finders
+        credits = {c["id"]: c["file"] for c in yaml.safe_load((settings.BASE_DIR / "content/photo_credits.yaml").read_text())}
+        paths, pairs = set(), []
+
+        def walk(node):
+            if isinstance(node, dict):
+                if node.get("photo_credit"):
+                    pairs.append((node["photo_credit"], node.get("photo") or node.get("img")))
+                for v in node.values():
+                    walk(v)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v)
+            elif isinstance(node, str) and node.startswith("photo/"):
+                paths.add(node)
+
+        for data in Activity.objects.values_list("data", flat=True):
+            walk(data)
+        self.assertIn("photo/food/food-curry-rice.jpg", paths)
+        self.assertEqual(sorted(p for p in paths if not finders.find(f"img/{p}")), [])
+        self.assertEqual([(c, p) for c, p in pairs if credits.get(c) != p], [])
