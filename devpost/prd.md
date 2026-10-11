@@ -125,7 +125,7 @@ From `scope.md > The POC Boundary`:
 - Japan only in full; other countries as previews — to show that a little-known country can be unlocked, without building it now.
 - Referral links (snack box, children's chopsticks) instead of a store — no payments now.
 - Premium modules and real payments: later — "once we build it more".
-- Login: none. A guest family lives in the browser (feedback T144, 2026-10-11).
+- Login: none. A guest family lives in the browser: a 400-day cookie, plus a copy of the choices and progress in localStorage that brings the family back when the cookies are cleared (feedback T144, 2026-10-11).
 - Reminders a few times a week, not daily — "kids have other activities to do and adults".
 - YouTube videos are chosen by the agent and approved by Michael before use.
 - Two languages: English and Hebrew, so our 4-year-old can play (Michael's feedback, 2026-10-08). A switch in the header

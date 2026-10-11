@@ -28,8 +28,9 @@
   <script src="{% static 'js/tv.js' %}" defer></script>
   <script src="{% static 'js/celebrate.js' %}" defer></script>
   <script src="{% static 'js/speak.js' %}" defer></script>
+  <script src="{% static 'js/state.js' %}" defer></script>
 </head>
-<body class="{% block body_class %}{% endblock %}"{% block body_attrs %}{% endblock %}>
+<body class="{% block body_class %}{% endblock %}" data-family="{% if user.is_authenticated %}1{% else %}0{% endif %}"{% block body_attrs %}{% endblock %}>
   <header class="top">
     <a class="brand" href="{% url 'home' %}">{% include "includes/mark.html" with cls="small" %} Trip Companion</a>
     {% if user.is_authenticated %}<button type="button" class="menu-btn link" aria-expanded="false" aria-controls="top-menu" aria-label="{% translate "Menu" %}"><span aria-hidden="true">&#9776;</span> <span class="menu-word">{% translate "Menu" %}</span></button>{% endif %}

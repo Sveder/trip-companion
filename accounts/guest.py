@@ -9,7 +9,7 @@ from analytics.models import track
 GUEST_PREFIX = "family-"
 
 
-def ensure_family(request):
+def ensure_family(request, method="guest"):
     """The family of this browser. A first visit makes a new guest family and logs the browser in."""
     if request.user.is_authenticated:
         return request.user
@@ -21,7 +21,7 @@ def ensure_family(request):
     user.save()
     Contact.objects.create(user=user, language=getattr(request, "LANGUAGE_CODE", None) or "en")
     login(request, user, backend="django.contrib.auth.backends.ModelBackend")
-    track("signed_up", user=user, method="guest")
+    track("signed_up", user=user, method=method)
     return user
 
 

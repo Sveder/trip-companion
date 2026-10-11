@@ -115,3 +115,88 @@ class NoGoogleTests(TestCase):
 
     def test_google_login_url_is_gone(self):
         self.assertEqual(self.client.post("/accounts/google/login/").status_code, 404)
+
+
+class StateCopyTests(TestCase):
+    """T144 part 2: the browser keeps a JSON copy of the family and rebuilds it when the cookie is gone."""
+
+    @classmethod
+    def setUpTestData(cls):
+        from django.core.management import call_command
+        call_command("load_content", verbosity=0)
+
+    def build_family(self):
+        from content_admin.models import Module
+        from courses.builder import build_course
+        from practice.models import PracticeItem
+        from trips.models import Traveller, Trip
+        self.client.get(reverse("trip_setup"))
+        user = get_user_model().objects.get()
+        trip = Trip.objects.create(user=user, destination="japan", length_days=10)
+        Traveller.objects.create(trip=trip, age=40)
+        Traveller.objects.create(trip=trip, age=4)
+        course = build_course(trip, list(Module.objects.filter(country="japan").values_list("id", flat=True)))
+        items = list(course.ready_items()[:3])
+        for item in items:
+            item.mark_done()
+        PracticeItem.objects.create(trip=trip, key="words/hello/konnichiwa", box=3)
+        return items
+
+    def test_state_json_lists_trip_course_and_done_marks(self):
+        items = self.build_family()
+        state = self.client.get(reverse("state_json")).json()
+        self.assertEqual(state["version"], 1)
+        self.assertEqual(state["trip"]["length_days"], 10)
+        self.assertEqual(sorted(t["age"] for t in state["trip"]["travellers"]), [4, 40])
+        keys = {i["key"] for i in state["course"]["items"]}
+        self.assertEqual(keys, {f"{i.activity.module.slug}/{i.activity.slug}" for i in items})
+        self.assertEqual(state["practice"][0]["box"], 3)
+
+    def test_round_trip_in_a_new_browser_keeps_the_done_marks(self):
+        from courses.models import CourseItem
+        items = self.build_family()
+        state = self.client.get(reverse("state_json")).content
+        fresh = self.client_class()
+        r = fresh.post(reverse("state_restore"), state, content_type="application/json")
+        self.assertEqual(r.json(), {"ok": True})
+        self.assertEqual(get_user_model().objects.count(), 2)
+        new = get_user_model().objects.exclude(id=items[0].course.trip.user_id).get()
+        self.assertTrue(new.username.startswith("family-"))
+        done = CourseItem.objects.filter(course__trip__user=new, done_at__isnull=False)
+        self.assertEqual({(i.activity_id) for i in done}, {i.activity_id for i in items})
+        self.assertEqual(new.trips.get().practice_items.get().box, 3)
+        page = fresh.get(reverse("course")).content.decode()
+        self.assertIn("3 of", page)
+        self.assertEqual(fresh.get(reverse("state_json")).json()["course"]["items"].__len__(), 3)
+
+    def test_a_browser_with_a_family_restores_nothing(self):
+        self.build_family()
+        state = self.client.get(reverse("state_json")).content
+        r = self.client.post(reverse("state_restore"), state, content_type="application/json")
+        self.assertFalse(r.json()["ok"])
+        self.assertEqual(get_user_model().objects.count(), 1)
+
+    def test_bad_body_is_400_and_makes_no_family(self):
+        for body in (b"not json", b"[1, 2]", b'{"version": 9}', b'{"version": 1, "x": "' + b"a" * 70000 + b'"}'):
+            r = self.client_class().post(reverse("state_restore"), body, content_type="application/json")
+            self.assertEqual(r.status_code, 400, body[:20])
+        self.assertEqual(get_user_model().objects.count(), 0)
+
+    def test_unknown_modules_and_bad_values_are_skipped(self):
+        body = {"version": 1, "language": "he", "trip": {"destination": "japan", "length_days": "x", "travellers": [{"age": 7}, {"age": -3}]},
+                "course": {"modules": ["food", "no-such-module"], "items": [{"key": "nope/nope", "done_at": "2026-10-01T10:00:00Z"}]},
+                "practice": [{"key": 5}, {"key": "a/b/c", "box": 99, "due_on": "bad"}]}
+        import json
+        fresh = self.client_class()
+        r = fresh.post(reverse("state_restore"), json.dumps(body), content_type="application/json")
+        self.assertEqual(r.json(), {"ok": True})
+        trip = get_user_model().objects.get().trips.get()
+        self.assertEqual(trip.ages, [7])
+        self.assertIsNone(trip.length_days)
+        self.assertEqual(trip.practice_items.get().box, 10)
+        self.assertEqual(r.cookies["django_language"].value, "he")
+
+    def test_pages_say_if_the_browser_has_a_family(self):
+        self.assertContains(self.client.get(reverse("privacy")), 'data-family="0"')
+        self.assertContains(self.client.get(reverse("trip_setup")), 'data-family="1"')
+        self.assertContains(self.client.get(reverse("trip_setup")), "js/state.js")

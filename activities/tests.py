@@ -299,7 +299,7 @@ class StreetViewHuntTests(TestCase):
         self.assertNotIn("You finished", html)
         second.mark_done()
         html = self.client.get(reverse("activity_praise", args=[second.id])).content.decode()
-        self.assertIn("<body class=\"\" data-celebrate>", html)
+        self.assertRegex(html, r"<body [^>]*data-celebrate>")
         self.assertIn("You finished", html)
 
     def test_a_done_hunt_opens_with_no_ticks_and_plays_again(self):
