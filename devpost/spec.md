@@ -26,8 +26,8 @@ scripts give the Matific-style motion.
 ## The Core Journey Through the System
 PRD ref: `prd.md > The Core Journey`.
 
-1. **Log in** → the parent enters an email → the site sends a sign-in link by SES → the link logs them in. (Or: "Sign in with
-   Google" → Google → back to the site.) → **Accounts**.
+1. **No account** → the parent taps "Let's start" → the site makes a guest family for this browser and opens trip setup.
+   No email, no password, no sign-in page (Michael, feedback T144) → **Accounts**.
 2. **Trip setup** → a form: destination, and how many people in each of four age groups (a plane to drag them into, `static/js/family.js`) → saved as a `Trip` with `Traveller` rows → **Trips**.
 3. **Suggested course** → **Course builder** reads every module file for Japan, keeps the ones whose audience fits the
    travellers (adult / child), and shows all modules with the suggested ones switched on.
@@ -42,7 +42,7 @@ PRD ref: `prd.md > The Core Journey`.
 ## Stack
 Accepted by Michael, 2026-10-07 ("The stack looks good").
 - Python 3.12, **Django 5.x** — server-rendered pages. https://docs.djangoproject.com/
-- **django-allauth** — email sign-in links ("login by code/link") and Google sign-in. https://docs.allauth.org/
+- **django-allauth** — the staff email sign-in code ("login by code"). https://docs.allauth.org/
 - **SQLite** — one file database; enough for a family-scale POC. https://www.sqlite.org/
 - **PyYAML** — reads the content files. https://pyyaml.org/
 - **boto3 / Amazon SES** — sign-in and reminder emails, from the existing SES setup. https://docs.aws.amazon.com/ses/
@@ -57,7 +57,7 @@ Accepted by Michael, 2026-10-07 ("The stack looks good").
   venv/bin/python manage.py runserver` → open http://127.0.0.1:8000/
   Emails print to the console locally (`EMAIL_BACKEND` console), so no keys are needed to try it.
 - **Production (chosen):** https://trip.sveder.com on the sveder.com droplet: an A record at Namecheap, an nginx site,
-  `certbot --nginx`, a gunicorn systemd unit. Secrets in `.env` on the server only (SES keys, Google client id/secret, Django
+  `certbot --nginx`, a gunicorn systemd unit. Secrets in `.env` on the server only (SES keys, Django
   secret key). Public pages get the Sveder corner badge (`/sveder-badge.js`) and "Made by Sveder".
 - **TV:** open https://trip.sveder.com in the LG TV web browser; the layout switches to TV mode for wide screens or `?tv=1`.
 - **Demo video:** record on the TV and a phone, following `scope.md > What "Working" Looks Like`.
@@ -87,7 +87,12 @@ From `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
 ## Components
 
 ### Accounts
-Email sign-in code, 6 digits, numbers only (allauth "login by code"; see checklist Revisions) and Google sign-in (django-allauth). After the first login → trip setup; after that → home.
+No account: a guest family in the browser (feedback T144). The first page that needs a family (`accounts/guest.py
+family_required`) makes a `User` named `family-<12 hex>` with no email and an unusable password, plus its `Contact`, and logs
+the browser in. The session cookie lives 400 days and survives a browser restart. A guest has no "Sign out". Part 2 adds a
+localStorage copy of the state that rebuilds the family when the cookie is gone. The email-code page `/signin/` stays for
+staff (the admin) only; no page links to it. Google sign-in is removed (feedback T152). Reminders go only to a family with
+an email.
 PRD ref: `prd.md > Login`.
 
 ### Trips
@@ -201,7 +206,7 @@ PRD ref: `prd.md > Screens and Layout`.
 
 ## Data Model
 All in SQLite on the server; it survives restarts and returns.
-- `User` (allauth) — email; Google account link if used.
+- `User` (Django auth) — a guest family (`family-<hex>`, no email), or staff with an email.
 - `Trip` — user, destination (`japan`), start_date, length_days, end_date (computed from the two), home_on (the day the family tapped "We are home!").
 - `Traveller` — trip, age.
 - `Course` — trip, built_at, chosen module ids (JSON).
@@ -246,13 +251,8 @@ trip-companion/
 ```
 
 ## External Services and Dependencies
-- **Amazon SES** (existing account, eu-central-1, sender m@sveder.com) — sign-in links and reminders; `send_email` via boto3.
+- **Amazon SES** (existing account, eu-central-1, sender m@sveder.com) — reminders (and the staff sign-in code); `send_email` via boto3.
   Cost: cents per thousand emails. Keys in server `.env`.
-- **Google sign-in** — an OAuth client with redirect `https://trip.sveder.com/accounts/google/login/callback/`, in the
-  Google Cloud project `trip-companion-511014` on Kurt's Google account (consent screen External, in production, scopes
-  profile and email only, so no Google review). Free. `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` live in the server
-  `.env` only; with no keys the button is hidden and email sign-in works alone.
-  https://docs.allauth.org/en/latest/socialaccount/providers/google.html
 - **Google Maps embed** — iframe URLs from Google Maps "Share → Embed a map", Street View included. No key, no billing.
 - **YouTube embed** — `https://www.youtube-nocookie.com/embed/<id>`. Free. Every id needs Michael's approval in the content file.
 - **Referral links** — plain outbound links (AliExpress children's chopsticks; a Japan snack box service). Real affiliate ids
@@ -265,7 +265,6 @@ trip-companion/
 - **A YouTube video is removed or blocked from embedding** → the activity shows the card text and a "watch on YouTube" link, and
   can still be marked done.
 - **The browser cannot record video (TV, old phone, no permission)** → step 4 says "do this on your phone" and offers "done".
-- **A sign-in email is slow or lands in spam** → the sign-in page says to check spam and offers Google sign-in.
 
 ## What Was Simplified and Why
 - **Ticking found items by hand** in the Street View hunt instead of automatic detection — an embed cannot report what is visible.
@@ -286,7 +285,6 @@ Implementation details derived by the agent (not Michael's choices): Leitner int
 reminder time 17:00; TV mode by width or `?tv=1`; MIT licence.
 
 Open:
-- **Google OAuth client:** needs a client id/secret; until then, email sign-in only.
 - **One useful unknown (Michael):** "the TV part" — will the site really work well in the LG TV's browser?
   Agreed investigation: the first build slice that has a screen is opened on the real TV (model and webOS version read with
   `lgtv/find_tv.py`), checking: the page loads over https, arrow keys move focus, OK opens a card, a YouTube embed plays, a

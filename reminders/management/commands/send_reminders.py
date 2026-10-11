@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, dry_run=False, **opts):
         count = 0
-        for user in get_user_model().objects.filter(is_active=True).order_by("id"):
+        for user in get_user_model().objects.filter(is_active=True).exclude(email="").order_by("id"):
             item = due(user)
             if item is None:
                 continue

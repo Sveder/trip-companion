@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from accounts.guest import family_required
 from django.shortcuts import redirect, render
 from django.utils import timezone
 
@@ -19,7 +19,7 @@ def _start(request, trip):
     return state
 
 
-@login_required
+@family_required
 def quiz(request):
     """One question per page. A quiz holds at most 8 due items, earliest due first."""
     trip = active_trip(request.user)

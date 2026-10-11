@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count, Q
 from django.db.models.functions import TruncDate
@@ -17,10 +16,11 @@ from .models import NAMES, Event, track
 DAYS = 30
 
 
-@login_required
 @require_POST
 def video_play(request, item_id):
     """The step page posts here (sendBeacon) when a family starts a video."""
+    if not request.user.is_authenticated:
+        return HttpResponse(status=204)
     item = get_object_or_404(CourseItem.objects.select_related("course__trip"), id=item_id, course__trip__user=request.user)
     track("video_play", user=request.user, trip=item.course.trip, activity=item.activity_id,
           video=request.POST.get("video", "")[:40])
@@ -43,7 +43,6 @@ def funnel():
     return [{"label": label, "count": n, "pct": round(100 * n / top)} for label, n in steps]
 
 
-@login_required
 def stats(request):
     if not request.user.is_staff:
         raise PermissionDenied

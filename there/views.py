@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from accounts.guest import family_required
 from django.http import FileResponse, Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -29,7 +29,7 @@ def things_with_photos(trip):
     return rows
 
 
-@login_required
+@family_required
 def hunt(request):
     """'While we are there': a list of things to find in Japan. A photo of a thing ticks it off."""
     trip = active_trip(request.user)
@@ -42,7 +42,7 @@ def hunt(request):
         "found": sum(1 for r in rows if r["photos"]), "total": len(rows)})
 
 
-@login_required
+@family_required
 @require_POST
 def add_photo(request, thing):
     trip = active_trip(request.user)
@@ -68,7 +68,7 @@ def add_photo(request, thing):
     return redirect(reverse("there") + f"#{thing}")
 
 
-@login_required
+@family_required
 def photo_file(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id, trip__user=request.user)
     response = FileResponse(photo.file.open("rb"), content_type=photo.content_type)
@@ -76,7 +76,7 @@ def photo_file(request, photo_id):
     return response
 
 
-@login_required
+@family_required
 @require_POST
 def delete_photo(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id, trip__user=request.user)

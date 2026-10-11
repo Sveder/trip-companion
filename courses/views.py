@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
+from accounts.guest import family_required
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -38,7 +38,7 @@ def home(request):
     return redirect("activity", item_id=item.id)
 
 
-@login_required
+@family_required
 def course(request):
     """The course as an ordered list. Every ready activity opens again, also after it is done."""
     trip = active_trip(request.user)
@@ -55,7 +55,7 @@ def course(request):
         "done": sum(1 for i in ready if i.is_done), "total": len(ready)})
 
 
-@login_required
+@family_required
 def builder(request):
     trip = active_trip(request.user)
     if trip is None:
@@ -87,7 +87,7 @@ def _highlights_page(request, trip, course):
     return render(request, "courses/highlights.html", {"trip": trip, "course": course, "phase": trip_phase(trip), **trip_highlights(trip, course)})
 
 
-@login_required
+@family_required
 def highlights(request):
     """The highlights page. Home shows it by itself after the trip; before that it is a preview."""
     trip = active_trip(request.user)

@@ -5,13 +5,13 @@
   {% include "includes/mark.html" with cls="hero-guide" %}
   <h1>{% translate "Get ready for your trip!" %}</h1>
   <p class="lead">{% translate "Short, fun activities for the whole family. Learn the food, the words and the fun stuff before you fly." %}</p>
-  <a class="btn big" href="{% url 'signin' %}">{% translate "Let's start" %}</a>
+  <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Let's start" %}</a>
 </section>
 <h2 class="section-title">{% translate "Where are you going?" %}</h2>
 <div class="cards countries">
   {% for c in previews %}
   {% if c.ready %}
-  <a class="card country go" href="{% url 'signin' %}">
+  <a class="card country go" href="{% url 'trip_setup' %}">
     <div class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>

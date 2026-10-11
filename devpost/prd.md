@@ -12,7 +12,7 @@ Source: `scope.md > The Unique Kernel`, `scope.md > Who It's For`.
 ## The Core Journey
 Develops `scope.md > The Core Loop` and `scope.md > What "Working" Looks Like`.
 
-1. **Log in** — a simple email login, or Google sign-in.
+1. **No account** — anyone opens the site and starts. The browser keeps the family; no email, no password (Michael, 2026-10-11).
 2. **Tell the app about the trip** — where (Japan; other countries show as "coming soon"), who is coming, in four age groups (little ones 0-3, kids 4-8, big kids 9-12, grown-ups 13+): the parent drags each person into a plane (Michael, feedback 2026-10-08).
 3. **See the suggested course** — the app suggests a course and shows all available modules. Modules that fit the family are
    in the suggestion; the others (e.g. kids' activities for a family without kids) are shown, ready to add.
@@ -52,7 +52,7 @@ Works on a phone and in the TV's web browser (big, readable, remote-friendly on 
 ## Features and Behavior
 
 ### Login
-- [ ] A new user can sign in with an email login or with Google, and lands on trip setup.
+- [ ] A new visitor taps "Let's start" and lands on trip setup, with no sign-in page.
 - [ ] A returning user lands on "today / next activity".
 
 ### Trip setup and course builder
@@ -125,7 +125,7 @@ From `scope.md > The POC Boundary`:
 - Japan only in full; other countries as previews — to show that a little-known country can be unlocked, without building it now.
 - Referral links (snack box, children's chopsticks) instead of a store — no payments now.
 - Premium modules and real payments: later — "once we build it more".
-- Login: simple email, or Google.
+- Login: none. A guest family lives in the browser (feedback T144, 2026-10-11).
 - Reminders a few times a week, not daily — "kids have other activities to do and adults".
 - YouTube videos are chosen by the agent and approved by Michael before use.
 - Two languages: English and Hebrew, so our 4-year-old can play (Michael's feedback, 2026-10-08). A switch in the header

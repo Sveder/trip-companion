@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+from accounts.guest import family_required
 from django.http import FileResponse, Http404, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import select_template
@@ -29,7 +29,7 @@ def _item_for(request, item_id):
     )
 
 
-@login_required
+@family_required
 def activity(request, item_id):
     item = _item_for(request, item_id)
     course = item.course
@@ -67,7 +67,7 @@ def activity(request, item_id):
     )
 
 
-@login_required
+@family_required
 @require_POST
 def activity_done(request, item_id):
     item = _item_for(request, item_id)
@@ -107,7 +107,7 @@ def activity_done(request, item_id):
     return redirect("activity", item_id=nxt.id)
 
 
-@login_required
+@family_required
 def activity_praise(request, item_id):
     """'Great job!' between two activities: the guide cheers and the progress bar moves up one step."""
     item = _item_for(request, item_id)
@@ -131,7 +131,7 @@ def activity_praise(request, item_id):
     })
 
 
-@login_required
+@family_required
 @require_POST
 def clip_save(request, item_id):
     """Save the clip a family recorded in a 'record' step. The browser posts it as a file."""
@@ -152,13 +152,13 @@ def clip_save(request, item_id):
     return JsonResponse({"id": clip.id, "url": reverse("clip", args=[clip.id])})
 
 
-@login_required
+@family_required
 def clip_file(request, clip_id):
     clip = get_object_or_404(Clip, id=clip_id, trip__user=request.user)
     return FileResponse(clip.file.open("rb"), content_type=clip.content_type)
 
 
-@login_required
+@family_required
 def go(request, item_id, link_id):
     """Count a click on a shop link, then open the shop."""
     item = _item_for(request, item_id)

@@ -131,9 +131,12 @@ class StatsPageTests(TestCase):
         self.client.cookies["django_language"] = "he"
         self.assertContains(self.client.get(reverse("stats")), "הדף הזה מיועד לצוות", status_code=403)
 
-    def test_signed_out_goes_to_sign_in(self):
+    def test_signed_out_is_forbidden(self):
+        # T144: no sign-in page for families any more; a visitor with no staff login gets the 403 page.
+        before = get_user_model().objects.count()
         r = self.client.get(reverse("stats"))
-        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.status_code, 403)
+        self.assertEqual(get_user_model().objects.count(), before)  # the stats page makes no guest family
 
     def test_staff_sees_funnel_and_daily_totals(self):
         item = chopsticks_item(self.parent, [38, 4])

@@ -41,7 +41,8 @@
         <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>
         <a href="{% url 'there' %}">{% translate "In Japan" %}</a>
         <a href="{% url 'trip_setup' %}">{% translate "Our trip" %}</a>
-        <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>
+        {# A guest family has no email and cannot come back after a sign-out, so only staff see it (T144). #}
+        {% if user.email %}<form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>{% endif %}
       </nav>
       {% endif %}
       <form class="lang-switch" method="post" action="{% url 'set_language' %}">{% csrf_token %}

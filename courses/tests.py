@@ -260,9 +260,9 @@ class ThemeTests(TestCase):
         self.assertIn("css/app.css", html)
         self.assertIn("js/celebrate.js", html)
 
-    def test_welcome_ready_country_card_links_to_sign_in(self):
+    def test_welcome_ready_country_card_links_to_trip_setup(self):
         html = self.client.get("/").content.decode()
-        self.assertRegex(html, r'<a class="card country go" href="/signin/"')
+        self.assertRegex(html, r'<a class="card country go" href="/trip/"')
         self.assertNotRegex(html, r'<a class="card country soon')
 
     def test_header_mark_is_decorative(self):

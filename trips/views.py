@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from accounts.guest import family_required
 from django.db import transaction
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -15,7 +15,7 @@ from .forms import TripForm
 from .models import GROUPS, Traveller, Trip, active_trip
 
 
-@login_required
+@family_required
 def trip_setup(request):
     trip = active_trip(request.user)
     if request.method == "POST":
@@ -58,7 +58,7 @@ def trip_setup(request):
     })
 
 
-@login_required
+@family_required
 @require_POST
 def in_japan_now(request):
     """T93: a trip with no leave date starts today, so the 'in Japan' part (photo hunt, highlights) switches on."""
@@ -74,7 +74,7 @@ def in_japan_now(request):
     return redirect("there")
 
 
-@login_required
+@family_required
 @require_POST
 def back_home(request):
     """T110: 'We are home!' ends the trip today, so home shows the highlights."""
