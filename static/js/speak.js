@@ -89,7 +89,9 @@
   }
   function hintMaybe() {
     if (!hint) return;
-    var talks = document.querySelector('.say-word[data-say-src]:not([data-say-src=""]), [data-say][data-say-src]:not([data-say-src=""])');
+    // Only a word on screen counts: a lesson keeps its other pages hidden, so the hint waits for the page with a word.
+    var all = document.querySelectorAll('[data-say][data-say-src]:not([data-say-src=""])'), talks = false;
+    for (var i = 0; i < all.length && !talks; i++) talks = all[i].getClientRects().length > 0;
     if (!talks) return;
     try {
       if (localStorage.getItem('tc_hint_say') === '1') return;
@@ -111,6 +113,8 @@
   });
   pick();
   hintMaybe();
+  // lesson.js fires lpage-show on the page it opens; the event does not bubble, so listen in the capture phase.
+  document.addEventListener('lpage-show', function () { setTimeout(hintMaybe, 0); }, true);
   if (synth) {
     if (synth.addEventListener) synth.addEventListener('voiceschanged', pick); else synth.onvoiceschanged = pick;
   }
