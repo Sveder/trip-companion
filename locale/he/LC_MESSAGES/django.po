@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 15:37+0300\n"
+"POT-Creation-Date: 2026-10-11 16:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,7 +184,7 @@ msgid "Activity %(number)s of %(total)s"
 msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
-#: templates/activities/lesson.html:156 templates/activities/praise.html:24
+#: templates/activities/lesson.html:161 templates/activities/praise.html:24
 #: templates/courses/course.html:23
 msgid "Next"
 msgstr "הבא"
@@ -258,7 +258,7 @@ msgstr "דף 1 מתוך %(total)s"
 msgid "Page %(n)s of %(total)s"
 msgstr "דף %(n)s מתוך %(total)s"
 
-#: templates/activities/lesson.html:24 templates/activities/lesson.html:61
+#: templates/activities/lesson.html:24 templates/activities/lesson.html:66
 msgid "Photo:"
 msgstr "צילום:"
 
@@ -266,24 +266,28 @@ msgstr "צילום:"
 msgid "A grown-up buys it. The shop opens in a new tab."
 msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
 
-#: templates/activities/lesson.html:66
+#: templates/activities/lesson.html:48
+msgid "Tap a number to find out more!"
+msgstr "לחצו על מספר כדי לגלות עוד!"
+
+#: templates/activities/lesson.html:71
 msgid "Photo credits"
 msgstr "קרדיט לתמונות"
 
-#: templates/activities/lesson.html:100
+#: templates/activities/lesson.html:105
 msgid "Keep going!"
 msgstr "ממשיכים!"
 
-#: templates/activities/lesson.html:103 templates/activities/lesson.html:128
+#: templates/activities/lesson.html:108 templates/activities/lesson.html:133
 #: templates/activities/steps.html:44
 msgid "Again"
 msgstr "עוד פעם"
 
-#: templates/activities/lesson.html:127
+#: templates/activities/lesson.html:132
 msgid "Next round"
 msgstr "לסיבוב הבא"
 
-#: templates/activities/lesson.html:155 templates/trips/new.html:13
+#: templates/activities/lesson.html:160 templates/trips/new.html:13
 msgid "Back"
 msgstr "אחורה"
 

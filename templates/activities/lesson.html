@@ -43,6 +43,11 @@
       </div>
       <p class="lspots-count" data-spots-count aria-live="polite"></p>
       <div class="spot-infos">
+      {# Before the first tap the box lists every number with its name, so it is not empty; a tap on a name taps its number (T135). #}
+      <div class="spot-info spot-start show" data-spot-start>
+        <p class="spot-start-hint">{% translate "Tap a number to find out more!" %}</p>
+        <ol class="spot-names">{% for spot in page.spots %}<li><button type="button" data-spot-name="{{ forloop.counter0 }}"><b>{{ forloop.counter }}</b> {{ spot.label }}</button></li>{% endfor %}</ol>
+      </div>
       {% for spot in page.spots %}
       <div class="spot-info" data-spot-info="{{ forloop.counter0 }}">
         <h3>{{ spot.label }}{% if spot.japanese %} <span class="jp small say-word" lang="ja" data-say="{{ spot.japanese }}" data-say-src="{{ spot.reading|word_audio }}" tabindex="0">{{ spot.japanese }} · {{ spot.reading }}</span>{% endif %}</h3>

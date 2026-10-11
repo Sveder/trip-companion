@@ -424,6 +424,10 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .spot-info.show { visibility: visible; }
 .spot-info h3 { margin: 0 0 .2rem; }
 .spot-info p { margin: 0; }
+.spot-start-hint { font-weight: 700; margin-bottom: .3rem !important; }
+.spot-names { list-style: none; margin: 0; padding: 0; text-align: start; display: grid; grid-template-columns: repeat(auto-fill, minmax(8em, 1fr)); column-gap: .6rem; line-height: 1.25; }
+.spot-names button { font: inherit; background: none; border: 0; padding: .15rem 0; color: var(--c-ink); cursor: pointer; text-align: start; }
+.spot-names b { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; margin-inline-end: .4rem; border-radius: 50%; background: var(--c-primary); color: var(--c-primary-ink); font-size: .85em; }
 /* T116: on a phone the picture gets most of the card. Smaller numbers, a thinner side band that reaches into the card padding.
    lesson.js puts each number half its width plus 3 px outside the picture, so a 20 px number needs 23 px of band. */
 @media (max-width: 600px) {

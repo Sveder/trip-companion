@@ -57,6 +57,18 @@ class SushiLessonTests(TestCase):
         self.assertIn("rate = Math.min(rate * 1.07, 2.5)", js)
         self.assertIn("playbackRate = rate", js)
 
+    def test_spots_start_list_t135(self):
+        """Before the first tap the text box lists every number with its name, so it is not blank; en and he."""
+        html = self.page()
+        self.assertEqual(html.count("data-spot-start"), 1)
+        self.assertEqual(html.count("data-spot-name="), html.count('class="lspot"'))
+        self.assertIn('data-spot-name="0"><b>1</b> Fish</button>', html)
+        self.assertIn("Tap a number to find out more!", html)
+        self.assertIn("לחצו על מספר כדי לגלות עוד!", self.page("he"))
+        js = (Path(settings.BASE_DIR) / "static" / "js" / "lesson.js").read_text()
+        self.assertIn("start.classList.remove('show')", js)
+        self.assertIn("[data-spot-name]", js)
+
     def test_michael_feedback_t157(self):
         """The belt is 30 percent faster (21 s), and 'Keep going!' starts endless rounds with a kept best score."""
         root = Path(settings.BASE_DIR) / "static"

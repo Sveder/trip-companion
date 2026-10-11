@@ -136,10 +136,17 @@
     box.querySelector('.lpic').addEventListener('load', place);
     window.addEventListener('resize', place);
     page.addEventListener('lpage-show', place);
+    // A name in the start list taps its number (T135).
+    page.addEventListener('click', function (e) {
+      var nm = e.target.closest('[data-spot-name]');
+      if (nm) box.querySelector('.lspot[data-spot="' + nm.getAttribute('data-spot-name') + '"]').click();
+    });
+    var start = page.querySelector('[data-spot-start]');
     box.addEventListener('click', function (e) {
       var b = e.target.closest('[data-spot]');
       if (!b) return;
       var n = b.getAttribute('data-spot');
+      if (start) start.classList.remove('show');
       var infos = page.querySelectorAll('[data-spot-info]');
       var word = null;
       for (var i = 0; i < infos.length; i++) {
