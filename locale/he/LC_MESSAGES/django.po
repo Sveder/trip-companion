@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 12:46+0300\n"
+"POT-Creation-Date: 2026-10-11 12:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr "הקוד שלכם (6 ספרות)"
 msgid "Welcome back! This device is connected."
 msgstr "ברוכים השבים! המכשיר הזה מחובר."
 
-#: courses/views.py:69
+#: courses/views.py:72
 msgid "Pick at least one thing to learn."
 msgstr "בחרו לפחות דבר אחד ללמוד."
 
@@ -233,7 +233,7 @@ msgstr "דף %(n)s מתוך %(total)s"
 msgid "A grown-up buys it. The shop opens in a new tab."
 msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
 
-#: templates/activities/lesson.html:116
+#: templates/activities/lesson.html:116 templates/trips/new.html:13
 msgid "Back"
 msgstr "אחורה"
 
@@ -450,7 +450,7 @@ msgstr "המסלול שלנו ליפן"
 msgid "We did %(done)s of %(total)s. Tap any one to play it again!"
 msgstr "עשינו %(done)s מתוך %(total)s. לחצו על כל אחת כדי לשחק בה שוב!"
 
-#: templates/courses/course.html:16 templates/courses/welcome.html:32
+#: templates/courses/course.html:16 templates/courses/welcome.html:40
 #: templates/trips/setup.html:25
 msgid "Coming soon"
 msgstr "בקרוב"
@@ -475,6 +475,11 @@ msgstr "לשחק שוב"
 #: templates/courses/course.html:31
 msgid "Change our course"
 msgstr "שינוי המסלול"
+
+#: templates/courses/course.html:32 templates/courses/finished.html:25
+#: templates/courses/welcome.html:13 templates/trips/new.html:3
+msgid "New course"
+msgstr "מסלול חדש"
 
 #: templates/courses/finished.html:3
 msgid "All done"
@@ -578,11 +583,24 @@ msgstr "עניתם נכון בחידון. לחצו על מילה כדי לשמו
 msgid "No words yet."
 msgstr "עוד אין מילים."
 
-#: templates/courses/highlights.html:74
+#: templates/courses/highlights.html:75
+msgid "Our past courses"
+msgstr "המסלולים הקודמים שלנו"
+
+#: templates/courses/highlights.html:78
+#, python-format
+msgid "Course from %(day)s"
+msgstr "מסלול מ-%(day)s"
+
+#: templates/courses/highlights.html:85
+msgid "Back to our course now"
+msgstr "חזרה למסלול של עכשיו"
+
+#: templates/courses/highlights.html:87
 msgid "Play the quiz"
 msgstr "שחקו בחידון"
 
-#: templates/courses/highlights.html:75
+#: templates/courses/highlights.html:88
 msgid "Change our trip"
 msgstr "שינוי הטיול"
 
@@ -601,34 +619,38 @@ msgid ""
 msgstr ""
 "משחקים קצרים וכיפיים לכל המשפחה. אוכל, מילים והפתעות קטנות, הכול לפני הטיסה."
 
-#: templates/courses/welcome.html:9
+#: templates/courses/welcome.html:12
+msgid "Go to our course"
+msgstr "למסלול שלנו"
+
+#: templates/courses/welcome.html:16
 msgid "Let's start"
 msgstr "בואו נתחיל"
 
-#: templates/courses/welcome.html:11 templates/trips/setup.html:10
+#: templates/courses/welcome.html:19 templates/trips/setup.html:10
 msgid "Where are you going?"
 msgstr "לאן אתם נוסעים?"
 
-#: templates/courses/welcome.html:19 templates/courses/welcome.html:42
+#: templates/courses/welcome.html:27 templates/courses/welcome.html:50
 #: templates/reminders/email.html:7
 msgid "Let's go!"
 msgstr "יוצאים לדרך!"
 
-#: templates/courses/welcome.html:38
+#: templates/courses/welcome.html:46
 msgid "Half the fun is before you go"
 msgstr "חצי מהכיף הוא לפני הטיול"
 
-#: templates/courses/welcome.html:39
+#: templates/courses/welcome.html:47
 msgid "Waiting for a trip is half the fun."
 msgstr "לחכות לטיול זה חצי מהכיף."
 
-#: templates/courses/welcome.html:40
+#: templates/courses/welcome.html:48
 msgid ""
 "Here your family learns what people eat, say and do where you are going."
 msgstr ""
 "כאן המשפחה שלכם לומדת מה אוכלים, מה אומרים ומה עושים במקום שאליו אתם נוסעים."
 
-#: templates/courses/welcome.html:41
+#: templates/courses/welcome.html:49
 msgid "By the time you fly, everyone is excited."
 msgstr "כשתעלו על המטוס, כולם כבר יתרגשו."
 
@@ -1027,6 +1049,18 @@ msgstr ""
 msgid "Our highlights"
 msgstr "הרגעים הכי יפים שלנו"
 
+#: templates/trips/new.html:7
+msgid "Start a new course?"
+msgstr "להתחיל מסלול חדש?"
+
+#: templates/trips/new.html:8
+msgid "Your old course moves to Highlights. The new one starts empty."
+msgstr "המסלול הישן עובר לרגעים הכי יפים. החדש מתחיל ריק."
+
+#: templates/trips/new.html:12
+msgid "Yes, new course"
+msgstr "כן, מסלול חדש"
+
 #: templates/trips/setup.html:6
 msgid "Tell us about your trip"
 msgstr "ספרו לנו על הטיול שלכם"
@@ -1137,14 +1171,14 @@ msgid_plural "%(n)d grown-ups"
 msgstr[0] "מבוגר אחד"
 msgstr[1] "%(n)d מבוגרים"
 
-#: trips/views.py:40
+#: trips/views.py:41
 msgid "Trip updated."
 msgstr "הטיול עודכן."
 
-#: trips/views.py:72
+#: trips/views.py:73
 msgid "Have a great trip! Here is your photo list."
 msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 
-#: trips/views.py:91
+#: trips/views.py:92
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."

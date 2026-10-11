@@ -2,6 +2,7 @@ from django.contrib import messages
 from accounts.guest import family_required
 from django.db import transaction
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
@@ -90,3 +91,19 @@ def back_home(request):
     track("trip_ended_now", trip=trip)
     messages.success(request, _("Welcome home! Here is what you did."))
     return redirect("home")
+
+
+@family_required
+def new_trip(request):
+    """T155: 'New course'. GET asks once; POST starts a new trip with the same place and people.
+    The old trip and its course stay, so Highlights still lists what the family did."""
+    old = active_trip(request.user)
+    if old is None:
+        return redirect("trip_setup")
+    if request.method != "POST":
+        return render(request, "trips/new.html", {"trip": old})
+    with transaction.atomic():
+        trip = Trip.objects.create(user=request.user, destination=old.destination)
+        Traveller.objects.bulk_create(Traveller(trip=trip, age=t.age) for t in old.travellers.all())
+    track("trip_set_up", trip=trip, new=True, travellers=trip.travellers.count(), restart=True)
+    return redirect(reverse("trip_setup") + "?new=1")

@@ -74,7 +74,7 @@ def activity_done(request, item_id):
     act = item.activity
     if item.is_stub:
         # A "coming soon" stub never counts as done, so the family sees it when it turns real.
-        return redirect("home")
+        return redirect("next_step")
     found_note = ""
     if act.type == "streetview":
         # A done hunt plays again from no ticks, so the same rules apply on a replay. The item stays done.
@@ -100,7 +100,7 @@ def activity_done(request, item_id):
     add_items(item.course.trip, item.activity)
     nxt = item.course.next_item(after=item)
     if nxt is None:
-        return redirect("home")
+        return redirect("next_step")
     if first_time:
         # A short praise screen before the next activity. The last one goes to the finish page instead.
         return redirect(reverse("activity_praise", args=[item.id]) + found_note)

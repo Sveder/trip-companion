@@ -231,7 +231,7 @@ class StreetViewHuntTests(TestCase):
     def test_ticking_all_items_marks_the_item_done(self):
         item = self.item()
         r = self.done(item, ["0", "1", "2", "3", "4"])
-        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+        self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
         item.refresh_from_db()
         self.assertIsNotNone(item.done_at)
 
@@ -261,7 +261,7 @@ class StreetViewHuntTests(TestCase):
         n = len(hunts[0].data["spots"])
         self.assertEqual(r["Location"], reverse("activity_praise", args=[first.id]) + f"?found=2&of={n}")
         self.assertIn(f"You found 2 of {n}!", self.client.get(r["Location"]).content.decode())
-        home = self.client.get(reverse("home"))
+        home = self.client.get(reverse("next_step"))
         self.assertRedirects(home, reverse("activity", args=[second.id]), fetch_redirect_response=False)
 
     def test_praise_after_a_skip_with_nothing_found_says_good_try(self):

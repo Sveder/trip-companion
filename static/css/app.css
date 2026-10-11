@@ -540,3 +540,9 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .why h2 { margin: 0 0 .6rem; }
 .why p { margin: .4rem 0; line-height: 1.5; }
 .why form { margin: 1rem 0 0; }
+/* T155: 'Go to our course' and 'New course' side by side; they wrap on a narrow phone. */
+.hero-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem .8rem; }
+.new-course { text-align: center; max-width: 520px; margin: 1rem auto; }
+.new-course-link { margin: 1rem 0 0; text-align: center; }
+.past-courses { list-style: none; padding: 0; max-width: 520px; margin: 0 auto 1rem; display: grid; gap: .5rem; }
+.past-courses a.card { display: flex; justify-content: space-between; padding: .8rem 1.1rem; text-decoration: none; color: var(--c-ink); font-weight: 700; }

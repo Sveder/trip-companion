@@ -3,6 +3,11 @@
    sends the copy back to /state/restore/ and reloads, so the family gets the same course again. */
 (function () {
   var KEY = 'tc_state', TRIED = 'tc_restore_tried';
+  // T155: 'New course' drops the saved copy, so the old family cannot come back from localStorage.
+  document.addEventListener('submit', function (e) {
+    if (!e.target.hasAttribute || !e.target.hasAttribute('data-clear-state')) return;
+    try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + '_at'); } catch (err) { /* ignore */ }
+  }, true);
   var body = document.body;
   if (!body || !window.fetch || !window.localStorage) return;
 

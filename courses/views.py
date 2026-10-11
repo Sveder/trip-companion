@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 from analytics.models import track
 from content_admin.i18n import localize
 from content_admin.loader import load_previews
-from trips.models import active_trip
+from trips.models import Trip, active_trip
 
 from .builder import build_course, suggestions
 from .highlights import highlights as trip_highlights, trip_phase
@@ -15,9 +15,21 @@ from .models import Course
 
 
 def home(request):
-    """Signed out: the welcome page. Signed in: the next step for this family."""
+    """Signed out: the welcome page. Signed in: the next step for this family.
+    T155: before the trip, a family part way through its course gets the welcome page with
+    'Go to our course' and 'New course'."""
     if not request.user.is_authenticated:
         return render(request, "courses/welcome.html", {"previews": localize(load_previews())})
+    return _next_step(request, welcome=True)
+
+
+@family_required
+def next_step(request):
+    """The next activity, with no welcome page in between: after the builder and after a 'Next' button (T155)."""
+    return _next_step(request, welcome=False)
+
+
+def _next_step(request, welcome):
     trip = active_trip(request.user)
     if trip is None:
         return redirect("trip_setup")
@@ -35,6 +47,9 @@ def home(request):
     if item is None:
         return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase, "more_soon": course.has_stubs(),
                                                               "skipped": course.skipped_items().count()})
+    if welcome and phase == "before":
+        # T155: before the trip, home is the welcome page with "Go to our course" and "New course".
+        return render(request, "courses/welcome.html", {"previews": localize(load_previews()), "course": course})
     return redirect("activity", item_id=item.id)
 
 
@@ -77,20 +92,29 @@ def builder(request):
                     track("module_added", trip=trip, module=m)
                 for m in sorted(before - after):
                     track("module_removed", trip=trip, module=m)
-            return redirect("home")
+            return redirect("next_step")
     on = set(course.module_ids) if course else {m.id for m, fit in rows if fit}
     modules = [{"module": m, "suggested": fit, "on": m.id in on} for m, fit in rows]
     return render(request, "courses/builder.html", {"trip": trip, "modules": modules, "course": course})
 
 
-def _highlights_page(request, trip, course):
-    return render(request, "courses/highlights.html", {"trip": trip, "course": course, "phase": trip_phase(trip), **trip_highlights(trip, course)})
+def _highlights_page(request, trip, course, past=False):
+    # T155: the active trip's page lists the family's older courses, one line each.
+    others = [] if past else list(Trip.objects.filter(user=request.user).exclude(id=trip.id))
+    return render(request, "courses/highlights.html", {"trip": trip, "course": course, "phase": trip_phase(trip), "past": past,
+                                                       "past_trips": others, **trip_highlights(trip, course)})
 
 
 @family_required
 def highlights(request):
-    """The highlights page. Home shows it by itself after the trip; before that it is a preview."""
+    """The highlights page. Home shows it by itself after the trip; before that it is a preview.
+    ?trip=<id> opens an older course of the same family (T155)."""
     trip = active_trip(request.user)
     if trip is None:
         return redirect("trip_setup")
+    wanted = request.GET.get("trip", "")
+    if wanted.isdigit() and int(wanted) != trip.id:
+        old = Trip.objects.filter(user=request.user, id=int(wanted)).first()
+        if old is not None:
+            return _highlights_page(request, old, Course.objects.filter(trip=old).first(), past=True)
     return _highlights_page(request, trip, Course.objects.filter(trip=trip).first())

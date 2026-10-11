@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "New course" %}{% endblock %}
+{% block content %}
+{# T155: one question before a new course. The old course stays in Highlights. #}
+<section class="panel new-course">
+  <h1>{% translate "Start a new course?" %}</h1>
+  <p class="lead">{% translate "Your old course moves to Highlights. The new one starts empty." %}</p>
+  <form method="post" data-clear-state>
+    {% csrf_token %}
+    <div class="hero-buttons">
+      <button class="btn big" type="submit">{% translate "Yes, new course" %}</button>
+      <a class="btn big alt" href="{% url 'home' %}">{% translate "Back" %}</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

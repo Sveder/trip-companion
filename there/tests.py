@@ -109,7 +109,7 @@ class WhileWeAreThereTests(TestCase):
 
     def test_before_the_trip_home_keeps_the_course_and_the_list_says_it_is_for_later(self):
         self.set_dates(10, 20)
-        r = self.client.get("/")
+        r = self.client.get(reverse("next_step"))
         self.assertRedirects(r, reverse("activity", args=[self.course.next_item().id]), fetch_redirect_response=False)
         self.assertIn("This list is for the trip.", self.client.get(reverse("there")).content.decode())
 

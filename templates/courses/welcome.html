@@ -6,7 +6,15 @@
   {# T154: the word 'excited' buzzes; a tap opens the 'why' dialog. The tag sits in the string so Hebrew keeps its word order. #}
   <h1>{% blocktranslate trimmed %}Get <button type="button" class="buzz" data-why aria-haspopup="dialog">excited</button> for your trip!{% endblocktranslate %}</h1>
   <p class="lead">{% translate "Short, fun games for the whole family. Food, words and little surprises, all before you fly." %}</p>
+  {% if course %}
+  {# T155: a family with a course goes back to it, or starts a new one. #}
+  <div class="hero-buttons">
+    <a class="btn big" href="{% url 'course' %}">{% translate "Go to our course" %}</a>
+    <a class="btn big alt" href="{% url 'new_trip' %}">{% translate "New course" %}</a>
+  </div>
+  {% else %}
   <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Let's start" %}</a>
+  {% endif %}
 </section>
 <h2 class="section-title">{% translate "Where are you going?" %}</h2>
 <div class="cards countries">

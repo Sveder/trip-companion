@@ -111,4 +111,4 @@ class Traveller(models.Model):
 
 def active_trip(user):
     """One active trip per account: the newest one."""
-    return Trip.objects.filter(user=user).prefetch_related("travellers").first()
+    return Trip.objects.filter(user=user).order_by("-created_at", "-id").prefetch_related("travellers").first()

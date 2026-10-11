@@ -199,10 +199,10 @@ class FlowTests(TestCase):
         # Parent adds "buy before you go" on top of the suggestion (it is suggested anyway here).
         ids = [str(m.id) for m in Module.objects.all()]
         r = c.post(reverse("builder"), {"modules": ids})
-        self.assertRedirects(r, "/", fetch_redirect_response=False)
+        self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
         course = Course.objects.get()
         first = course.items.first()
-        r = c.get("/")
+        r = c.get(reverse("next_step"))
         self.assertRedirects(r, reverse("activity", args=[first.id]))
         page = c.get(reverse("activity", args=[first.id]))
         self.assertContains(page, "Sushi")
@@ -213,7 +213,7 @@ class FlowTests(TestCase):
         self.assertContains(praise, "Great job!")
         self.assertContains(praise, 'href="/"')
         second = course.items.all()[1]
-        self.assertRedirects(c.get("/"), reverse("activity", args=[second.id]))
+        self.assertRedirects(c.get(reverse("next_step")), reverse("activity", args=[second.id]))
 
     def test_other_users_activity_is_404(self):
         a = get_user_model().objects.create_user("a@example.com", "a@example.com")
@@ -318,9 +318,12 @@ class AfterTheTripTests(TestCase):
         self.assertEqual(trip_phase(trip, date(2026, 11, 21)), "after")
         self.assertEqual(trip_phase(Trip(), date(2030, 1, 1)), "before")
 
-    def test_before_the_trip_home_opens_the_next_activity(self):
+    def test_before_the_trip_home_offers_the_course_and_next_opens_the_next_activity(self):
         self.set_dates(10, 20)
         r = self.client.get("/")
+        self.assertTemplateUsed(r, "courses/welcome.html")
+        self.assertContains(r, reverse("course"))
+        r = self.client.get(reverse("next_step"))
         self.assertRedirects(r, reverse("activity", args=[self.course.next_item().id]), fetch_redirect_response=False)
 
     def test_before_the_trip_finished_course_offers_the_quiz(self):
@@ -537,7 +540,7 @@ class StubTests(TestCase):
     def test_finish_after_the_ready_items_only(self):
         self.assertTrue(self.ready and self.stubs)
         for item in self.ready:
-            self.assertRedirects(self.client.get("/"), reverse("activity", args=[item.id]))
+            self.assertRedirects(self.client.get(reverse("next_step")), reverse("activity", args=[item.id]))
             page = self.client.get(reverse("activity", args=[item.id]))
             self.assertEqual(page.context["progress"]["total"], len(self.ready))
             self.client.post(reverse("activity_done", args=[item.id]))
@@ -553,7 +556,7 @@ class StubTests(TestCase):
         Module.objects.filter(id=stub.activity.module_id).update(ready=True)
         stub.refresh_from_db()
         self.assertIsNone(stub.done_at)
-        self.assertRedirects(self.client.get("/"), reverse("activity", args=[stub.id]))
+        self.assertRedirects(self.client.get(reverse("next_step")), reverse("activity", args=[stub.id]))
 
     def test_admin_ready_switch_clears_old_done_marks(self):
         from django.contrib.admin.sites import site
@@ -592,7 +595,7 @@ class PraiseTests(TestCase):
         self.assertContains(page, "Great job!")
         self.assertContains(page, f"1 of {len(self.ready)} done")
         self.assertEqual(page.context["progress"]["before"], 0)
-        self.assertRedirects(self.client.get("/"), reverse("activity", args=[self.ready[1].id]))
+        self.assertRedirects(self.client.get(reverse("next_step")), reverse("activity", args=[self.ready[1].id]))
         # T108: the emoji is a badge beside the guide, and a 'Next up' card names the next activity.
         self.assertContains(page, 'class="praise-top"')
         self.assertContains(page, "Next up")
@@ -635,7 +638,7 @@ class PraiseTests(TestCase):
         last = self.ready[-1]
         found = [str(i) for i in range(len(last.activity.data.get("spots", [])))]
         r = self.client.post(reverse("activity_done", args=[last.id]), {"found": found})
-        self.assertRedirects(r, reverse("home"), fetch_redirect_response=False)
+        self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
 
     def test_other_users_praise_is_404(self):
         other = get_user_model().objects.create_user("o@example.com", "o@example.com")
@@ -986,3 +989,78 @@ class WhyDialogTests(TestCase):
         self.assertRegex(css, r"prefers-reduced-motion: reduce\) \{ \.buzz \{ animation: none; \} \}")
         js = (settings.BASE_DIR / "static" / "js" / "why.js").read_text()
         self.assertIn("tc_why_seen", js)
+
+
+class NewCourseTests(TestCase):
+    """T155: home offers 'Go to our course' and 'New course'; a new course keeps the old one in Highlights."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("n@example.com", "n@example.com")
+        self.trip = make_trip(self.user, [38, 6])
+        self.course = build_course(self.trip, [m.id for m, on in suggestions(self.trip) if on])
+        self.first = self.course.next_item()
+        self.first.mark_done()
+        self.client.force_login(self.user)
+
+    def test_home_shows_both_buttons(self):
+        r = self.client.get("/")
+        self.assertTemplateUsed(r, "courses/welcome.html")
+        self.assertContains(r, f'href="{reverse("course")}"')
+        self.assertContains(r, f'href="{reverse("new_trip")}"')
+        self.assertContains(r, "Go to our course")
+        self.assertNotContains(r, "Let's start")
+
+    def test_hebrew_buttons_and_confirm(self):
+        self.client.cookies["django_language"] = "he"
+        r = self.client.get("/", HTTP_ACCEPT_LANGUAGE="he")
+        self.assertContains(r, "למסלול שלנו")
+        self.assertContains(r, "מסלול חדש")
+        r = self.client.get(reverse("new_trip"), HTTP_ACCEPT_LANGUAGE="he")
+        self.assertContains(r, "להתחיל מסלול חדש?")
+
+    def test_course_page_links_to_a_new_course(self):
+        self.assertContains(self.client.get(reverse("course")), f'href="{reverse("new_trip")}"')
+
+    def test_get_asks_and_changes_nothing(self):
+        r = self.client.get(reverse("new_trip"))
+        self.assertContains(r, "Start a new course?")
+        self.assertContains(r, "data-clear-state")
+        self.assertEqual(Trip.objects.filter(user=self.user).count(), 1)
+
+    def test_post_starts_a_fresh_course_and_keeps_the_old_one(self):
+        r = self.client.post(reverse("new_trip"))
+        self.assertRedirects(r, reverse("trip_setup") + "?new=1", fetch_redirect_response=False)
+        trips = Trip.objects.filter(user=self.user).order_by("created_at", "id")
+        self.assertEqual(trips.count(), 2)
+        old, new = trips
+        self.assertEqual(old.id, self.trip.id)
+        self.assertEqual(sorted(new.ages), sorted(old.ages))
+        self.assertEqual(new.destination, old.destination)
+        self.assertFalse(Course.objects.filter(trip=new).exists())
+        # The new trip is the active one: the course page sends the family to the builder.
+        self.assertRedirects(self.client.get(reverse("course")), reverse("builder"), fetch_redirect_response=False)
+        # The setup form for the new trip, then the builder.
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1, "big": 0, "little": 0})
+        self.assertRedirects(r, reverse("builder"), fetch_redirect_response=False)
+        self.assertEqual(Trip.objects.filter(user=self.user).count(), 2)
+        # The old done mark is still there, and Highlights lists the old course.
+        self.first.refresh_from_db()
+        self.assertIsNotNone(self.first.done_at)
+        page = self.client.get(reverse("highlights"))
+        self.assertContains(page, "Our past courses")
+        self.assertContains(page, f"?trip={old.id}")
+        old_page = self.client.get(reverse("highlights") + f"?trip={old.id}")
+        self.assertContains(old_page, self.first.activity.local_title)
+        self.assertNotContains(old_page, "Our past courses")
+
+    def test_other_family_trip_is_not_shown(self):
+        other = make_trip(get_user_model().objects.create_user("o@example.com", "o@example.com"), [40])
+        oc = build_course(other, [m.id for m, on in suggestions(other) if on])
+        item = oc.next_item()
+        item.mark_done()
+        page = self.client.get(reverse("highlights") + f"?trip={other.id}")
+        self.assertEqual(page.context["trip"].id, self.trip.id)
