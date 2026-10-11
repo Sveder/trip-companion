@@ -574,7 +574,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   display: flex; align-items: center; gap: .4rem; max-width: calc(100vw - 2rem); padding: .6rem 1.1rem; border-radius: 999px;
   background: var(--c-ink); color: var(--c-surface); font-weight: 800; box-shadow: var(--shadow); pointer-events: none; }
 .say-hint.show { opacity: 1; transform: translate(-50%, 0); }
-.say-hint .say-mark { background-color: var(--c-sun); margin: 0; }
+.say-hint .say-mark { background-color: var(--c-sun); margin: 0; width: 1.3em; height: 1.3em; flex: none; }
 @media (prefers-reduced-motion: reduce) { .say-hint { transition: none; } }
 /* On a phone the toggle keeps only its mark, so the header stays one line (T105). The word stays for screen readers. */
 @media (max-width: 600px) {
