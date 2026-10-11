@@ -468,6 +468,14 @@ class AfterTheTripTests(TestCase):
         self.assertIsNotNone(rule)
         self.assertGreaterEqual(int(rule.group(1)), 190)
 
+    def test_course_list_is_a_grid_on_desktop_and_tv(self):
+        """T139: the course page has 2 cards per row on a desktop and 3 on the TV, not one long column."""
+        from pathlib import Path
+        from django.conf import settings
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()
+        self.assertRegex(css, r"@media \(min-width: 900px\) \{ \.course-list \{ grid-template-columns: repeat\(2,")
+        self.assertRegex(css, r"\.tv \.course-list \{ grid-template-columns: repeat\(3,")
+
     def test_after_the_trip_with_nothing_done(self):
         self.set_dates(-20, -1)
         html = self.client.get("/").content.decode()

@@ -365,6 +365,15 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .course-text .hunt-count { font-size: .95rem; font-weight: 800; color: var(--c-ink); }
 .course-list .play-again { justify-self: start; margin: .4rem 0 .2rem 3.6rem; padding: .5rem 1.1rem; font-size: 1rem; }
 [dir="rtl"] .course-list .play-again { margin: .4rem 3.6rem .2rem 0; }
+/* T139: the course list as a grid: 2 per row on a desktop, 3 per row on the TV, so the remote needs fewer DOWN presses.
+   Each card fills its grid cell, so the cards in a row are the same height. */
+@media (min-width: 900px) { .course-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; } }
+.tv .course-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.course-list li { display: flex; flex-direction: column; min-width: 0; }
+.course-list li .course-item { flex: 1; }
+.tv .course-list .course-text { font-size: .95rem; }
+.tv .course-list .course-item { padding: .4rem .7rem; }
+.tv .course-list .card-emoji { width: 2.4rem; height: 2.4rem; font-size: 1.4rem; }
 /* Hebrew: the page runs right to left. Rules with a fixed side get their mirror here. */
 .lang-switch { margin: 0; }
 .lang-switch .link { font-weight: 700; }
