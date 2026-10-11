@@ -2,12 +2,13 @@ from django.conf import settings
 import re
 import tempfile
 from datetime import date, timedelta
+from pathlib import Path
 
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.management import call_command
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import escape
@@ -532,7 +533,7 @@ class AfterTheTripTests(TestCase):
         self.assertIn(f'href="{reverse("next_step")}"', html)
         self.assertIn("Start our course", html)
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
-        self.assertIn("מתחילים את הקורס", self.client.get(reverse("highlights")).content.decode())
+        self.assertIn("מתחילים את המסלול", self.client.get(reverse("highlights")).content.decode())
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "en"
         PracticeItem.objects.create(trip=self.trip, key="words/words-intro/hai")
         html = self.client.get(reverse("highlights")).content.decode()
@@ -1136,3 +1137,25 @@ class NewCourseTests(TestCase):
         item.mark_done()
         page = self.client.get(reverse("highlights") + f"?trip={other.id}")
         self.assertEqual(page.context["trip"].id, self.trip.id)
+
+
+class HebrewWordingTests(SimpleTestCase):
+    # T177: one Hebrew word for the course, a Hebrew name for the Street View hunt,
+    # and the card arrow flips in right-to-left pages.
+    def he_texts(self):
+        root = Path(settings.BASE_DIR)
+        po = (root / "locale/he/LC_MESSAGES/django.po").read_text(encoding="utf-8")
+        texts = [line for line in po.splitlines() if line.startswith(("msgstr", '"'))]
+        for path in (root / "content").rglob("*.yaml"):
+            texts += [line for line in path.read_text(encoding="utf-8").splitlines() if "_he:" in line]
+        return texts
+
+    def test_one_word_for_course(self):
+        self.assertEqual([t for t in self.he_texts() if "קורס" in t], [])
+
+    def test_no_street_view_brand_in_hebrew_labels(self):
+        self.assertEqual([t for t in self.he_texts() if "סטריט" in t], [])
+
+    def test_card_arrow_flips_in_rtl(self):
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text(encoding="utf-8")
+        self.assertIn('[dir="rtl"] .arrow { display: inline-block; transform: scaleX(-1); }', css)
