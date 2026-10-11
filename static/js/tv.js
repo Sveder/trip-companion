@@ -113,6 +113,9 @@
   // arrive as keyup only. So: listen early (window, capture), accept keyup when no
   // keydown came, and treat a stray click after a key press as OK on the last card.
   var last = null, lastKey = 0, lastPointer = 0, down = {}, px = -1, py = -1;
+  // The webOS browser often loads the page with no keyboard focus: no key reaches the page, and the
+  // first OK arrives as mousedown + click at the pointer (TV test 2026-10-11, T165). blindClick marks that click.
+  var blindClick = false;
 
   function keyOf(e) {
     var k = e.keyCode || e.which;
@@ -189,13 +192,21 @@
 
   // A press on empty page must not take the focus away from the card.
   document.addEventListener('mousedown', function (e) {
-    if (!onTarget(e.target)) e.preventDefault();
+    var unfocused = document.hasFocus && !document.hasFocus();
+    // An OK into a window without focus: the pointer did not move just now, so the press means the focused card.
+    blindClick = !!(last && unfocused && Date.now() - lastPointer > 1000);
+    // preventDefault below can keep the focus off the window: take it, so the next arrows arrive as keys.
+    if (blindClick) grab();
+    debug('mousedown ' + describe(e.target) + (unfocused ? ' (no window focus)' : '') + (blindClick ? ' = OK' : ''));
+    if (blindClick || !onTarget(e.target)) e.preventDefault();
   }, true);
 
   document.addEventListener('click', function (e) {
     debug('click ' + describe(e.target) + ' at ' + e.clientX + ',' + e.clientY);
-    if (opened || onTarget(e.target)) return;
-    if (last && document.contains(last) && lastKey >= lastPointer) {
+    var blind = blindClick;
+    blindClick = false;
+    if (opened || (!blind && onTarget(e.target))) return;
+    if (last && document.contains(last) && (blind || lastKey >= lastPointer)) {
       e.preventDefault();
       focus(last);
       if (last.classList.contains('card')) activate(last); else if (last.click) last.click();
@@ -234,9 +245,16 @@
     }
   } catch (err) { /* no sessionStorage: no debug box */ }
 
+  // Ask for the keyboard focus, so the remote's arrows reach the page without a first click (T165).
+  function grab() {
+    try { if (!document.hasFocus || !document.hasFocus()) window.focus(); } catch (err) { /* no focus API */ }
+  }
+
   prepare();
   // Wait until lesson.js has hidden the other lesson pages, or the first pick may sit on a hidden page (T104).
-  function start() { setTimeout(function () { var a = document.activeElement; if (!a || a === document.body || !shown(a)) first(); }, 0); }
+  function start() { grab(); setTimeout(function () { var a = document.activeElement; if (!a || a === document.body || !shown(a)) first(); }, 0); }
   if (document.readyState === 'complete') start(); else document.addEventListener('DOMContentLoaded', start);
   window.addEventListener('load', start);
+  window.addEventListener('pageshow', grab);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) grab(); });
 })();
