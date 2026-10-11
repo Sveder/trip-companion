@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 14:10+0300\n"
+"POT-Creation-Date: 2026-10-11 15:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,7 +184,7 @@ msgid "Activity %(number)s of %(total)s"
 msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
-#: templates/activities/lesson.html:130 templates/activities/praise.html:24
+#: templates/activities/lesson.html:156 templates/activities/praise.html:24
 #: templates/courses/course.html:23
 msgid "Next"
 msgstr "הבא"
@@ -239,6 +239,15 @@ msgstr "תפסתם {n}! השיא: {best}"
 msgid "Best: {best}"
 msgstr "השיא: {best}"
 
+#: templates/activities/lesson.html:10
+#, python-brace-format
+msgid "You placed all {n}!"
+msgstr "שמתם את כל ה-{n}!"
+
+#: templates/activities/lesson.html:10
+msgid "Pick a word first."
+msgstr "קודם בחרו מילה."
+
 #: templates/activities/lesson.html:12
 #, python-format
 msgid "Page 1 of %(total)s"
@@ -249,27 +258,32 @@ msgstr "דף 1 מתוך %(total)s"
 msgid "Page %(n)s of %(total)s"
 msgstr "דף %(n)s מתוך %(total)s"
 
-#: templates/activities/lesson.html:27 templates/activities/steps.html:15
-msgid "A grown-up buys it. The shop opens in a new tab."
-msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
-
-#: templates/activities/lesson.html:59
+#: templates/activities/lesson.html:24 templates/activities/lesson.html:61
 msgid "Photo:"
 msgstr "צילום:"
 
-#: templates/activities/lesson.html:64
+#: templates/activities/lesson.html:29 templates/activities/steps.html:15
+msgid "A grown-up buys it. The shop opens in a new tab."
+msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
+
+#: templates/activities/lesson.html:66
 msgid "Photo credits"
 msgstr "קרדיט לתמונות"
 
-#: templates/activities/lesson.html:98
+#: templates/activities/lesson.html:100
 msgid "Keep going!"
 msgstr "ממשיכים!"
 
-#: templates/activities/lesson.html:101 templates/activities/steps.html:44
+#: templates/activities/lesson.html:103 templates/activities/lesson.html:128
+#: templates/activities/steps.html:44
 msgid "Again"
 msgstr "עוד פעם"
 
-#: templates/activities/lesson.html:129 templates/trips/new.html:13
+#: templates/activities/lesson.html:127
+msgid "Next round"
+msgstr "לסיבוב הבא"
+
+#: templates/activities/lesson.html:155 templates/trips/new.html:13
 msgid "Back"
 msgstr "אחורה"
 
@@ -499,7 +513,7 @@ msgid "We did %(done)s of %(total)s. Tap any one to play it again!"
 msgstr "עשינו %(done)s מתוך %(total)s. לחצו על כל אחת כדי לשחק בה שוב!"
 
 #: templates/courses/course.html:16 templates/courses/welcome.html:40
-#: templates/trips/setup.html:25
+#: templates/trips/setup.html:26
 msgid "Coming soon"
 msgstr "בקרוב"
 
@@ -1124,40 +1138,48 @@ msgstr "כן, מסלול חדש"
 msgid "Tell us about your trip"
 msgstr "ספרו לנו על הטיול שלכם"
 
-#: templates/trips/setup.html:34
+#: templates/trips/setup.html:19
+msgid "Chosen"
+msgstr "נבחר"
+
+#: templates/trips/setup.html:33
+msgid "Next: who is coming?"
+msgstr "הלאה: מי נוסע?"
+
+#: templates/trips/setup.html:37
 msgid "Who is coming? Put everyone on the plane!"
 msgstr "מי נוסע? שימו את כולם על המטוס!"
 
-#: templates/trips/setup.html:35
+#: templates/trips/setup.html:38
 msgid ""
 "Drag a person into the plane, or tap them. Tap a person in the plane to take"
 " them off."
 msgstr ""
 "גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
 
-#: templates/trips/setup.html:51
+#: templates/trips/setup.html:54
 msgid "The plane is empty."
 msgstr "המטוס ריק."
 
-#: templates/trips/setup.html:57
+#: templates/trips/setup.html:60
 #, python-format
 msgid "Add one: %(who)s"
 msgstr "להוסיף אחד: %(who)s"
 
-#: templates/trips/setup.html:66
+#: templates/trips/setup.html:69
 msgid "For example 10"
 msgstr "למשל 10"
 
-#: templates/trips/setup.html:69
+#: templates/trips/setup.html:72
 msgid "Next: choose your course"
 msgstr "הבא: בחרו את המסלול"
 
-#: templates/trips/setup.html:72
+#: templates/trips/setup.html:75
 #, python-brace-format
 msgid "{n} on the plane"
 msgstr "{n} על המטוס"
 
-#: templates/trips/setup.html:72
+#: templates/trips/setup.html:75
 #, python-brace-format
 msgid "Take off the plane: {who}"
 msgstr "להוריד מהמטוס: {who}"
@@ -1241,15 +1263,3 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:92
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
-
-#: templates/activities/lesson.html
-msgid "Next round"
-msgstr "לסיבוב הבא"
-
-#: templates/activities/lesson.html
-msgid "You placed all {n}!"
-msgstr "שמתם את כל ה-{n}!"
-
-#: templates/activities/lesson.html
-msgid "Pick a word first."
-msgstr "קודם בחרו מילה."

@@ -70,6 +70,16 @@ class FamilyPlaneTests(TestCase):
         page = self.client.get(reverse("trip_setup") + "?lang=he")
         self.assertContains(page, "מטוס")
 
+    def test_chosen_mark_and_next_step(self):
+        # T166: the picked country says 'Chosen', and a link leads on to the family step.
+        page = self.client.get(reverse("trip_setup"))
+        self.assertContains(page, 'class="chosen-mark"')
+        self.assertContains(page, 'href="#family" data-next-step')
+        self.assertContains(page, 'id="family"')
+        page = self.client.get(reverse("trip_setup") + "?lang=he")
+        self.assertContains(page, "נבחר")
+        self.assertContains(page, "הלאה: מי נוסע?")
+
 
 class TripLengthTests(TestCase):
     """Feedback T54: the leave date is optional, the family gives the trip length, and there is no return date field."""

@@ -98,4 +98,24 @@
     person.addEventListener("click", function (e) { if (e.detail === 0) change(g, 1); });
   });
   draw();
+
+  // T166: a pick of a country moves on to the family step. On the TV (or a keyboard) the focus goes to the
+  // first person, so the next OK adds someone. Later than tv.js, which puts the focus back on the card it clicked.
+  var tv = document.documentElement.classList.contains("tv");
+  function toFamily(keys) {
+    box.scrollIntoView({ block: "start", behavior: "smooth" });
+    var first = box.querySelector("[data-person]");
+    if (first && (tv || keys)) first.focus({ preventScroll: true });
+  }
+  var pending = null;
+  document.querySelectorAll(".countries-pick label.pick").forEach(function (label) {
+    // A click on a label also clicks its radio: two click events, one move.
+    label.addEventListener("click", function (e) {
+      var keys = e.detail === 0;
+      if (pending) return;
+      pending = setTimeout(function () { pending = null; toFamily(keys); }, 50);
+    });
+  });
+  var nextStep = document.querySelector("[data-next-step]");
+  if (nextStep) nextStep.addEventListener("click", function (e) { e.preventDefault(); toFamily(e.detail === 0); });
 })();

@@ -49,6 +49,7 @@
     var scoped = !free && inLesson(from);
     var a = from.getBoundingClientRect(), ca = centre(a), best = null, bestScore = Infinity;
     var list = targets(scoped);
+    var inMain = from.closest && from.closest('main');
     for (var i = 0; i < list.length; i++) {
       var el = list[i];
       if (el === from) continue;
@@ -59,6 +60,9 @@
       if (dir === 'up') { if (b.bottom > a.top + 4 && cb.y >= ca.y - 4) continue; main = ca.y - cb.y; side = Math.abs(cb.x - ca.x); }
       if (main <= 0) continue;
       var score = main + side * 3;
+      // Leaving <main> costs more: DOWN from the last person on /trip/ went to the footer link straight
+      // below and skipped the days box and the submit button further to the side (T166).
+      if (inMain && !inMain.contains(el)) score += 5000;
       if (score < bestScore) { bestScore = score; best = el; }
     }
     if (!best && scoped && dir === 'up') return next(from, dir, true);

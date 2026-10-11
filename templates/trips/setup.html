@@ -16,6 +16,7 @@
             <span class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</span>
             <h3>{{ c.name }}</h3>
             <p>{{ c.line }}</p>
+            <span class="chosen-mark" aria-hidden="true">✓ {% translate "Chosen" %}</span>
           </label>
           {% elif not c.href %}
           <div class="card country soon" aria-disabled="true">
@@ -28,9 +29,11 @@
         {% endfor %}
       </div>
       {{ form.destination.errors }}
+      {# T166: after the pick, a visible way on to the next step. On the TV, OK on the country moves the focus there. #}
+      <a class="btn next-step" href="#family" data-next-step>{% translate "Next: who is coming?" %} <span aria-hidden="true">↓</span></a>
     </fieldset>
     {# Feedback T53: drag (or tap) each person into the plane. Without JavaScript the number boxes do the same job. #}
-    <fieldset class="family-pick" data-family-pick>
+    <fieldset class="family-pick" id="family" data-family-pick>
       <legend>{% translate "Who is coming? Put everyone on the plane!" %}</legend>
       <p class="hint" data-js-only hidden>{% translate "Drag a person into the plane, or tap them. Tap a person in the plane to take them off." %}</p>
       {{ form.non_field_errors }}
