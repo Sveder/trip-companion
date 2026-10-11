@@ -86,3 +86,11 @@ def add_new_activities(country, log):
 def load_previews():
     path = CONTENT_DIR / "previews.yaml"
     return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def load_photo_credits():
+    """The free-licence photo credits (trip-companion-tools/commons_photo.py writes the file), keyed by id."""
+    path = CONTENT_DIR / "photo_credits.yaml"
+    if not path.exists():
+        return {}
+    return {e["id"]: e for e in yaml.safe_load(path.read_text(encoding="utf-8")) or []}

@@ -1,0 +1,43 @@
+# Free-licence photos (Wikimedia Commons). Written by trip-companion-tools/commons_photo.py.
+- id: sushi-maguro
+  file: photo/sushi/sushi-maguro.jpg
+  title: Maguro akami.jpg
+  author: Arashiyama
+  licence: CC BY-SA 3.0
+  licence_url: https://creativecommons.org/licenses/by-sa/3.0
+  source_url: https://commons.wikimedia.org/wiki/File:Maguro_akami.jpg
+- id: sushi-saamon
+  file: photo/sushi/sushi-saamon.jpg
+  title: Salmon Nigiri Sushi, 2008.jpg
+  author: www.bluewaikiki.com
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Salmon_Nigiri_Sushi,_2008.jpg
+- id: sushi-ebi
+  file: photo/sushi/sushi-ebi.jpg
+  title: HSY- Sushi, Ebi.jpg
+  author: HanSangYoon
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:HSY-_Sushi,_Ebi.jpg
+- id: sushi-tamago
+  file: photo/sushi/sushi-tamago.jpg
+  title: Nigiri Sushi (26505096851).jpg
+  author: Tim Reckmann from Hamm, Deutschland
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Nigiri_Sushi_(26505096851).jpg
+- id: sushi-unagi
+  file: photo/sushi/sushi-unagi.jpg
+  title: Unagi-Sushi.jpg
+  author: Ffinder at English Wikipedia
+  licence: CC BY-SA 3.0
+  licence_url: https://creativecommons.org/licenses/by-sa/3.0
+  source_url: https://commons.wikimedia.org/wiki/File:Unagi-Sushi.jpg
+- id: sushi-ikura
+  file: photo/sushi/sushi-ikura.jpg
+  title: Ikura gunkan maki sushi by sunday driver in Kyoto.jpg
+  author: sunday driver from Gion, Kyoto
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Ikura_gunkan_maki_sushi_by_sunday_driver_in_Kyoto.jpg

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 13:42+0300\n"
+"POT-Creation-Date: 2026-10-11 14:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,7 +184,7 @@ msgid "Activity %(number)s of %(total)s"
 msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
-#: templates/activities/lesson.html:126 templates/activities/praise.html:24
+#: templates/activities/lesson.html:130 templates/activities/praise.html:24
 #: templates/courses/course.html:23
 msgid "Next"
 msgstr "הבא"
@@ -249,27 +249,35 @@ msgstr "דף 1 מתוך %(total)s"
 msgid "Page %(n)s of %(total)s"
 msgstr "דף %(n)s מתוך %(total)s"
 
-#: templates/activities/lesson.html:25 templates/activities/steps.html:14
+#: templates/activities/lesson.html:27 templates/activities/steps.html:15
 msgid "A grown-up buys it. The shop opens in a new tab."
 msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
 
-#: templates/activities/lesson.html:94
+#: templates/activities/lesson.html:59
+msgid "Photo:"
+msgstr "צילום:"
+
+#: templates/activities/lesson.html:64
+msgid "Photo credits"
+msgstr "קרדיט לתמונות"
+
+#: templates/activities/lesson.html:98
 msgid "Keep going!"
 msgstr "ממשיכים!"
 
-#: templates/activities/lesson.html:97 templates/activities/steps.html:43
+#: templates/activities/lesson.html:101 templates/activities/steps.html:44
 msgid "Again"
 msgstr "עוד פעם"
 
-#: templates/activities/lesson.html:125 templates/trips/new.html:13
+#: templates/activities/lesson.html:129 templates/trips/new.html:13
 msgid "Back"
 msgstr "אחורה"
 
-#: templates/activities/links.html:10 templates/activities/steps.html:13
+#: templates/activities/links.html:11 templates/activities/steps.html:14
 msgid "Open"
 msgstr "פתיחה"
 
-#: templates/activities/links.html:14
+#: templates/activities/links.html:15
 msgid ""
 "A grown-up buys these. The shop opens in a new tab. Nothing is paid in this "
 "app."
@@ -317,69 +325,69 @@ msgstr "%(done)s מתוך %(total)s הושלמו"
 msgid "Next up"
 msgstr "הבא בתור"
 
-#: templates/activities/steps.html:24
+#: templates/activities/steps.html:25
 msgid "The video comes soon. Here is how:"
 msgstr "הסרטון יגיע בקרוב. ככה עושים את זה:"
 
-#: templates/activities/steps.html:31
+#: templates/activities/steps.html:32
 msgid "Do this part on your phone."
 msgstr "את החלק הזה עושים בטלפון."
 
-#: templates/activities/steps.html:31
+#: templates/activities/steps.html:32
 msgid ""
 "Open this page on a phone, make the video there, then come back and press "
 "the button."
 msgstr "פתחו את הדף הזה בטלפון, צלמו שם את הסרטון, ואז חזרו ולחצו על הכפתור."
 
-#: templates/activities/steps.html:38
+#: templates/activities/steps.html:39
 msgid "Turn on the camera"
 msgstr "הפעלת המצלמה"
 
-#: templates/activities/steps.html:39
+#: templates/activities/steps.html:40
 msgid "Start"
 msgstr "התחלה"
 
-#: templates/activities/steps.html:40
+#: templates/activities/steps.html:41
 msgid "Stop"
 msgstr "עצירה"
 
-#: templates/activities/steps.html:41
+#: templates/activities/steps.html:42
 msgid "Share"
 msgstr "שיתוף"
 
-#: templates/activities/steps.html:42
+#: templates/activities/steps.html:43
 msgid "Keep it for our trip"
 msgstr "שמרו לטיול שלנו"
 
-#: templates/activities/steps.html:44
+#: templates/activities/steps.html:45
 msgid "Download"
 msgstr "הורדה"
 
-#: templates/activities/streetview.html:9
+#: templates/activities/streetview.html:10
 msgid "Street View"
 msgstr "Street View"
 
-#: templates/activities/streetview.html:12
+#: templates/activities/streetview.html:13
 msgid "Drag the picture to look around."
 msgstr "גררו את התמונה כדי להסתכל מסביב."
 
-#: templates/activities/streetview.html:12
+#: templates/activities/streetview.html:13
 msgid "Full screen"
 msgstr "מסך מלא"
 
-#: templates/activities/streetview.html:17
+#: templates/activities/streetview.html:18
 msgid "Things to spot"
 msgstr "מה צריך למצוא"
 
-#: templates/activities/streetview.html:18
+#: templates/activities/streetview.html:19
 msgid "Keep looking! Tap each thing when you find it."
 msgstr "תמשיכו לחפש! לחצו על כל דבר כשאתם מוצאים אותו."
 
-#: templates/activities/streetview.html:34
+#: templates/activities/streetview.html:35
 msgid "We found them all!"
 msgstr "מצאנו את כולם!"
 
-#: templates/activities/streetview.html:36
+#: templates/activities/streetview.html:37
 msgid "We can't find them all. Next"
 msgstr "אנחנו לא מוצאים את כולם. הבא"
 
@@ -435,6 +443,10 @@ msgstr "נוצר על ידי"
 #: templates/base.html:70 templates/privacy.html:3 templates/privacy.html:6
 msgid "Privacy"
 msgstr "פרטיות"
+
+#: templates/base.html:70 templates/credits.html:3 templates/credits.html:6
+msgid "Credits"
+msgstr "קרדיטים"
 
 #: templates/base.html:72
 msgid "Tap a Japanese word to hear it"
@@ -689,6 +701,17 @@ msgstr ""
 #: templates/courses/welcome.html:49
 msgid "By the time you fly, everyone is excited."
 msgstr "כשתעלו על המטוס, כולם כבר יתרגשו."
+
+#: templates/credits.html:7
+msgid ""
+"These photos come from Wikimedia Commons. Their authors share them under "
+"free licences. Thank you!"
+msgstr ""
+"התמונות האלה באות מוויקישיתוף. היוצרים שלהן משתפים אותן ברישיון חופשי. תודה!"
+
+#: templates/credits.html:11
+msgid "By"
+msgstr "מאת"
 
 #: templates/includes/back_home.html:2
 msgid "Is the trip over? Then the app shows your highlights."

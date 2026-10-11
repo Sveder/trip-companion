@@ -241,6 +241,8 @@ activities:
         text_he: את אלה שמים מעל האורז. געו כדי להפוך.
         cards:
           - img: "lesson/sushi/maguro.svg"
+            photo: "photo/sushi/sushi-maguro.jpg"
+            photo_credit: sushi-maguro
             label: "Maguro"
             label_he: "מגורו"
             japanese: "まぐろ"
@@ -248,6 +250,8 @@ activities:
             text: "Tuna. Deep red. A whole tuna can be bigger than a grown-up!"
             text_he: "טונה. אדומה כהה. טונה שלמה יכולה להיות גדולה יותר ממבוגר!"
           - img: "lesson/sushi/sake.svg"
+            photo: "photo/sushi/sushi-saamon.jpg"
+            photo_credit: sushi-saamon
             label: "Saamon"
             label_he: "סאמון"
             japanese: "サーモン"
@@ -255,6 +259,8 @@ activities:
             text: "Salmon. Orange with white stripes. Many kids in Japan love it most."
             text_he: "סלמון. כתום עם פסים לבנים. הרבה ילדים ביפן הכי אוהבים אותו."
           - img: "lesson/sushi/ebi.svg"
+            photo: "photo/sushi/sushi-ebi.jpg"
+            photo_credit: sushi-ebi
             label: "Ebi"
             label_he: "אבי"
             japanese: "えび"
@@ -262,6 +268,8 @@ activities:
             text: "Shrimp. Cooked, with a little tail at the end."
             text_he: "שרימפס. מבושל, עם זנב קטן בסוף."
           - img: "lesson/sushi/tamago.svg"
+            photo: "photo/sushi/sushi-tamago.jpg"
+            photo_credit: sushi-tamago
             label: "Tamago"
             label_he: "טמאגו"
             japanese: "たまご"
@@ -269,6 +277,8 @@ activities:
             text: "A sweet egg omelette, tied on with a seaweed belt. No fish!"
             text_he: "חביתה מתוקה, קשורה עם חגורה של אצה. בלי דג!"
           - img: "lesson/sushi/unagi.svg"
+            photo: "photo/sushi/sushi-unagi.jpg"
+            photo_credit: sushi-unagi
             label: "Unagi"
             label_he: "אונאגי"
             japanese: "うなぎ"
@@ -276,6 +286,8 @@ activities:
             text: "Eel. Cooked over a grill with a sweet, sticky sauce."
             text_he: "צלופח. צלוי על גריל עם רוטב מתוק ודביק."
           - img: "lesson/sushi/ikura.svg"
+            photo: "photo/sushi/sushi-ikura.jpg"
+            photo_credit: sushi-ikura
             label: "Ikura"
             label_he: "איקורה"
             japanese: "いくら"

@@ -19,6 +19,18 @@ def _audio(reading, country):
     return static(path) if reading and finders.find(path) else ""
 
 
+@lru_cache(maxsize=1)
+def _photo_credits():
+    from content_admin.loader import load_photo_credits
+    return load_photo_credits()
+
+
+@register.filter
+def photo_credit(credit_id):
+    """The credit entry (author, licence, source_url) of a content photo, or None (T159)."""
+    return _photo_credits().get(str(credit_id or ""))
+
+
 @register.filter
 def word_audio(reading, country="japan"):
     """URL of the pre-made mp3 for a word (deploy/make_word_audio.py), or '' when none exists."""

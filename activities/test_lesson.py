@@ -793,3 +793,49 @@ class HebrewPictureTwins(TestCase):
                 latin = " ".join(re.findall(r"[A-Za-z][A-Za-z.]*(?: [A-Za-z.]+)*", label))
                 if latin:
                     self.assertIn(latin, self.KEEP, (twin.name, label))
+
+
+class SushiPhotoTests(TestCase):
+    """T159: every fish card in 'Fish and friends' has a real, credited, free-licence photo on its back."""
+    FREE = {"CC0", "Public domain", "CC BY 2.0", "CC BY 3.0", "CC BY 4.0", "CC BY-SA 2.0", "CC BY-SA 3.0", "CC BY-SA 4.0"}
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("p@example.com", "p@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        Traveller.objects.create(trip=cls.trip, age=40)
+        act = Activity.objects.get(module__slug="food", slug="sushi-lesson")
+        cls.page = next(p for p in act.data["pages"] if p.get("title") == "Fish and friends")
+        cls.item = build_course(cls.trip, [act.module_id]).items.get(activity=act)
+
+    def test_every_photo_has_a_file_and_a_free_licence_credit(self):
+        from content_admin.loader import load_photo_credits
+        credits = load_photo_credits()
+        self.assertEqual(len(self.page["cards"]), 6)
+        for card in self.page["cards"]:
+            self.assertTrue(card.get("photo"), card["label"])
+            self.assertTrue((Path(settings.BASE_DIR) / "static/img" / card["photo"]).exists(), card["photo"])
+            credit = credits[card["photo_credit"]]
+            self.assertEqual(credit["file"], card["photo"])
+            self.assertIn(credit["licence"], self.FREE)
+            self.assertTrue(credit["author"] and credit["source_url"].startswith("https://commons.wikimedia.org/wiki/File:"))
+        for credit in credits.values():
+            self.assertTrue((Path(settings.BASE_DIR) / "static/img" / credit["file"]).exists(), credit["file"])
+
+    def test_card_back_shows_the_photo_and_credit(self):
+        self.client.force_login(self.user)
+        for lang, word in (("en", "Photo:"), ("he", "צילום:")):
+            html = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}").content.decode()
+            self.assertEqual(html.count('class="flip-photo"'), 6, lang)
+            self.assertEqual(html.count(f'<span class="photo-credit">{word} '), 6, lang)
+            self.assertIn('/static/img/photo/sushi/sushi-maguro.jpg', html)
+            self.assertIn(reverse("credits"), html)
+
+    def test_credits_page_lists_every_photo(self):
+        from content_admin.loader import load_photo_credits
+        html = self.client.get(reverse("credits")).content.decode()
+        for credit in load_photo_credits().values():
+            self.assertIn(f'data-credit="{credit["id"]}"', html)
+            self.assertIn(credit["source_url"], html)
+            self.assertIn(credit["licence"], html)

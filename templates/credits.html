@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Credits" %}{% endblock %}
+{% block content %}
+<article class="panel narrow prose">
+  <h1>{% trans "Credits" %}</h1>
+  <p>{% trans "These photos come from Wikimedia Commons. Their authors share them under free licences. Thank you!" %}</p>
+  <ul class="credits-list">
+    {% for p in photos %}
+    <li data-credit="{{ p.id }}"><img src="{% static 'img/'|add:p.file %}" alt="" width="80" loading="lazy">
+      <span><a href="{{ p.source_url }}">{{ p.title }}</a><br>{% trans "By" %} {{ p.author }} · {% if p.licence_url %}<a href="{{ p.licence_url }}">{{ p.licence }}</a>{% else %}{{ p.licence }}{% endif %}</span></li>
+    {% endfor %}
+  </ul>
+</article>
+{% endblock %}

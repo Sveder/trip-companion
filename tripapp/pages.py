@@ -10,6 +10,11 @@ def privacy(request):
     return render(request, "privacy.html")
 
 
+def credits(request):
+    from content_admin.loader import load_photo_credits
+    return render(request, "credits.html", {"photos": list(load_photo_credits().values())})
+
+
 @cache_control(max_age=60 * 60 * 24)
 def favicon(request):
     path = finders.find("img/favicon.ico")
