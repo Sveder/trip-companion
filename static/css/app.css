@@ -479,15 +479,16 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .family-pick { border: 0; padding: 0; margin: 1.2rem 0; }
 .family-pick legend { font-weight: 900; font-size: 1.25rem; margin-bottom: .3rem; }
 /* The ::before spacer keeps the 400:120 height on Chrome 87, which has no aspect-ratio (T101). */
-.plane::before { content: ""; display: block; padding-top: 30%; }
+/* T153: a fixed ratio (viewBox 400 x 190). padding-top, not aspect-ratio: the TV browser is Chrome 87. */
+.plane::before { content: ""; display: block; padding-top: 47.5%; }
 .plane { position: relative; max-width: 560px; margin: .6rem auto 0; border-radius: var(--radius); transition: transform .15s; }
 .plane.over { transform: scale(1.04); }
-.plane.over .plane-body path:first-child { stroke: var(--c-accent); }
+.plane.over .plane-body .fuselage { stroke: var(--c-accent); }
 .plane.bump { animation: plane-bump .35s; }
 @keyframes plane-bump { 40% { transform: translateY(-6px) rotate(-1deg); } }
 .plane-body { position: absolute; inset: 0; width: 100%; height: 100%; }
-.seats { position: absolute; left: 22%; right: 12%; top: 30%; bottom: 30%; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2px; direction: ltr; }
-.seat { font-size: clamp(1.1rem, 5vw, 1.8rem); line-height: 1; background: none; border: 0; padding: 0 2px; cursor: pointer; }
+.seats { position: absolute; left: 12%; right: 13%; top: 20%; bottom: 27%; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2px; direction: ltr; }
+.seat { font-size: clamp(1.1rem, 5vw, 3rem); line-height: 1; background: none; border: 0; padding: 0; margin: 0 -2px; cursor: pointer; }
 .plane-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; color: var(--c-muted); font-weight: 800; }
 .plane-count { text-align: center; font-weight: 900; min-height: 1.5em; margin: .3rem 0 .6rem; }
 .groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: .7rem; }
@@ -502,15 +503,11 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .person:active { cursor: grabbing; transform: scale(.95); }
 .person-ghost { position: fixed; z-index: 50; font-size: 3rem; transform: translate(-50%, -50%); pointer-events: none; }
 .plane-empty[hidden] { display: none; }
-/* Phone and tablet: a taller plane with bigger people (T133, T143). The SVG stretches (preserveAspectRatio none). */
+/* Phone and tablet: bigger people (T133, T143). The seat row sits over the windows at every width (T153). */
 @media (max-width: 600px) {
-  .plane::before { padding-top: 46%; }
-  .seats { top: 25%; bottom: 25%; }
   .seat { font-size: clamp(1.6rem, 8vw, 2.2rem); }
 }
 @media (min-width: 601px) and (max-width: 900px) {
-  .plane::before { padding-top: 44%; }
-  .seats { top: 25%; bottom: 25%; }
   .seat { font-size: 3.1rem; }
 }
 .family-pick:not(.js) .plane, .family-pick:not(.js) .person { display: none; }
@@ -518,7 +515,6 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .person-n { position: absolute; top: -4px; inset-inline-end: -4px; min-width: 1.6rem; height: 1.6rem; border-radius: 999px; background: var(--c-primary); color: var(--c-primary-ink); font-size: 1rem; font-weight: 900; line-height: 1.6rem; }
 .person-n[hidden] { display: none; }
 .plane { max-width: 620px; }
-.plane-body path:first-child { stroke-width: 3; }
 .age-range { display: block; white-space: nowrap; font-weight: 800; }
 .in-japan-now { margin: .8rem 0; }
 .in-japan-now .hint { margin-top: .3rem; }

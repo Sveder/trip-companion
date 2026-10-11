@@ -1,7 +1,7 @@
 // Trip setup (feedback T53): put the family on the plane. Drag a person into the plane, or tap them;
 // tap a person in the plane to take them off. The number boxes stay the form fields, so the server sees counts.
 (function () {
-  var box = document.querySelector("[data-family]");
+  var box = document.querySelector("[data-family-pick]");
   if (!box) return;
   var plane = box.querySelector("[data-plane]");
   var seats = box.querySelector("[data-seats]");

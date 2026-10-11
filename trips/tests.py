@@ -1,4 +1,5 @@
 """Trip setup (feedback T53): the family is four age groups on a plane, not a list of exact ages."""
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -24,8 +25,15 @@ class FamilyPlaneTests(TestCase):
         self.assertContains(page, "js/family.js")
         # T109: the trip-length example is a hint under the box, not only a placeholder.
         self.assertContains(page, "For example 10")
-        # T133/T143: the plane body stretches with the taller phone and tablet plane box.
-        self.assertContains(page, 'viewBox="0 0 400 120" preserveAspectRatio="none"')
+        # T153: a side-view plane that keeps its shape (no stretching), with one wing and a fuselage to seat people in.
+        self.assertContains(page, 'viewBox="0 0 400 190"')
+        self.assertNotContains(page, 'preserveAspectRatio="none"')
+        self.assertContains(page, 'class="fuselage"')
+        # T153: family.js finds the plane box by its own attribute. The <body> also has data-family (T144),
+        # and a shared name made the script take the body, so the plane and the people stayed hidden.
+        self.assertContains(page, "data-family-pick")
+        js = (settings.BASE_DIR / "static/js/family.js").read_text()
+        self.assertIn('querySelector("[data-family-pick]")', js)
 
     def test_counts_become_travellers(self):
         r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 2, "kid": 1, "little": 1})

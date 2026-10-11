@@ -30,16 +30,22 @@
       {{ form.destination.errors }}
     </fieldset>
     {# Feedback T53: drag (or tap) each person into the plane. Without JavaScript the number boxes do the same job. #}
-    <fieldset class="family-pick" data-family>
+    <fieldset class="family-pick" data-family-pick>
       <legend>{% translate "Who is coming? Put everyone on the plane!" %}</legend>
       <p class="hint" data-js-only hidden>{% translate "Drag a person into the plane, or tap them. Tap a person in the plane to take them off." %}</p>
       {{ form.non_field_errors }}
       <div class="plane" data-plane aria-live="polite">
-        <svg class="plane-body" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path d="M60 30 Q20 30 8 60 Q20 90 60 90 L340 90 Q392 90 392 60 Q392 30 340 30 Z" fill="var(--c-surface)" stroke="var(--c-ink)" stroke-width="4"/>
-          <path d="M70 30 L40 4 L84 4 L120 30 Z M70 90 L40 116 L84 116 L120 90 Z" fill="var(--c-primary)"/>
-          <path d="M200 90 L250 118 L290 118 L260 90 Z M200 30 L250 2 L290 2 L260 30 Z" fill="var(--c-accent)"/>
-          <path d="M392 60 Q392 38 360 34 L360 60 Z" fill="var(--c-sun)"/>
+        {# T153: a side view. Nose on the right, one wing toward the viewer, one engine, a tall tail fin. No stretching. #}
+        <svg class="plane-body" viewBox="0 0 400 190" aria-hidden="true" focusable="false" stroke="var(--c-ink)" stroke-width="3" stroke-linejoin="round">
+          <path d="M28 40 L6 3 L50 3 L112 40 Z" fill="var(--c-primary)"/>
+          <path class="fuselage" d="M40 36 L320 36 C372 36 396 64 396 92 C396 120 372 140 330 140 L110 140 C70 140 40 120 24 80 L18 50 C16 40 26 36 40 36 Z" fill="var(--c-surface)"/>
+          <path d="M70 120 L372 120" stroke="var(--c-primary)" stroke-width="7" stroke-linecap="round"/>
+          <path d="M350 52 C372 54 386 66 390 78 L350 78 Z" fill="var(--c-tint-4)"/>
+          <g fill="var(--c-tint-4)"><circle cx="90" cy="86" r="9"/><circle cx="123" cy="86" r="9"/><circle cx="156" cy="86" r="9"/><circle cx="189" cy="86" r="9"/><circle cx="222" cy="86" r="9"/><circle cx="255" cy="86" r="9"/><circle cx="288" cy="86" r="9"/><circle cx="321" cy="86" r="9"/></g>
+          <path d="M26 78 L3 92 L24 97 L82 86 Z" fill="var(--c-primary)"/>
+          <path d="M272 124 L212 124 L130 186 L182 186 Z" fill="var(--c-accent)"/>
+          <rect x="176" y="150" width="58" height="22" rx="11" fill="var(--c-sun)"/>
+          <ellipse cx="232" cy="161" rx="4" ry="9" fill="var(--c-ink)"/>
         </svg>
         <div class="seats" data-seats></div>
         <p class="plane-empty" data-empty>{% translate "The plane is empty." %}</p>
