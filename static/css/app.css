@@ -566,7 +566,8 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .plane-body { position: absolute; inset: 0; width: 100%; height: 100%; }
 .seats { position: absolute; left: 12%; right: 13%; top: 20%; bottom: 27%; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2px; direction: ltr; }
 .seat { font-size: clamp(1.1rem, 5vw, 3rem); line-height: 1; background: none; border: 0; padding: 0; margin: 0 -2px; cursor: pointer; }
-.plane-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; color: var(--c-muted); font-weight: 800; }
+/* T173: the text sits in the band between the fuselage top (y 36) and the window tops (y 77), not over the windows. */
+.plane-empty { position: absolute; left: 12%; right: 13%; top: 20%; height: 19%; display: flex; align-items: center; justify-content: center; margin: 0; color: var(--c-muted); font-weight: 800; font-size: clamp(.85rem, 3.6vw, 1.25rem); line-height: 1.1; text-align: center; overflow: hidden; }
 .plane-count { text-align: center; font-weight: 900; min-height: 1.5em; margin: .3rem 0 .6rem; }
 .groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: .7rem; }
 .group { background: var(--c-surface); border: 3px solid var(--c-line); border-radius: var(--radius); padding: .6rem; text-align: center; }
