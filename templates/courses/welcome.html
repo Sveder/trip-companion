@@ -3,7 +3,8 @@
 {% block content %}
 <section class="hero">
   {% include "includes/mark.html" with cls="hero-guide" %}
-  <h1>{% translate "Get excited for your trip!" %}</h1>
+  {# T154: the word 'excited' buzzes; a tap opens the 'why' dialog. The tag sits in the string so Hebrew keeps its word order. #}
+  <h1>{% blocktranslate trimmed %}Get <button type="button" class="buzz" data-why aria-haspopup="dialog">excited</button> for your trip!{% endblocktranslate %}</h1>
   <p class="lead">{% translate "Short, fun games for the whole family. Food, words and little surprises, all before you fly." %}</p>
   <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Let's start" %}</a>
 </section>
@@ -33,4 +34,12 @@
   {% endif %}
   {% endfor %}
 </div>
+<dialog id="why" class="why" aria-labelledby="why-title">
+  <h2 id="why-title">{% translate "Half the fun is before you go" %}</h2>
+  <p>{% translate "Waiting for a trip is half the fun." %}</p>
+  <p>{% translate "Here your family learns what people eat, say and do where you are going." %}</p>
+  <p>{% translate "By the time you fly, everyone is excited." %}</p>
+  <form method="dialog"><button class="btn big" value="close">{% translate "Let's go!" %}</button></form>
+</dialog>
+<script src="{% static 'js/why.js' %}" defer></script>
 {% endblock %}

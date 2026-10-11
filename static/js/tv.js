@@ -18,8 +18,11 @@
 
   function targets(scope) {
     var all = document.querySelectorAll(SELECTOR), out = [];
+    // An open modal <dialog> (the 'why' box, T154) keeps the arrows inside it.
+    var modal = document.querySelector('dialog[open]');
     for (var i = 0; i < all.length; i++) {
       var el = all[i];
+      if (modal && !modal.contains(el)) continue;
       if (scope && !inLesson(el)) continue;
       if (el.closest('.sv2')) continue;
       // A control inside a card belongs to the card: the card takes the focus.
@@ -125,6 +128,8 @@
     var el = document.activeElement;
     if (BACK[key]) {
       if (opened) { close(); e.preventDefault(); return; }
+      var dlg = document.querySelector('dialog[open]');
+      if (dlg && key !== 8) { dlg.close(); e.preventDefault(); return; }
       return;
     }
     var dir = DIRS[key];

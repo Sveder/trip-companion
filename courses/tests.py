@@ -955,3 +955,34 @@ class TripEndTests(TestCase):
         self.client.post(reverse("back_home"))
         later = timezone.now() + timedelta(days=3)
         self.assertNotIsInstance(due(self.user, now=later), HuntNote)
+
+
+class WhyDialogTests(TestCase):
+    """T154: the word 'excited' on the welcome page buzzes and opens the 'why' dialog."""
+
+    def test_english_word_and_dialog(self):
+        html = self.client.get("/").content.decode()
+        self.assertIn('<button type="button" class="buzz" data-why aria-haspopup="dialog">excited</button> for your trip!', html)
+        self.assertIn('<dialog id="why"', html)
+        self.assertIn("Half the fun is before you go", html)
+        self.assertIn("Waiting for a trip is half the fun.", html)
+        self.assertIn("Here your family learns what people eat, say and do where you are going.", html)
+        self.assertIn("By the time you fly, everyone is excited.", html)
+        self.assertIn("js/why.js", html)
+
+    def test_hebrew_word_and_dialog(self):
+        self.client.cookies["django_language"] = "he"
+        html = self.client.get("/", HTTP_ACCEPT_LANGUAGE="he").content.decode()
+        self.assertIn('data-why aria-haspopup="dialog">מתרגשים</button> לקראת הטיול!', html)
+        self.assertIn("חצי מהכיף הוא לפני הטיול", html)
+        self.assertIn("לחכות לטיול זה חצי מהכיף.", html)
+        self.assertIn("כאן המשפחה שלכם לומדת", html)
+        self.assertIn("כשתעלו על המטוס, כולם כבר יתרגשו.", html)
+
+    def test_buzz_stops_for_reduced_motion(self):
+        from django.conf import settings
+        css = (settings.BASE_DIR / "static" / "css" / "app.css").read_text()
+        self.assertIn("animation: buzz 5s ease-in-out infinite", css)
+        self.assertRegex(css, r"prefers-reduced-motion: reduce\) \{ \.buzz \{ animation: none; \} \}")
+        js = (settings.BASE_DIR / "static" / "js" / "why.js").read_text()
+        self.assertIn("tc_why_seen", js)

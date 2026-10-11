@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 11:58+0300\n"
+"POT-Creation-Date: 2026-10-11 12:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr "האימייל שלכם"
 msgid "Your 6-digit code"
 msgstr "הקוד שלכם (6 ספרות)"
 
-#: accounts/link.py:143
+#: accounts/link.py:144
 msgid "Welcome back! This device is connected."
 msgstr "ברוכים השבים! המכשיר הזה מחובר."
 
@@ -109,7 +109,7 @@ msgid "Send a new code"
 msgstr "שלחו קוד חדש"
 
 #: templates/accounts/continue.html:3 templates/accounts/continue.html:18
-#: templates/base.html:45 templates/courses/course.html:8
+#: templates/base.html:46 templates/courses/course.html:8
 msgid "Continue on another device"
 msgstr "להמשיך במכשיר אחר"
 
@@ -370,37 +370,37 @@ msgstr ""
 msgid "Get ready for Japan"
 msgstr "מתכוננים ליפן"
 
-#: templates/base.html:36
+#: templates/base.html:37
 msgid "Menu"
 msgstr "תפריט"
 
-#: templates/base.html:41 templates/courses/course.html:3
+#: templates/base.html:42 templates/courses/course.html:3
 #: templates/courses/finished.html:24 templates/there/hunt.html:46
 msgid "Our course"
 msgstr "המסלול שלנו"
 
-#: templates/base.html:42 templates/practice/empty.html:3
+#: templates/base.html:43 templates/practice/empty.html:3
 #: templates/practice/quiz.html:4
 msgid "Quiz"
 msgstr "חידון"
 
-#: templates/base.html:43
+#: templates/base.html:44
 msgid "In Japan"
 msgstr "ביפן"
 
-#: templates/base.html:44 templates/trips/setup.html:3
+#: templates/base.html:45 templates/trips/setup.html:3
 msgid "Our trip"
 msgstr "הטיול שלנו"
 
-#: templates/base.html:47
+#: templates/base.html:48
 msgid "Sign out"
 msgstr "יציאה"
 
-#: templates/base.html:67
+#: templates/base.html:68
 msgid "Made by"
 msgstr "נוצר על ידי"
 
-#: templates/base.html:67 templates/privacy.html:3 templates/privacy.html:6
+#: templates/base.html:68 templates/privacy.html:3 templates/privacy.html:6
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -450,7 +450,7 @@ msgstr "המסלול שלנו ליפן"
 msgid "We did %(done)s of %(total)s. Tap any one to play it again!"
 msgstr "עשינו %(done)s מתוך %(total)s. לחצו על כל אחת כדי לשחק בה שוב!"
 
-#: templates/courses/course.html:16 templates/courses/welcome.html:25
+#: templates/courses/course.html:16 templates/courses/welcome.html:32
 #: templates/trips/setup.html:25
 msgid "Coming soon"
 msgstr "בקרוב"
@@ -586,29 +586,51 @@ msgstr "שחקו בחידון"
 msgid "Change our trip"
 msgstr "שינוי הטיול"
 
-#: templates/courses/welcome.html:6
-msgid "Get excited for your trip!"
-msgstr "מתרגשים לקראת הטיול!"
-
 #: templates/courses/welcome.html:7
 msgid ""
-"Short, fun games for the whole family. Food, words and little surprises, all "
-"before you fly."
+"Get <button type=\"button\" class=\"buzz\" data-why aria-"
+"haspopup=\"dialog\">excited</button> for your trip!"
 msgstr ""
-"משחקים קצרים וכיפיים לכל המשפחה. אוכל, מילים והפתעות קטנות, הכול לפני "
-"הטיסה."
+"<button type=\"button\" class=\"buzz\" data-why aria-"
+"haspopup=\"dialog\">מתרגשים</button> לקראת הטיול!"
 
 #: templates/courses/welcome.html:8
+msgid ""
+"Short, fun games for the whole family. Food, words and little surprises, all"
+" before you fly."
+msgstr ""
+"משחקים קצרים וכיפיים לכל המשפחה. אוכל, מילים והפתעות קטנות, הכול לפני הטיסה."
+
+#: templates/courses/welcome.html:9
 msgid "Let's start"
 msgstr "בואו נתחיל"
 
-#: templates/courses/welcome.html:10 templates/trips/setup.html:10
+#: templates/courses/welcome.html:11 templates/trips/setup.html:10
 msgid "Where are you going?"
 msgstr "לאן אתם נוסעים?"
 
-#: templates/courses/welcome.html:18 templates/reminders/email.html:7
+#: templates/courses/welcome.html:19 templates/courses/welcome.html:42
+#: templates/reminders/email.html:7
 msgid "Let's go!"
 msgstr "יוצאים לדרך!"
+
+#: templates/courses/welcome.html:38
+msgid "Half the fun is before you go"
+msgstr "חצי מהכיף הוא לפני הטיול"
+
+#: templates/courses/welcome.html:39
+msgid "Waiting for a trip is half the fun."
+msgstr "לחכות לטיול זה חצי מהכיף."
+
+#: templates/courses/welcome.html:40
+msgid ""
+"Here your family learns what people eat, say and do where you are going."
+msgstr ""
+"כאן המשפחה שלכם לומדת מה אוכלים, מה אומרים ומה עושים במקום שאליו אתם נוסעים."
+
+#: templates/courses/welcome.html:41
+msgid "By the time you fly, everyone is excited."
+msgstr "כשתעלו על המטוס, כולם כבר יתרגשו."
 
 #: templates/includes/back_home.html:2
 msgid "Is the trip over? Then the app shows your highlights."
@@ -1020,29 +1042,29 @@ msgid ""
 msgstr ""
 "גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
 
-#: templates/trips/setup.html:45
+#: templates/trips/setup.html:51
 msgid "The plane is empty."
 msgstr "המטוס ריק."
 
-#: templates/trips/setup.html:51
+#: templates/trips/setup.html:57
 #, python-format
 msgid "Add one: %(who)s"
 msgstr "להוסיף אחד: %(who)s"
 
-#: templates/trips/setup.html:60
+#: templates/trips/setup.html:66
 msgid "For example 10"
 msgstr "למשל 10"
 
-#: templates/trips/setup.html:63
+#: templates/trips/setup.html:69
 msgid "Next: choose your course"
 msgstr "הבא: בחרו את המסלול"
 
-#: templates/trips/setup.html:66
+#: templates/trips/setup.html:72
 #, python-brace-format
 msgid "{n} on the plane"
 msgstr "{n} על המטוס"
 
-#: templates/trips/setup.html:66
+#: templates/trips/setup.html:72
 #, python-brace-format
 msgid "Take off the plane: {who}"
 msgstr "להוריד מהמטוס: {who}"
@@ -1126,34 +1148,3 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:91
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
-
-#~ msgid "or"
-#~ msgstr "או"
-
-#~ msgid "Sign in with Google"
-#~ msgstr "כניסה עם Google"
-
-#~ msgid "Let's look again another day."
-#~ msgstr "בואו נחפש שוב ביום אחר."
-
-#~ msgid "Our guide looks around"
-#~ msgstr "המדריך שלנו מסתכל מסביב"
-
-#~ msgid "Our guide says hi"
-#~ msgstr "המדריך שלנו אומר שלום"
-
-#~ msgid "The trip ends before it starts."
-#~ msgstr "הטיול נגמר לפני שהוא מתחיל."
-
-#~ msgid "How old is everyone going?"
-#~ msgstr "בני כמה כל מי שנוסע?"
-
-#~ msgid "One number per person, with commas. For example: 38, 36, 4, 2"
-#~ msgstr "מספר אחד לכל אדם, עם פסיקים. לדוגמה: 38, 36, 4, 2"
-
-#~ msgid "Add at least one age."
-#~ msgstr "הוסיפו לפחות גיל אחד."
-
-#, python-format
-#~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
-#~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."

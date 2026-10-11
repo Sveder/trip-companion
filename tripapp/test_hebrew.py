@@ -33,7 +33,7 @@ class SwitchTests(TestCase):
     def test_english_by_default_even_for_a_hebrew_browser(self):
         html = self.client.get("/", HTTP_ACCEPT_LANGUAGE="he").content.decode()
         self.assertIn('<html lang="en" dir="ltr"', html)
-        self.assertIn("Get excited for your trip!", html)
+        self.assertIn(">excited</button> for your trip!", html)
         self.assertIn("Sushi, bullet trains and deer that bow.", html)
         self.assertIn("Blue domes, Silk Road cities and plov.", html)
         self.assertIn('value="he"', html)  # the switch offers Hebrew
@@ -43,7 +43,7 @@ class SwitchTests(TestCase):
         self.assertRedirects(r, "/", fetch_redirect_response=False)
         html = self.client.get("/").content.decode()
         self.assertIn('<html lang="he" dir="rtl"', html)
-        self.assertIn("מתרגשים לקראת הטיול!", html)
+        self.assertIn(">מתרגשים</button> לקראת הטיול!", html)
         self.assertIn("סושי, רכבות קליע ואיילים שמשתחווים.", html)
         self.assertIn('value="en"', html)  # and now offers English
         self.client.post(reverse("set_language"), {"language": "en", "next": "/"})
