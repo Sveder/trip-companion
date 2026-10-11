@@ -379,7 +379,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 /* T158: the picture of a word page is a button that says the word; a Japanese word inside a sentence talks too. */
 .lesson .lpic-say { display: block; width: 100%; max-width: 420px; margin: .3rem auto; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 12px; }
 .lesson .lpic-say .lpic { margin: 0 auto; }
-.lesson .lpic[src*="/photo/"] { border-radius: 12px; }
+.lesson .lpic[src*="/photo/"] { border-radius: 12px; max-height: 320px; object-fit: cover; }
 .lphoto-credit { margin: -.1rem auto .4rem; max-width: 420px; font-size: 11px; line-height: 1.2; text-align: center; }
 .lphoto-credit a { color: var(--c-muted, #666); text-decoration: none; }
 .tv .lpic-say:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
