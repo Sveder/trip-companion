@@ -626,3 +626,17 @@ class PhoneSpotsTests(TestCase):
         # A 20 px number sits 13 px outside the picture (inside the 24 px band); desktop and TV keep 20 px.
         js = (settings.BASE_DIR / "static/js/lesson.js").read_text()
         self.assertIn("var off = Math.min(20, s.b.offsetWidth / 2 + 3)", js)
+
+
+class TvFlipCardTests(TestCase):
+    """T138: on the TV the flip cards are wide with a big picture, and the name sits right under the picture.
+    The browser check is trip-companion-tools/t138_tv_flip_probe.cjs (name tops in a row within 4 px, picture 45 percent of the front)."""
+
+    def test_tv_flip_rules(self):
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn(".tv .flips { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));", css)
+        self.assertIn(".tv .flip img, .tv .flip img.flip-photo { height: 260px; }", css)
+        self.assertIn(".tv .flip-front { justify-content: flex-start; }", css)
+        # Phone and desktop keep the T118 rules.
+        self.assertIn(".flip-front { align-self: stretch; justify-content: space-between; }", css)
+        self.assertIn(".flip img, .flip img.flip-photo { height: 72px; }", css)
