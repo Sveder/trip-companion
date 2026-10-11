@@ -164,9 +164,10 @@ class NewActivityJoinsBuiltCourses(TestCase):
         call_command("load_content", verbosity=0)
         slugs = list(CourseItem.objects.filter(course=course).values_list("activity__slug", "done_at"))
         # The lesson comes first in its module; the cards are its quick review.
-        self.assertEqual([s for s, _ in slugs], ["sushi-lesson", "food-cards"])
+        self.assertEqual([s for s, _ in slugs], ["sushi-lesson", "food-around-japan", "food-cards"])
         self.assertIsNone(slugs[0][1])
-        self.assertIsNotNone(slugs[1][1])
+        self.assertIsNone(slugs[1][1])
+        self.assertIsNotNone(slugs[2][1])
 
 
 class EveryLessonIsWellFormed(TestCase):
@@ -839,3 +840,45 @@ class SushiPhotoTests(TestCase):
             self.assertIn(f'data-credit="{credit["id"]}"', html)
             self.assertIn(credit["source_url"], html)
             self.assertIn(credit["licence"], html)
+
+
+class FoodAroundJapanTests(TestCase):
+    """T160: one page per food, each with a real photo, a credit line, Hebrew text and a source."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("f@example.com", "f@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        for age in (38, 4):
+            Traveller.objects.create(trip=cls.trip, age=age)
+        cls.act = Activity.objects.get(module__slug="food", slug="food-around-japan")
+        course = build_course(cls.trip, [cls.act.module_id])
+        cls.item = course.items.get(activity=cls.act)
+
+    def test_every_food_page_has_photo_credit_source_and_hebrew(self):
+        from content_admin.loader import load_photo_credits
+        credits = load_photo_credits()
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        pages = self.act.data["pages"]
+        food = [p for p in pages if p.get("photo_credit")]
+        self.assertEqual(len(food), 9)
+        for p in pages:
+            self.assertTrue(p.get("source", "").startswith("https://"), p["title"])
+        for p in food:
+            self.assertTrue(p["img"].startswith("photo/food/"), p["title"])
+            self.assertTrue((static / p["img"]).exists(), p["img"])
+            self.assertIn(p["photo_credit"], credits)
+            self.assertEqual(len(p["tips"]), len(p["tips_he"]), p["title"])
+            self.assertTrue(p.get("text_he"), p["title"])
+
+    def test_page_renders_in_both_languages(self):
+        self.client.force_login(self.user)
+        for lang, word in (("en", "Ramen around Japan"), ("he", "ראמן מסביב ליפן")):
+            r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")
+            self.assertEqual(r.status_code, 200)
+            html = r.content.decode()
+            self.assertIn(word, html)
+            self.assertEqual(html.count('class="lphoto-credit"'), 9, lang)
+            self.assertIn("food-ekiben.jpg", html)
+            self.assertNotIn("wikipedia.org", html)  # the source is for us, not shown

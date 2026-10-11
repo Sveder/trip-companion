@@ -432,6 +432,219 @@ activities:
                 title_he: "שוק דגים"
                 text: "In Tokyo, the Tsukiji Outer Market has small sushi shops and food stands to try."
                 text_he: "בטוקיו, בשוק החיצוני של צוקיג'י יש מסעדות סושי קטנות ודוכני אוכל לטעום."
+  # T160: one page per food, each with a real Commons photo (content/photo_credits.yaml) and a source
+  # (read before the fact went in; not shown). Facts checked 2026-10-11.
+  - id: food-around-japan
+    title: Food around Japan
+    title_he: אוכל מסביב ליפן
+    type: lesson
+    intro: Every part of Japan has its own special food. Let's go and see!
+    intro_he: לכל מקום ביפן יש אוכל מיוחד משלו. בואו נראה!
+    pictures:
+      - {id: ramen, img: photo/food/food-ramen.jpg, label: Ramen, label_he: ראמן, japanese: ラーメン, reading: ramen}
+      - {id: onigiri, img: photo/food/food-onigiri.jpg, label: Onigiri, label_he: אוניגירי, japanese: おにぎり, reading: onigiri}
+      - {id: ekiben, img: photo/food/food-ekiben.jpg, label: Ekiben, label_he: אקיבן, japanese: えきべん, reading: ekiben}
+      - {id: okonomiyaki, img: photo/food/food-okonomiyaki.jpg, label: Okonomiyaki, label_he: אוקונומיאקי, japanese: おこのみやき, reading: okonomiyaki}
+      - {id: takoyaki, img: photo/food/food-takoyaki.jpg, label: Takoyaki, label_he: טאקויאקי, japanese: たこやき, reading: takoyaki}
+      - {id: curry, img: photo/food/food-curry.jpg, label: Curry rice, label_he: קארה ראיסו, japanese: カレーライス, reading: karee raisu}
+      - {id: udon, img: photo/food/food-udon.jpg, label: Udon, label_he: אודון, japanese: うどん, reading: udon}
+      - {id: taiyaki, img: photo/food/food-taiyaki.jpg, label: Taiyaki, label_he: טאיאקי, japanese: たいやき, reading: taiyaki}
+      - {id: champuru, img: photo/food/food-okinawa.jpg, label: Champuru, label_he: צ'אמפורו, japanese: チャンプルー, reading: champuru}
+    pages:
+      - kind: text
+        title: A food trip!
+        title_he: טיול של אוכל!
+        emoji: "🗾"
+        text: In the north it is cold, in the south it is warm, and every city cooks something it is proud of. Turn the page and meet nine foods.
+        text_he: בצפון קר, בדרום חם, ולכל עיר יש מאכל שהיא גאה בו. הפכו את הדף ותכירו תשעה מאכלים.
+        source: https://en.wikipedia.org/wiki/Japanese_cuisine
+      - kind: text
+        title: Ramen around Japan
+        title_he: ראמן מסביב ליפן
+        img: photo/food/food-ramen.jpg
+        photo_credit: food-ramen
+        japanese: ラーメン
+        reading: ramen
+        text: Ramen is noodles in a hot soup. Each city makes it a little different.
+        text_he: ראמן זה אטריות במרק חם. כל עיר מכינה אותו קצת אחרת.
+        tips:
+          - In Sapporo, in the snowy north, the soup has miso. On top there is butter and sweet corn!
+          - In Hakata (Fukuoka) the soup is white like milk, made from pork bones. The noodles are thin.
+          - In Tokyo the soup tastes of soy sauce.
+          - Slurp! In Japan it is fine to slurp your noodles.
+        tips_he:
+          - בסאפורו, בצפון המושלג, יש במרק מיסו. מלמעלה יש חמאה ותירס מתוק!
+          - בהאקאטה (פוקואוקה) המרק לבן כמו חלב, והוא עשוי מעצמות חזיר. האטריות דקות.
+          - בטוקיו למרק יש טעם של רוטב סויה.
+          - סלורפ! ביפן מותר לשאוב את האטריות ברעש.
+        source: https://en.wikipedia.org/wiki/Ramen
+      - kind: text
+        title: Onigiri, the rice triangle
+        title_he: אוניגירי, משולש האורז
+        img: photo/food/food-onigiri.jpg
+        photo_credit: food-onigiri
+        japanese: おにぎり
+        reading: onigiri
+        text: Onigiri is rice in a triangle, wrapped in crunchy seaweed (nori). Every konbini shop sells it.
+        text_he: אוניגירי זה אורז בצורת משולש, עטוף באצה פריכה (נורי). כל חנות קונביני מוכרת אותו.
+        tips:
+          - "Inside there is a surprise: sour plum (umeboshi), salmon, tuna with mayo, or kombu seaweed."
+          - The plastic wrap keeps the seaweed crunchy. Pull the tabs in order, 1, 2, 3, and the seaweed wraps the rice.
+        tips_he:
+          - "בפנים יש הפתעה: שזיף חמוץ (אומבושי), סלמון, טונה עם מיונז, או אצת קומבו."
+          - העטיפה שומרת על האצה פריכה. מושכים את הלשוניות לפי הסדר, 1, 2, 3, והאצה עוטפת את האורז.
+        source: https://en.wikipedia.org/wiki/Onigiri
+      - kind: text
+        title: Ekiben, the train lunch box
+        title_he: אקיבן, קופסת האוכל של הרכבת
+        img: photo/food/food-ekiben.jpg
+        photo_credit: food-ekiben
+        japanese: えきべん
+        reading: ekiben
+        text: '"Eki" means train station. An ekiben is a lunch box you buy at the station and eat on the train.'
+        text_he: '"אקי" זה תחנת רכבת. אקיבן היא קופסת אוכל שקונים בתחנה ואוכלים ברכבת.'
+        tips:
+          - Many stations have their own ekiben, with food from that place.
+          - You can eat it on the Shinkansen, the fast bullet train.
+          - Some boxes look like a train. You can keep the box!
+        tips_he:
+          - להרבה תחנות יש אקיבן משלהן, עם אוכל מהמקום.
+          - אפשר לאכול אותה בשינקנסן, רכבת הכדור המהירה.
+          - יש קופסאות שנראות כמו רכבת. אפשר לשמור את הקופסה!
+        source: https://en.wikipedia.org/wiki/Ekiben
+      - kind: text
+        title: Okonomiyaki
+        title_he: אוקונומיאקי
+        img: photo/food/food-okonomiyaki.jpg
+        photo_credit: food-okonomiyaki
+        japanese: おこのみやき
+        reading: okonomiyaki
+        text: Okonomiyaki is a big pancake with cabbage, cooked on a hot flat grill. It is not sweet.
+        text_he: אוקונומיאקי זה פנקייק גדול עם כרוב, שמכינים על פלטה חמה. הוא לא מתוק.
+        tips:
+          - In Osaka, everything is mixed into the batter.
+          - In Hiroshima it is built in layers, with noodles inside.
+          - In some shops you cook it yourself at your table.
+        tips_he:
+          - באוסקה מערבבים הכל בתוך הבלילה.
+          - בהירושימה בונים אותו בשכבות, עם אטריות בפנים.
+          - בחלק מהמסעדות מכינים אותו לבד, על הפלטה שבשולחן.
+        source: https://en.wikipedia.org/wiki/Okonomiyaki
+      - kind: text
+        title: Takoyaki
+        title_he: טאקויאקי
+        img: photo/food/food-takoyaki.jpg
+        photo_credit: food-takoyaki
+        japanese: たこやき
+        reading: takoyaki
+        text: '"Tako" means octopus. Takoyaki are little balls with a piece of octopus inside. They come from Osaka.'
+        text_he: '"טאקו" זה תמנון. טאקויאקי הם כדורים קטנים עם חתיכת תמנון בפנים. הם באים מאוסקה.'
+        tips:
+          - The cook turns each ball with a pick in a pan full of round holes.
+          - On top there is sauce, mayo and thin flakes of dried fish.
+          - They are very hot inside. Blow first!
+        tips_he:
+          - הטבח מסובב כל כדור עם מקל במחבת מלאה גומות עגולות.
+          - מלמעלה יש רוטב, מיונז ופתיתים דקים של דג מיובש.
+          - בפנים הם חמים מאוד. קודם נושפים!
+        source: https://en.wikipedia.org/wiki/Takoyaki
+      - kind: text
+        title: Curry rice
+        title_he: קארי עם אורז
+        img: photo/food/food-curry.jpg
+        photo_credit: food-curry
+        japanese: カレーライス
+        reading: karee raisu
+        text: Japanese curry is a thick brown sauce on rice. It is mild and a little sweet, so many kids love it.
+        text_he: קארי יפני זה רוטב חום וסמיך על אורז. הוא לא חריף וקצת מתוק, אז הרבה ילדים אוהבים אותו.
+        tips:
+          - Katsu curry has a crispy fried cutlet on top.
+          - Many families in Japan cook curry at home.
+        tips_he:
+          - בקאטסו קארי יש למעלה שניצל פריך.
+          - הרבה משפחות ביפן מבשלות קארי בבית.
+        source: https://en.wikipedia.org/wiki/Japanese_curry
+      - kind: text
+        title: Udon and soba
+        title_he: אודון וסובה
+        img: photo/food/food-udon.jpg
+        photo_credit: food-udon
+        japanese: うどん
+        reading: udon
+        text: Japan has two more famous noodles. Udon is thick and white. Soba is thin and brown.
+        text_he: ביפן יש עוד שתי אטריות מפורסמות. אודון עבה ולבנה. סובה דקה וחומה.
+        tips:
+          - Udon is made from wheat. Kagawa is famous for its Sanuki udon.
+          - Soba is made from buckwheat. Nagano is famous for its soba.
+          - In summer people eat them cold, and dip them in a sauce.
+        tips_he:
+          - אודון עשויה מחיטה. קאגאווה מפורסמת באודון סאנוקי שלה.
+          - סובה עשויה מכוסמת. נאגאנו מפורסמת בסובה שלה.
+          - בקיץ אוכלים אותן קרות, וטובלים ברוטב.
+        source: https://en.wikipedia.org/wiki/Soba
+      - kind: text
+        title: Sweet treats
+        title_he: ממתקים
+        img: photo/food/food-taiyaki.jpg
+        photo_credit: food-taiyaki
+        japanese: たいやき
+        reading: taiyaki
+        text: Taiyaki is a warm cake in the shape of a fish. Inside there is sweet red bean paste.
+        text_he: טאיאקי זו עוגה חמה בצורת דג. בפנים יש ממרח מתוק של שעועית אדומה.
+        tips:
+          - Mochi is soft and chewy. It is made from sticky rice.
+          - Dango are little rice balls on a stick.
+          - Try a green matcha soft cream, an ice cream with green tea taste.
+        tips_he:
+          - מוצ'י רך ולעיס. הוא עשוי מאורז דביק.
+          - דנגו הם כדורי אורז קטנים על מקל.
+          - נסו סופט קרים ירוק של מאצ'ה, גלידה בטעם תה ירוק.
+        source: https://en.wikipedia.org/wiki/Taiyaki
+      - kind: text
+        title: Food in Okinawa
+        title_he: אוכל באוקינאווה
+        img: photo/food/food-okinawa.jpg
+        photo_credit: food-okinawa
+        japanese: チャンプルー
+        reading: champuru
+        text: Okinawa is warm islands far in the south. The food there is a little different.
+        text_he: אוקינאווה הם איים חמים רחוק בדרום. האוכל שם קצת אחר.
+        tips:
+          - Champuru is a stir fry. Goya champuru has a green, bitter vegetable called goya.
+          - The sweet potato there can be purple inside!
+          - Sata andagi are round, sweet fried doughnuts.
+        tips_he:
+          - צ'אמפורו זה מוקפץ. בגויה צ'אמפורו יש ירק ירוק ומר שנקרא גויה.
+          - הבטטה שם יכולה להיות סגולה מבפנים!
+          - סאטה אנדאגי הם סופגניות עגולות ומתוקות.
+        source: https://en.wikipedia.org/wiki/Champur%C5%AB
+      - kind: pick
+        title: Food quiz
+        title_he: חידון אוכל
+        text: Last game! Tap the right food.
+        text_he: משחק אחרון! געו באוכל הנכון.
+        source: https://en.wikipedia.org/wiki/Japanese_cuisine
+        rounds:
+          - ask: "Which ramen has corn on top?"
+            ask_he: "באיזה ראמן יש תירס מלמעלה?"
+            answer: ramen
+            choices: [udon, ramen, curry, taiyaki]
+          - ask: "Which one is a rice triangle (onigiri)?"
+            ask_he: "איזה מהם משולש אורז (אוניגירי)?"
+            answer: onigiri
+            choices: [onigiri, takoyaki, okonomiyaki, champuru]
+          - ask: "Which lunch box looks like a train?"
+            ask_he: "איזו קופסת אוכל נראית כמו רכבת?"
+            answer: ekiben
+            choices: [curry, onigiri, ekiben, udon]
+          - ask: "Which balls have octopus inside (takoyaki)?"
+            ask_he: "באילו כדורים יש תמנון (טאקויאקי)?"
+            answer: takoyaki
+            choices: [taiyaki, takoyaki, ramen, okonomiyaki]
+          - ask: "Which cake looks like a fish (taiyaki)?"
+            ask_he: "איזו עוגה נראית כמו דג (טאיאקי)?"
+            answer: taiyaki
+            choices: [champuru, ekiben, taiyaki, onigiri]
   # T124: these cards bring new foods, not the sushi lesson again, so the title is not "quick review".
   - id: food-cards
     title: "More Japanese food"

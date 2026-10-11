@@ -36,6 +36,8 @@ Develops `scope.md > The Core Loop` and `scope.md > What "Working" Looks Like`.
 **Rich lessons (Michael, feedback 2026-10-08):** each module grows a lesson of 10-20 short pages, one screen each: pictures,
 tap-a-part-of-the-picture, games, a video in the middle, and where to get or try the thing at home and in Japan. More than
 one screen of reading. Food (sushi) is first; the other modules follow the same pattern.
+Food has a second lesson, 'Food around Japan' (Michael, 2026-10-11): one page per food with a real photo and its credit,
+regional tastes (ramen by city, onigiri fillings, ekiben, okonomiyaki, takoyaki, curry, udon and soba, sweets, Okinawa), and a quiz.
 
 Works on a phone and in the TV's web browser (big, readable, remote-friendly on the TV). Source: `scope.md > The POC Boundary`.
 

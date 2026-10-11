@@ -107,6 +107,7 @@ PRD ref: `prd.md > Trip setup and course builder`.
 YAML files under `content/japan/`, one per module, loaded into the database by `manage.py load_content` (Module and Activity
 rows). After loading, the database is the source the site reads; the super user's edits live there. Each module has: id, title, audience (`all`, `adult`, `child`), order, and a
 list of activities. An activity has a type and its data:
+- A `text` lesson page can carry a real photo: `img: photo/<topic>/<id>.jpg` plus `photo_credit: <id>` (content/photo_credits.yaml); the page shows 'Photo: author, licence' under it, linked to /credits/. Every page of 'Food around Japan' also has `source:` (the page a fact was checked against; not shown).
 - `cards` — fact cards (food, do and don't, safety, transport); a card can hold an image and a short text.
 - `words` — word list (Japanese, reading, English meaning with a `meaning_he` twin, optional audio file) → feeds Practice.
 - `video` — a YouTube id, `approved: true|false`; unapproved videos never show.
@@ -120,7 +121,7 @@ PRD ref: `prd.md > Modules (Japan)`.
 ### Course builder
 Reads the content library, suggests modules whose audience fits the travellers (adults-only → no `child` modules switched on,
 but they stay listed), lets the parent toggle, and on "Build" writes the course in module order.
-Inside a module, the rich lesson comes first. The short card item of that module comes after it, titled
+Inside a module, the rich lessons come first (food has two: 'All about sushi', then 'Food around Japan'). The short card item of that module comes after it, titled
 "<module>: quick review" in the content when most of its cards repeat the lesson. Cards that bring new things are
 named by what they hold ("More Japanese food"). With a child in the family, the kids' activities are spread through the course, only at a module edge (the first one after the first module), so a lesson and its quick review stay side by side.
 `load_content` puts the items of courses already built in the same order, in place, so item ids and done marks stay.

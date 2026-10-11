@@ -131,7 +131,7 @@ class BuilderTests(TestCase):
         types = [i.activity.type for i in items]
         # The Street View lesson (T66) is the early kids' item; it shows what to look for, the hunts follow it.
         acts = [i.activity.slug for i in items]
-        self.assertIn("streetview-lesson", acts[:3])
+        self.assertIn("streetview-lesson", acts[:4])  # right after the first module (food: 2 lessons + cards, T160)
         self.assertLess(acts.index("streetview-lesson"), types.index("streetview"))
         self.assertEqual(types.count("streetview"), 3)
         for a, b in zip(types, types[1:]):
@@ -617,7 +617,9 @@ class PraiseTests(TestCase):
         self.assertGreaterEqual(len(self.ready), 10)
         for item in self.ready[:5]:
             item.mark_done()
-        picked, after = self.ready[8], self.ready[9]
+        # A hunt adds ?found=N to its praise link, so pick a later item that is not a hunt.
+        n = next(n for n in range(8, len(self.ready) - 1) if self.ready[n].activity.type != "streetview")
+        picked, after = self.ready[n], self.ready[n + 1]
         r = self.client.post(reverse("activity_done", args=[picked.id]), {"skip": "1"})
         self.assertRedirects(r, reverse("activity_praise", args=[picked.id]), fetch_redirect_response=False)
         page = self.client.get(reverse("activity_praise", args=[picked.id]))
