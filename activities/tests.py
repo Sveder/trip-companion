@@ -623,9 +623,20 @@ class PhoneSpotsTests(TestCase):
         self.assertIn(".lspots.edge { padding: 14px 24px; margin: 0 -14px; }", rule)
         self.assertIn(".lspot { width: 20px; height: 20px;", rule)
         self.assertIn(".spot-info { font-size: 1rem; padding: .4rem .8rem; }", rule)
-        # A 20 px number sits 13 px outside the picture (inside the 24 px band); desktop and TV keep 20 px.
+        # A 20 px number sits 13 px outside the picture (inside the 24 px band); a 34 px desktop number 20 px.
         js = (settings.BASE_DIR / "static/js/lesson.js").read_text()
-        self.assertIn("var off = Math.min(20, s.b.offsetWidth / 2 + 3)", js)
+        self.assertIn("var off = s.b.offsetWidth / 2 + 3,", js)
+
+    def test_tv_number_beside_the_picture(self):
+        # T172: a 42 px TV number sits 24 px outside the picture, so even at the pulse peak (scale 1.15) it stays off
+        # the picture and inside the 48 px TV band. The old 20 px cap put it 1-4 px over the picture edge.
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        size = int(re.search(r"\.tv \.lspot \{ width: (\d+)px;", css).group(1))
+        band = int(re.search(r"\.tv \.lspots\.edge \{ padding: \d+px (\d+)px; \}", css).group(1))
+        scale = float(re.search(r"@keyframes pulse \{ 50% \{ transform: translate\(-50%, -50%\) scale\(([\d.]+)\)", css).group(1))
+        off = size / 2 + 3
+        self.assertLess(size / 2 * scale, off + 0.5)
+        self.assertLessEqual(off + size / 2 * scale, band + 0.5)
 
 
 class TvFlipCardTests(TestCase):

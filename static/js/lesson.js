@@ -107,8 +107,9 @@
         for (j = list.length - 1; j >= 0; j--) list[j].at = Math.min(list[j].at, j === list.length - 1 ? h : list[j + 1].at - GAP);
       }
       list.forEach(function (s) {
-        // A number sits half its width plus 3 px outside the picture, at most 20 px (T116: small numbers on a phone).
-        var off = Math.min(20, s.b.offsetWidth / 2 + 3), bx = k === 'l' ? -off : w + off;
+        // A number sits half its width plus 3 px outside the picture (T116). No 20 px cap: a 42 px TV number at 20 px
+        // covered the picture edge by 1-4 px (T172).
+        var off = s.b.offsetWidth / 2 + 3, bx = k === 'l' ? -off : w + off;
         // The line stops at the edge of the ring, so the ring stays empty and the thing shows through it.
         var sx = k === 'l' ? -4 : w + 4, dx = s.x - sx, dy = s.y - s.at, len = Math.sqrt(dx * dx + dy * dy) || 1;
         var ex = s.x - dx * 9 / len, ey = s.y - dy * 9 / len;
