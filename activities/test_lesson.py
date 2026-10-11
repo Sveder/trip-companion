@@ -882,3 +882,19 @@ class FoodAroundJapanTests(TestCase):
             self.assertEqual(html.count('class="lphoto-credit"'), 9, lang)
             self.assertIn("food-ekiben.jpg", html)
             self.assertNotIn("wikipedia.org", html)  # the source is for us, not shown
+
+
+class WordsPicturesTests(TestCase):
+    """T161: the words lesson pictures keep their size and their labels, and parse as SVG."""
+
+    def test_every_words_picture_is_a_labelled_svg_of_the_old_size(self):
+        import xml.etree.ElementTree as ET
+        folder = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson' / 'words'
+        names = sorted(p.stem for p in folder.glob('*.svg'))
+        self.assertEqual(len(names), 12)
+        for path in folder.glob('*.svg'):
+            root = ET.parse(path).getroot()
+            want = '0 0 400 260' if path.stem == 'shop' else '0 0 120 90'
+            self.assertEqual(root.get('viewBox'), want, path.name)
+            self.assertTrue(root.get('aria-label'), path.name)
+            self.assertIsNotNone(root.find('{http://www.w3.org/2000/svg}title'), path.name)
