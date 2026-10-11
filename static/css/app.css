@@ -376,6 +376,11 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .lesson .lemoji { font-size: 5rem; line-height: 1.1; }
 .lesson .ltext { font-size: 1.2rem; max-width: 36em; margin: .4rem auto; }
 .lesson .say-word { cursor: pointer; }
+/* T158: the picture of a word page is a button that says the word; a Japanese word inside a sentence talks too. */
+.lesson .lpic-say { display: block; width: 100%; max-width: 420px; margin: .3rem auto; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 12px; }
+.lesson .lpic-say .lpic { margin: 0 auto; }
+.tv .lpic-say:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }
+.say-inline { cursor: pointer; font-weight: 700; text-decoration: underline dotted; text-underline-offset: .2em; white-space: nowrap; }
 .lesson .say-word small { font-size: 1rem; color: var(--c-muted); font-weight: 700; }
 .lesson .big-tips { text-align: start; max-width: 32em; margin: .6rem auto 0; padding: .8rem 1rem .8rem 2rem; background: var(--c-bg); border-radius: var(--radius); font-size: 1.1rem; }
 .lesson .big-tips li { margin: .35rem 0; }

@@ -8,7 +8,7 @@
     {% if card.image %}<img src="{{ card.image }}" alt="{{ card.title }}">{% elif card.emoji %}<div class="card-emoji big" aria-hidden="true">{{ card.emoji }}</div>{% endif %}
     <h3>{{ card.title }}</h3>
     {% if card.japanese %}<p class="jp small" lang="ja">{{ card.japanese }}</p>{% endif %}
-    <p>{{ card.text }}</p>
+    <p>{{ card.text|say_quoted }}</p>
     {% if card.japanese %}<span class="say-hint" data-say-hint hidden>🔊 {% translate "Tap to hear it" %}</span>{% endif %}
   </article>
   {% endfor %}

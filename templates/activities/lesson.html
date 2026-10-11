@@ -17,15 +17,17 @@
     {% if forloop.first and data.intro %}<p class="lead lpage-intro">{{ data.intro }}</p>{% endif %}
 
     {% if page.kind == "text" %}
-      {% if page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
+      {# The picture of a word page says the word too: a child taps the picture first (T158). #}
+      {% if page.img and page.japanese %}<button type="button" class="lpic-say" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" aria-label="{{ page.japanese }}"><img class="lpic" src="{% static 'img/'|add:page.img %}" alt=""></button>
+      {% elif page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
       {% if page.japanese %}<p class="jp say-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0">{{ page.japanese }} <small>{{ page.reading }}</small></p>{% endif %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
-      {% if page.tips %}<ul class="tips big-tips">{% for tip in page.tips %}<li>{{ tip }}</li>{% endfor %}</ul>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
+      {% if page.tips %}<ul class="tips big-tips">{% for tip in page.tips %}<li>{{ tip|say_quoted }}</li>{% endfor %}</ul>{% endif %}
       {% if page.link %}<p><a class="btn alt" href="{% url 'go' item.id page.link.id %}" target="_blank" rel="noopener nofollow">{{ page.link.label }}</a></p>
       <p class="hint">{% translate "A grown-up buys it. The shop opens in a new tab." %}</p>{% endif %}
 
     {% elif page.kind == "spots" %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       {# A small ring marks each thing; its number sits at the side of the picture with a line to the ring, so no number hides the thing (T103). #}
       <div class="lspots" data-spots data-total="{{ page.spots|length }}">
         <div class="lspots-pic">
@@ -42,13 +44,13 @@
       {% for spot in page.spots %}
       <div class="spot-info" data-spot-info="{{ forloop.counter0 }}">
         <h3>{{ spot.label }}{% if spot.japanese %} <span class="jp small say-word" lang="ja" data-say="{{ spot.japanese }}" data-say-src="{{ spot.reading|word_audio }}" tabindex="0">{{ spot.japanese }} · {{ spot.reading }}</span>{% endif %}</h3>
-        <p>{{ spot.text }}</p>
+        <p>{{ spot.text|say_quoted }}</p>
       </div>
       {% endfor %}
       </div>
 
     {% elif page.kind == "flip" %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       <div class="flips">
         {% for card in page.cards %}
         {# A card with a Japanese word also says it: data-say sits on the button itself, so one tap (or OK on the TV remote) flips and speaks (T91). #}
@@ -60,14 +62,14 @@
       </div>
 
     {% elif page.kind == "pick" %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       <div class="game" data-game>
         {% for round in page.rounds %}
         <div class="round" data-round>
           <p class="ask">{{ round.ask }}</p>
           <div class="choices">
             {% for pic in round.choices %}
-            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
+            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
             {% endfor %}
           </div>
         </div>
@@ -76,7 +78,7 @@
       </div>
 
     {% elif page.kind == "train" %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       <div class="game train-game" data-game data-train data-best-key="tc_best_{{ activity.id }}_{{ forloop.counter0 }}">
         {% for round in page.rounds %}
         <div class="round" data-round data-answer="{{ round.answer }}"><p class="ask">{{ round.ask }}</p></div>
@@ -85,7 +87,7 @@
         <div class="round" data-endless hidden><p class="ask" data-endless-ask></p></div>
         <div class="belt"><div class="belt-track">
           {% for pass in "ab" %}{% for pic in page.belt %}
-          <button type="button" class="plate" data-plate="{{ pic.id }}"{% if pass == "b" %} aria-hidden="true" tabindex="-1"{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
+          <button type="button" class="plate" data-plate="{{ pic.id }}"{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}{% if pass == "b" %} aria-hidden="true" tabindex="-1"{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
           {% endfor %}{% endfor %}
         </div></div>
         <p class="game-msg" data-game-msg aria-live="polite"></p>
@@ -99,7 +101,7 @@
       </div>
 
     {% elif page.kind == "video" %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       {% if page.show_video %}
       <div class="video-frame" data-video-play="{% url 'track_video' item.id %}" data-video="{{ page.youtube }}">
         <iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}?rel=0" title="{{ page.title }}"
@@ -107,15 +109,15 @@
       </div>
       {% endif %}
       {% if page.fallback %}
-      <ol class="how">{% for line in page.fallback %}<li>{{ line }}</li>{% endfor %}</ol>
+      <ol class="how">{% for line in page.fallback %}<li>{{ line|say_quoted }}</li>{% endfor %}</ol>
       {% endif %}
 
     {% elif page.kind == "local" %}
-      {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       {% for group in page.groups %}
       <h3>{{ group.title }}</h3>
       <ul class="places">
-        {% for place in group.places %}<li><span class="place-emoji" aria-hidden="true">{{ place.emoji }}</span><span><strong>{{ place.title }}</strong> {{ place.text }}</span></li>{% endfor %}
+        {% for place in group.places %}<li><span class="place-emoji" aria-hidden="true">{{ place.emoji }}</span><span><strong>{{ place.title }}</strong> {{ place.text|say_quoted }}</span></li>{% endfor %}
       </ul>
       {% endfor %}
     {% endif %}

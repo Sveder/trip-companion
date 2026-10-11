@@ -1,5 +1,6 @@
 {% extends "activities/_frame.html" %}
 {% load i18n %}
+{% load say %}
 {% load static %}
 {% block activity %}
 {% include "includes/js_strings.html" %}
@@ -23,7 +24,7 @@
         <span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>
         <span class="spot-body">
           {% if spot.name %}<span class="spot-name">{{ spot.name }}</span>{% endif %}
-          <span class="spot-text">{{ spot.text }}</span>
+          <span class="spot-text">{{ spot.text|say_quoted }}</span>
           {% if spot.about %}<span class="spot-about">{{ spot.about }}</span>{% endif %}
         </span>
         <span class="spot-tick" aria-hidden="true">✓</span>

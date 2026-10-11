@@ -1,5 +1,6 @@
 {% extends "activities/_frame.html" %}
 {% load i18n %}
+{% load say %}
 {% load static %}
 {% block activity %}
 {% include "includes/js_strings.html" %}
@@ -7,7 +8,7 @@
   {% for step in steps %}
   <li class="step panel step-{{ step.kind }}">
     <h2><span class="step-num">{{ forloop.counter }}</span> {% if step.emoji %}<span aria-hidden="true">{{ step.emoji }}</span> {% endif %}{{ step.title }}</h2>
-    {% if step.text %}<p>{{ step.text }}</p>{% endif %}
+    {% if step.text %}<p>{{ step.text|say_quoted }}</p>{% endif %}
 
     {% if step.kind == "link" %}
     <p><a class="btn alt" href="{% if step.id %}{% url 'go' item.id step.id %}{% else %}{{ step.url }}{% endif %}" target="_blank" rel="noopener nofollow">{% if step.label %}{{ step.label }}{% else %}{% translate "Open" %}{% endif %}</a></p>
@@ -22,7 +23,7 @@
       {% else %}
       <div class="video-fallback" data-video-fallback>
         <p class="hint">{% translate "The video comes soon. Here is how:" %}</p>
-        <ol class="how">{% for line in step.fallback %}<li>{{ line }}</li>{% endfor %}</ol>
+        <ol class="how">{% for line in step.fallback %}<li>{{ line|say_quoted }}</li>{% endfor %}</ol>
       </div>
       {% endif %}
 
@@ -49,11 +50,11 @@
     {% endif %}
 
     {% if step.how %}
-    <ol class="how">{% for line in step.how %}<li>{{ line }}</li>{% endfor %}</ol>
+    <ol class="how">{% for line in step.how %}<li>{{ line|say_quoted }}</li>{% endfor %}</ol>
     {% endif %}
 
     {% if step.tips %}
-    <ul class="tips">{% for tip in step.tips %}<li>{{ tip }}</li>{% endfor %}</ul>
+    <ul class="tips">{% for tip in step.tips %}<li>{{ tip|say_quoted }}</li>{% endfor %}</ul>
     {% endif %}
   </li>
   {% endfor %}
