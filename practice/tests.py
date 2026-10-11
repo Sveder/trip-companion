@@ -3,7 +3,7 @@ from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils import timezone, translation
 
@@ -338,3 +338,59 @@ class LessonQuizTests(TestCase):
         self.assertEqual(len(pages), 12)
         self.assertEqual(len(set(pages)), 3)  # the spots page and both flip pages
         self.assertNotEqual(pages[0], pages[1])
+
+
+class WordAudioScriptTests(SimpleTestCase):
+    """deploy/make_word_audio.py: edge-tts first, Google Translate TTS when edge-tts fails (T167)."""
+
+    def load(self):
+        import importlib.util
+        import pathlib
+
+        path = pathlib.Path(__file__).resolve().parent.parent / "deploy" / "make_word_audio.py"
+        spec = importlib.util.spec_from_file_location("make_word_audio", path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+    def test_a_403_from_edge_falls_back_to_google_and_leaves_no_empty_file(self):
+        import pathlib
+        import subprocess
+        import tempfile
+
+        mod = self.load()
+        with tempfile.TemporaryDirectory() as d:
+            path = pathlib.Path(d) / "sushi.mp3"
+
+            def fail(cmd, **kw):
+                path.write_bytes(b"")  # edge-tts opens the file, then the 403 kills it
+                raise subprocess.CalledProcessError(1, cmd)
+
+            with mock.patch.object(mod.subprocess, "run", side_effect=fail):
+                self.assertFalse(mod.edge("すし", path))
+            self.assertFalse(path.exists())
+
+            response = mock.MagicMock()
+            response.__enter__.return_value = response
+            response.read.return_value = b"ID3mp3"
+            response.headers.get_content_type.return_value = "audio/mpeg"
+            with mock.patch.object(mod.urllib.request, "urlopen", return_value=response) as urlopen:
+                mod.google("すし", path)
+            self.assertIn("tl=ja", urlopen.call_args[0][0].full_url)
+            self.assertIn("%E3%81%99%E3%81%97", urlopen.call_args[0][0].full_url)
+            self.assertEqual(path.read_bytes(), b"ID3mp3")
+
+    def test_google_refuses_a_page_that_is_not_audio(self):
+        import pathlib
+        import tempfile
+
+        mod = self.load()
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.read.return_value = b"<html>captcha</html>"
+        response.headers.get_content_type.return_value = "text/html"
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(mod.urllib.request, "urlopen", return_value=response):
+            path = pathlib.Path(d) / "sushi.mp3"
+            with self.assertRaises(RuntimeError):
+                mod.google("すし", path)
+            self.assertFalse(path.exists())
