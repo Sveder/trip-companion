@@ -138,6 +138,22 @@ class HeaderClearOfBadgeTests(TestCase):
         self.assertGreaterEqual(right, 80)
 
 
+    def test_tablet_header_puts_the_language_link_beside_sound(self):
+        # T184: at 601-1279 px the language link wrapped to a row of its own. Row 1 is now brand, Sound on and the
+        # language link; the nav is row 2 and borrows at most 64 px of the 140 px padding (the badge is narrow there).
+        import re
+        from pathlib import Path
+        from django.conf import settings
+        css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()
+        block = css[css.index("@media (min-width: 601px) and (max-width: 1279px) {\n  .top-menu"):]
+        block = block[:block.index("\n}\n")]
+        self.assertIn(".top-menu { display: contents; }", block)
+        self.assertIn(".top .sound-btn { order: 1; }", block)
+        self.assertIn(".top .lang-switch { order: 2; }", block)
+        borrow = int(re.search(r"\.top \.top-nav \{[^}]*margin-right: -(\d+)px", block).group(1))
+        self.assertLessEqual(borrow, 140 - 66)
+
+
 class HeaderMenuTests(TestCase):
     """T105: a signed-in phone header folds the links behind one Menu button."""
 
