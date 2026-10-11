@@ -71,6 +71,7 @@
       {% if page.cards.0.photo %}<p class="photo-credits-link small"><a href="{% url 'credits' %}">{% translate "Photo credits" %}</a></p>{% endif %}
 
     {% elif page.kind == "pick" %}
+      {# A page with words: true is a word game: each choice shows the word under the picture (kana + romaji, or the Hebrew way to say it), so the game tests the word, not the picture (T180). #}
       {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       <div class="game" data-game>
         {% for round in page.rounds %}
@@ -78,7 +79,7 @@
           <p class="ask">{{ round.ask }}</p>
           <div class="choices">
             {% for pic in round.choices %}
-            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
+            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}">{% if page.words and pic.japanese %}<span class="choice-word"><span class="jp small" lang="ja">{{ pic.japanese }}</span>{% if pic.say %}<span class="choice-say">{{ pic.say }}</span>{% endif %}</span>{% endif %}</button>
             {% endfor %}
           </div>
         </div>

@@ -87,3 +87,19 @@ class UzbekistanCourseTests(TestCase):
         self.assertNotContains(page, "<small>salom</small>")
         he = self.client.get(reverse("activity", args=[item.id]) + "?lang=he")
         self.assertContains(he, "מדברים כמו ילדים באוזבקיסטן")
+
+    def test_word_game_shows_the_uzbek_word_on_every_choice(self):
+        # T180: the 'What do you say?' choices carry the word; Hebrew adds the way to say it.
+        item = self.course.items.get(activity__slug="uz-words-lesson")
+        for lang in ("en", "he"):
+            html = self.client.get(reverse("activity", args=[item.id]) + f"?lang={lang}").content.decode()
+            game = html.rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
+            choices = game.split('class="choice"')[1:]
+            self.assertEqual(len(choices), 16, lang)
+            for c in choices:
+                self.assertIn('class="choice-word"', c, lang)
+            self.assertIn(">Rahmat<", game)
+            if lang == "en":
+                self.assertNotIn("choice-say", game)  # the Latin word is not printed twice
+            else:
+                self.assertIn('<span class="choice-say">רחמת</span>', game)

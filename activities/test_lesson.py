@@ -304,6 +304,23 @@ class WordsLessonTests(TestCase):
         self.assertIn("דף 1 מתוך 14", html)
         self.assertNotIn("In a Japanese shop", html)
 
+    def test_word_game_shows_the_word_on_every_choice(self):
+        # T180: 'Tap the right word' must show words, not pictures only.
+        for lang, say in (("en", "arigatou"), ("he", "אריגטו")):
+            html = self.page(lang)
+            game = html.rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
+            choices = game.split('class="choice"')[1:]
+            self.assertEqual(len(choices), 16, lang)
+            for c in choices:
+                self.assertIn('class="choice-word"', c, lang)
+                self.assertIn('class="choice-say"', c, lang)
+            self.assertIn("ありがとう", game)
+            self.assertIn(f'<span class="choice-say">{say}</span>', game, lang)
+            self.assertIn('data-say="arigatou"', game)  # a tap still says the word
+            # 'Which hello?' names the word in the ask, so its choices stay pictures only.
+            first = html.split("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
+            self.assertNotIn("choice-word", first)
+
     def test_unapproved_video_shows_the_written_lines_and_no_id(self):
         html = self.page()
         self.assertNotIn("4rY3y5VZcCg", html)

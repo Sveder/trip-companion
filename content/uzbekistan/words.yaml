@@ -16,11 +16,11 @@ activities:
     intro: Swipe through the pages. Say each word out loud!
     intro_he: עוברים דף אחרי דף. אומרים כל מילה בקול!
     pictures:
-      - {id: salom, img: lesson/uzbekistan/salom.svg, label: Hello, label_he: שלום, japanese: Salom, reading: salom}
-      - {id: rahmat, img: lesson/uzbekistan/rahmat.svg, label: Thank you, label_he: תודה, japanese: Rahmat, reading: rahmat}
-      - {id: ha, img: lesson/uzbekistan/ha.svg, label: "Yes", label_he: כן, japanese: Ha, reading: ha}
-      - {id: yoq, img: lesson/uzbekistan/yoq.svg, label: "No", label_he: לא, japanese: "Yo'q", reading: yoq}
-      - {id: xayr, img: lesson/uzbekistan/xayr.svg, label: Goodbye, label_he: להתראות, japanese: Xayr, reading: xayr}
+      - {id: salom, img: lesson/uzbekistan/salom.svg, label: Hello, label_he: שלום, japanese: Salom, reading: salom, say: "", say_he: סלום}
+      - {id: rahmat, img: lesson/uzbekistan/rahmat.svg, label: Thank you, label_he: תודה, japanese: Rahmat, reading: rahmat, say: "", say_he: רחמת}
+      - {id: ha, img: lesson/uzbekistan/ha.svg, label: "Yes", label_he: כן, japanese: Ha, reading: ha, say: "", say_he: הא}
+      - {id: yoq, img: lesson/uzbekistan/yoq.svg, label: "No", label_he: לא, japanese: "Yo'q", reading: yoq, say: "", say_he: יוק}
+      - {id: xayr, img: lesson/uzbekistan/xayr.svg, label: Goodbye, label_he: להתראות, japanese: Xayr, reading: xayr, say: "", say_he: חייר}
     pages:
       - kind: text
         title: Salom!
@@ -76,6 +76,7 @@ activities:
         title_he: מה אומרים?
         text: Last game! Tap the right word.
         text_he: משחק אחרון! געו במילה הנכונה.
+        words: true
         rounds:
           - ask: "You meet a new friend. What do you say?"
             ask_he: "פוגשים חבר חדש. מה אומרים?"
