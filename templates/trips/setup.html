@@ -17,7 +17,7 @@
             <h3>{{ c.name }}</h3>
             <p>{{ c.line }}</p>
           </label>
-          {% else %}
+          {% elif not c.href %}
           <div class="card country soon" aria-disabled="true">
             <span class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</span>
             <h3>{{ c.name }}</h3>

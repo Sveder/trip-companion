@@ -17,6 +17,12 @@
     <p>{{ c.line }}</p>
     <span class="card-go">{% translate "Let's go!" %} <span class="arrow">&rarr;</span></span>
   </a>
+  {% elif c.href %}
+  <a class="card country go request" href="{{ c.href }}">
+    <div class="card-emoji" aria-hidden="true">{{ c.emoji }}</div>
+    <h3>{{ c.name }}</h3>
+    <p>{{ c.line }}</p>
+  </a>
   {% else %}
   <div class="card country soon">
     <div class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</div>

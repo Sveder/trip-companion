@@ -787,6 +787,37 @@ class UzbekistanFlagTests(TestCase):
         self.assertIn("img/flags/uzbekistan.svg", page)
         self.assertNotIn("🇺🇿", page)
 
+class ComingSoonCardsTests(TestCase):
+    """T146: Japan, five coming-soon places and a 'Request a new one' mail card on the welcome page."""
+
+    def test_welcome_has_seven_cards_and_the_request_mail_link(self):
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertEqual(html.count('class="card country go"'), 1)  # Japan
+        self.assertEqual(html.count('class="card country soon"'), 5)
+        self.assertEqual(html.count('class="card country go request"'), 1)
+        self.assertIn('href="mailto:m@sveder.com?subject=Trip%20Companion%3A%20new%20place"', html)
+        for name in ("Uzbekistan", "New York City", "Botswana", "Georgia", "Mongolia"):
+            self.assertIn(f"<h3>{name}</h3>", html)
+        for flag in ("botswana.svg", "georgia.svg", "mongolia.svg"):
+            self.assertIn(f"img/flags/{flag}", html)
+        self.assertIn("🗽", html)  # New York has no flag file: the emoji shows
+
+    def test_hebrew_names_and_lines(self):
+        from django.conf import settings
+        self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn('<html lang="he" dir="rtl">', html)
+        for text in ("ניו יורק", "בוטסואנה", "גאורגיה", "מונגוליה", "בקשו מקום חדש"):
+            self.assertIn(text, html)
+
+    def test_trip_form_skips_the_request_card(self):
+        user = get_user_model().objects.create_user("soon@example.com", "soon@example.com", "x")
+        self.client.force_login(user)
+        html = self.client.get(reverse("trip_setup")).content.decode()
+        self.assertNotIn("mailto:", html)
+        self.assertEqual(html.count('class="card country soon"'), 5)
+
+
 class InJapanNowTests(TestCase):
     """T93: a trip with only a length (no leave date) can still reach the 'in Japan' part, with one tap."""
 

@@ -14,3 +14,43 @@
   line: Blue domes, old Silk Road cities and fresh bread.
   line_he: כיפות כחולות, ערים עתיקות על דרך המשי ולחם טרי.
   ready: false
+- id: new-york
+  name: New York City
+  name_he: ניו יורק
+  emoji: "🗽"
+  line: Yellow taxis, giant pizza slices and a park in the middle of the city.
+  line_he: מוניות צהובות, משולשי פיצה ענקיים ופארק באמצע העיר.
+  ready: false
+- id: botswana
+  name: Botswana
+  name_he: בוטסואנה
+  emoji: "🇧🇼"
+  flag: botswana.svg
+  line: Elephants, salt pans and the Okavango water.
+  line_he: פילים, מישורי מלח והמים של האוקוונגו.
+  ready: false
+- id: georgia
+  name: Georgia
+  name_he: גאורגיה
+  emoji: "🇬🇪"
+  flag: georgia.svg
+  line: Mountain towers, cheese bread and singing at dinner.
+  line_he: מגדלים בהרים, לחם גבינה ושירה בארוחת הערב.
+  ready: false
+- id: mongolia
+  name: Mongolia
+  name_he: מונגוליה
+  emoji: "🇲🇳"
+  flag: mongolia.svg
+  line: Round tents, horses and eagles.
+  line_he: אוהלים עגולים, סוסים ועיטים.
+  ready: false
+# T146: not a place. A mail link for a family that goes somewhere else; the trip form skips it.
+- id: request
+  name: Request a new one
+  name_he: בקשו מקום חדש
+  emoji: "✉️"
+  line: Tell us where you go. We make a course.
+  line_he: ספרו לנו לאן אתם נוסעים. אנחנו נכין קורס.
+  href: "mailto:m@sveder.com?subject=Trip%20Companion%3A%20new%20place"
+  ready: false
