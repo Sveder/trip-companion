@@ -1296,4 +1296,4 @@ msgstr "עשינו 0 מתוך %(total)s. לחצו על הראשונה כדי ל�
 
 #: templates/courses/highlights.html:92
 msgid "Start our course"
-msgstr "מתחילים את הקורס שלנו"
+msgstr "מתחילים את הקורס"

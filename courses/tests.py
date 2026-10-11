@@ -532,7 +532,7 @@ class AfterTheTripTests(TestCase):
         self.assertIn(f'href="{reverse("next_step")}"', html)
         self.assertIn("Start our course", html)
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
-        self.assertIn("מתחילים את הקורס שלנו", self.client.get(reverse("highlights")).content.decode())
+        self.assertIn("מתחילים את הקורס", self.client.get(reverse("highlights")).content.decode())
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "en"
         PracticeItem.objects.create(trip=self.trip, key="words/words-intro/hai")
         html = self.client.get(reverse("highlights")).content.decode()

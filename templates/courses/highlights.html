@@ -89,7 +89,7 @@
   {% if has_quiz %}
   <a class="btn big alt" href="{% url 'quiz' %}?new=1">{% translate "Play the quiz" %} ⭐</a>
   {% else %}{# T142: no quiz words yet, so the button opens the next activity, not an empty quiz. #}
-  <a class="btn big alt" href="{% url 'next_step' %}">{% translate "Start our course" %} ▶</a>
+  <a class="btn big alt" href="{% url 'next_step' %}">{% translate "Start our course" %}</a>
   {% endif %}
   <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Change our trip" %}</a>
   {% endif %}
