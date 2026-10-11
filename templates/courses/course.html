@@ -4,7 +4,7 @@
 {% block content %}
 <section class="panel">
   <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% if trip_country.other %}{% blocktranslate with place=trip_country.name %}Our course for {{ place }}{% endblocktranslate %}{% else %}{% translate "Our course for Japan" %}{% endif %}</span></h1>
-  <p class="lead">{% blocktranslate %}We did {{ done }} of {{ total }}. Tap any one to play it again!{% endblocktranslate %}</p>
+  <p class="lead">{% if done %}{% blocktranslate %}We did {{ done }} of {{ total }}. Tap any one to play it again!{% endblocktranslate %}{% else %}{% blocktranslate %}We did 0 of {{ total }}. Tap the first one to start!{% endblocktranslate %}{% endif %}</p>
   <a class="btn small alt continue-btn" href="{% url 'continue' %}">📱 {% translate "Continue on another device" %}</a>
   {% include "includes/in_japan_now.html" %}
   <ol class="course-list">

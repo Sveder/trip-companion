@@ -102,7 +102,8 @@ def _highlights_page(request, trip, course, past=False):
     # T155: the active trip's page lists the family's older courses, one line each.
     others = [] if past else list(Trip.objects.filter(user=request.user).exclude(id=trip.id))
     return render(request, "courses/highlights.html", {"trip": trip, "course": course, "phase": trip_phase(trip), "past": past,
-                                                       "past_trips": others, **trip_highlights(trip, course)})
+                                                       "past_trips": others, "has_quiz": trip.practice_items.exists(),
+                                                       **trip_highlights(trip, course)})
 
 
 @family_required

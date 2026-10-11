@@ -1288,3 +1288,12 @@ msgstr "כל הכבוד. אתם מוכנים ל%(place)s. שחקו בחידון 
 #, python-format
 msgid "Look at everything you did to get ready for %(place)s!"
 msgstr "תראו את כל מה שעשיתם כדי להתכונן ל%(place)s!"
+
+#: templates/courses/course.html:7
+#, python-format
+msgid "We did 0 of %(total)s. Tap the first one to start!"
+msgstr "עשינו 0 מתוך %(total)s. לחצו על הראשונה כדי להתחיל!"
+
+#: templates/courses/highlights.html:92
+msgid "Start our course"
+msgstr "מתחילים את הקורס שלנו"

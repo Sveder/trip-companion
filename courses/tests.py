@@ -509,6 +509,36 @@ class AfterTheTripTests(TestCase):
         self.assertIn("Look at everything you did to get ready for Japan!", html)
         self.assertNotIn("next trip", html)
 
+    def test_course_page_says_start_at_zero_and_replay_after_one(self):
+        # T142: a new family gets a start line, not 'play it again'. From one done on, the replay line.
+        for lang, start, replay in (("en", "Tap the first one to start!", "Tap any one to play it again!"),
+                                    ("he", "לחצו על הראשונה כדי להתחיל!", "לחצו על כל אחת כדי לשחק בה שוב!")):
+            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
+            html = self.client.get(reverse("course")).content.decode()
+            self.assertIn(start, html)
+            self.assertNotIn(replay, html)
+        self.course.items.first().mark_done()
+        for lang, start, replay in (("en", "Tap the first one to start!", "We did 1 of"),
+                                    ("he", "לחצו על הראשונה כדי להתחיל!", "עשינו 1 מתוך")):
+            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
+            html = self.client.get(reverse("course")).content.decode()
+            self.assertNotIn(start, html)
+            self.assertIn(replay, html)
+
+    def test_highlights_quiz_button_only_with_quiz_words(self):
+        # T142: with no quiz words the button opens the next activity, not the empty 'No quiz yet' page.
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertNotIn("Play the quiz", html)
+        self.assertIn(f'href="{reverse("next_step")}"', html)
+        self.assertIn("Start our course", html)
+        self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
+        self.assertIn("מתחילים את הקורס שלנו", self.client.get(reverse("highlights")).content.decode())
+        self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "en"
+        PracticeItem.objects.create(trip=self.trip, key="words/words-intro/hai")
+        html = self.client.get(reverse("highlights")).content.decode()
+        self.assertIn("Play the quiz", html)
+        self.assertNotIn("Start our course", html)
+
     def test_highlights_page_during_the_trip_has_no_welcome_back(self):
         self.set_dates(-2, 5)
         html = self.client.get(reverse("highlights")).content.decode()
