@@ -21,6 +21,8 @@ NAMES = {
     "photo_saved": "Photo saved",
     "referral_click": "Shop link clicked",
     "reminder_click": "Reminder email opened",
+    "continue_link_sent": "Continue link sent",
+    "device_linked": "Device linked by link",
 }
 
 

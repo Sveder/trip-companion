@@ -208,9 +208,20 @@ Source: Michael, 2026-10-07 ("connected to Sentry and other things for professio
 A CSS layout for wide screens and `?tv=1`; JavaScript moves focus between cards with the arrow keys; video plays full width.
 PRD ref: `prd.md > Screens and Layout`.
 
+Continue on another device (feedback T145): a button on `/course/` and in the menu opens `/continue/`, one email field.
+`POST` mails the family's one link `https://trip.sveder.com/continue/<token>/` (`Contact.link_token`, `token_urlsafe(32)`,
+made once, never rotated). If a family already owns the address (`User.email`), that family's link goes to the address; a
+staff address gets nothing; the page always says "Check your mail". Limits: 3 sends per family and 10 per IP an hour (file
+cache, shared by the gunicorn workers), then 429 "Try again in an hour". The typed address waits in `Contact.link_email` and
+becomes `User.email` only when the link opens, so reminders never go to an address nobody confirmed. `GET /continue/<token>/`
+logs the browser in to that family (the server wins; a guest on that browser is left behind, unreachable) and opens
+`/course/` with "Welcome back! This device is connected." A bad token is a 404 page; staff never open by link. The
+localStorage copy carries `link_token`, so `/state/restore/` binds a cleared browser to the linked family instead of copying it.
+
 ## Data Model
 All in SQLite on the server; it survives restarts and returns.
-- `User` (Django auth) — a guest family (`family-<hex>`, no email), or staff with an email.
+- `User` (Django auth) — a guest family (`family-<hex>`, no email until a continue link is opened), or staff with an email.
+- `Contact` — user, last_seen, language, unsubscribed_at, link_token, link_email, link_sent_at.
 - `Trip` — user, destination (`japan`), start_date, length_days, end_date (computed from the two), home_on (the day the family tapped "We are home!").
 - `Traveller` — trip, age.
 - `Course` — trip, built_at, chosen module ids (JSON).

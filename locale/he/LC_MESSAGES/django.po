@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-09 06:17+0300\n"
+"POT-Creation-Date: 2026-10-11 11:58+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,10 @@ msgstr "האימייל שלכם"
 msgid "Your 6-digit code"
 msgstr "הקוד שלכם (6 ספרות)"
 
+#: accounts/link.py:143
+msgid "Welcome back! This device is connected."
+msgstr "ברוכים השבים! המכשיר הזה מחובר."
+
 #: courses/views.py:69
 msgid "Pick at least one thing to learn."
 msgstr "בחרו לפחות דבר אחד ללמוד."
@@ -33,16 +37,16 @@ msgstr "בחרו לפחות דבר אחד ללמוד."
 msgid "What does this word mean?"
 msgstr "מה פירוש המילה הזאת?"
 
-#: practice/items.py:138
+#: practice/items.py:140
 #, python-format
 msgid "Which one is %(reading)s?"
 msgstr "איזה מהם נקרא %(reading)s?"
 
-#: practice/items.py:141
+#: practice/items.py:143
 msgid "What do we say here?"
 msgstr "מה אומרים כאן?"
 
-#: practice/items.py:143 practice/items.py:162
+#: practice/items.py:145 practice/items.py:164
 msgid "What is this?"
 msgstr "מה זה?"
 
@@ -104,6 +108,68 @@ msgstr "כניסה"
 msgid "Send a new code"
 msgstr "שלחו קוד חדש"
 
+#: templates/accounts/continue.html:3 templates/accounts/continue.html:18
+#: templates/base.html:45 templates/courses/course.html:8
+msgid "Continue on another device"
+msgstr "להמשיך במכשיר אחר"
+
+#: templates/accounts/continue.html:7
+msgid "Check your mail"
+msgstr "בדקו את האימייל"
+
+#: templates/accounts/continue.html:8
+#, python-format
+msgid ""
+"We sent a link to %(email)s. Open it on the other device and your course is "
+"there."
+msgstr ""
+"שלחנו קישור אל %(email)s. פתחו אותו במכשיר השני, והמסלול שלכם מחכה שם."
+
+#: templates/accounts/continue.html:9 templates/accounts/continue.html:13
+msgid "Back to our course"
+msgstr "חזרה למסלול שלנו"
+
+#: templates/accounts/continue.html:11
+msgid "Try again in an hour"
+msgstr "נסו שוב בעוד שעה"
+
+#: templates/accounts/continue.html:12
+msgid ""
+"We sent a few links already. Look in your mail, or try again in an hour."
+msgstr "כבר שלחנו כמה קישורים. חפשו באימייל, או נסו שוב בעוד שעה."
+
+#: templates/accounts/continue.html:15
+msgid "This link does not work"
+msgstr "הקישור הזה לא עובד"
+
+#: templates/accounts/continue.html:16
+msgid "Go to the home page"
+msgstr "לדף הבית"
+
+#: templates/accounts/continue.html:19
+msgid ""
+"We send you a link. Open it on the other device and your course is there."
+msgstr "נשלח לכם קישור. פתחו אותו במכשיר השני, והמסלול שלכם מחכה שם."
+
+#: templates/accounts/continue.html:23
+msgid "Send me the link"
+msgstr "שלחו לי את הקישור"
+
+#: templates/accounts/link_email.txt:1
+msgid ""
+"You asked to continue your trip course on another device. Open this link on "
+"that device:"
+msgstr ""
+"ביקשתם להמשיך את מסלול הטיול במכשיר אחר. פתחו את הקישור הזה במכשיר ההוא:"
+
+#: templates/accounts/link_email.txt:5
+msgid "Did not ask for this? Ignore this mail."
+msgstr "לא ביקשתם? התעלמו מהמייל הזה."
+
+#: templates/accounts/link_subject.txt:1
+msgid "Your Trip Companion link"
+msgstr "הקישור שלכם ל-Trip Companion"
+
 #: templates/accounts/signin.html:7
 msgid "Type your email. We send you a 6-digit code. No password needed."
 msgstr "הקלידו את האימייל שלכם. נשלח לכם קוד של 6 ספרות. לא צריך סיסמה."
@@ -112,14 +178,6 @@ msgstr "הקלידו את האימייל שלכם. נשלח לכם קוד של 6
 msgid "Send me a code"
 msgstr "שלחו לי קוד"
 
-#: templates/accounts/signin.html:14
-msgid "or"
-msgstr "או"
-
-#: templates/accounts/signin.html:17
-msgid "Sign in with Google"
-msgstr "כניסה עם Google"
-
 #: templates/activities/_frame.html:6
 #, python-format
 msgid "Activity %(number)s of %(total)s"
@@ -127,7 +185,7 @@ msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
 #: templates/activities/lesson.html:117 templates/activities/praise.html:24
-#: templates/courses/course.html:22
+#: templates/courses/course.html:23
 msgid "Next"
 msgstr "הבא"
 
@@ -312,37 +370,37 @@ msgstr ""
 msgid "Get ready for Japan"
 msgstr "מתכוננים ליפן"
 
-#: templates/base.html:35
+#: templates/base.html:36
 msgid "Menu"
 msgstr "תפריט"
 
-#: templates/base.html:40 templates/courses/course.html:3
+#: templates/base.html:41 templates/courses/course.html:3
 #: templates/courses/finished.html:24 templates/there/hunt.html:46
 msgid "Our course"
 msgstr "המסלול שלנו"
 
-#: templates/base.html:41 templates/practice/empty.html:3
+#: templates/base.html:42 templates/practice/empty.html:3
 #: templates/practice/quiz.html:4
 msgid "Quiz"
 msgstr "חידון"
 
-#: templates/base.html:42
+#: templates/base.html:43
 msgid "In Japan"
 msgstr "ביפן"
 
-#: templates/base.html:43 templates/trips/setup.html:3
+#: templates/base.html:44 templates/trips/setup.html:3
 msgid "Our trip"
 msgstr "הטיול שלנו"
 
-#: templates/base.html:44
+#: templates/base.html:47
 msgid "Sign out"
 msgstr "יציאה"
 
-#: templates/base.html:64
+#: templates/base.html:67
 msgid "Made by"
 msgstr "נוצר על ידי"
 
-#: templates/base.html:64 templates/privacy.html:3 templates/privacy.html:6
+#: templates/base.html:67 templates/privacy.html:3 templates/privacy.html:6
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -392,29 +450,29 @@ msgstr "המסלול שלנו ליפן"
 msgid "We did %(done)s of %(total)s. Tap any one to play it again!"
 msgstr "עשינו %(done)s מתוך %(total)s. לחצו על כל אחת כדי לשחק בה שוב!"
 
-#: templates/courses/course.html:15 templates/courses/welcome.html:25
+#: templates/courses/course.html:16 templates/courses/welcome.html:25
 #: templates/trips/setup.html:25
 msgid "Coming soon"
 msgstr "בקרוב"
 
-#: templates/courses/course.html:21
+#: templates/courses/course.html:22
 #, python-format
 msgid "found %(found)s of %(total)s"
 msgstr "מצאנו %(found)s מתוך %(total)s"
 
-#: templates/courses/course.html:22
+#: templates/courses/course.html:23
 msgid "Skipped"
 msgstr "דילגנו"
 
-#: templates/courses/course.html:22
+#: templates/courses/course.html:23
 msgid "Done"
 msgstr "בוצע"
 
-#: templates/courses/course.html:25
+#: templates/courses/course.html:26
 msgid "Play again"
 msgstr "לשחק שוב"
 
-#: templates/courses/course.html:30
+#: templates/courses/course.html:31
 msgid "Change our course"
 msgstr "שינוי המסלול"
 
@@ -562,7 +620,8 @@ msgstr "חזרנו הביתה!"
 
 #: templates/includes/back_home.html:4
 msgid "Tap this when you are back home. Then the app shows your highlights."
-msgstr "לחצו כאן כשחזרתם הביתה. אז האפליקציה תראה לכם את הרגעים הכי יפים שלכם."
+msgstr ""
+"לחצו כאן כשחזרתם הביתה. אז האפליקציה תראה לכם את הרגעים הכי יפים שלכם."
 
 #: templates/includes/in_japan_now.html:3
 msgid "We are in Japan now!"
@@ -786,8 +845,8 @@ msgstr "מחיקת החשבון"
 #, python-format
 msgid ""
 "Email %(link)s from the address you sign in with. We delete your account, "
-"your trip, your course and your photos within 7 days, and we write back when "
-"it is done."
+"your trip, your course and your photos within 7 days, and we write back when"
+" it is done."
 msgstr ""
 "שלחו אימייל אל %(link)s מהכתובת שאיתה אתם נכנסים. אנחנו מוחקים את החשבון, "
 "הטיול, המסלול והתמונות שלכם תוך 7 ימים, ועונים לכם כשזה נעשה."
@@ -863,15 +922,18 @@ msgstr "אנחנו שולחים אימייל קצר לכל היותר פעם ב�
 msgid "Your next Japan activity is waiting"
 msgstr "הפעילות הבאה שלכם על יפן מחכה"
 
-#: templates/reminders/there_email.html:4 templates/reminders/there_email.txt:1
+#: templates/reminders/there_email.html:4
+#: templates/reminders/there_email.txt:1
 msgid "Hello from Trip Companion!"
 msgstr "שלום מ-Trip Companion!"
 
-#: templates/reminders/there_email.html:5 templates/reminders/there_email.txt:3
+#: templates/reminders/there_email.html:5
+#: templates/reminders/there_email.txt:3
 msgid "Today in Japan, look for this:"
 msgstr "היום ביפן, חפשו את זה:"
 
-#: templates/reminders/there_email.html:8 templates/reminders/there_email.txt:8
+#: templates/reminders/there_email.html:8
+#: templates/reminders/there_email.txt:8
 msgid "Found it? Take a photo and add it to your hunt:"
 msgstr "מצאתם? צלמו ותוסיפו את התמונה לציד שלכם:"
 
@@ -933,8 +995,8 @@ msgstr "שומרים…"
 
 #: templates/there/hunt.html:44
 msgid ""
-"Only your family sees these photos. After the trip they wait for you in your "
-"highlights."
+"Only your family sees these photos. After the trip they wait for you in your"
+" highlights."
 msgstr ""
 "רק המשפחה שלכם רואה את התמונות האלה. אחרי הטיול הן מחכות לכם בדף הרגעים הכי "
 "יפים."
@@ -953,9 +1015,10 @@ msgstr "מי נוסע? שימו את כולם על המטוס!"
 
 #: templates/trips/setup.html:35
 msgid ""
-"Drag a person into the plane, or tap them. Tap a person in the plane to take "
-"them off."
-msgstr "גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
+"Drag a person into the plane, or tap them. Tap a person in the plane to take"
+" them off."
+msgstr ""
+"גררו כל אחד אל המטוס, או לחצו עליו. לחצו על מי שבמטוס כדי להוריד אותו."
 
 #: templates/trips/setup.html:45
 msgid "The plane is empty."
@@ -1052,13 +1115,23 @@ msgid_plural "%(n)d grown-ups"
 msgstr[0] "מבוגר אחד"
 msgstr[1] "%(n)d מבוגרים"
 
-#: trips/views.py:65
+#: trips/views.py:40
+msgid "Trip updated."
+msgstr "הטיול עודכן."
+
+#: trips/views.py:72
 msgid "Have a great trip! Here is your photo list."
 msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 
-#: trips/views.py:84
+#: trips/views.py:91
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
+
+#~ msgid "or"
+#~ msgstr "או"
+
+#~ msgid "Sign in with Google"
+#~ msgstr "כניסה עם Google"
 
 #~ msgid "Let's look again another day."
 #~ msgstr "בואו נחפש שוב ביום אחר."
@@ -1084,7 +1157,3 @@ msgstr "ברוכים השבים! הנה מה שעשיתם."
 #, python-format
 #~ msgid "\"%(value)s\" is not an age. Use numbers like 38 or 4."
 #~ msgstr "\"%(value)s\" הוא לא גיל. כתבו מספרים כמו 38 או 4."
-
-#: trips/views.py:40
-msgid "Trip updated."
-msgstr "הטיול עודכן."

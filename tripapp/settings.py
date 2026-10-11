@@ -75,6 +75,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "tripapp.wsgi.application"
 
+# A file cache, so the two gunicorn workers share rate limits (the /continue/ mail, allauth).
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": os.environ.get("DJANGO_CACHE_DIR", str(BASE_DIR / "private" / "cache")),
+    }
+}
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

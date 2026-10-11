@@ -521,3 +521,4 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   .flip .jp.small { font-size: 1.1rem; }
   .flip-back { font-size: .82rem; line-height: 1.25; }
 }
+.continue-btn { margin: 0 0 .8rem; }

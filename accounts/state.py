@@ -16,6 +16,7 @@ from django.views.decorators.http import require_GET, require_POST
 from tripapp.lang import CODES
 
 from .guest import ensure_family, family_required, is_guest
+from .link import bind, family_for_token
 
 VERSION = 1
 MAX_BODY = 64 * 1024
@@ -29,6 +30,9 @@ def snapshot(user):
 
     contact = Contact.objects.filter(user=user).first()
     state = {"version": VERSION, "language": contact.language if contact else "en", "trip": None, "course": None, "practice": []}
+    if contact and contact.link_token:
+        # A linked family (T145): a browser that lost its cookies binds to the same family, not to a copy.
+        state["link_token"] = contact.link_token
     trip = active_trip(user)
     if trip is None:
         return state
@@ -113,10 +117,12 @@ def state_restore(request):
     """POST a snapshot from localStorage. A browser whose family already has a trip keeps it and restores nothing.
 
     A browser that lost its cookies usually opens a family page first, which makes a new empty guest; the copy
-    goes into that guest. Staff accounts are never overwritten.
+    goes into that guest. Staff accounts are never overwritten. A copy with a valid link token binds the
+    browser to that linked family instead of making a copy.
     """
     user = request.user
-    if user.is_authenticated and (not is_guest(user) or user.trips.exists()):
+    empty = not user.is_authenticated or (is_guest(user) and not user.trips.exists())
+    if not empty:
         return JsonResponse({"ok": False, "reason": "has a family"})
     if len(request.body) > MAX_BODY:
         return JsonResponse({"ok": False, "reason": "too big"}, status=400)
@@ -126,6 +132,11 @@ def state_restore(request):
         return JsonResponse({"ok": False, "reason": "bad json"}, status=400)
     if not isinstance(state, dict) or state.get("version") != VERSION:
         return JsonResponse({"ok": False, "reason": "bad state"}, status=400)
+    contact = family_for_token(state.get("link_token")) if isinstance(state.get("link_token"), str) else None
+    if contact is not None:
+        # A linked family (T145): bind this browser to it again, so one family never splits into two.
+        bind(request, contact)
+        return JsonResponse({"ok": True, "linked": True})
     with transaction.atomic():
         if not user.is_authenticated:
             user = ensure_family(request, method="restored")
