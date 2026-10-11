@@ -79,7 +79,8 @@
   }
 
   // A one-time hint: the first page in this browser with a talking word says 'Tap a Japanese word to hear it'
-  // for 6 s, or until the first tap on a word. Position fixed, so the page does not move.
+  // for 6 s, or until the first tap on a word. Position fixed at the bottom of the screen, so the page does not move
+  // and the lesson title stays visible (T174: under the header it covered the title and the module line).
   var hint = document.querySelector('.say-hint'), hintTimer = null;
   function hintGone() {
     if (!hint || hint.hidden) return;
@@ -97,8 +98,6 @@
       if (localStorage.getItem('tc_hint_say') === '1') return;
       localStorage.setItem('tc_hint_say', '1');
     } catch (e) { return; }
-    var top = document.querySelector('.top');
-    hint.style.top = Math.max(8, top ? top.getBoundingClientRect().bottom + 8 : 8) + 'px';
     hint.hidden = false;
     setTimeout(function () { hint.classList.add('show'); }, 20);
     hintTimer = setTimeout(hintGone, 6000);

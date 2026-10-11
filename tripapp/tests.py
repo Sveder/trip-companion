@@ -260,6 +260,15 @@ class SoundToggleAndHintTests(TestCase):
         self.assertIn('data-on="צליל פועל" data-off="צליל כבוי"', html)
         self.assertIn("לחצו על מילה ביפנית כדי לשמוע אותה", html)
 
+    def test_say_hint_sits_at_the_bottom(self):
+        # T174: under the header the hint covered the lesson title and the module line.
+        css = self.read("static/css/app.css")
+        rule = css[css.index(".say-hint { position: fixed;"):]
+        rule = rule[:rule.index("}")]
+        self.assertIn("bottom:", rule)
+        self.assertNotIn("top:", rule)
+        self.assertNotIn("hint.style.top", self.read("static/js/speak.js"))
+
     def test_every_sound_obeys_the_toggle(self):
         speak = self.read("static/js/speak.js")
         self.assertIn("localStorage.getItem('tc_sound') !== '0'", speak)
