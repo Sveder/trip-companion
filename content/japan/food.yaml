@@ -456,7 +456,7 @@ activities:
       - {id: tempura, img: photo/food/food-tempura.jpg, label: Tempura, label_he: טמפורה, japanese: てんぷら, reading: tempura}
       - {id: miso, img: photo/food/food-miso.jpg, label: Miso soup, label_he: מרק מיסו, japanese: みそしる, reading: misoshiru}
       # Not a quiz choice: this entry tells the say tag that "איטדקימס" in Hebrew text is the word itadakimasu.
-      - {id: itadakimasu, img: photo/food/food-itadakimasu.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu}
+      - {id: itadakimasu, img: photo/food/food-school-lunch.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu}
     pages:
       - kind: text
         title: A food trip!
@@ -680,18 +680,18 @@ activities:
       - kind: text
         title: Thank you for the food
         title_he: תודה על האוכל
-        img: photo/food/food-itadakimasu.jpg
-        photo_credit: food-itadakimasu
+        img: photo/food/food-school-lunch.jpg
+        photo_credit: food-school-lunch
         japanese: いただきます
         reading: itadakimasu
         text: Before they eat, people in Japan put their hands together and say "itadakimasu". It is a way to say thank you for the food.
         text_he: לפני שאוכלים, אנשים ביפן מצמידים את הידיים ואומרים "איטדקימס". ככה אומרים תודה על האוכל.
         tips:
-          - In the picture, school kids carry lunch to their class. In Japan the kids serve lunch to each other.
+          - In the picture: a school lunch in Japan. The kids serve the lunch to each other.
           - Then the whole class says "itadakimasu" together.
           - After the meal, say "gochisousama deshita". It means "thank you, that was a good meal".
         tips_he:
-          - בתמונה ילדים בבית ספר סוחבים את ארוחת הצהריים לכיתה. ביפן הילדים מגישים את האוכל אחד לשני.
+          - בתמונה: ארוחת צהריים בבית ספר ביפן. הילדים מגישים את האוכל אחד לשני.
           - אחר כך כל הכיתה אומרת יחד "איטדקימס".
           - אחרי האוכל אומרים "גוצ'יסוסאמה דשיטה". זה אומר "תודה, זו הייתה ארוחה טובה".
         source: https://en.wikipedia.org/wiki/Itadakimasu

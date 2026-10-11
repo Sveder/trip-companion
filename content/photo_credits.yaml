@@ -167,13 +167,6 @@
   licence: CC BY 2.0
   licence_url: https://creativecommons.org/licenses/by/2.0
   source_url: https://commons.wikimedia.org/wiki/File:Bento_at_Hanabishi,_Koyasan.jpg
-- id: food-itadakimasu
-  file: photo/food/food-itadakimasu.jpg
-  title: SchoolLunch KyushokuToban.jpg
-  author: Kanko* from Nagasaki, JAPAN
-  licence: CC BY 2.0
-  licence_url: https://creativecommons.org/licenses/by/2.0
-  source_url: https://commons.wikimedia.org/wiki/File:SchoolLunch_KyushokuToban.jpg
 - id: food-curry
   file: photo/food/food-curry-rice.jpg
   title: Beef curry rice 003.jpg
@@ -181,3 +174,10 @@
   licence: CC0
   licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
   source_url: https://commons.wikimedia.org/wiki/File:Beef_curry_rice_003.jpg
+- id: food-school-lunch
+  file: photo/food/food-school-lunch.jpg
+  title: School lunch (4196393696).jpg
+  author: Chris Harber from Fukuoka, Japan
+  licence: CC BY-SA 2.0
+  licence_url: https://creativecommons.org/licenses/by-sa/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:School_lunch_(4196393696).jpg

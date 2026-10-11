@@ -429,5 +429,8 @@ class PhotoFileTests(TestCase):
         for data in Activity.objects.values_list("data", flat=True):
             walk(data)
         self.assertIn("photo/food/food-curry-rice.jpg", paths)
+        # T182: the itadakimasu page shows a school lunch tray, not the old stairwell photo.
+        self.assertIn("photo/food/food-school-lunch.jpg", paths)
+        self.assertNotIn("photo/food/food-itadakimasu.jpg", paths)
         self.assertEqual(sorted(p for p in paths if not finders.find(f"img/{p}")), [])
         self.assertEqual([(c, p) for c, p in pairs if credits.get(c) != p], [])
