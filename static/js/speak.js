@@ -112,7 +112,8 @@
     if (el && el.tagName !== 'BUTTON') say(el);
   });
   pick();
-  hintMaybe();
+  // lesson.js runs after this file (both defer) and hides the other lesson pages, so wait for the load event.
+  if (document.readyState === 'complete') hintMaybe(); else window.addEventListener('load', hintMaybe);
   // lesson.js fires lpage-show on the page it opens; the event does not bubble, so listen in the capture phase.
   document.addEventListener('lpage-show', function () { setTimeout(hintMaybe, 0); }, true);
   if (synth) {
