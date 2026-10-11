@@ -520,9 +520,10 @@ class AfterTheTripTests(TestCase):
         item = self.course.items.select_related("activity__module").filter(activity__module__ready=True).first()
         item.mark_done()
         html = self.client.get(reverse("highlights")).content.decode()
-        self.assertIn('<span class="hl-date">· ', html)
+        self.assertIn('<span class="hl-date">', html)
+        self.assertNotIn('· <span class="hl-date">', html)
         css = (settings.BASE_DIR / "static/css/app.css").read_text()
-        self.assertIn(".hl-date { white-space: nowrap; }", css)
+        self.assertIn(".hl-date { display: block; white-space: nowrap; }", css)
 
     def test_highlights_page_after_the_trip_says_welcome_back(self):
         self.set_dates(-20, -1)

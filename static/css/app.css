@@ -297,9 +297,9 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .cards.compact .card-emoji { grid-row: span 2; width: 2.6rem; height: 2.6rem; font-size: 1.5rem; }
 .cards.compact h3 { margin: 0; font-size: 1.05rem; }
 .cards.compact .hint { margin: 0; font-size: .9rem; }
-/* T140: the date never breaks in two, and the card text starts at the top, so the module line sits at the same height in a row. */
-.hl-date { white-space: nowrap; }
-.cards.highlights-done .card { align-items: start; }
+/* T140: the date sits on its own line and never breaks in two; the card text starts at the top with no gap under a short title. */
+.hl-date { display: block; white-space: nowrap; }
+.cards.highlights-done .card { align-items: start; align-content: start; }
 .cards.highlights-done .card-emoji { align-self: start; }
 .cards.word-grid { grid-template-columns: repeat(auto-fit, minmax(190px, 220px)); gap: .6rem; }
 .cards.word-grid .card { padding: .6rem .5rem; }
