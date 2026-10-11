@@ -35,7 +35,13 @@
     synth.speak(u);
   }
 
+  // The header toggle turns every sound off: spoken words, the train game words and the finish chime (T156).
+  function soundOn() { try { return localStorage.getItem('tc_sound') !== '0'; } catch (e) { return true; } }
+  window.tcSoundOn = soundOn;
+
   function say(el) {
+    hintGone();
+    if (!soundOn()) return;
     var text = el.getAttribute('data-say');
     var src = el.getAttribute('data-say-src');
     if (!src) { speak(text, el); return; }
@@ -55,6 +61,47 @@
     if (el) say(el);
   }
 
+  function showToggle(btn) {
+    var on = soundOn();
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.classList.toggle('off', !on);
+    btn.querySelector('.sound-word').textContent = btn.getAttribute(on ? 'data-on' : 'data-off');
+  }
+  var toggle = document.querySelector('.sound-btn');
+  if (toggle) {
+    showToggle(toggle);
+    toggle.addEventListener('click', function () {
+      var on = !soundOn();
+      try { localStorage.setItem('tc_sound', on ? '1' : '0'); } catch (e) {}
+      if (!on) { if (synth) synth.cancel(); if (player) player.pause(); off(); }
+      showToggle(toggle);
+    });
+  }
+
+  // A one-time hint: the first page in this browser with a talking word says 'Tap a Japanese word to hear it'
+  // for 6 s, or until the first tap on a word. Position fixed, so the page does not move.
+  var hint = document.querySelector('.say-hint'), hintTimer = null;
+  function hintGone() {
+    if (!hint || hint.hidden) return;
+    hint.classList.remove('show');
+    clearTimeout(hintTimer);
+    setTimeout(function () { hint.hidden = true; }, 300);
+  }
+  function hintMaybe() {
+    if (!hint) return;
+    var talks = document.querySelector('.say-word[data-say-src]:not([data-say-src=""]), [data-say][data-say-src]:not([data-say-src=""])');
+    if (!talks) return;
+    try {
+      if (localStorage.getItem('tc_hint_say') === '1') return;
+      localStorage.setItem('tc_hint_say', '1');
+    } catch (e) { return; }
+    var top = document.querySelector('.top');
+    hint.style.top = Math.max(8, top ? top.getBoundingClientRect().bottom + 8 : 8) + 'px';
+    hint.hidden = false;
+    setTimeout(function () { hint.classList.add('show'); }, 20);
+    hintTimer = setTimeout(hintGone, 6000);
+  }
+
   document.addEventListener('click', from);
   // A button gets a click from the browser after Enter, so the click path says it; saying it here too would play it twice.
   document.addEventListener('keydown', function (e) {
@@ -63,6 +110,7 @@
     if (el && el.tagName !== 'BUTTON') say(el);
   });
   pick();
+  hintMaybe();
   if (synth) {
     if (synth.addEventListener) synth.addEventListener('voiceschanged', pick); else synth.onvoiceschanged = pick;
   }

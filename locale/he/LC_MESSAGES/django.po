@@ -1182,3 +1182,12 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:92
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
+
+msgid "Sound on"
+msgstr "צליל פועל"
+
+msgid "Sound off"
+msgstr "צליל כבוי"
+
+msgid "Tap a Japanese word to hear it"
+msgstr "לחצו על מילה ביפנית כדי לשמוע אותה"

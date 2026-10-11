@@ -24,6 +24,7 @@
   function chime() {
     var AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
+    if (window.tcSoundOn && !window.tcSoundOn()) return; // the header toggle says sound off (T156)
     try {
       var ctx = new AC();
       if (ctx.state === 'suspended' && ctx.resume) ctx.resume();

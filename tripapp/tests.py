@@ -241,3 +241,28 @@ class SpeakerMarkTests(TestCase):
         js = self.read("static/js/lesson.js")
         self.assertIn("querySelector('[data-say]')", js)
         self.assertIn("window.tcSay(word)", js)
+
+
+class SoundToggleAndHintTests(TestCase):
+    """T156 part B: a header Sound on/off toggle and a one-time 'tap a word' hint, in en and he."""
+
+    def read(self, rel):
+        from pathlib import Path
+        from django.conf import settings
+        return (Path(settings.BASE_DIR) / rel).read_text()
+
+    def test_header_holds_the_toggle_and_the_hint_in_both_languages(self):
+        html = self.client.get("/", follow=True).content.decode()
+        self.assertIn('class="sound-btn link" aria-pressed="true" data-on="Sound on" data-off="Sound off"', html)
+        self.assertIn("Tap a Japanese word to hear it", html)
+        self.client.cookies.load({"django_language": "he"})
+        html = self.client.get("/", follow=True).content.decode()
+        self.assertIn('data-on="צליל פועל" data-off="צליל כבוי"', html)
+        self.assertIn("לחצו על מילה ביפנית כדי לשמוע אותה", html)
+
+    def test_every_sound_obeys_the_toggle(self):
+        speak = self.read("static/js/speak.js")
+        self.assertIn("localStorage.getItem('tc_sound') !== '0'", speak)
+        self.assertIn("if (!soundOn()) return;", speak)
+        self.assertIn("localStorage.setItem('tc_hint_say', '1')", speak)
+        self.assertIn("window.tcSoundOn()", self.read("static/js/celebrate.js"))
