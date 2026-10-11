@@ -50,14 +50,14 @@ activities:
         text_he: כן ולא. געו בכרטיס כדי להפוך אותו.
         cards:
           - img: lesson/uzbekistan/ha.svg
-            label: Ha
+            label: "Yes"
             label_he: הא
             japanese: Ha
             reading: ha
             text: "Yes! \"Ha\" sounds like a little laugh."
             text_he: "כן! \"הא\" נשמע כמו צחוק קטן."
           - img: lesson/uzbekistan/yoq.svg
-            label: "Yo'q"
+            label: "No"
             label_he: יוק
             japanese: "Yo'q"
             reading: yoq

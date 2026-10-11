@@ -452,3 +452,25 @@ class PhotoFileTests(TestCase):
         for slug, data in Activity.objects.values_list("slug", "data"):
             walk(data, slug)
         self.assertEqual(bad, [])
+
+    def test_no_flip_card_repeats_the_word_on_its_front(self):
+        """T183: the front shows label over the native word; label == word printed 'Ha' over 'Ha' in English."""
+        bad = []
+
+        def walk(node, where):
+            if isinstance(node, dict):
+                for c in node.get("cards") or []:
+                    if isinstance(c, dict) and c.get("japanese") and c.get("label") == c["japanese"]:
+                        bad.append(f"{where}: {c['label']}")
+                for v in node.values():
+                    walk(v, where)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v, where)
+
+        # Read the YAML itself: the test database loads only japan.
+        import yaml
+        from django.conf import settings
+        for path in sorted((settings.BASE_DIR / "content").glob("*/*.yaml")):
+            walk(yaml.safe_load(path.read_text()), path.relative_to(settings.BASE_DIR))
+        self.assertEqual(bad, [])
