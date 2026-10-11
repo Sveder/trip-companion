@@ -731,7 +731,7 @@ class FlipSayTests(TestCase):
             self.assertEqual(has_word, "data-say=" in button, button)
             if has_word:
                 self.assertIn('data-say-src="/static/audio/japan/', button)
-                self.assertIn("flip-say", front)
+                self.assertIn("say-mark", front)
         nigiri = [b for b, f in cards if "nigiri" in b]
         self.assertTrue(nigiri, "no nigiri flip card")
         src = nigiri[0].split('data-say-src="')[1].split('"')[0]

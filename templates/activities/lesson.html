@@ -53,7 +53,7 @@
         {% for card in page.cards %}
         {# A card with a Japanese word also says it: data-say sits on the button itself, so one tap (or OK on the TV remote) flips and speaks (T91). #}
         <button type="button" class="flip" data-flip aria-pressed="false"{% if card.japanese %} data-say="{{ card.japanese }}" data-say-src="{{ card.reading|word_audio }}"{% endif %}>
-          <span class="flip-front"><img src="{% static 'img/'|add:card.img %}" alt=""><strong>{{ card.label }}</strong>{% if card.japanese %}<span class="jp small" lang="ja">{{ card.japanese }} <span class="flip-say" aria-hidden="true">🔊</span></span>{% endif %}</span>
+          <span class="flip-front"><img src="{% static 'img/'|add:card.img %}" alt=""><strong>{{ card.label }}</strong>{% if card.japanese %}<span class="jp small" lang="ja">{{ card.japanese }}<span class="say-mark" aria-hidden="true"></span></span>{% endif %}</span>
           <span class="flip-back"><strong>{{ card.label }}</strong><span>{{ card.text }}</span></span>
         </button>
         {% endfor %}

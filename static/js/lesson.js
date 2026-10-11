@@ -141,7 +141,14 @@
       if (!b) return;
       var n = b.getAttribute('data-spot');
       var infos = page.querySelectorAll('[data-spot-info]');
-      for (var i = 0; i < infos.length; i++) infos[i].classList.toggle('show', infos[i].getAttribute('data-spot-info') === n);
+      var word = null;
+      for (var i = 0; i < infos.length; i++) {
+        var shown = infos[i].getAttribute('data-spot-info') === n;
+        infos[i].classList.toggle('show', shown);
+        if (shown) word = infos[i].querySelector('[data-say]');
+      }
+      // A dot with a Japanese word says it, the same as a tap on the word (T156). No word, no sound.
+      if (word && window.tcSay) window.tcSay(word);
       var marks = box.querySelectorAll('[data-spot], [data-line]');
       for (var j = 0; j < marks.length; j++) {
         var mine = (marks[j].getAttribute('data-spot') || marks[j].getAttribute('data-line')) === n;

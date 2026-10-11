@@ -213,3 +213,31 @@ class HebrewFontTests(TestCase):
         self.assertContains(r, 'dir="rtl"')
         self.assertContains(r, 'rel="preload" href="/static/fonts/rubik-hebrew.woff2"')
         self.assertNotContains(r, "fonts.googleapis.com")
+
+
+class SpeakerMarkTests(TestCase):
+    """T156: a word that talks shows a speaker mark, and a tap on a dot says the dot's word."""
+
+    def read(self, rel):
+        from pathlib import Path
+        from django.conf import settings
+        return (Path(settings.BASE_DIR) / rel).read_text()
+
+    def test_css_marks_every_talking_word(self):
+        css = self.read("static/css/app.css")
+        for sel in ('.say-word[data-say-src]:not([data-say-src=""])::after',
+                    '.card.word[data-say-src]:not([data-say-src=""]) .jp::after', ".say-mark", ".flip.playing .say-mark"):
+            self.assertIn(sel, css)
+        self.assertIn("margin-inline-start: .25em", css)
+
+    def test_flip_card_uses_the_mark_not_the_emoji(self):
+        lesson = self.read("templates/activities/lesson.html")
+        self.assertIn('<span class="say-mark" aria-hidden="true"></span>', lesson)
+        self.assertNotIn("flip-say", lesson)
+
+    def test_dot_tap_says_the_word(self):
+        self.assertIn("window.tcSay = say", self.read("static/js/speak.js"))
+        self.assertIn("classList.add('playing')", self.read("static/js/speak.js"))
+        js = self.read("static/js/lesson.js")
+        self.assertIn("querySelector('[data-say]')", js)
+        self.assertIn("window.tcSay(word)", js)

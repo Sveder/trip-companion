@@ -21,24 +21,34 @@
     }
   }
 
-  function speak(text) {
-    if (!synth || !voice || !text) return;
+  // While a word plays, its element has the class .playing, so its speaker mark pulses (T156).
+  var active = null;
+  function on(el) { off(); active = el; el.classList.add('playing'); }
+  function off() { if (active) active.classList.remove('playing'); active = null; }
+
+  function speak(text, el) {
+    if (!synth || !voice || !text) { off(); return; }
     synth.cancel();
     var u = new SpeechSynthesisUtterance(text);
     u.voice = voice; u.lang = voice.lang; u.rate = 0.8;
+    if (el) { on(el); u.onend = u.onerror = function () { if (active === el) off(); }; }
     synth.speak(u);
   }
 
   function say(el) {
     var text = el.getAttribute('data-say');
     var src = el.getAttribute('data-say-src');
-    if (!src) { speak(text); return; }
+    if (!src) { speak(text, el); return; }
     if (synth) synth.cancel();
     if (player) player.pause();
-    player = new Audio(src);
-    var p = player.play();
-    if (p && p.catch) p.catch(function () { speak(text); });
+    var me = player = new Audio(src);
+    on(el);
+    me.onended = me.onerror = me.onpause = function () { if (player === me) off(); };
+    var p = me.play();
+    if (p && p.catch) p.catch(function () { speak(text, el); });
   }
+  // Other scripts say a word too: the tap-the-dots page says the word of a dot (lesson.js, T156).
+  window.tcSay = say;
 
   function from(e) {
     var el = e.target.closest ? e.target.closest('[data-say]') : null;
