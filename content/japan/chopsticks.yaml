@@ -59,6 +59,23 @@ activities:
         img: "lesson/chopsticks/grip-stab.svg"
         label: "Spearing food"
         label_he: "דוקרים אוכל"
+      # T186: the pick game uses copies with no check or cross mark and one neutral label, so no picture gives the answer away.
+      - id: "quiz-grip-right"
+        img: "lesson/chopsticks/quiz-grip-right.svg"
+        label: "A hand with chopsticks"
+        label_he: "יד עם צ'ופסטיקס"
+      - id: "quiz-grip-fist"
+        img: "lesson/chopsticks/quiz-grip-fist.svg"
+        label: "A hand with chopsticks"
+        label_he: "יד עם צ'ופסטיקס"
+      - id: "quiz-grip-cross"
+        img: "lesson/chopsticks/quiz-grip-cross.svg"
+        label: "A hand with chopsticks"
+        label_he: "יד עם צ'ופסטיקס"
+      - id: "quiz-grip-stab"
+        img: "lesson/chopsticks/quiz-grip-stab.svg"
+        label: "A hand with chopsticks"
+        label_he: "יד עם צ'ופסטיקס"
       - id: "hashioki"
         img: "lesson/chopsticks/hashioki.svg"
         label: "Chopstick rest"
@@ -196,16 +213,16 @@ activities:
         rounds:
           - ask: "Which hand holds the chopsticks the right way?"
             ask_he: "איזו יד מחזיקה את הצ'ופסטיקס נכון?"
-            answer: "grip-right"
-            choices: [grip-fist, grip-right, grip-cross, grip-stab]
+            answer: "quiz-grip-right"
+            choices: [quiz-grip-fist, quiz-grip-right, quiz-grip-cross, quiz-grip-stab]
           - ask: "Oops, the tips cross like an X, and the food falls. Which hand is that?"
             ask_he: "אופס, הקצוות מוצלבים כמו X, והאוכל נופל. איזו יד זאת?"
-            answer: "grip-cross"
-            choices: [grip-right, grip-stab, grip-cross, grip-fist]
+            answer: "quiz-grip-cross"
+            choices: [quiz-grip-right, quiz-grip-stab, quiz-grip-cross, quiz-grip-fist]
           - ask: "Which hand spears the food? We do not do that!"
             ask_he: "איזו יד דוקרת את האוכל? את זה לא עושים!"
-            answer: "grip-stab"
-            choices: [grip-stab, grip-right, grip-fist, grip-cross]
+            answer: "quiz-grip-stab"
+            choices: [quiz-grip-stab, quiz-grip-right, quiz-grip-fist, quiz-grip-cross]
       - kind: flip
         title: Chopstick rules
         title_he: חוקי הצ'ופסטיקס

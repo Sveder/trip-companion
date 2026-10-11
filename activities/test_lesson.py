@@ -189,6 +189,10 @@ class NewActivityJoinsBuiltCourses(TestCase):
         self.assertIsNone(slugs[1][1])
 
 
+# The green check / red cross badge the explain pictures carry (T186).
+MARK = r'<circle [^>]*fill="#fff" stroke="#(2e9e5b|e8402a)"'
+
+
 class EveryLessonIsWellFormed(TestCase):
     """Every lesson in the content: 10-20 pages, real pictures, game answers that can be tapped."""
 
@@ -207,6 +211,7 @@ class EveryLessonIsWellFormed(TestCase):
                 self.assertTrue(len(pages) // 4 <= kinds.index("video") <= 3 * len(pages) // 4, name)
                 self.assertTrue(all(p.get("fallback") for p in pages if p["kind"] == "video"), name)
             pics = {p["id"] for p in data.get("pictures", [])}
+            by_id = {p["id"]: p for p in data.get("pictures", [])}
             imgs = [p["img"] for p in data.get("pictures", [])] + [p["img"] for p in pages if p.get("img")]
             imgs += [c["img"] for p in pages for c in p.get("cards", [])]
             imgs += [p["img_he"] for p in data.get("pictures", []) + pages if p.get("img_he")]
@@ -225,6 +230,10 @@ class EveryLessonIsWellFormed(TestCase):
                     if p["kind"] == "pick":
                         self.assertIn(r["answer"], r["choices"], name)
                         self.assertTrue(set(r["choices"]) <= pics, name)
+                        for c in r["choices"]:  # T186: no choice picture shows a check or a cross before the tap
+                            img = static / by_id[c]["img"]
+                            if img.suffix == ".svg":
+                                self.assertNotRegex(img.read_text(), MARK, (name, c))
                     else:
                         self.assertIn(r["answer"], p["belt"], name)
                 for spot in p.get("spots", []):
