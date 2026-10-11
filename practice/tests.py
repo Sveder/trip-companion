@@ -434,3 +434,21 @@ class PhotoFileTests(TestCase):
         self.assertNotIn("photo/food/food-itadakimasu.jpg", paths)
         self.assertEqual(sorted(p for p in paths if not finders.find(f"img/{p}")), [])
         self.assertEqual([(c, p) for c, p in pairs if credits.get(c) != p], [])
+
+    def test_every_tip_is_plain_text(self):
+        """T182: a colon in a YAML list item ("In the picture: ...") makes a dict, and the page prints {'...': '...'}."""
+        bad = []
+
+        def walk(node, where):
+            if isinstance(node, dict):
+                for k, v in node.items():
+                    if k in ("tips", "tips_he") and isinstance(v, list):
+                        bad.extend(f"{where} {k}: {t!r}" for t in v if not isinstance(t, str))
+                    walk(v, where)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v, where)
+
+        for slug, data in Activity.objects.values_list("slug", "data"):
+            walk(data, slug)
+        self.assertEqual(bad, [])
