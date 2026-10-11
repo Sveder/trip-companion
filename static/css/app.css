@@ -581,3 +581,15 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   .sound-btn { padding: .45rem .55rem; border-radius: 999px; background: var(--c-bg); }
   .sound-btn .sound-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
+/* T156: the toggle takes about 40 px of the one-line phone header (T105), so on a phone the Menu button keeps
+   only its icon, and on a narrow phone the gaps, the paddings and the brand get a little smaller. */
+@media (max-width: 600px) {
+  .menu-btn .menu-word { display: none; }
+  .menu-btn { padding: .45rem .8rem; }
+}
+@media (max-width: 399px) {
+  .top { gap: .4rem; }
+  .sound-btn { padding: .45rem .45rem; }
+  .menu-btn { padding: .45rem .6rem; }
+  .brand { font-size: .95rem; }
+}
