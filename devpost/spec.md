@@ -91,7 +91,7 @@ No account: a guest family in the browser (feedback T144). The first page that n
 family_required`) makes a `User` named `family-<12 hex>` with no email and an unusable password, plus its `Contact`, and logs
 the browser in. The session cookie lives 400 days and survives a browser restart. A guest has no "Sign out". Every page marks
 `<body data-family="1|0">`; `static/js/state.js` saves `GET /state.json` (language, trip, travellers, module slugs, done marks
-by `module/activity` key, practice boxes) into localStorage `tc_state` on each family page. On a page with no family it posts
+by `module/activity` key, practice boxes) into localStorage `tc_state` on each family page. On a page with no family, or a new family with no trip, it posts
 the copy to `POST /state/restore/` once per tab and reloads; the server makes a new guest and rebuilds the trip, course, done
 marks and practice. A body over 64 KB or a wrong version is 400; unknown modules and keys are skipped. Hunt photos and clips
 are files and do not travel in the copy. The email-code page `/signin/` stays for

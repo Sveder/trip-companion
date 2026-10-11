@@ -15,7 +15,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from tripapp.lang import CODES
 
-from .guest import ensure_family, family_required
+from .guest import ensure_family, family_required, is_guest
 
 VERSION = 1
 MAX_BODY = 64 * 1024
@@ -110,8 +110,13 @@ def state_json(request):
 
 @require_POST
 def state_restore(request):
-    """POST a snapshot from localStorage. A browser that still has a family keeps it and restores nothing."""
-    if request.user.is_authenticated:
+    """POST a snapshot from localStorage. A browser whose family already has a trip keeps it and restores nothing.
+
+    A browser that lost its cookies usually opens a family page first, which makes a new empty guest; the copy
+    goes into that guest. Staff accounts are never overwritten.
+    """
+    user = request.user
+    if user.is_authenticated and (not is_guest(user) or user.trips.exists()):
         return JsonResponse({"ok": False, "reason": "has a family"})
     if len(request.body) > MAX_BODY:
         return JsonResponse({"ok": False, "reason": "too big"}, status=400)
@@ -122,7 +127,8 @@ def state_restore(request):
     if not isinstance(state, dict) or state.get("version") != VERSION:
         return JsonResponse({"ok": False, "reason": "bad state"}, status=400)
     with transaction.atomic():
-        user = ensure_family(request, method="restored")
+        if not user.is_authenticated:
+            user = ensure_family(request, method="restored")
         restore(user, state)
     response = JsonResponse({"ok": True})
     if state.get("language") in CODES:

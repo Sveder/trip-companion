@@ -176,6 +176,24 @@ class StateCopyTests(TestCase):
         self.assertFalse(r.json()["ok"])
         self.assertEqual(get_user_model().objects.count(), 1)
 
+    def test_an_empty_guest_gets_the_copy(self):
+        items = self.build_family()
+        state = self.client.get(reverse("state_json")).content
+        fresh = self.client_class()
+        fresh.get(reverse("course"))  # the cookies are gone; a family page makes an empty guest first
+        self.assertEqual(get_user_model().objects.count(), 2)
+        r = fresh.post(reverse("state_restore"), state, content_type="application/json")
+        self.assertEqual(r.json(), {"ok": True})
+        self.assertEqual(get_user_model().objects.count(), 2)
+        self.assertEqual(len(fresh.get(reverse("state_json")).json()["course"]["items"]), len(items))
+
+    def test_staff_is_never_overwritten(self):
+        staff = get_user_model().objects.create_user("s@example.com", "s@example.com", is_staff=True)
+        self.client.force_login(staff)
+        r = self.client.post(reverse("state_restore"), b'{"version": 1, "trip": {"travellers": []}}', content_type="application/json")
+        self.assertFalse(r.json()["ok"])
+        self.assertFalse(staff.trips.exists())
+
     def test_bad_body_is_400_and_makes_no_family(self):
         for body in (b"not json", b"[1, 2]", b'{"version": 9}', b'{"version": 1, "x": "' + b"a" * 70000 + b'"}'):
             r = self.client_class().post(reverse("state_restore"), body, content_type="application/json")
