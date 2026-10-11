@@ -3,16 +3,16 @@
   name_he: יפן
   emoji: "🇯🇵"
   flag: japan.svg
-  line: Sushi, fast trains and kind people.
-  line_he: סושי, רכבות מהירות ואנשים נחמדים.
+  line: Sushi, bullet trains and deer that bow.
+  line_he: סושי, רכבות קליע ואיילים שמשתחווים.
   ready: true
 - id: uzbekistan
   name: Uzbekistan
   name_he: אוזבקיסטן
   flag: uzbekistan.svg
   emoji: "🇺🇿"
-  line: Blue domes, old Silk Road cities and fresh bread.
-  line_he: כיפות כחולות, ערים עתיקות על דרך המשי ולחם טרי.
+  line: Blue domes, Silk Road cities and plov.
+  line_he: כיפות כחולות, ערי דרך המשי ופלוב.
   ready: false
 - id: new-york
   name: New York City

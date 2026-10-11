@@ -587,16 +587,16 @@ msgid "Change our trip"
 msgstr "שינוי הטיול"
 
 #: templates/courses/welcome.html:6
-msgid "Get ready for your trip!"
-msgstr "מתכוננים לטיול!"
+msgid "Get excited for your trip!"
+msgstr "מתרגשים לקראת הטיול!"
 
 #: templates/courses/welcome.html:7
 msgid ""
-"Short, fun activities for the whole family. Learn the food, the words and "
-"the fun stuff before you fly."
+"Short, fun games for the whole family. Food, words and little surprises, all "
+"before you fly."
 msgstr ""
-"פעילויות קצרות וכיפיות לכל המשפחה. לומדים על האוכל, המילים והדברים הכיפיים "
-"לפני הטיסה."
+"משחקים קצרים וכיפיים לכל המשפחה. אוכל, מילים והפתעות קטנות, הכול לפני "
+"הטיסה."
 
 #: templates/courses/welcome.html:8
 msgid "Let's start"
