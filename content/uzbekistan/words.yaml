@@ -1,0 +1,95 @@
+id: words
+title: Uzbek words
+title_he: מילים באוזבקית
+summary: Say hello and thank you in Uzbek.
+summary_he: אומרים שלום ותודה באוזבקית.
+emoji: "🗣️"
+audience: all
+order: 20
+ready: true
+activities:
+  # Feedback T171. Uzbek Latin spelling (the official alphabet). Facts checked 2026-10-11.
+  - id: uz-words-lesson
+    title: Talk like a kid in Uzbekistan
+    title_he: מדברים כמו ילדים באוזבקיסטן
+    type: lesson
+    intro: Swipe through the pages. Say each word out loud!
+    intro_he: עוברים דף אחרי דף. אומרים כל מילה בקול!
+    pictures:
+      - {id: salom, img: lesson/uzbekistan/salom.svg, label: Hello, label_he: שלום, japanese: Salom, reading: salom}
+      - {id: rahmat, img: lesson/uzbekistan/rahmat.svg, label: Thank you, label_he: תודה, japanese: Rahmat, reading: rahmat}
+      - {id: ha, img: lesson/uzbekistan/ha.svg, label: "Yes", label_he: כן, japanese: Ha, reading: ha}
+      - {id: yoq, img: lesson/uzbekistan/yoq.svg, label: "No", label_he: לא, japanese: "Yo'q", reading: yoq}
+      - {id: xayr, img: lesson/uzbekistan/xayr.svg, label: Goodbye, label_he: להתראות, japanese: Xayr, reading: xayr}
+    pages:
+      - kind: text
+        title: Salom!
+        title_he: סלום!
+        img: lesson/uzbekistan/salom.svg
+        japanese: Salom
+        reading: salom
+        text: Salom means hello. Tap the word to hear it. Grown-ups often say the long hello, "Assalomu alaykum".
+        text_he: סלום זה שלום. געו במילה כדי לשמוע אותה. מבוגרים אומרים הרבה פעמים את השלום הארוך, "אסלומו עליכום".
+        tips:
+          - Many people put the right hand on the heart when they say hello. Try it!
+        tips_he:
+          - הרבה אנשים שמים את יד ימין על הלב כשהם אומרים שלום. נסו גם!
+        source: https://en.wikipedia.org/wiki/Uzbek_language
+      - kind: text
+        title: Rahmat means thank you
+        title_he: רחמת זה תודה
+        img: lesson/uzbekistan/rahmat.svg
+        japanese: Rahmat
+        reading: rahmat
+        text: Say "rahmat" when someone gives you tea, bread or a present. People smile a lot when a visitor says it.
+        text_he: אומרים "רחמת" כשמישהו נותן לכם תה, לחם או מתנה. אנשים מחייכים הרבה כשאורח אומר את זה.
+      - kind: flip
+        title: "Ha and yo'q"
+        title_he: הא ויוק
+        text: Yes and no. Tap a card to turn it.
+        text_he: כן ולא. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: lesson/uzbekistan/ha.svg
+            label: Ha
+            label_he: הא
+            japanese: Ha
+            reading: ha
+            text: "Yes! \"Ha\" sounds like a little laugh."
+            text_he: "כן! \"הא\" נשמע כמו צחוק קטן."
+          - img: lesson/uzbekistan/yoq.svg
+            label: "Yo'q"
+            label_he: יוק
+            japanese: "Yo'q"
+            reading: yoq
+            text: "No! Say \"yo'q, rahmat\" for no, thank you."
+            text_he: "לא! אומרים \"יוק, רחמת\" כשרוצים לומר לא, תודה."
+      - kind: text
+        title: Xayr means goodbye
+        title_he: חייר זה להתראות
+        img: lesson/uzbekistan/xayr.svg
+        japanese: Xayr
+        reading: xayr
+        text: When you go, wave and say "xayr". The letter X in Uzbek sounds like the H in "Hanukkah".
+        text_he: כשהולכים, מנופפים ואומרים "חייר". האות X באוזבקית נשמעת כמו ח'.
+      - kind: pick
+        title: What do you say?
+        title_he: מה אומרים?
+        text: Last game! Tap the right word.
+        text_he: משחק אחרון! געו במילה הנכונה.
+        rounds:
+          - ask: "You meet a new friend. What do you say?"
+            ask_he: "פוגשים חבר חדש. מה אומרים?"
+            answer: salom
+            choices: [xayr, salom, yoq, rahmat]
+          - ask: "Someone gives you a hot piece of bread. What do you say?"
+            ask_he: "מישהו נותן לכם חתיכת לחם חמה. מה אומרים?"
+            answer: rahmat
+            choices: [rahmat, ha, xayr, salom]
+          - ask: "Do you want more plov? Yes! What do you say?"
+            ask_he: "רוצים עוד פלוב? כן! מה אומרים?"
+            answer: ha
+            choices: [yoq, salom, ha, xayr]
+          - ask: "It is time to go home. What do you say?"
+            ask_he: "הגיע הזמן ללכת הביתה. מה אומרים?"
+            answer: xayr
+            choices: [salom, rahmat, yoq, xayr]

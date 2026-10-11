@@ -1,4 +1,4 @@
-{% load i18n %}{% if phase == "before" and not trip.start_date %}
+{% load i18n %}{% if phase == "before" and not trip.start_date and not trip_country.other %}
 <form class="in-japan-now" method="post" action="{% url 'in_japan_now' %}">{% csrf_token %}
   <button class="btn big alt" type="submit">✈️ {% translate "We are in Japan now!" %}</button>
   <p class="hint">{% translate "Tap this when the trip starts. Then the app shows the photo list." %}</p>

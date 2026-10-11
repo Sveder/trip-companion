@@ -1,0 +1,108 @@
+id: food
+title: Uzbek food
+title_he: אוכל אוזבקי
+summary: Plov, warm bread and green tea.
+summary_he: פלוב, לחם חם ותה ירוק.
+emoji: "🍚"
+audience: all
+order: 10
+ready: true
+activities:
+  # Feedback T171 (Michael, 2026-10-11): a short Uzbekistan course for the demo, in the Japan pattern.
+  # Photos are from Wikimedia Commons (content/photo_credits.yaml). Facts checked 2026-10-11.
+  - id: uz-food-lesson
+    title: Food in Uzbekistan
+    title_he: אוכל באוזבקיסטן
+    type: lesson
+    intro: Swipe through the pages. Tap a word to hear it!
+    intro_he: עוברים דף אחרי דף. געו במילה כדי לשמוע אותה!
+    pictures:
+      - {id: osh, img: photo/uzbekistan/uz-plov.jpg, label: Plov, label_he: פלוב, japanese: Osh, reading: osh}
+      - {id: non, img: photo/uzbekistan/uz-non.jpg, label: Bread, label_he: לחם, japanese: Non, reading: non}
+      - {id: somsa, img: photo/uzbekistan/uz-somsa.jpg, label: Somsa, label_he: סומסה, japanese: Somsa, reading: somsa}
+      - {id: choy, img: photo/uzbekistan/uz-tea.jpg, label: Tea, label_he: תה, japanese: Choy, reading: choy}
+    pages:
+      - kind: text
+        title: Plov, the big pot of rice
+        title_he: פלוב, סיר האורז הגדול
+        img: photo/uzbekistan/uz-plov.jpg
+        photo_credit: uz-plov
+        japanese: Osh
+        reading: osh
+        text: Plov is rice cooked with carrots, onions and meat in a giant pot. In Uzbek it is called "osh".
+        text_he: פלוב זה אורז שמבשלים עם גזר, בצל ובשר בסיר ענק. באוזבקית קוראים לו "אוש".
+        tips:
+          - For a wedding or a big party, the cooks make plov for hundreds of people in one pot.
+          - The carrots are cut into long thin sticks. Some carrots in Uzbekistan are yellow!
+        tips_he:
+          - לחתונה או למסיבה גדולה, הטבחים מבשלים פלוב למאות אנשים בסיר אחד.
+          - חותכים את הגזר למקלות ארוכים ודקים. יש באוזבקיסטן גזר צהוב!
+        source: https://en.wikipedia.org/wiki/Pilaf
+      - kind: text
+        title: Non, the round bread
+        title_he: נון, הלחם העגול
+        img: photo/uzbekistan/uz-non.jpg
+        photo_credit: uz-non
+        japanese: Non
+        reading: non
+        text: Non is a round bread. The baker sticks it on the hot wall of a clay oven, the tandir. A stamp makes a pretty pattern in the middle.
+        text_he: נון הוא לחם עגול. האופה מדביק אותו על הדופן החמה של תנור חימר, הטנדיר. חותמת עושה דוגמה יפה באמצע.
+        tips:
+          - Bread is special in Uzbekistan. You break it with your hands. You do not cut it with a knife.
+          - Never put the bread upside down on the table.
+        tips_he:
+          - הלחם מיוחד באוזבקיסטן. שוברים אותו בידיים. לא חותכים אותו בסכין.
+          - אף פעם לא שמים את הלחם הפוך על השולחן.
+        source: https://en.wikipedia.org/wiki/Obi_non
+      - kind: text
+        title: Somsa, a hot pastry
+        title_he: סומסה, מאפה חם
+        img: photo/uzbekistan/uz-somsa.jpg
+        photo_credit: uz-somsa
+        japanese: Somsa
+        reading: somsa
+        text: Somsa is a crispy pastry with meat and onion inside. It bakes in the tandir oven, like the bread. Careful, it is hot!
+        text_he: סומסה הוא מאפה פריך עם בשר ובצל בפנים. אופים אותו בתנור הטנדיר, כמו את הלחם. זהירות, הוא חם!
+        tips:
+          - Some somsa are triangles and some are round. Some have pumpkin inside.
+        tips_he:
+          - יש סומסה בצורת משולש ויש עגולה. בחלק יש דלעת בפנים.
+        source: https://en.wikipedia.org/wiki/Samsa_(food)
+      - kind: text
+        title: Choy, green tea in a bowl
+        title_he: צ'וי, תה ירוק בקערה
+        img: photo/uzbekistan/uz-tea.jpg
+        photo_credit: uz-tea
+        japanese: Choy
+        reading: choy
+        text: Choy means tea. People drink green tea from a small bowl with no handle, the piyola. Hold it with your fingers.
+        text_he: צ'וי זה תה. שותים תה ירוק מקערה קטנה בלי ידית, הפיאלה. מחזיקים אותה באצבעות.
+        tips:
+          - Green tea is called "ko'k choy". "Ko'k" means blue!
+          - There is tea with every meal, also on a hot summer day.
+        tips_he:
+          - לתה ירוק קוראים "קוק צ'וי". "קוק" זה כחול!
+          - שותים תה בכל ארוחה, גם ביום קיץ חם.
+        source: https://en.wikipedia.org/wiki/Uzbek_cuisine
+      - kind: pick
+        title: Which food?
+        title_he: איזה אוכל?
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "Rice with carrots, from a giant pot. Where is the \"osh\"?"
+            ask_he: "אורז עם גזר, מסיר ענק. איפה ה\"אוש\"?"
+            answer: osh
+            choices: [non, osh, choy, somsa]
+          - ask: "Round bread from the clay oven. Where is the \"non\"?"
+            ask_he: "לחם עגול מתנור החימר. איפה ה\"נון\"?"
+            answer: non
+            choices: [somsa, choy, non, osh]
+          - ask: "Something to drink from a little bowl. Where is the \"choy\"?"
+            ask_he: "משהו לשתות מקערה קטנה. איפה ה\"צ'וי\"?"
+            answer: choy
+            choices: [choy, osh, somsa, non]
+          - ask: "A crispy pastry with meat inside. Where is the \"somsa\"?"
+            ask_he: "מאפה פריך עם בשר בפנים. איפה ה\"סומסה\"?"
+            answer: somsa
+            choices: [osh, non, choy, somsa]

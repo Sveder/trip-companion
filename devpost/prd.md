@@ -30,7 +30,7 @@ Develops `scope.md > The Core Loop` and `scope.md > What "Working" Looks Like`.
 - **Today / next activity** — the main screen after the course exists; opens the next activity.
 - **Activity screen** — the steps of one activity (video, practice, game, test).
 - **Quiz / practice.**
-- **Country preview cards** — Uzbekistan and others, "coming soon".
+- **Country preview cards** — places that are "coming soon". Uzbekistan is a real choice since 2026-10-11 (feedback T171): a short demo course of three modules.
 - **After the trip** — highlights.
 
 **Rich lessons (Michael, feedback 2026-10-08):** each module grows a lesson of 10-20 short pages, one screen each: pictures,

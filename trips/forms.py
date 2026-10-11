@@ -3,11 +3,15 @@ from django.utils.translation import gettext, gettext_lazy as _
 
 from .models import GROUP_AGES, GROUP_IDS
 
-COUNTRY_CHOICES = [("japan", "Japan")]
+
+def country_choices():
+    """Every place in content/previews.yaml that is ready (feedback T171 made Uzbekistan the second one)."""
+    from content_admin.loader import load_previews
+    return [(c["id"], c["name"]) for c in load_previews() if c.get("ready") and not c.get("href")]
 
 
 class TripForm(forms.Form):
-    destination = forms.ChoiceField(choices=COUNTRY_CHOICES, initial="japan", widget=forms.RadioSelect)
+    destination = forms.ChoiceField(choices=country_choices, initial="japan", widget=forms.RadioSelect)
     # Feedback T53: how many people in each age group. The plane picker fills these; without JavaScript they are number boxes.
     little = forms.IntegerField(min_value=0, max_value=12, required=False, initial=0)
     kid = forms.IntegerField(min_value=0, max_value=12, required=False, initial=0)

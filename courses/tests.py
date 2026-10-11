@@ -262,7 +262,7 @@ class ThemeTests(TestCase):
 
     def test_welcome_ready_country_card_links_to_trip_setup(self):
         html = self.client.get("/").content.decode()
-        self.assertRegex(html, r'<a class="card country go" href="/trip/"')
+        self.assertRegex(html, r'<a class="card country go" href="/trip/\?destination=japan"')
         self.assertNotRegex(html, r'<a class="card country soon')
 
     def test_header_mark_is_decorative(self):
@@ -801,12 +801,13 @@ class UzbekistanFlagTests(TestCase):
         self.assertNotIn("🇺🇿", page)
 
 class ComingSoonCardsTests(TestCase):
-    """T146: Japan, five coming-soon places and a 'Request a new one' mail card on the welcome page."""
+    """T146: Japan, Uzbekistan (T171), four coming-soon places and a 'Request a new one' mail card on the welcome page."""
 
     def test_welcome_has_seven_cards_and_the_request_mail_link(self):
         html = self.client.get(reverse("home")).content.decode()
-        self.assertEqual(html.count('class="card country go"'), 1)  # Japan
-        self.assertEqual(html.count('class="card country soon"'), 5)
+        self.assertEqual(html.count('class="card country go"'), 2)  # Japan, and Uzbekistan since T171
+        self.assertEqual(html.count('class="card country soon"'), 4)
+        self.assertIn('?destination=uzbekistan"', html)
         self.assertEqual(html.count('class="card country go request"'), 1)
         self.assertIn('href="mailto:m@sveder.com?subject=Trip%20Companion%3A%20new%20place"', html)
         for name in ("Uzbekistan", "New York City", "Botswana", "Georgia", "Mongolia"):
@@ -828,7 +829,10 @@ class ComingSoonCardsTests(TestCase):
         self.client.force_login(user)
         html = self.client.get(reverse("trip_setup")).content.decode()
         self.assertNotIn("mailto:", html)
-        self.assertEqual(html.count('class="card country soon"'), 5)
+        self.assertEqual(html.count('class="card country soon"'), 4)
+        self.assertEqual(html.count("checked"), 1)  # Japan only, not every ready place
+        html = self.client.get(reverse("trip_setup") + "?destination=uzbekistan").content.decode()
+        self.assertIn('value="uzbekistan" checked', html)
 
 
 class InJapanNowTests(TestCase):

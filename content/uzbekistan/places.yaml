@@ -1,0 +1,103 @@
+id: places
+title: Places and manners
+title_he: מקומות ונימוסים
+summary: Blue domes, a busy bazaar, and how to be a good guest.
+summary_he: כיפות כחולות, שוק הומה, ואיך להיות אורחים טובים.
+emoji: "🕌"
+audience: all
+order: 30
+ready: true
+activities:
+  # Feedback T171. Facts checked 2026-10-11.
+  - id: uz-places-lesson
+    title: Polite like a kid in Uzbekistan
+    title_he: מנומסים כמו ילדים באוזבקיסטן
+    type: lesson
+    intro: Swipe through the pages. Look, tap and learn!
+    intro_he: עוברים דף אחרי דף. מסתכלים, נוגעים ולומדים!
+    pictures:
+      - {id: registon, img: photo/uzbekistan/uz-registan.jpg, label: Registan, label_he: רגיסטאן}
+      - {id: bozor, img: photo/uzbekistan/uz-bazaar.jpg, label: Bazaar, label_he: שוק}
+      - {id: choy, img: photo/uzbekistan/uz-tea-pour.jpg, label: Tea, label_he: תה}
+      - {id: shoes, img: lesson/uzbekistan/shoes.svg, label: Shoes off, label_he: מורידים נעליים}
+    pages:
+      - kind: text
+        title: The Registan in Samarkand
+        title_he: הרגיסטאן בסמרקנד
+        img: photo/uzbekistan/uz-registan.jpg
+        photo_credit: uz-registan
+        japanese: Registon
+        reading: registon
+        text: The Registan is a big square in the city of Samarkand. Three old schools stand around it, with blue domes and walls made of tiny colored tiles.
+        text_he: הרגיסטאן הוא כיכר גדולה בעיר סמרקנד. סביבה עומדים שלושה בתי ספר עתיקים, עם כיפות כחולות וקירות מאריחים צבעוניים קטנים.
+        tips:
+          - Look up at the school on the right. Two tiger-lions run after deer, and each one has a sun on its back with a face!
+          - The schools are about 350 to 600 years old.
+        tips_he:
+          - הסתכלו למעלה על בית הספר מימין. שני אריות-נמרים רצים אחרי איילים, ועל הגב של כל אחד יש שמש עם פנים!
+          - בתי הספר בני 350 עד 600 שנה בערך.
+        source: https://en.wikipedia.org/wiki/Registan
+      - kind: text
+        title: The bazaar
+        title_he: השוק
+        img: photo/uzbekistan/uz-bazaar.jpg
+        photo_credit: uz-bazaar
+        japanese: Bozor
+        reading: bozor
+        text: A bazaar is a big market. In Uzbek it is "bozor". There are mountains of fruit, nuts, dried apricots and warm bread.
+        text_he: בזאר זה שוק גדול. באוזבקית זה "בוזור". יש הרים של פירות, אגוזים, משמשים מיובשים ולחם חם.
+        tips:
+          - Sellers often let you taste first. Say "rahmat"!
+          - Grown-ups talk about the price. That is normal at the bazaar.
+        tips_he:
+          - המוכרים נותנים הרבה פעמים לטעום קודם. אמרו "רחמת"!
+          - המבוגרים מתמקחים על המחיר. זה רגיל בשוק.
+        source: https://en.wikipedia.org/wiki/Siyob_Bazaar
+      - kind: text
+        title: Tea for every guest
+        title_he: תה לכל אורח
+        img: photo/uzbekistan/uz-tea-pour.jpg
+        photo_credit: uz-tea-pour
+        text: When you visit a family, they give you tea, bread and sweets first. The host pours the tea, and fills the bowl only half way.
+        text_he: כשבאים לבקר משפחה, נותנים לכם קודם תה, לחם וממתקים. המארח מוזג את התה, וממלא את הקערה רק עד החצי.
+        tips:
+          - A half bowl is polite. The tea stays hot, and the host can pour you more again and again.
+          - Take the bowl with your right hand.
+        tips_he:
+          - חצי קערה זה מנומס. התה נשאר חם, והמארח יכול למזוג לכם עוד ועוד.
+          - לוקחים את הקערה ביד ימין.
+        source: https://en.wikipedia.org/wiki/Uzbek_cuisine
+      - kind: text
+        title: Shoes off at the door
+        title_he: מורידים נעליים בדלת
+        img: lesson/uzbekistan/shoes.svg
+        text: In an Uzbek home, everyone takes off their shoes at the door. Then you walk on the soft carpets in socks.
+        text_he: בבית אוזבקי, כולם מורידים את הנעליים בדלת. אחר כך הולכים על השטיחים הרכים בגרביים.
+        tips:
+          - At a mosque you take your shoes off too.
+          - Wear clean socks, with no holes!
+        tips_he:
+          - גם במסגד מורידים נעליים.
+          - נועלים גרביים נקיות, בלי חורים!
+      - kind: pick
+        title: Where are we?
+        title_he: איפה אנחנו?
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "Blue domes and colored tiles in Samarkand. Where is the Registan?"
+            ask_he: "כיפות כחולות ואריחים צבעוניים בסמרקנד. איפה הרגיסטאן?"
+            answer: registon
+            choices: [bozor, registon, choy, shoes]
+          - ask: "Fruit, nuts and bread to taste. Where is the bazaar?"
+            ask_he: "פירות, אגוזים ולחם לטעום. איפה השוק?"
+            answer: bozor
+            choices: [shoes, choy, bozor, registon]
+          - ask: "We come to a home. What do we do at the door?"
+            ask_he: "באנו לבית. מה עושים בדלת?"
+            answer: shoes
+            choices: [registon, shoes, bozor, choy]
+          - ask: "The host gives the guest something hot to drink. Which picture?"
+            ask_he: "המארח נותן לאורח משהו חם לשתות. איזו תמונה?"
+            answer: choy
+            choices: [choy, registon, shoes, bozor]

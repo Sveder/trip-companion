@@ -3,7 +3,7 @@
 {% block title %}{% translate "Our course" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% translate "Our course for Japan" %}</span></h1>
+  <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% if trip_country.other %}{% blocktranslate with place=trip_country.name %}Our course for {{ place }}{% endblocktranslate %}{% else %}{% translate "Our course for Japan" %}{% endif %}</span></h1>
   <p class="lead">{% blocktranslate %}We did {{ done }} of {{ total }}. Tap any one to play it again!{% endblocktranslate %}</p>
   <a class="btn small alt continue-btn" href="{% url 'continue' %}">📱 {% translate "Continue on another device" %}</a>
   {% include "includes/in_japan_now.html" %}

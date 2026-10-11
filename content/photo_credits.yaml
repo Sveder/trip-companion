@@ -104,3 +104,52 @@
   licence: CC BY 2.0
   licence_url: https://creativecommons.org/licenses/by/2.0
   source_url: https://commons.wikimedia.org/wiki/File:Goya_Champuru_1.jpg
+- id: uz-non
+  file: photo/uzbekistan/uz-non.jpg
+  title: Tandir nonlarini ko‘rsatayotgan novvoy.jpg
+  author: AIDEPCUL
+  licence: CC BY 4.0
+  licence_url: https://creativecommons.org/licenses/by/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Tandir_nonlarini_ko%E2%80%98rsatayotgan_novvoy.jpg
+- id: uz-somsa
+  file: photo/uzbekistan/uz-somsa.jpg
+  title: Uzbek samsa and sauce.jpg
+  author: 赤猫法師
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Uzbek_samsa_and_sauce.jpg
+- id: uz-registan
+  file: photo/uzbekistan/uz-registan.jpg
+  title: Registan - Gusjer.jpg
+  author: Gustavo Jeronimo from Aranjuez, Spain
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Registan_-_Gusjer.jpg
+- id: uz-tea-pour
+  file: photo/uzbekistan/uz-tea-pour.jpg
+  title: An Uzbek woman performing the traditional tea-pouring ritual.jpg
+  author: Miss Kamola
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:An_Uzbek_woman_performing_the_traditional_tea-pouring_ritual.jpg
+- id: uz-tea
+  file: photo/uzbekistan/uz-tea.jpg
+  title: Teapot and teacups adorned with uzbek traditional motifs.jpg
+  author: Panpanchik
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Teapot_and_teacups_adorned_with_uzbek_traditional_motifs.jpg
+- id: uz-bazaar
+  file: photo/uzbekistan/uz-bazaar.jpg
+  title: Siyob Bazaar in Samarkand 5.jpg
+  author: Adam Harangozó
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Siyob_Bazaar_in_Samarkand_5.jpg
+- id: uz-plov
+  file: photo/uzbekistan/uz-plov.jpg
+  title: 10 kg plov at wedding ceremony.jpg
+  author: Sinchalak Musulmon
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:10_kg_plov_at_wedding_ceremony.jpg

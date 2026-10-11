@@ -22,7 +22,7 @@
       {% elif page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
       {# A real photo names its author and licence under it; the link opens the full list (T160). #}
       {% if page.photo_credit %}{% with credit=page.photo_credit|photo_credit %}{% if credit %}<p class="lphoto-credit"><a href="{% url 'credits' %}">{% translate "Photo:" %} {{ credit.author }}, {{ credit.licence }}</a></p>{% endif %}{% endwith %}{% endif %}
-      {% if page.japanese %}<p class="jp say-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0">{{ page.japanese }} <small>{{ page.reading }}</small></p>{% endif %}
+      {% if page.japanese %}<p class="jp say-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0">{{ page.japanese }}{% if page.reading|lower != page.japanese|lower %} <small>{{ page.reading }}</small>{% endif %}</p>{% endif %}
       {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
       {% if page.tips %}<ul class="tips big-tips">{% for tip in page.tips %}<li>{{ tip|say_quoted }}</li>{% endfor %}</ul>{% endif %}
       {% if page.link %}<p><a class="btn alt" href="{% url 'go' item.id page.link.id %}" target="_blank" rel="noopener nofollow">{{ page.link.label }}</a></p>

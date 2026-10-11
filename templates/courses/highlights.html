@@ -5,7 +5,9 @@
 {% block content %}
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide waves hello") %}
-  {% if phase == "after" %}
+  {% if trip_country.other %}
+  <h1>{% blocktranslate with place=trip_country.name %}Look at everything you did to get ready for {{ place }}!{% endblocktranslate %}</h1>
+  {% elif phase == "after" %}
   <h1>{% translate "Welcome back from Japan!" %}</h1>
   <p class="lead">{% translate "Look at everything you did to get ready." %}</p>
   {% else %}

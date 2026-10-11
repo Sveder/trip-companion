@@ -12,7 +12,7 @@ from content_admin.i18n import localize
 from content_admin.loader import load_previews
 from courses.models import Course
 
-from .forms import TripForm
+from .forms import TripForm, country_choices
 from .models import GROUPS, Traveller, Trip, active_trip
 
 
@@ -50,6 +50,9 @@ def trip_setup(request):
                 "length_days": trip.length_days or (
                     (trip.end_date - trip.start_date).days + 1 if trip.start_date and trip.end_date else None),
             }
+        # T171: a country card on the welcome page opens the form with that country chosen.
+        if request.GET.get("destination") in dict(country_choices()):
+            initial["destination"] = request.GET["destination"]
         form = TripForm(initial=initial)
     return render(request, "trips/setup.html", {
         "form": form, "previews": localize(load_previews()), "trip": trip,

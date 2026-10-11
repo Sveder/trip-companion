@@ -11,7 +11,9 @@
   {% else %}
   <h1>{% translate "You did every activity!" %}</h1>
   {% endif %}
-  {% if phase == "during" %}
+  {% if trip_country.other %}
+  <p class="lead">{% blocktranslate with place=trip_country.name %}Great job. You are ready for {{ place }}. Play the quiz every day until the trip!{% endblocktranslate %}</p>
+  {% elif phase == "during" %}
   <p class="lead">{% translate "You are in Japan now! Look for the things on the photo list, and play the quiz to keep your words fresh." %}</p>
   {% else %}
   <p class="lead">{% translate "Great job. You are ready for Japan. Play the quiz every day until the trip!" %}</p>

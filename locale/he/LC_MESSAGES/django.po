@@ -1267,3 +1267,24 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:92
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
+
+#: templates/base.html
+msgid "Tap a word to hear it"
+msgstr "לחצו על מילה כדי לשמוע אותה"
+
+#: templates/courses/course.html
+#, python-format
+msgid "Our course for %(place)s"
+msgstr "המסלול שלנו ל%(place)s"
+
+#: templates/courses/finished.html
+#, python-format
+msgid ""
+"Great job. You are ready for %(place)s. Play the quiz every day until the "
+"trip!"
+msgstr "כל הכבוד. אתם מוכנים ל%(place)s. שחקו בחידון כל יום עד הטיול!"
+
+#: templates/courses/highlights.html
+#, python-format
+msgid "Look at everything you did to get ready for %(place)s!"
+msgstr "תראו את כל מה שעשיתם כדי להתכונן ל%(place)s!"

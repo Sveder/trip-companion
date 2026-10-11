@@ -13,7 +13,7 @@
   emoji: "🇺🇿"
   line: Blue domes, Silk Road cities and plov.
   line_he: כיפות כחולות, ערי דרך המשי ופלוב.
-  ready: false
+  ready: true
 - id: new-york
   name: New York City
   name_he: ניו יורק

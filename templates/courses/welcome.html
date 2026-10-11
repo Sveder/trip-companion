@@ -20,7 +20,7 @@
 <div class="cards countries">
   {% for c in previews %}
   {% if c.ready %}
-  <a class="card country go" href="{% url 'trip_setup' %}">
+  <a class="card country go" href="{% url 'trip_setup' %}?destination={{ c.id }}">
     <div class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</div>
     <h3>{{ c.name }}</h3>
     <p>{{ c.line }}</p>

@@ -13,10 +13,22 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
+def _countries(country):
+    """The asked country first, then every other content country. A template asks with the default
+    country (japan); the Uzbek words (T171) are found in the next one."""
+    others = sorted(p.name for p in (Path(settings.BASE_DIR) / "content").iterdir() if p.is_dir() and p.name != country)
+    return [country] + others
+
+
 @lru_cache(maxsize=256)
 def _audio(reading, country):
-    path = f"audio/{country}/{reading}.mp3"
-    return static(path) if reading and finders.find(path) else ""
+    if not reading:
+        return ""
+    for c in _countries(country):
+        path = f"audio/{c}/{reading}.mp3"
+        if finders.find(path):
+            return static(path)
+    return ""
 
 
 @lru_cache(maxsize=1)
@@ -69,7 +81,10 @@ def _reading(word, country):
     key = _key(word)
     if _audio(key, country):
         return key
-    return _hebrew(country).get(key, "")
+    for c in _countries(country):
+        if key in _hebrew(c):
+            return _hebrew(c)[key]
+    return ""
 
 
 def _span(word, reading, country):
