@@ -316,6 +316,22 @@ activities:
               - {word: konnichiwa, japanese: "こんにちは", label: "konnichiwa", label_he: "קוניצ'יווה", target: day}
               - {word: konbanwa, japanese: "こんばんは", label: "konbanwa", label_he: "קונבנווה", target: evening}
               - {word: oyasumi, japanese: "おやすみ", label: "oyasumi", label_he: "אויאסומי", target: night}
+          - title: Which picture?
+            title_he: איזו תמונה?
+            targets:
+              - {id: thanks, img: "lesson/words/arigatou.svg", label: "Thank you", label_he: "תודה"}
+              - {id: say-yes, img: "lesson/words/hai.svg", label: "Yes", label_he: "כן"}
+              - {id: say-no, img: "lesson/words/iie.svg", label: "No", label_he: "לא"}
+              - {id: eat, img: "lesson/words/itadakimasu.svg", label: "Before we eat", label_he: "לפני האוכל"}
+              - {id: excuse, img: "lesson/words/sumimasen.svg", label: "Excuse me", label_he: "סליחה"}
+              - {id: bye, img: "lesson/words/sayounara.svg", label: "Goodbye", label_he: "להתראות"}
+            plates:
+              - {word: arigatou, japanese: "ありがとう", label: "arigatou", label_he: "אריגטו", target: thanks}
+              - {word: hai, japanese: "はい", label: "hai", label_he: "האי", target: say-yes}
+              - {word: iie, japanese: "いいえ", label: "iie", label_he: "אייה", target: say-no}
+              - {word: itadakimasu, japanese: "いただきます", label: "itadakimasu", label_he: "איטדקימס", target: eat}
+              - {word: sumimasen, japanese: "すみません", label: "sumimasen", label_he: "סומימסן", target: excuse}
+              - {word: sayounara, japanese: "さようなら", label: "sayounara", label_he: "סאיונרה", target: bye}
       - kind: text
         title: Count to five
         title_he: סופרים עד חמש

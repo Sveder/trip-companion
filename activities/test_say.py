@@ -26,6 +26,7 @@ class Silent(HTMLParser):
     def __init__(self):
         super().__init__()
         self.stack, self.silent, self.talks, self.main = [], [], 0, 0
+        self.target = 0  # T162: a picture in the match game is a drop target; the word plate says the word when it lands
 
     def say_src(self):
         return next((s for _, s in reversed(self.stack) if s is not None), None)
@@ -34,17 +35,20 @@ class Silent(HTMLParser):
         a = dict(attrs)
         if tag == "main":
             self.main += 1
-        if tag == "img" and self.main and "itadakimasu" in (a.get("src") or ""):
+        if tag == "img" and self.main and not self.target and "itadakimasu" in (a.get("src") or ""):
             (self.silent.append("IMG") if self.say_src() != SRC else None)
             self.talks += self.say_src() == SRC
         if tag not in self.VOID:
             self.stack.append((tag, a.get("data-say-src") if "data-say" in a else None))
+            self.target += "match-target" in (a.get("class") or "").split()
 
     def handle_endtag(self, tag):
         if tag == "main":
             self.main -= 1
         for i in range(len(self.stack) - 1, -1, -1):
             if self.stack[i][0] == tag:
+                if tag == "button" and self.target:
+                    self.target -= 1
                 del self.stack[i:]
                 break
 

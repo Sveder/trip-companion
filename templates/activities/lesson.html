@@ -111,7 +111,7 @@
         {% for round in page.rounds %}
         <div class="match-round" data-match-round{% if not forloop.first %} hidden{% endif %}>
           <p class="ask">{{ round.title }}</p>
-          <div class="match-targets">
+          <div class="match-targets{% if round.targets|length == 6 %} six{% endif %}">
             {% for t in round.targets %}
             <button type="button" class="match-target" data-target="{{ t.id }}"><img src="{% static 'img/'|add:t.img %}" alt=""><strong>{{ t.label }}</strong><span class="match-slot" data-slot></span></button>
             {% endfor %}

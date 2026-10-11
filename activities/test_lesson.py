@@ -924,9 +924,11 @@ class WordsMatchGameTests(TestCase):
     def test_match_block_en(self):
         html = self.page()
         self.assertEqual(html.count("lpage-match"), 1)
-        self.assertEqual(html.count("data-match-round"), 1)
-        self.assertEqual(html.count('class="match-target"'), 4)
-        self.assertEqual(html.count("data-match-plate="), 4)
+        self.assertEqual(html.count("data-match-round"), 2)
+        self.assertEqual(html.count('class="match-targets"'), 1)
+        self.assertEqual(html.count('class="match-targets six"'), 1)  # round 2: 6 pictures in a 3x2 grid
+        self.assertEqual(html.count('class="match-target"'), 10)
+        self.assertEqual(html.count("data-match-plate="), 10)
         for word, target in (("ohayou", "morning"), ("konnichiwa", "day"), ("konbanwa", "evening"), ("oyasumi", "night")):
             self.assertIn(f'data-match-plate="{target}"', html)
             self.assertIn(f'data-target="{target}"', html)
@@ -934,16 +936,25 @@ class WordsMatchGameTests(TestCase):
             self.assertIn(f"lesson/words/time-{target}.svg", html)
         self.assertIn("Put the word where it belongs", html)
         self.assertIn("When do you say it?", html)
+        self.assertIn("Which picture?", html)
+        for word, target in (("arigatou", "thanks"), ("hai", "say-yes"), ("iie", "say-no"),
+                             ("itadakimasu", "eat"), ("sumimasen", "excuse"), ("sayounara", "bye")):
+            self.assertIn(f'data-match-plate="{target}"', html)
+            self.assertIn(f'data-target="{target}"', html)
+            self.assertIn(f"audio/japan/{word}.mp3", html)
+            self.assertIn(f"lesson/words/{word}.svg", html)
+        self.assertIn("Again", html)
         self.assertIn('window.T.placedAll = "You placed all {n}!"', html)
         self.assertIn("Next round", html)
         self.assertNotIn("data-belt", html)
 
     def test_match_block_he(self):
         html = self.page("he")
-        self.assertEqual(html.count('class="match-target"'), 4)
-        for he in ("בוקר", "ערב", "לילה", "אוהאיו", "קונבנווה", "לסיבוב הבא"):
+        self.assertEqual(html.count('class="match-target"'), 10)
+        for he in ("בוקר", "ערב", "לילה", "אוהאיו", "קונבנווה", "לסיבוב הבא", "איזו תמונה?", "לפני האוכל", "סומימסן", "להתראות"):
             self.assertIn(he, html)
         self.assertNotIn("When do you say it?", html)
+        self.assertNotIn("Which picture?", html)
 
     def test_match_css_keeps_the_page_still(self):
         css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
