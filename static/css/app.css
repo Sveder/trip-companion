@@ -677,14 +677,13 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   .brand { font-size: .95rem; }
 }
 /* T184: on a tablet (601-1279 px) the signed-in links did not fit beside the brand, so the language link wrapped to a
-   row of its own. Now row 1 is the brand, Sound on and the language link; row 2 is the nav. Row 2 starts 64 px below
-   the top, where the 130 px corner badge is only about 66 px wide, so the nav may use 64 px of the header's
-   140 px right padding. */
+   row of its own. Now row 1 is the brand, Sound on and the language link; row 2 is the nav, inside the same 140 px
+   right padding that keeps the corner badge clear. At 768 px the nav is one line in en and he; narrower, it wraps. */
 @media (min-width: 601px) and (max-width: 1279px) {
   .top-menu { display: contents; }
   .top .sound-btn { order: 1; }
   .top .lang-switch { order: 2; }
-  .top .top-nav { order: 3; flex: 0 0 calc(100% + 64px); margin-right: -64px; gap: .3rem .9rem; font-size: .95rem; }
+  .top .top-nav { order: 3; flex: 0 0 100%; gap: .3rem .8rem; font-size: .95rem; }
 }
 /* T156: the speaker mark makes a long word one em wider; on a 360 px phone the two word columns pushed the page
    sideways. The columns may shrink now, and the word may wrap. */

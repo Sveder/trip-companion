@@ -140,7 +140,7 @@ class HeaderClearOfBadgeTests(TestCase):
 
     def test_tablet_header_puts_the_language_link_beside_sound(self):
         # T184: at 601-1279 px the language link wrapped to a row of its own. Row 1 is now brand, Sound on and the
-        # language link; the nav is row 2 and borrows at most 64 px of the 140 px padding (the badge is narrow there).
+        # language link; the nav is row 2 and stays inside the 140 px right padding, clear of the corner badge.
         import re
         from pathlib import Path
         from django.conf import settings
@@ -150,8 +150,8 @@ class HeaderClearOfBadgeTests(TestCase):
         self.assertIn(".top-menu { display: contents; }", block)
         self.assertIn(".top .sound-btn { order: 1; }", block)
         self.assertIn(".top .lang-switch { order: 2; }", block)
-        borrow = int(re.search(r"\.top \.top-nav \{[^}]*margin-right: -(\d+)px", block).group(1))
-        self.assertLessEqual(borrow, 140 - 66)
+        self.assertRegex(block, r"\.top \.top-nav \{ order: 3; flex: 0 0 100%;")
+        self.assertNotIn("margin-right: -", block)
 
 
 class HeaderMenuTests(TestCase):
