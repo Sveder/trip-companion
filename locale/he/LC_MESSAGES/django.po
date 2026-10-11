@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 12:57+0300\n"
+"POT-Creation-Date: 2026-10-11 13:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr "הקוד שלכם (6 ספרות)"
 msgid "Welcome back! This device is connected."
 msgstr "ברוכים השבים! המכשיר הזה מחובר."
 
-#: courses/views.py:72
+#: courses/views.py:84
 msgid "Pick at least one thing to learn."
 msgstr "בחרו לפחות דבר אחד ללמוד."
 
@@ -109,7 +109,7 @@ msgid "Send a new code"
 msgstr "שלחו קוד חדש"
 
 #: templates/accounts/continue.html:3 templates/accounts/continue.html:18
-#: templates/base.html:46 templates/courses/course.html:8
+#: templates/base.html:48 templates/courses/course.html:8
 msgid "Continue on another device"
 msgstr "להמשיך במכשיר אחר"
 
@@ -184,7 +184,7 @@ msgid "Activity %(number)s of %(total)s"
 msgstr "פעילות %(number)s מתוך %(total)s"
 
 #: templates/activities/_frame.html:19 templates/activities/coming_soon.html:7
-#: templates/activities/lesson.html:117 templates/activities/praise.html:24
+#: templates/activities/lesson.html:126 templates/activities/praise.html:24
 #: templates/courses/course.html:23
 msgid "Next"
 msgstr "הבא"
@@ -219,6 +219,26 @@ msgstr "עשיתם את כל הסיבובים! 🎉"
 msgid "{n} of {total} found"
 msgstr "נמצאו {n} מתוך {total}"
 
+#: templates/activities/lesson.html:10
+#, python-brace-format
+msgid "Catch the {name}!"
+msgstr "תפסו: {name}!"
+
+#: templates/activities/lesson.html:10
+#, python-brace-format
+msgid "Caught: {n}"
+msgstr "תפסתם: {n}"
+
+#: templates/activities/lesson.html:10
+#, python-brace-format
+msgid "You caught {n}! Best: {best}"
+msgstr "תפסתם {n}! השיא: {best}"
+
+#: templates/activities/lesson.html:10
+#, python-brace-format
+msgid "Best: {best}"
+msgstr "השיא: {best}"
+
 #: templates/activities/lesson.html:12
 #, python-format
 msgid "Page 1 of %(total)s"
@@ -233,7 +253,15 @@ msgstr "דף %(n)s מתוך %(total)s"
 msgid "A grown-up buys it. The shop opens in a new tab."
 msgstr "מבוגר קונה את זה. החנות נפתחת בלשונית חדשה."
 
-#: templates/activities/lesson.html:116 templates/trips/new.html:13
+#: templates/activities/lesson.html:94
+msgid "Keep going!"
+msgstr "ממשיכים!"
+
+#: templates/activities/lesson.html:97 templates/activities/steps.html:43
+msgid "Again"
+msgstr "עוד פעם"
+
+#: templates/activities/lesson.html:125 templates/trips/new.html:13
 msgid "Back"
 msgstr "אחורה"
 
@@ -323,10 +351,6 @@ msgstr "שיתוף"
 msgid "Keep it for our trip"
 msgstr "שמרו לטיול שלנו"
 
-#: templates/activities/steps.html:43
-msgid "Again"
-msgstr "עוד פעם"
-
 #: templates/activities/steps.html:44
 msgid "Download"
 msgstr "הורדה"
@@ -370,39 +394,51 @@ msgstr ""
 msgid "Get ready for Japan"
 msgstr "מתכוננים ליפן"
 
-#: templates/base.html:37
+#: templates/base.html:38
+msgid "Sound on"
+msgstr "צליל פועל"
+
+#: templates/base.html:38
+msgid "Sound off"
+msgstr "צליל כבוי"
+
+#: templates/base.html:39
 msgid "Menu"
 msgstr "תפריט"
 
-#: templates/base.html:42 templates/courses/course.html:3
+#: templates/base.html:44 templates/courses/course.html:3
 #: templates/courses/finished.html:24 templates/there/hunt.html:46
 msgid "Our course"
 msgstr "המסלול שלנו"
 
-#: templates/base.html:43 templates/practice/empty.html:3
+#: templates/base.html:45 templates/practice/empty.html:3
 #: templates/practice/quiz.html:4
 msgid "Quiz"
 msgstr "חידון"
 
-#: templates/base.html:44
+#: templates/base.html:46
 msgid "In Japan"
 msgstr "ביפן"
 
-#: templates/base.html:45 templates/trips/setup.html:3
+#: templates/base.html:47 templates/trips/setup.html:3
 msgid "Our trip"
 msgstr "הטיול שלנו"
 
-#: templates/base.html:48
+#: templates/base.html:50
 msgid "Sign out"
 msgstr "יציאה"
 
-#: templates/base.html:68
+#: templates/base.html:70
 msgid "Made by"
 msgstr "נוצר על ידי"
 
-#: templates/base.html:68 templates/privacy.html:3 templates/privacy.html:6
+#: templates/base.html:70 templates/privacy.html:3 templates/privacy.html:6
 msgid "Privacy"
 msgstr "פרטיות"
+
+#: templates/base.html:72
+msgid "Tap a Japanese word to hear it"
+msgstr "לחצו על מילה ביפנית כדי לשמוע אותה"
 
 #: templates/courses/builder.html:3 templates/courses/builder.html:6
 msgid "Choose your course"
@@ -1182,12 +1218,3 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:92
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
-
-msgid "Sound on"
-msgstr "צליל פועל"
-
-msgid "Sound off"
-msgstr "צליל כבוי"
-
-msgid "Tap a Japanese word to hear it"
-msgstr "לחצו על מילה ביפנית כדי לשמוע אותה"

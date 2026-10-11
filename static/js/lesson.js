@@ -169,19 +169,79 @@
     var msg = game.querySelector('[data-game-msg]');
     var train = game.hasAttribute('data-train');
     var at = 0, busy = false;
+    // Endless mode after the last round (T157): ask a random plate, count the catches, keep the best.
+    var endless = game.querySelector('[data-endless]');
+    var more = game.querySelector('[data-train-more]');
+    var againBox = game.querySelector('[data-train-again]');
+    var scoreEl = game.querySelector('[data-train-score]');
+    var key = game.getAttribute('data-best-key');
+    var want = null, streak = 0, playing = false;
     function show() {
-      for (var i = 0; i < rounds.length; i++) rounds[i].hidden = i !== at;
+      for (var i = 0; i < rounds.length; i++) rounds[i].hidden = playing || i !== at;
+      if (endless) endless.hidden = !playing;
+    }
+    function best() {
+      try { return parseInt(localStorage.getItem(key), 10) || 0; } catch (e) { return 0; }
+    }
+    function saveBest(n) {
+      try { if (n > best()) localStorage.setItem(key, String(n)); } catch (e) { /* private mode: no best kept */ }
+    }
+    // Plates on the belt, once each (the belt holds two passes of the same plates).
+    function plates() {
+      var all = game.querySelectorAll('[data-plate]:not([aria-hidden])'), out = [];
+      for (var i = 0; i < all.length; i++) out.push(all[i]);
+      return out;
+    }
+    function ask() {
+      var list = plates().filter(function (p) { return p.getAttribute('data-plate') !== want; });
+      var pick = list[Math.floor(Math.random() * list.length)];
+      want = pick.getAttribute('data-plate');
+      var name = pick.querySelector('img').getAttribute('alt').toLowerCase();
+      game.querySelector('[data-endless-ask]').textContent = T.catchIt.replace('{name}', name);
+    }
+    function score() {
+      scoreEl.hidden = false;
+      scoreEl.textContent = T.score.replace('{n}', streak);
+    }
+    function keepGoing() {
+      playing = true; streak = 0; want = null;
+      more.hidden = true; againBox.hidden = true;
+      game.classList.remove('won');
+      msg.textContent = '';
+      ask(); score(); show();
+      var first = plates()[0];
+      if (first && document.documentElement.classList.contains('tv')) first.focus();
+    }
+    function endStreak() {
+      saveBest(streak);
+      game.classList.add('won');
+      scoreEl.hidden = true;
+      msg.textContent = T.streakEnd.replace('{n}', streak).replace('{best}', best());
+      againBox.hidden = false;
+      var b = againBox.querySelector('button');
+      if (document.documentElement.classList.contains('tv')) b.focus();
     }
     function right(btn) {
       busy = true;
       btn.classList.add('right');
       msg.textContent = T.right;
+      if (playing) { streak++; score(); }
       setTimeout(function () {
         btn.classList.remove('right');
         busy = false;
+        if (playing) {
+          msg.textContent = ''; ask();
+          faster();
+          return;
+        }
         if (at === rounds.length - 1) {
           msg.textContent = T.allRounds;
           game.classList.add('won');
+          if (more) {
+            more.hidden = false;
+            var bestNow = best();
+            if (bestNow) msg.textContent += ' ' + T.best.replace('{best}', bestNow);
+          }
           cheer();
           return;
         }
@@ -191,13 +251,14 @@
     }
     // The sushi train: every round we finish makes the belt about 7% faster than the round before (T103).
     // playbackRate keeps the plates where they are; a new animation-duration would make them jump.
+    // Endless mode keeps speeding up, up to 2.5 times the base speed, so a long streak stays catchable.
     var rate = 1;
     function faster() {
-      rate *= 1.07;
+      rate = Math.min(rate * 1.07, 2.5);
       var track = game.querySelector('.belt-track');
       var anim = track.getAnimations ? track.getAnimations()[0] : null;
       if (anim) anim.playbackRate = rate;
-      else track.style.animationDuration = (30 / rate) + 's';
+      else track.style.animationDuration = (21 / rate) + 's';
     }
     // A hidden page stops its animation, and the browser starts a new one at speed 1 when the page shows again.
     if (train) game.closest('[data-page]').addEventListener('lpage-show', function () {
@@ -206,14 +267,17 @@
     });
     function wrong(btn) {
       btn.classList.remove('wrong'); void btn.offsetWidth; btn.classList.add('wrong');
+      if (playing) { endStreak(); return; }
       msg.textContent = T.wrong;
     }
     game.addEventListener('click', function (e) {
+      if (e.target.closest('[data-keep-going]') || e.target.closest('[data-again]')) { keepGoing(); return; }
       if (busy || game.classList.contains('won')) return;
       if (train) {
         var plate = e.target.closest('[data-plate]');
         if (!plate) return;
-        (plate.getAttribute('data-plate') === rounds[at].getAttribute('data-answer') ? right : wrong)(plate);
+        var answer = playing ? want : rounds[at].getAttribute('data-answer');
+        (plate.getAttribute('data-plate') === answer ? right : wrong)(plate);
         return;
       }
       var c = e.target.closest('[data-choice]');

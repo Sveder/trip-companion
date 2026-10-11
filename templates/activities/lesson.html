@@ -7,7 +7,7 @@
 {% block activity %}
 {% include "includes/js_strings.html" %}
 {% get_current_language_bidi as bidi %}
-<script>window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}";</script>
+<script>window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}"; window.T.catchIt = "{{ _("Catch the {name}!")|escapejs }}"; window.T.score = "{{ _("Caught: {n}")|escapejs }}"; window.T.streakEnd = "{{ _("You caught {n}! Best: {best}")|escapejs }}"; window.T.best = "{{ _("Best: {best}")|escapejs }}";</script>
 <div class="lesson" data-lesson>
   <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
   <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
@@ -77,16 +77,25 @@
 
     {% elif page.kind == "train" %}
       {% if page.text %}<p class="ltext">{{ page.text }}</p>{% endif %}
-      <div class="game train-game" data-game data-train>
+      <div class="game train-game" data-game data-train data-best-key="tc_best_{{ activity.id }}_{{ forloop.counter0 }}">
         {% for round in page.rounds %}
         <div class="round" data-round data-answer="{{ round.answer }}"><p class="ask">{{ round.ask }}</p></div>
         {% endfor %}
+        {# Endless rounds after the last one: a random plate each time, a score, and the best score kept (T157). #}
+        <div class="round" data-endless hidden><p class="ask" data-endless-ask></p></div>
         <div class="belt"><div class="belt-track">
           {% for pass in "ab" %}{% for pic in page.belt %}
           <button type="button" class="plate" data-plate="{{ pic.id }}"{% if pass == "b" %} aria-hidden="true" tabindex="-1"{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
           {% endfor %}{% endfor %}
         </div></div>
         <p class="game-msg" data-game-msg aria-live="polite"></p>
+        <p class="train-score" data-train-score hidden></p>
+        <div class="train-more" data-train-more hidden>
+          <button type="button" class="btn" data-keep-going>{% translate "Keep going!" %}</button>
+        </div>
+        <div class="train-more" data-train-again hidden>
+          <button type="button" class="btn" data-again>{% translate "Again" %}</button>
+        </div>
       </div>
 
     {% elif page.kind == "video" %}

@@ -440,10 +440,13 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 @keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .game-msg { min-height: 1.6em; font-weight: 800; font-size: 1.15rem; margin: .5rem 0 0; }
 .belt { direction: ltr; overflow: hidden; margin: .6rem -1.2rem 0; padding: .7rem 0; background: repeating-linear-gradient(90deg, #8a8f99 0 24px, #9aa0aa 24px 48px); }
-.belt-track { display: flex; gap: .8rem; width: max-content; animation: belt 30s linear infinite; }
+.belt-track { display: flex; gap: .8rem; width: max-content; animation: belt 21s linear infinite; }
 .belt:hover .belt-track, .belt:active .belt-track { animation-play-state: paused; }
 .plate { width: 110px; flex: none; border-radius: 50%; height: 110px; display: flex; align-items: center; justify-content: center; background: #fff; border-color: #d8d2c4; }
 .plate img { width: 80%; }
+.train-more { margin: .6rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }
+.train-score { font-weight: 800; font-size: 1.15rem; margin: .3rem 0 0; }
+/* 30 s -> 21 s: Michael asked for a belt about 30 percent faster (T157). */
 @keyframes belt { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 /* The belt runs left to right in Hebrew too: a right-to-left max-content track overflowed the page (T51). */
 .places { list-style: none; padding: 0; max-width: 34em; margin: .2rem auto .6rem; text-align: start; }

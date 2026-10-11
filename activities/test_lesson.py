@@ -54,8 +54,24 @@ class SushiLessonTests(TestCase):
         self.assertIn("<ellipse", maki)
         self.assertNotIn('<circle r="24"', maki)
         # (4) The belt: x1.07 per finished round, through playbackRate so the plates do not jump.
-        self.assertIn("rate *= 1.07", js)
+        self.assertIn("rate = Math.min(rate * 1.07, 2.5)", js)
         self.assertIn("playbackRate = rate", js)
+
+    def test_michael_feedback_t157(self):
+        """The belt is 30 percent faster (21 s), and 'Keep going!' starts endless rounds with a kept best score."""
+        root = Path(settings.BASE_DIR) / "static"
+        css = (root / "css" / "app.css").read_text()
+        self.assertIn("animation: belt 21s linear infinite;", css)
+        js = (root / "js" / "lesson.js").read_text()
+        self.assertIn("localStorage.setItem(key", js)
+        for lang, words in (("en", ["Keep going!", "Again", "Catch the {name}!", "You caught {n}! Best: {best}"]),
+                            ("he", ["ממשיכים!", "עוד פעם", "תפסו: {name}!", "תפסתם {n}! השיא: {best}"])):
+            html = self.page(lang)
+            self.assertIn("data-keep-going", html)
+            self.assertIn("data-endless", html)
+            self.assertRegex(html, r'data-best-key="tc_best_\d+_\d+"')
+            for w in words:
+                self.assertIn(w, html, (lang, w))
 
     def test_lesson_has_10_to_20_pages_and_every_kind(self):
         pages = self.act.data["pages"]
