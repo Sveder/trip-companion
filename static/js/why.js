@@ -4,6 +4,7 @@
   var word = document.querySelector('[data-why]'), box = document.getElementById('why');
   if (!word || !box || !box.showModal) return;
 
+  var auto = false;
   function open() {
     if (box.open) return;
     box.showModal();
@@ -11,9 +12,14 @@
     if (btn) btn.focus();
   }
 
-  word.addEventListener('click', open);
+  word.addEventListener('click', function () { auto = false; open(); });
   // Focus goes back to the word when the dialog closes (Esc, the button or the backdrop).
-  box.addEventListener('close', function () { word.focus(); });
+  // TV mode, first visit (the dialog opened by itself): the focus goes to the first card, so OK opens it (T169).
+  box.addEventListener('close', function () {
+    var card = auto && document.documentElement.classList.contains('tv') && document.querySelector('main .card');
+    auto = false;
+    (card || word).focus();
+  });
   // A click on the backdrop lands on the <dialog> itself, outside its content box.
   box.addEventListener('click', function (e) {
     if (e.target !== box) return;
@@ -23,5 +29,5 @@
 
   var seen = false;
   try { seen = localStorage.getItem('tc_why_seen') === '1'; localStorage.setItem('tc_why_seen', '1'); } catch (e) {}
-  if (!seen) setTimeout(open, 600);
+  if (!seen) setTimeout(function () { auto = true; open(); }, 600);
 })();
