@@ -1241,3 +1241,15 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:92
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
+
+#: templates/activities/lesson.html
+msgid "Next round"
+msgstr "לסיבוב הבא"
+
+#: templates/activities/lesson.html
+msgid "You placed all {n}!"
+msgstr "שמתם את כל ה-{n}!"
+
+#: templates/activities/lesson.html
+msgid "Pick a word first."
+msgstr "קודם בחרו מילה."

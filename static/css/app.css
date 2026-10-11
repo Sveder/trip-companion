@@ -463,6 +463,26 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 /* 30 s -> 21 s: Michael asked for a belt about 30 percent faster (T157). */
 @keyframes belt { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 /* The belt runs left to right in Hebrew too: a right-to-left max-content track overflowed the page (T51). */
+/* Put the word where it belongs (T162). 2x2 pictures on a phone, 4 in a row from 900 px. A lifted or dragged
+   plate moves by transform only, and a placed plate keeps its room, so nothing on the page jumps. */
+.match-targets { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; max-width: 520px; margin: 0 auto; }
+@media (min-width: 900px) { .match-targets { grid-template-columns: repeat(4, 1fr); max-width: 860px; } }
+.match-target { font: inherit; color: inherit; display: flex; flex-direction: column; align-items: center; gap: .2rem; padding: .4rem; border: 3px solid var(--c-line); border-radius: var(--radius); background: var(--c-surface); cursor: pointer; }
+.match-target img { width: 100%; height: auto; display: block; border-radius: calc(var(--radius) * .6); }
+.match-target strong { font-size: 1.05rem; }
+.match-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 3.4rem; border: 2px dashed var(--c-line); border-radius: calc(var(--radius) * .6); line-height: 1.15; }
+.match-target.right { border-color: var(--c-accent); background: var(--c-tint-2); box-shadow: 0 0 0 4px rgba(18, 128, 111, .25); }
+.match-target.right .match-slot { border-style: solid; border-color: var(--c-accent); background: #fff; animation: pop .45s ease-out; }
+.match-target.bad { border-color: var(--c-primary); background: var(--c-tint-1); }
+.match-target:disabled { cursor: default; opacity: 1; }
+.match-plates { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: .9rem 0 0; }
+.match-plate { font: inherit; color: inherit; display: flex; flex-direction: column; align-items: center; min-width: 7.5rem; min-height: 3.4rem; padding: .35rem .8rem; line-height: 1.15; border: 3px solid #d8d2c4; border-radius: 999px; background: #fff; box-shadow: 0 4px 0 rgba(0,0,0,.14); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; transition: transform .15s, box-shadow .15s; }
+.match-plate .jp, .match-slot .jp { font-size: 1.15rem; font-weight: 800; }
+.match-reading { font-size: .95rem; color: var(--c-muted); font-weight: 700; }
+.match-plate[aria-pressed="true"] { transform: translateY(-6px); border-color: var(--c-sun); box-shadow: 0 10px 14px rgba(0,0,0,.2); }
+.match-plate.dragging { transition: none; cursor: grabbing; z-index: 5; position: relative; }
+.match-plate.wrong { animation: shake .3s; border-color: var(--c-primary); }
+.match-plate.placed { visibility: hidden; }
 .places { list-style: none; padding: 0; max-width: 34em; margin: .2rem auto .6rem; text-align: start; }
 .places li { display: flex; gap: .7rem; align-items: flex-start; padding: .5rem .7rem; margin: .4rem 0; background: var(--c-bg); border-radius: var(--radius); font-size: 1.05rem; }
 .place-emoji { font-size: 1.8rem; line-height: 1; }

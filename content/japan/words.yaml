@@ -297,25 +297,25 @@ activities:
           - "איטדקימס: לפני הביס הראשון."
           - "אוישי!: טעים!"
           - "גוצ'יסוסאמה דשיטה: כשמסיימים, או כשיוצאים ממסעדה."
-      - kind: train
-        title: Catch the word!
-        title_he: תפסו את המילה!
-        text: The word plates ride past. Tap the one we ask for.
-        text_he: צלחות המילים נוסעות. געו בצלחת שאנחנו מבקשים.
-        belt: [ohayou, konnichiwa, arigatou, konbanwa, hai, oyasumi, sumimasen, iie, itadakimasu, sayounara]
+      - kind: match
+        # T162: Michael said 'Catch the word' was the sushi train again. A new game: put each word where it belongs.
+        title: Put the word where it belongs
+        title_he: שימו את המילה במקום הנכון
+        text: Drag a word to its picture. Or tap a word, then tap the picture.
+        text_he: גררו מילה אל התמונה שלה. או געו במילה, ואז געו בתמונה.
         rounds:
-          - ask: "Catch \"arigatou\", thank you!"
-            ask_he: "תפסו את \"אריגטו\", תודה!"
-            answer: "arigatou"
-          - ask: "Catch \"hai\", yes!"
-            ask_he: "תפסו את \"האי\", כן!"
-            answer: "hai"
-          - ask: "Catch \"oyasumi\", good night!"
-            ask_he: "תפסו את \"אויאסומי\", לילה טוב!"
-            answer: "oyasumi"
-          - ask: "Catch \"sumimasen\", excuse me!"
-            ask_he: "תפסו את \"סומימסן\", סליחה!"
-            answer: "sumimasen"
+          - title: When do you say it?
+            title_he: מתי אומרים את זה?
+            targets:
+              - {id: morning, img: "lesson/words/time-morning.svg", label: "Morning", label_he: "בוקר"}
+              - {id: day, img: "lesson/words/time-day.svg", label: "Day", label_he: "יום"}
+              - {id: evening, img: "lesson/words/time-evening.svg", label: "Evening", label_he: "ערב"}
+              - {id: night, img: "lesson/words/time-night.svg", label: "Night", label_he: "לילה"}
+            plates:
+              - {word: ohayou, japanese: "おはよう", label: "ohayou", label_he: "אוהאיו", target: morning}
+              - {word: konnichiwa, japanese: "こんにちは", label: "konnichiwa", label_he: "קוניצ'יווה", target: day}
+              - {word: konbanwa, japanese: "こんばんは", label: "konbanwa", label_he: "קונבנווה", target: evening}
+              - {word: oyasumi, japanese: "おやすみ", label: "oyasumi", label_he: "אויאסומי", target: night}
       - kind: text
         title: Count to five
         title_he: סופרים עד חמש

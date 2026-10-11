@@ -6,6 +6,7 @@ Page kinds:
   flip   cards that turn over when tapped
   pick   a game: rounds of "tap the right picture"
   train  a game: plates ride past on a sushi train, catch the one asked for
+  match  a game: drag (or tap, then tap) each word plate onto the picture where it belongs
   video  a YouTube video, only when Michael approved it; else its written lines
   local  places to try it: at home and in Japan
 
@@ -13,7 +14,7 @@ A page can carry an audience (child / adult), like a step.
 """
 from .steps import video_ok
 
-KINDS = ("text", "spots", "flip", "pick", "train", "video", "local")
+KINDS = ("text", "spots", "flip", "pick", "train", "match", "video", "local")
 
 
 def visible_pages(data, trip):

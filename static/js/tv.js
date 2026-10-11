@@ -28,6 +28,8 @@
       // A control inside a card belongs to the card: the card takes the focus.
       if (!el.classList.contains('card') && el.closest('.card')) continue;
       if (!shown(el)) continue;
+      // A disabled button cannot take the focus: a placed word picture in the match game (T162).
+      if (el.disabled) continue;
       out.push(el);
     }
     return out;

@@ -138,7 +138,8 @@ A list of `pages` in the YAML, one page per screen. `lesson.js` shows one page a
 swipe; without JavaScript all pages show in a column. "We did it!" shows on the last page. Page kinds (`activities/lesson.py`):
 `text` (picture or emoji, a Japanese word that speaks, tips), `spots` (numbered dots on a picture at x/y percent; a tap shows
 that part), `flip` (cards that turn over), `pick` (rounds of "tap the right picture"), `train` (plates ride past on a belt; tap
-the plate asked for), `video` (approved YouTube only, else its written lines), `local` (places to try it, grouped). Games and
+the plate asked for), `match` (rounds of word plates to put on the picture where each belongs: drag, or tap the plate and
+then the picture, or OK on the TV; the words lesson, T162), `video` (approved YouTube only, else its written lines), `local` (places to try it, grouped). Games and
 the belt take their pictures from the activity's `pictures` list. Pictures are SVG drawings in `static/img/lesson/<topic>/`.
 `load_content` adds a new activity to every course that has its module (a rebuild that keeps the done marks).
 PRD ref: `prd.md > Modules (Japan)`.

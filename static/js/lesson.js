@@ -1,6 +1,6 @@
 // A lesson: one page per screen, with Back and Next. Without JavaScript every page shows, one under the other.
 // Page games: tap the dots on a picture (spots), turn cards over (flip), tap the right picture (pick),
-// and catch a plate on the sushi train (train). The "We did it!" button shows on the last page.
+// catch a plate on the sushi train (train), and put each word on its picture (match). The "We did it!" button shows on the last page.
 (function () {
   var T = window.T || {};
   function fmt(s, n, total) { return (s || '').replace('{n}', n).replace('{total}', total); }
@@ -63,7 +63,7 @@
     root.addEventListener('touchend', function (e) {
       if (x0 === null) return;
       var dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) < 70 || (e.target.closest && e.target.closest('.belt'))) return;
+      if (Math.abs(dx) < 70 || (e.target.closest && (e.target.closest('.belt') || e.target.closest('[data-match]')))) return;
       var fwd = document.documentElement.dir === 'rtl' ? dx > 0 : dx < 0;
       show(at + (fwd ? 1 : -1), true);
     });
@@ -287,9 +287,135 @@
     show();
   }
 
+  // Put the word where it belongs (T162). Three ways in: drag a plate onto a picture (pointer events, so mouse and
+  // touch both work), tap a plate and then a picture, or the TV remote, where OK is the tap. A right drop fills the
+  // slot under the picture and says the word; a wrong one shakes the plate back. Nothing moves the page around:
+  // a lifted plate only moves by transform, and a placed plate keeps its room in the row (T116 rule).
+  function setupMatch(game) {
+    var rounds = game.querySelectorAll('[data-match-round]');
+    var msg = game.querySelector('[data-game-msg]');
+    var nextBox = game.querySelector('[data-match-next]'), againBox = game.querySelector('[data-match-again]');
+    var tv = document.documentElement.classList.contains('tv');
+    var at = 0, picked = null, drag = null, skipClick = false;
+    function round() { return rounds[at]; }
+    function shuffle(r) {
+      var row = r.querySelector('.match-plates'), list = Array.prototype.slice.call(row.children);
+      for (var i = list.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1)), t = list[i]; list[i] = list[j]; list[j] = t;
+      }
+      // Never start with every plate under its own picture.
+      var same = list.every(function (p, k) { return r.querySelectorAll('[data-target]')[k].getAttribute('data-target') === p.getAttribute('data-match-plate'); });
+      if (same && list.length > 1) list.push(list.shift());
+      list.forEach(function (p) { row.appendChild(p); });
+    }
+    function lift(plate) {
+      if (picked) picked.setAttribute('aria-pressed', 'false');
+      picked = plate;
+      if (plate) plate.setAttribute('aria-pressed', 'true');
+    }
+    function tryPut(plate, target) {
+      var ok = plate.getAttribute('data-match-plate') === target.getAttribute('data-target');
+      lift(null);
+      if (!ok) {
+        plate.classList.remove('wrong'); target.classList.remove('bad');
+        void plate.offsetWidth;
+        plate.classList.add('wrong'); target.classList.add('bad');
+        setTimeout(function () { plate.classList.remove('wrong'); target.classList.remove('bad'); }, 600);
+        msg.textContent = T.wrong;
+        return;
+      }
+      var slot = target.querySelector('[data-slot]');
+      slot.innerHTML = plate.innerHTML;
+      target.classList.add('right');
+      target.disabled = true;
+      plate.classList.add('placed');
+      plate.disabled = true;
+      plate.setAttribute('aria-hidden', 'true');
+      if (window.tcSay) window.tcSay(plate);
+      msg.textContent = T.right;
+      var left = round().querySelectorAll('[data-match-plate]:not(.placed)');
+      if (left.length) {
+        if (tv) left[0].focus();
+        return;
+      }
+      var total = round().querySelectorAll('[data-match-plate]').length;
+      msg.textContent = T.placedAll.replace('{n}', total);
+      cheer();
+      var box = at < rounds.length - 1 ? nextBox : againBox;
+      box.hidden = false;
+      if (tv) box.querySelector('button').focus();
+    }
+    function reset(r) {
+      r.querySelectorAll('[data-match-plate]').forEach(function (p) {
+        p.classList.remove('placed', 'wrong'); p.disabled = false; p.removeAttribute('aria-hidden');
+        p.setAttribute('aria-pressed', 'false'); p.style.transform = '';
+      });
+      r.querySelectorAll('[data-target]').forEach(function (t) {
+        t.classList.remove('right', 'bad'); t.disabled = false; t.querySelector('[data-slot]').innerHTML = '';
+      });
+      shuffle(r);
+    }
+    function go(n) {
+      at = n; lift(null);
+      for (var i = 0; i < rounds.length; i++) rounds[i].hidden = i !== at;
+      nextBox.hidden = true; againBox.hidden = true; msg.textContent = '';
+      reset(round());
+      if (tv) { var first = round().querySelector('[data-match-plate]'); if (first) first.focus(); }
+    }
+    game.addEventListener('click', function (e) {
+      if (e.target.closest('[data-next-round]')) { go(at + 1); return; }
+      if (e.target.closest('[data-match-replay]')) { go(0); return; }
+      if (skipClick) { skipClick = false; return; }
+      var plate = e.target.closest('[data-match-plate]');
+      if (plate && round().contains(plate)) {
+        if (plate.classList.contains('placed')) return;
+        lift(picked === plate ? null : plate);
+        return;
+      }
+      var target = e.target.closest('[data-target]');
+      if (!target || !round().contains(target) || target.classList.contains('right')) return;
+      if (!picked) { msg.textContent = T.pickWord; return; }
+      tryPut(picked, target);
+    });
+    // Drag: the plate follows the finger by transform only, and drops on the picture under the pointer.
+    game.addEventListener('pointerdown', function (e) {
+      var plate = e.target.closest('[data-match-plate]');
+      if (!plate || plate.classList.contains('placed') || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      drag = { plate: plate, id: e.pointerId, x: e.clientX, y: e.clientY, moved: false };
+      try { plate.setPointerCapture(e.pointerId); } catch (err) { /* old browser: the plate still gets the moves */ }
+    });
+    game.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.moved && dx * dx + dy * dy < 64) return;
+      if (!drag.moved) { drag.moved = true; lift(drag.plate); drag.plate.classList.add('dragging'); }
+      drag.plate.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+      e.preventDefault();
+    });
+    function endDrag(e, cancel) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var d = drag; drag = null;
+      if (!d.moved) return;
+      skipClick = true;
+      setTimeout(function () { skipClick = false; }, 0);
+      d.plate.classList.remove('dragging');
+      d.plate.style.visibility = 'hidden';
+      var under = cancel ? null : document.elementFromPoint(e.clientX, e.clientY);
+      d.plate.style.visibility = '';
+      d.plate.style.transform = '';
+      var target = under && under.closest ? under.closest('[data-target]') : null;
+      if (target && round().contains(target) && !target.classList.contains('right')) tryPut(d.plate, target);
+      else lift(null);
+    }
+    game.addEventListener('pointerup', function (e) { endDrag(e, false); });
+    game.addEventListener('pointercancel', function (e) { endDrag(e, true); });
+    rounds.forEach(shuffle);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-spots]').forEach(setupSpots);
     document.querySelectorAll('[data-game]').forEach(setupGame);
+    document.querySelectorAll('[data-match]').forEach(setupMatch);
     document.querySelectorAll('[data-flip]').forEach(function (b) {
       b.addEventListener('click', function () {
         var on = b.getAttribute('aria-pressed') !== 'true';

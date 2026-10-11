@@ -76,7 +76,7 @@ class SushiLessonTests(TestCase):
     def test_lesson_has_10_to_20_pages_and_every_kind(self):
         pages = self.act.data["pages"]
         self.assertTrue(10 <= len(pages) <= 20, len(pages))
-        self.assertEqual({p["kind"] for p in pages}, set(KINDS))
+        self.assertEqual({p["kind"] for p in pages}, set(KINDS) - {"match"})
         kinds = [p["kind"] for p in pages]
         # The video sits in the middle, not first or last.
         self.assertTrue(len(pages) // 4 <= kinds.index("video") <= 3 * len(pages) // 4)
@@ -102,7 +102,8 @@ class SushiLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), len(self.act.data["pages"]))
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "match":  # the match game lives in the words lesson only (T162)
+                self.assertIn(f"lpage-{kind}", html)
         self.assertIn("Tap the plate", html)
         self.assertIn('data-spot="7"', html)            # 8 dots on the plate
         self.assertIn("data-right", html)                # the pick game marks the right picture
@@ -196,6 +197,12 @@ class EveryLessonIsWellFormed(TestCase):
             for p in pages:
                 self.assertTrue(p.get("title_he"), (name, p["title"]))
                 for r in p.get("rounds", []):
+                    if p["kind"] == "match":  # T162: every plate has a target, and the round has Hebrew
+                        ids = {t["id"] for t in r["targets"]}
+                        self.assertTrue(r.get("title_he"), name)
+                        self.assertTrue(all(t.get("label_he") and (static / t["img"]).exists() for t in r["targets"]), name)
+                        self.assertTrue(all(pl["target"] in ids and pl.get("label_he") for pl in r["plates"]), name)
+                        continue
                     self.assertTrue(r.get("ask_he"), (name, r["ask"]))
                     if p["kind"] == "pick":
                         self.assertIn(r["answer"], r["choices"], name)
@@ -265,12 +272,14 @@ class WordsLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), 14)
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "train":  # T162: the words train is now the match game
+                self.assertIn(f"lpage-{kind}", html)
+        self.assertNotIn("lpage-train", html)
         self.assertIn("Page 1 of 14", html)
         self.assertIn("In a Japanese shop", html)
         self.assertIn('data-spot="4"', html)               # 5 dots in the shop
         self.assertIn("irasshaimase", html)
-        self.assertIn('data-plate="arigatou"', html)       # the word train
+        self.assertNotIn("Catch the word!", html)
         self.assertIn("data-right", html)
         self.assertIn("gochisousama deshita", html)
         self.assertIn("audio/japan/irasshaimase.mp3", html)  # the spot word has a voice
@@ -279,7 +288,9 @@ class WordsLessonTests(TestCase):
         html = self.page("he")
         self.assertIn("מדברים כמו ילדים ביפן", html)
         self.assertIn("בחנות ביפן", html)
-        self.assertIn("תפסו את \"אריגטו\", תודה!".replace('"', "&quot;"), html)
+        self.assertIn("שימו את המילה במקום הנכון", html)
+        self.assertIn("מתי אומרים את זה?", html)
+        self.assertIn("אויאסומי", html)
         self.assertIn("דף 1 מתוך 14", html)
         self.assertNotIn("In a Japanese shop", html)
 
@@ -312,7 +323,8 @@ class MannersLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), 14)
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "match":  # the match game lives in the words lesson only (T162)
+                self.assertIn(f"lpage-{kind}", html)
         self.assertIn("Page 1 of 14", html)
         self.assertIn("At the front door", html)
         self.assertIn("The toilet slippers", html)
@@ -373,7 +385,8 @@ class SafetyLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), 14)
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "match":  # the match game lives in the words lesson only (T162)
+                self.assertIn(f"lpage-{kind}", html)
         self.assertIn("Page 1 of 14", html)
         self.assertIn("Helpers on the street", html)
         self.assertIn('data-spot="4"', html)               # 5 dots on the street, 5 on the name card
@@ -441,7 +454,7 @@ class ChopsticksLessonTests(TestCase):
         kinds = [p["kind"] for p in self.act.data["pages"]]
         self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
         self.assertNotIn("video", kinds)
-        self.assertEqual(set(kinds), set(KINDS) - {"video"})
+        self.assertEqual(set(kinds), set(KINDS) - {"video", "match"})
 
     def test_every_picture_exists_and_every_game_answer_is_a_choice(self):
         data = self.act.data
@@ -464,7 +477,7 @@ class ChopsticksLessonTests(TestCase):
     def test_english(self):
         html = self.page()
         self.assertEqual(html.count("data-page "), 13)
-        for kind in set(KINDS) - {"video"}:
+        for kind in set(KINDS) - {"video", "match"}:
             self.assertIn(f"lpage-{kind}", html)
         self.assertNotIn("lpage-video", html)
         self.assertNotIn("comes soon", html)
@@ -520,7 +533,7 @@ class StreetLessonTests(TestCase):
     def test_every_kind_and_a_video_slot_near_the_middle(self):
         kinds = [p["kind"] for p in self.act.data["pages"]]
         self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
-        self.assertEqual(set(kinds), set(KINDS))
+        self.assertEqual(set(kinds), set(KINDS) - {"match"})
         self.assertEqual(kinds.index("video"), len(kinds) // 2)
         video = next(p for p in self.act.data["pages"] if p["kind"] == "video")
         self.assertFalse(video["approved"])
@@ -545,7 +558,8 @@ class StreetLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), 13)
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "match":  # the match game lives in the words lesson only (T162)
+                self.assertIn(f"lpage-{kind}", html)
         self.assertNotIn("comes soon", html)
         self.assertIn("Page 1 of 13", html)
         self.assertIn("The five-thing walk", html)            # the video fallback
@@ -589,7 +603,7 @@ class TransportLessonTests(TestCase):
     def test_every_kind_and_a_video_slot_near_the_middle(self):
         kinds = [p["kind"] for p in self.act.data["pages"]]
         self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
-        self.assertEqual(set(kinds), set(KINDS))
+        self.assertEqual(set(kinds), set(KINDS) - {"match"})
         self.assertLessEqual(abs(kinds.index("video") - len(kinds) // 2), 1)
         video = next(p for p in self.act.data["pages"] if p["kind"] == "video")
         self.assertFalse(video["approved"])
@@ -619,7 +633,8 @@ class TransportLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), 14)
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "match":  # the match game lives in the words lesson only (T162)
+                self.assertIn(f"lpage-{kind}", html)
         self.assertNotIn("comes soon", html)
         self.assertIn("Page 1 of 14", html)
         self.assertIn("Four steps to board the Shinkansen", html)  # the video fallback
@@ -663,7 +678,7 @@ class PackLessonTests(TestCase):
     def test_every_kind_and_a_video_slot_near_the_middle(self):
         kinds = [p["kind"] for p in self.act.data["pages"]]
         self.assertTrue(10 <= len(kinds) <= 20, len(kinds))
-        self.assertEqual(set(kinds), set(KINDS))
+        self.assertEqual(set(kinds), set(KINDS) - {"match"})
         self.assertLessEqual(abs(kinds.index("video") - len(kinds) // 2), 1)
         video = next(p for p in self.act.data["pages"] if p["kind"] == "video")
         self.assertFalse(video["approved"])
@@ -704,7 +719,8 @@ class PackLessonTests(TestCase):
         html = self.page()
         self.assertEqual(html.count("data-page "), 13)
         for kind in KINDS:
-            self.assertIn(f"lpage-{kind}", html)
+            if kind != "match":  # the match game lives in the words lesson only (T162)
+                self.assertIn(f"lpage-{kind}", html)
         self.assertNotIn("comes soon", html)
         self.assertIn("Page 1 of 13", html)
         self.assertIn("The packing list", html)                    # the video fallback
@@ -891,10 +907,46 @@ class WordsPicturesTests(TestCase):
         import xml.etree.ElementTree as ET
         folder = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson' / 'words'
         names = sorted(p.stem for p in folder.glob('*.svg'))
-        self.assertEqual(len(names), 12)
+        self.assertEqual(len(names), 16)  # + 4 time-of-day pictures for the match game (T162)
         for path in folder.glob('*.svg'):
             root = ET.parse(path).getroot()
             want = '0 0 400 260' if path.stem == 'shop' else '0 0 120 90'
             self.assertEqual(root.get('viewBox'), want, path.name)
             self.assertTrue(root.get('aria-label'), path.name)
             self.assertIsNotNone(root.find('{http://www.w3.org/2000/svg}title'), path.name)
+
+
+class WordsMatchGameTests(TestCase):
+    """T162: 'Catch the word' is a new game now: put each word plate on the picture where it belongs."""
+    setUpTestData = WordsLessonTests.__dict__["setUpTestData"]
+    page = WordsLessonTests.page
+
+    def test_match_block_en(self):
+        html = self.page()
+        self.assertEqual(html.count("lpage-match"), 1)
+        self.assertEqual(html.count("data-match-round"), 1)
+        self.assertEqual(html.count('class="match-target"'), 4)
+        self.assertEqual(html.count("data-match-plate="), 4)
+        for word, target in (("ohayou", "morning"), ("konnichiwa", "day"), ("konbanwa", "evening"), ("oyasumi", "night")):
+            self.assertIn(f'data-match-plate="{target}"', html)
+            self.assertIn(f'data-target="{target}"', html)
+            self.assertIn(f"audio/japan/{word}.mp3", html)
+            self.assertIn(f"lesson/words/time-{target}.svg", html)
+        self.assertIn("Put the word where it belongs", html)
+        self.assertIn("When do you say it?", html)
+        self.assertIn('window.T.placedAll = "You placed all {n}!"', html)
+        self.assertIn("Next round", html)
+        self.assertNotIn("data-belt", html)
+
+    def test_match_block_he(self):
+        html = self.page("he")
+        self.assertEqual(html.count('class="match-target"'), 4)
+        for he in ("בוקר", "ערב", "לילה", "אוהאיו", "קונבנווה", "לסיבוב הבא"):
+            self.assertIn(he, html)
+        self.assertNotIn("When do you say it?", html)
+
+    def test_match_css_keeps_the_page_still(self):
+        css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
+        self.assertIn("touch-action: none", css)
+        self.assertIn('.match-plate[aria-pressed="true"] { transform: translateY(-6px)', css)
+        self.assertIn(".match-plate.placed { visibility: hidden; }", css)

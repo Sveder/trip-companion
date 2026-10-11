@@ -7,7 +7,7 @@
 {% block activity %}
 {% include "includes/js_strings.html" %}
 {% get_current_language_bidi as bidi %}
-<script>window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}"; window.T.catchIt = "{{ _("Catch the {name}!")|escapejs }}"; window.T.score = "{{ _("Caught: {n}")|escapejs }}"; window.T.streakEnd = "{{ _("You caught {n}! Best: {best}")|escapejs }}"; window.T.best = "{{ _("Best: {best}")|escapejs }}";</script>
+<script>window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}"; window.T.catchIt = "{{ _("Catch the {name}!")|escapejs }}"; window.T.score = "{{ _("Caught: {n}")|escapejs }}"; window.T.streakEnd = "{{ _("You caught {n}! Best: {best}")|escapejs }}"; window.T.best = "{{ _("Best: {best}")|escapejs }}"; window.T.placedAll = "{{ _("You placed all {n}!")|escapejs }}"; window.T.pickWord = "{{ _("Pick a word first.")|escapejs }}";</script>
 <div class="lesson" data-lesson>
   <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
   <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
@@ -102,6 +102,30 @@
         <div class="train-more" data-train-again hidden>
           <button type="button" class="btn" data-again>{% translate "Again" %}</button>
         </div>
+      </div>
+
+    {% elif page.kind == "match" %}
+      {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
+      {# T162: drag a word plate onto its picture, or tap the plate and then the picture; OK on the TV is the tap. #}
+      <div class="match-game" data-match>
+        {% for round in page.rounds %}
+        <div class="match-round" data-match-round{% if not forloop.first %} hidden{% endif %}>
+          <p class="ask">{{ round.title }}</p>
+          <div class="match-targets">
+            {% for t in round.targets %}
+            <button type="button" class="match-target" data-target="{{ t.id }}"><img src="{% static 'img/'|add:t.img %}" alt=""><strong>{{ t.label }}</strong><span class="match-slot" data-slot></span></button>
+            {% endfor %}
+          </div>
+          <div class="match-plates">
+            {% for pl in round.plates %}
+            <button type="button" class="match-plate" data-match-plate="{{ pl.target }}" aria-pressed="false" data-say="{{ pl.japanese }}" data-say-src="{{ pl.word|word_audio }}"><span class="jp" lang="ja">{{ pl.japanese }}</span><span class="match-reading">{{ pl.label }}</span></button>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+        <p class="game-msg" data-game-msg aria-live="polite"></p>
+        <div class="train-more" data-match-next hidden><button type="button" class="btn" data-next-round>{% translate "Next round" %}</button></div>
+        <div class="train-more" data-match-again hidden><button type="button" class="btn" data-match-replay>{% translate "Again" %}</button></div>
       </div>
 
     {% elif page.kind == "video" %}
