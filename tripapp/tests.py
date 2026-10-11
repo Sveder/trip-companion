@@ -190,3 +190,26 @@ class OldTvBrowserTests(TestCase):
         self.assertIn(".pick.on", css)
         for twin in (".module.on {", ".module.on .switch {", ".module.on .switch::after {", '[dir="rtl"] .module.on .switch::after'):
             self.assertIn(twin, css)
+
+
+class HebrewFontTests(TestCase):
+    """T151: Hebrew pages use Rubik, served from our own static files, not from Google."""
+
+    def test_rubik_ships_with_its_licence_and_the_css_names_it(self):
+        from pathlib import Path
+        from django.conf import settings
+        base = Path(settings.BASE_DIR) / "static"
+        self.assertLess((base / "fonts/rubik-hebrew.woff2").stat().st_size, 40_000)
+        self.assertIn("Rubik", (base / "fonts/OFL.txt").read_text())
+        css = (base / "css/app.css").read_text()
+        self.assertIn('url("../fonts/rubik-hebrew.woff2")', css)
+        self.assertIn('[dir="rtl"] body, [lang="he"] { font-family: "Rubik"', css)
+        self.assertNotIn("fonts.googleapis.com", css)
+
+    def test_only_hebrew_pages_preload_the_font(self):
+        self.assertNotContains(self.client.get("/privacy/"), "rubik-hebrew.woff2")
+        self.client.cookies["django_language"] = "he"
+        r = self.client.get("/privacy/")
+        self.assertContains(r, 'dir="rtl"')
+        self.assertContains(r, 'rel="preload" href="/static/fonts/rubik-hebrew.woff2"')
+        self.assertNotContains(r, "fonts.googleapis.com")

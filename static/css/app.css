@@ -7,6 +7,16 @@
   font-style: normal;
   font-display: swap;
 }
+/* Hebrew (T151): Rubik, a variable font, Hebrew subset only (9 KB, weights 300-900 in one file).
+   Latin letters on a Hebrew page still come from Nunito, because of the unicode-range. */
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/rubik-hebrew.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
 :root {
   --c-bg: #fff6e5;
   --c-surface: #ffffff;
@@ -343,7 +353,8 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 /* Hebrew: the page runs right to left. Rules with a fixed side get their mirror here. */
 .lang-switch { margin: 0; }
 .lang-switch .link { font-weight: 700; }
-[dir="rtl"] body { font-family: "Rubik", "Arial Hebrew", "Noto Sans Hebrew", var(--font); }
+[dir="rtl"] body, [lang="he"] { font-family: "Rubik", "Nunito", "Arial Hebrew", "Noto Sans Hebrew", var(--font); }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { font-weight: 700; }
 [dir="rtl"] .module .switch { right: auto; left: 1rem; }
 [dir="rtl"] .module .switch::after { left: auto; right: 3px; transition: right .15s; }
 [dir="rtl"] .module.on .switch::after { left: auto; right: 25px; }

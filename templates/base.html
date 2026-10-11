@@ -19,6 +19,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Trip Companion: a paper plane over a sun and the words Get ready for Japan">
   <meta name="twitter:card" content="summary_large_image">
+  {% if LANG == "he" %}<link rel="preload" href="{% static 'fonts/rubik-hebrew.woff2' %}" as="font" type="font/woff2" crossorigin>{% endif %}
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   {# Chrome 87 (the LG TV) has no .at(); the Sentry loader calls it (T101). Not enumerable, so for-in stays clean. #}
   <script>[Array, String].forEach(function (C) { if (!C.prototype.at) Object.defineProperty(C.prototype, 'at', { configurable: true, writable: true, value: function (n) { n = Math.trunc(n) || 0; if (n < 0) n += this.length; return this[n]; } }); });</script>
