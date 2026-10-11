@@ -66,8 +66,9 @@ def _client_ip(request):
     return request.META.get("HTTP_X_REAL_IP") or request.META.get("REMOTE_ADDR") or "?"
 
 
-def send_link(contact, email):
-    with translation.override(contact.language or settings.LANGUAGE_CODE):
+def send_link(contact, email, language=None):
+    """Mail the family link. The mail uses the language of the page the person who asked is on."""
+    with translation.override(language or contact.language or settings.LANGUAGE_CODE):
         ctx = {"url": link_url(contact)}
         subject = render_to_string("accounts/link_subject.txt", ctx).strip()
         body = render_to_string("accounts/link_email.txt", ctx)
@@ -90,10 +91,10 @@ def continue_page(request):
         if owner is None:
             me.link_email = email
             me.save(update_fields=["link_email"])
-            send_link(me, email)
+            send_link(me, email, request.LANGUAGE_CODE)
         elif not (owner.is_staff or owner.is_superuser):
             # The address belongs to a family already (maybe this one). The link goes only to that address.
-            send_link(contact_for(owner), email)
+            send_link(contact_for(owner), email, request.LANGUAGE_CODE)
         # A staff address gets nothing: a magic link must never open a staff account.
         track("continue_link_sent", user=request.user)
         return render(request, "accounts/continue.html", {"state": "sent", "email": email})

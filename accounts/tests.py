@@ -298,6 +298,17 @@ class ContinueLinkTests(TestCase):
         self.assertEqual(mail.outbox[0].to, ["kurtsverd@gmail.com"])
         self.assertIn(contact_for(owner).link_token, mail.outbox[0].body)
 
+    def test_mail_uses_the_language_of_the_page_not_of_the_owner(self):
+        from reminders.models import Contact
+        owner = self.family()
+        owner.email = "kurtsverd@gmail.com"
+        owner.save()
+        Contact.objects.filter(user=owner).update(language="he")
+        other = self.client_class()
+        self.family(other)
+        other.post(reverse("continue") + "?lang=en", {"email": "kurtsverd@gmail.com"})
+        self.assertEqual(mail.outbox[0].subject, "Your Trip Companion link")
+
     def test_staff_address_gets_no_link(self):
         get_user_model().objects.create_user("boss", "boss@example.com", is_staff=True)
         self.family()
