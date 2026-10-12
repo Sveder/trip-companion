@@ -266,3 +266,22 @@ class HebrewReadingTests(TestCase):
         he = self.client.get(url + "?lang=he").content.decode()
         self.assertIn('konnichiwa</h3>\n    <p class="he-say reading-he" lang="he">קוניצ\'יווה</p>', he.replace("&#x27;", "'"))
         self.assertNotIn("he-say", self.client.get(url + "?lang=en").content.decode())
+
+
+class NoGuideFallbackTests(TestCase):
+    """T206: a country with no guide shows the app mark on hero spots, so 'Great job!' keeps its top picture."""
+
+    def test_hero_spot_falls_back_to_the_mark_and_title_stays_empty(self):
+        from django.template.loader import render_to_string
+        hero = render_to_string("includes/guide.html", {"country_guide": "", "cls": "hero-guide cheer"})
+        self.assertIn('class="guide mark hero-guide cheer"', hero)
+        self.assertEqual(render_to_string("includes/guide.html", {"country_guide": "", "cls": "title-guide"}).strip(), "")
+
+    def test_japan_keeps_the_deer_and_uzbekistan_the_camel(self):
+        from django.template.loader import render_to_string
+        from tripapp.guides import GUIDES
+        jp = render_to_string("includes/guide.html", {"country_guide": GUIDES["japan"], "cls": "hero-guide"})
+        self.assertIn("var(--guide-antler)", jp)
+        self.assertNotIn("guide mark", jp)
+        uz = render_to_string("includes/guide.html", {"country_guide": GUIDES["uzbekistan"], "cls": "hero-guide"})
+        self.assertIn("var(--guide-camel)", uz)
