@@ -277,7 +277,10 @@ class SoundToggleAndHintTests(TestCase):
         from django.utils import translation
         for lang, text in (("en", "Tap a Japanese word to hear it"), ("he", "לחצו על מילה ביפנית כדי לשמוע אותה")):
             with translation.override(lang):
-                self.assertIn(text, render_to_string("includes/say_tip.html", {}))
+                out = render_to_string("includes/say_tip.html", {})
+                self.assertIn(text, out)
+                self.assertNotIn("{#", out)
+                self.assertNotIn("#}", out)
 
     def test_say_hint_sits_in_the_page_flow(self):
         # T194: fixed at the bottom it covered word cards and tips; under the header it covered the title (T174).
