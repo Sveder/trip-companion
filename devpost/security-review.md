@@ -20,7 +20,7 @@ The tests for the fixes are in `tripapp/test_security.py` (17 tests). The full s
 | SECRET_KEY from the environment | Pass. The server key comes from `.env`. With DEBUG off and no key set, the app now refuses to start (it never runs on the dev key). |
 | CSRF on every POST | Pass. `CsrfViewMiddleware` is on and no view uses `csrf_exempt` (a test checks this). |
 | Secure cookies, HSTS, nosniff | Pass. Session and CSRF cookies are `Secure` and `SameSite=Lax`; HSTS 30 days with subdomains; `X-Content-Type-Options: nosniff`. |
-| X-Frame-Options | Pass. `DENY` from Django. nginx (a global server rule) also adds `SAMEORIGIN`; two values still block framing. |
+| X-Frame-Options | Pass. `DENY`, sent once. Since T231 the trip nginx block sets X-Frame-Options, X-Content-Type-Options and Referrer-Policy itself (DENY, nosniff, same-origin), so the global `conf.d/security.conf` values do not reach this site, and it hides the Django copies. |
 | CSP | Added. `object-src 'none'; base-uri 'self'; frame-ancestors 'none'` on every page (`tripapp/security.py`). A `script-src` rule needs nonces for the inline scripts first; not done in this run. |
 | `manage.py check --deploy` | Pass, no warnings with production settings (a test runs it). |
 
