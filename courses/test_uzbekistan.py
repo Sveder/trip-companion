@@ -137,6 +137,41 @@ class HebrewReadingTests(TestCase):
                    for d in dicts(yaml.safe_load(path.read_text())) if d.get("japanese") and not d.get("reading_hebrew")]
         self.assertEqual(missing, [])
 
+    @staticmethod
+    def spelling_clashes(docs):
+        """T220: one word, one Hebrew spelling. Returns the readings with two spellings, and the cards whose label is
+        the reading but whose label_he differs from reading_hebrew (the flip card then shows both)."""
+        seen, clashes = {}, []
+
+        def walk(node, name):
+            if isinstance(node, dict):
+                reading, he = node.get("reading"), node.get("reading_hebrew")
+                if isinstance(reading, str) and isinstance(he, str):
+                    key = reading.strip().lower()
+                    first = seen.setdefault(key, (he, name))
+                    if first[0] != he:
+                        clashes.append(f"{key}: {first[0]} ({first[1]}) / {he} ({name})")
+                    label = node.get("label")
+                    if isinstance(label, str) and label.lower() == key and node.get("label_he") not in (None, he):
+                        clashes.append(f"{key}: label_he {node['label_he']} / reading_hebrew {he} ({name})")
+                for v in node.values():
+                    walk(v, name)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v, name)
+
+        for name, doc in docs:
+            walk(doc, name)
+        return clashes
+
+    def test_one_hebrew_spelling_per_word(self):
+        root = Path(settings.BASE_DIR) / "content"
+        docs = [(p.relative_to(root).as_posix(), yaml.safe_load(p.read_text())) for p in sorted(root.glob("**/*.yaml"))]
+        self.assertEqual(self.spelling_clashes(docs), [])
+        planted = [("a.yaml", {"reading": "gunkan", "reading_hebrew": "גונקאן"}),
+                   ("b.yaml", [{"label": "Gunkan", "label_he": "גונקאן", "reading": "Gunkan", "reading_hebrew": "גונקן"}])]
+        self.assertEqual(len(self.spelling_clashes(planted)), 2)
+
     def page(self, course, slug, lang):
         return self.client.get(reverse("activity", args=[course.items.get(activity__slug=slug).id]) + f"?lang={lang}").content.decode()
 
