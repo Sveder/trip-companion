@@ -328,6 +328,7 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .hunt { display: grid; gap: 1rem; }
 .sv-frame { position: relative; height: 60vh; min-height: 18rem; border-radius: var(--radius); overflow: hidden; background: #000; }
 .sv-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.sv-col { display: grid; gap: 1rem; }
 .sv-help { margin: -.4rem 0 0; }
 .spot-form h2 { margin: 0 0 .5rem; }
 .spots { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; gap: .6rem; }
@@ -343,9 +344,10 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .spot input:focus-visible ~ .spot-tick, .spot:focus { outline: 4px solid var(--c-sun); outline-offset: 2px; }
 .spot-count { font-weight: 800; min-height: 1.4em; }
 @media (min-width: 900px) {
-  .hunt { grid-template-columns: 2fr 1fr; grid-template-rows: auto 1fr; align-items: start; }
-  .hunt .sv-help { grid-column: 1; }
-  .hunt .spot-form { grid-column: 2; grid-row: 1 / span 2; }
+  /* The panorama stays in view while the family reads and ticks the list (T212). */
+  .hunt { grid-template-columns: 2fr 1fr; align-items: start; }
+  .hunt .sv-col { position: sticky; top: 1rem; }
+  .hunt .sv-frame { height: min(70vh, 640px); }
 }
 .tv .sv-frame { height: 62vh; }
 .tv .spot:focus { outline: 6px solid var(--c-sun); outline-offset: 4px; }

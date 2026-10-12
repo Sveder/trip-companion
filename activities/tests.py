@@ -217,6 +217,15 @@ class StreetViewHuntTests(TestCase):
         self.assertEqual(len(re.findall(r"^\.spots \{", css, re.M)), 1)
         self.assertEqual(len(re.findall(r"^\.spot \{", css, re.M)), 1)
 
+    def test_desktop_panorama_sticks_beside_the_spot_list(self):
+        # T212: the panorama and its help line sit in one column that stays in view on a desktop.
+        html = self.client.get(reverse("activity", args=[self.item().id])).content.decode()
+        self.assertRegex(html, r'<div class="sv-col">\s*<div class="sv-frame">')
+        self.assertLess(html.index('sv-help"'), html.index('class="spot-form"'))
+        css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
+        self.assertIn(".hunt .sv-col { position: sticky; top: 1rem; }", css)
+        self.assertIn(".hunt .sv-frame { height: min(70vh, 640px); }", css)
+
     def done(self, item, found):
         return self.client.post(reverse("activity_done", args=[item.id]), {"found": found})
 

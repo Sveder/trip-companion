@@ -6,11 +6,13 @@
 {% include "includes/js_strings.html" %}
 <p class="place">📍 {{ data.place }}</p>
 <div class="hunt">
+  <div class="sv-col">
   <div class="sv-frame">
     <iframe src="{{ hunt.embed }}" title="{% translate "Street View" %}: {{ data.place }}" allow="fullscreen" allowfullscreen
       loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <p class="hint sv-help">{% translate "Drag the picture to look around." %} <a href="{{ hunt.link }}" target="_blank" rel="noopener">{% translate "Full screen" %}</a></p>
+  </div>
 {% endblock %}
 {% block done %}
   <form method="post" action="{% url 'activity_done' item.id %}" class="spot-form" data-hunt>
