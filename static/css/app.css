@@ -676,6 +676,16 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .cards.words .card.word .jp.long, .card.word .jp.long { font-size: clamp(1.2rem, 5.6vw, 1.6rem); }
 .card.word .reading, .card.word .meaning { word-break: normal; overflow-wrap: normal; hyphens: manual; }
 .say-word.playing::after, .card.word.playing .jp.small::after, .card.word.playing .say-mark, .flip.playing .say-mark { background-color: var(--c-accent); animation: say-pulse .35s ease-in-out infinite alternate; }
+/* T224: the hero word on a lesson page is two fixed lines: the kana alone, then reading, Hebrew spelling and speaker. */
+.lesson p.say-word.hero-word { display: flex; flex-direction: column; align-items: center; gap: .1rem; }
+.lesson p.say-word.hero-word::after { content: none; }
+.hero-word .say-kana { white-space: nowrap; word-break: keep-all; font-size: clamp(1.3rem, 8.5vw, 2rem); line-height: 1.25; }
+.hero-word .say-sub { white-space: nowrap; font-size: clamp(.85rem, 4.2vw, 1rem); font-weight: 700; line-height: 1.4; color: var(--c-muted); }
+.hero-word .say-sub .he-say { font-size: 1.05em; font-weight: 700; color: var(--c-ink, inherit); }
+.hero-word .say-mark { display: inline-block; }
+.hero-word:not([data-say-src]) .say-mark, .hero-word[data-say-src=""] .say-mark { display: none; }
+.say-word.hero-word.playing .say-mark { background-color: var(--c-accent); animation: say-pulse .35s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .say-word.hero-word.playing .say-mark { animation: none; } }
 @keyframes say-pulse { from { transform: scale(1); } to { transform: scale(1.3); } }
 @media (prefers-reduced-motion: reduce) { .say-word.playing::after, .card.word.playing .jp.small::after, .card.word.playing .say-mark, .flip.playing .say-mark { animation: none; } }
 

@@ -125,7 +125,7 @@ class UzbekistanCourseTests(TestCase):
         self.assertEqual(game.count('class="choice"'), 16)
         he = self.client.get(url + "?lang=he")
         self.assertContains(he, "טיול לשוק")
-        self.assertContains(he, 'Chorsu · <span class="he-say" lang="he">צ\'ורסו</span>'.replace("'", "&#x27;"))
+        self.assertContains(he, 'Chorsu</span><span class="say-sub"><span class="he-say" lang="he">צ\'ורסו</span>'.replace("'", "&#x27;"))
         credits = self.client.get(reverse("credits"))
         self.assertContains(credits, "Chorsu Bazaar in Tashkent.jpg")
 
@@ -144,7 +144,7 @@ class UzbekistanCourseTests(TestCase):
         self.assertEqual(game.count('class="choice"'), 16)
         he = self.client.get(url + "?lang=he")
         self.assertContains(he, "עבודת יד על דרך המשי")
-        self.assertContains(he, 'Ipak · <span class="he-say" lang="he">איפק</span>')
+        self.assertContains(he, 'Ipak</span><span class="say-sub"><span class="he-say" lang="he">איפק</span>')
         credits = self.client.get(reverse("credits"))
         self.assertContains(credits, "Shahrisyabz suzani")
 
@@ -228,11 +228,30 @@ class HebrewReadingTests(TestCase):
     def test_hebrew_word_line_and_no_hebrew_in_english(self):
         self.client.force_login(self.user)
         food = self.page(self.uz, "uz-food-lesson", "he")
-        self.assertIn('Osh · <span class="he-say" lang="he">אוש</span>', food)
+        self.assertIn('Osh</span><span class="say-sub"><span class="he-say" lang="he">אוש</span>', food)
         words = self.page(self.uz, "uz-words-lesson", "he")
-        self.assertIn('Rahmat · <span class="he-say" lang="he">רחמת</span>', words)
+        self.assertIn('Rahmat</span><span class="say-sub"><span class="he-say" lang="he">רחמת</span>', words)
         for slug in ("uz-food-lesson", "uz-words-lesson", "uz-places-lesson", "uz-bazaar-lesson", "uz-crafts-lesson"):
             self.assertNotIn("he-say", self.page(self.uz, slug, "en"), slug)
+
+    def test_hero_word_is_two_lines_kana_then_reading_and_speaker(self):
+        # T224: line 1 holds the kana alone; line 2 holds the reading, the Hebrew spelling and the speaker.
+        import re
+        self.client.force_login(self.user)
+        for slug in ("uz-food-lesson", "uz-words-lesson"):
+            for lang in ("en", "he"):
+                html = self.page(self.uz, slug, lang)
+                heroes = re.findall(r'<p class="jp say-word hero-word".*?</p>', html)
+                self.assertTrue(heroes, (slug, lang))
+                for hero in heroes:
+                    kana = re.search(r'<span class="say-kana">(.*?)</span>(<span class="say-sub">|</p>)', hero)
+                    self.assertTrue(kana, hero)
+                    self.assertNotIn("he-say", kana.group(1))
+                    self.assertEqual(hero.count('class="say-mark"'), 1, hero)
+                    if lang == "en":
+                        self.assertNotIn("say-sub", hero)
+                    else:
+                        self.assertIn('<span class="say-sub"><span class="he-say"', hero)
 
     def test_japan_words_cards_show_the_hebrew_spelling(self):
         self.client.force_login(self.jp_user)
