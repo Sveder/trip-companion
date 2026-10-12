@@ -634,16 +634,23 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 
 /* T156: a speaker mark shows that a Japanese word talks. One mask image, coloured by background-color,
    so it takes the muted ink colour and RTL pages put it on the other side. .playing (speak.js) pulses it. */
-.say-word[data-say-src]:not([data-say-src=""])::after, .card.word[data-say-src]:not([data-say-src=""]) .jp::after, .say-mark {
+.say-word[data-say-src]:not([data-say-src=""])::after, .card.word[data-say-src]:not([data-say-src=""]) .jp.small::after, .say-mark {
   content: ""; display: inline-block; width: .8em; height: .8em; margin-inline-start: .25em; vertical-align: -.05em;
   background-color: var(--c-muted);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M16.5 12a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z'/%3E%3Cpath d='M14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z'/%3E%3C/svg%3E") no-repeat center / contain;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M16.5 12a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z'/%3E%3Cpath d='M14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z'/%3E%3C/svg%3E") no-repeat center / contain;
 }
 .flip:not([data-say-src]) .say-mark, .flip[data-say-src=""] .say-mark { display: none; }
-.say-word.playing::after, .card.word.playing .jp::after, .flip.playing .say-mark { background-color: var(--c-accent); animation: say-pulse .35s ease-in-out infinite alternate; }
+/* T195: on the words activity the speaker sits on its own line under the kana, at the same height on every card,
+   and the kana never breaks inside the word (いただきます broke as いただきま / す). */
+.card.word .say-mark.word-say { display: block; width: 1.1em; height: 1.1em; margin: .15rem auto .1rem; }
+.card.word:not([data-say-src]) .word-say, .card.word[data-say-src=""] .word-say { visibility: hidden; }
+.card.word .jp { white-space: nowrap; word-break: keep-all; }
+.cards.words .card.word .jp.long, .card.word .jp.long { font-size: clamp(1.2rem, 5.6vw, 1.6rem); }
+.card.word .reading, .card.word .meaning { word-break: normal; overflow-wrap: normal; hyphens: manual; }
+.say-word.playing::after, .card.word.playing .jp.small::after, .card.word.playing .say-mark, .flip.playing .say-mark { background-color: var(--c-accent); animation: say-pulse .35s ease-in-out infinite alternate; }
 @keyframes say-pulse { from { transform: scale(1); } to { transform: scale(1.3); } }
-@media (prefers-reduced-motion: reduce) { .say-word.playing::after, .card.word.playing .jp::after, .flip.playing .say-mark { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .say-word.playing::after, .card.word.playing .jp.small::after, .card.word.playing .say-mark, .flip.playing .say-mark { animation: none; } }
 
 /* T156: the header sound toggle and the one-time 'tap a word' hint. */
 .sound-btn { display: inline-flex; align-items: center; gap: .3rem; margin-inline-start: auto; color: var(--c-ink); font-weight: 700; white-space: nowrap; text-decoration: none; }

@@ -241,9 +241,18 @@ class SpeakerMarkTests(TestCase):
     def test_css_marks_every_talking_word(self):
         css = self.read("static/css/app.css")
         for sel in ('.say-word[data-say-src]:not([data-say-src=""])::after',
-                    '.card.word[data-say-src]:not([data-say-src=""]) .jp::after', ".say-mark", ".flip.playing .say-mark"):
+                    '.card.word[data-say-src]:not([data-say-src=""]) .jp.small::after', ".say-mark", ".flip.playing .say-mark"):
             self.assertIn(sel, css)
         self.assertIn("margin-inline-start: .25em", css)
+
+    def test_words_card_puts_the_mark_on_its_own_line(self):
+        # T195: the words activity has the speaker under the kana on every card, and the kana never wraps.
+        words = self.read("templates/activities/words.html")
+        self.assertIn('<span class="say-mark word-say" aria-hidden="true"></span>', words)
+        self.assertIn("{% if w.japanese|length >= 6 %} long{% endif %}", words)
+        css = self.read("static/css/app.css")
+        self.assertIn(".card.word .say-mark.word-say { display: block;", css)
+        self.assertIn(".card.word .jp { white-space: nowrap; word-break: keep-all; }", css)
 
     def test_flip_card_uses_the_mark_not_the_emoji(self):
         lesson = self.read("templates/activities/lesson.html")
