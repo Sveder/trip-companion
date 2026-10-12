@@ -1005,7 +1005,7 @@ class WordsPicturesTests(TestCase):
         import xml.etree.ElementTree as ET
         folder = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson' / 'words'
         names = sorted(p.stem for p in folder.glob('*.svg'))
-        self.assertEqual(len(names), 16)  # + 4 time-of-day pictures for the match game (T162)
+        self.assertEqual(len(names), 18)  # + 4 time-of-day pictures for the match game (T162), + count and name (T226)
         for path in folder.glob('*.svg'):
             root = ET.parse(path).getroot()
             want = '0 0 400 260' if path.stem == 'shop' else '0 0 120 90'
@@ -1064,18 +1064,14 @@ class WordsMatchGameTests(TestCase):
 class HeroPicturesAreNotEmoji(TestCase):
     """T225: a system emoji as the only picture of a word page looks different on every phone (🗾 was a blue square)."""
 
-    # Part 2 (T226) draws these three; empty the list when it lands.
-    PART2 = {"No wasabi, please!", "Count to five", "Say your name"}
-
     def test_no_word_page_uses_an_emoji_as_its_only_picture(self):
         import yaml
         bad = []
         for path in sorted((Path(settings.BASE_DIR) / "content" / "japan").glob("*.yaml")):
             for act in yaml.safe_load(path.read_text()).get("activities", []):
                 for p in act.get("pages", []) or []:
-                    if p.get("kind") == "text" and p.get("japanese") and p.get("emoji") and not p.get("img"):
-                        if p["title"] not in self.PART2:
-                            bad.append((path.name, p["title"]))
+                    if p.get("kind") == "text" and p.get("emoji") and not p.get("img") and not p.get("photo"):
+                        bad.append((path.name, p["title"]))
         self.assertEqual(bad, [])
 
     def test_the_three_t225_pages_show_a_picture(self):
@@ -1087,3 +1083,14 @@ class HeroPicturesAreNotEmoji(TestCase):
             self.assertTrue((static / pages[title]["img"]).exists(), title)
         self.assertEqual(pages["The sushi train"]["photo_credit"], "food-kaiten")
         self.assertEqual(pages["How to eat sushi"]["photo_credit"], "sushi-eat")
+
+    def test_the_three_t226_pages_show_a_drawn_svg(self):
+        call_command("load_content", verbosity=0)
+        pages = {p["title"]: p for a in Activity.objects.filter(type="lesson") for p in a.data["pages"]}
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        for title in ("No wasabi, please!", "Count to five", "Say your name"):
+            self.assertNotIn("emoji", pages[title], title)
+            svg = (static / pages[title]["img"]).read_text()
+            self.assertLess(len(svg.encode()), 12 * 1024, title)
+            self.assertNotIn("<image", svg, title)
+            self.assertNotIn("data:", svg, title)

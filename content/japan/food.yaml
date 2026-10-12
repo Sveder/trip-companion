@@ -392,7 +392,7 @@ activities:
       - kind: text
         title: No wasabi, please!
         title_he: בלי וואסבי, בבקשה!
-        emoji: "🌶️"
+        img: "lesson/sushi/sabinuki.svg"
         japanese: さびぬき
         reading: sabinuki
         reading_hebrew: "סאבינוקי"

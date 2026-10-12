@@ -382,7 +382,7 @@ activities:
       - kind: text
         title: Count to five
         title_he: סופרים עד חמש
-        emoji: "🖐️"
+        img: "lesson/words/count.svg"
         japanese: いち、に、さん
         reading: ichi, ni, san
         reading_hebrew: "איצ'י, ני, סאן"
@@ -405,7 +405,7 @@ activities:
       - kind: text
         title: Say your name
         title_he: אומרים את השם
-        emoji: "🙋"
+        img: "lesson/words/name.svg"
         japanese: わたしは … です
         reading: watashi wa … desu
         reading_hebrew: "ווטאשי וא … דס"
