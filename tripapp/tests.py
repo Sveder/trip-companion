@@ -253,6 +253,7 @@ class SpeakerMarkTests(TestCase):
         css = self.read("static/css/app.css")
         self.assertIn(".card.word .say-mark.word-say { display: block;", css)
         self.assertIn(".card.word .jp { white-space: nowrap; word-break: keep-all; }", css)
+        self.assertIn(".words .card.word .jp { line-height: 2.6rem; }", css)
 
     def test_flip_card_uses_the_mark_not_the_emoji(self):
         lesson = self.read("templates/activities/lesson.html")

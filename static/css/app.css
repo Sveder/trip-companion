@@ -184,7 +184,7 @@ legend { font-weight: 800; font-size: 1.15rem; }
   .cards.words { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cards.words .card.word { display: block; text-align: center; }
   .cards.words .card.word > .card-emoji { width: 3.4rem; height: 3.4rem; font-size: 2rem; }
-  .cards.words .card.word .jp { font-size: 1.5rem; }
+  .cards.words .card.word .jp { font-size: 1.5rem; line-height: 2rem; }
   .cards.words .card.word .reading { font-size: 1.15rem; margin: .1rem 0; }
   .cards.words .card.word .meaning { font-size: 1rem; margin: 0; }
   /* T105: the header is ONE line, at most 60 px: the brand, then the language link (signed out) or a Menu button
@@ -646,6 +646,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .card.word .say-mark.word-say { display: block; width: 1.1em; height: 1.1em; margin: .15rem auto .1rem; }
 .card.word:not([data-say-src]) .word-say, .card.word[data-say-src=""] .word-say { visibility: hidden; }
 .card.word .jp { white-space: nowrap; word-break: keep-all; }
+.words .card.word .jp { line-height: 2.6rem; }
 .cards.words .card.word .jp.long, .card.word .jp.long { font-size: clamp(1.2rem, 5.6vw, 1.6rem); }
 .card.word .reading, .card.word .meaning { word-break: normal; overflow-wrap: normal; hyphens: manual; }
 .say-word.playing::after, .card.word.playing .jp.small::after, .card.word.playing .say-mark, .flip.playing .say-mark { background-color: var(--c-accent); animation: say-pulse .35s ease-in-out infinite alternate; }
