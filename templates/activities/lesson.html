@@ -62,7 +62,7 @@
 
     {% elif page.kind == "flip" %}
       {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
-      <div class="flips">
+      <div class="flips{% if page.cards|length == 2 %} flips-two{% endif %}">
         {% for card in page.cards %}
         {# A card with a Japanese word also says it: data-say sits on the button itself, so one tap (or OK on the TV remote) flips and speaks (T91). #}
         <button type="button" class="flip" data-flip aria-pressed="false"{% if card.japanese %} data-say="{{ card.japanese }}" data-say-src="{{ card.reading|word_audio }}"{% endif %}>

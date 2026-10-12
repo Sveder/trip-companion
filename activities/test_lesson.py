@@ -827,6 +827,22 @@ class FlipSayTests(TestCase):
         self.assertTrue(src.endswith("/nigiri.mp3"), src)
         self.assertTrue((Path(settings.BASE_DIR) / "static/audio/japan/nigiri.mp3").exists())
 
+    def test_two_card_flip_page_gets_the_wide_class(self):
+        """T217: 'Chopsticks in Japan' has 2 cards, so its row carries flips-two (wide cards, big pictures); a 3+ card page does not."""
+        act = Activity.objects.get(module__slug="chopsticks", slug="chopsticks-lesson")
+        item = build_course(self.trip, [act.module_id]).items.get(activity=act)
+        self.client.force_login(self.user)
+        html = self.client.get(reverse("activity", args=[item.id]) + "?lang=en").content.decode()
+        rows = re.findall(r'<div class="(flips[^"]*)">', html)
+        counts = [len(p["cards"]) for p in act.data["pages"] if p.get("kind") == "flip"]
+        self.assertEqual(len(rows), len(counts))
+        for cls, n in zip(rows, counts):
+            self.assertEqual("flips-two" in cls, n == 2, (cls, n))
+        self.assertIn(2, counts)
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn("html:not(.tv) .flips-two > .flip { flex: 0 1 320px; }", css)
+        self.assertIn("html:not(.tv) .flips-two { grid-template-columns: 1fr 1fr; }", css)
+
     def test_shrine_cards_name_the_place_they_say(self):
         """T119: the label over じんじゃ names the shrine, the label over おてら names the temple, and every card has a word and an mp3."""
         act = Activity.objects.get(module__slug="streetview", slug="streetview-lesson")

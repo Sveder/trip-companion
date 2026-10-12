@@ -498,6 +498,10 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
    Each card is 200 px, like the old grid columns. The phone and the TV keep their grids (below and in the TV rules). */
 .flips { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; margin-top: .6rem; }
 .flips > .flip { flex: 0 1 200px; min-width: 0; }
+/* T217: a page with only 2 cards gets 2 wide cards with a big picture, not 2 small cards in an empty row. */
+html:not(.tv) .flips-two > .flip { flex: 0 1 320px; }
+html:not(.tv) .flips-two .flip img, html:not(.tv) .flips-two .flip img.flip-photo { width: 100%; max-width: none; height: 220px; object-fit: contain; }
+html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 /* Both faces share one grid cell, so a card has the same size on each side: a turn moves nothing around it (T103). */
 /* T118: the back text must not make the card taller than the front. Every picture gets the same height (a wide one gets wider),
    the front fills the card with the name at the bottom, so names line up across a row, and the back text is smaller. */
@@ -645,6 +649,8 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 @media (max-width: 600px) {
   .flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .5rem; }
   .flip img, .flip img.flip-photo { height: 72px; }
+  html:not(.tv) .flips-two { grid-template-columns: 1fr 1fr; }
+  html:not(.tv) .flips-two .flip img, html:not(.tv) .flips-two .flip img.flip-photo { height: 140px; }
   /* The front already shows the name; on a phone the photo back skips it, so the card stays short (T118 limit). */
   .flip-back.has-photo > strong { display: none; }
   .flip-front strong { line-height: 1.25; }
