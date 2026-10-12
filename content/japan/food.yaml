@@ -24,54 +24,63 @@ activities:
         label_he: "טונה"
         japanese: "まぐろ"
         reading: "maguro"
+        reading_hebrew: "מגורו"
       - id: "sake"
         img: "lesson/sushi/sake.svg"
         label: "Salmon"
         label_he: "סלמון"
         japanese: "サーモン"
         reading: "saamon"
+        reading_hebrew: "סאמון"
       - id: "ebi"
         img: "lesson/sushi/ebi.svg"
         label: "Shrimp"
         label_he: "שרימפס"
         japanese: "えび"
         reading: "ebi"
+        reading_hebrew: "אבי"
       - id: "tamago"
         img: "lesson/sushi/tamago.svg"
         label: "Egg"
         label_he: "ביצה"
         japanese: "たまご"
         reading: "tamago"
+        reading_hebrew: "טמאגו"
       - id: "unagi"
         img: "lesson/sushi/unagi.svg"
         label: "Eel"
         label_he: "צלופח"
         japanese: "うなぎ"
         reading: "unagi"
+        reading_hebrew: "אונאגי"
       - id: "ikura"
         img: "lesson/sushi/ikura.svg"
         label: "Battleship"
         label_he: "ספינת קרב"
         japanese: "ぐんかん"
         reading: "gunkan"
+        reading_hebrew: "גונקן"
       - id: "maki"
         img: "lesson/sushi/maki.svg"
         label: "Roll"
         label_he: "רול"
         japanese: "まき"
         reading: "maki"
+        reading_hebrew: "מאקי"
       - id: "temaki"
         img: "lesson/sushi/temaki.svg"
         label: "Hand roll"
         label_he: "רול יד"
         japanese: "てまき"
         reading: "temaki"
+        reading_hebrew: "טמאקי"
       - id: "inari"
         img: "lesson/sushi/inari.svg"
         label: "Inari"
         label_he: "אינארי"
         japanese: "いなり"
         reading: "inari"
+        reading_hebrew: "אינארי"
         meaning: "rice in a tofu pocket"
         meaning_he: "אורז בכיס טופו"
     pages:
@@ -87,6 +96,7 @@ activities:
         img: lesson/sushi/sake.svg
         japanese: すし
         reading: sushi
+        reading_hebrew: "סושי"
         text: Sushi is rice with a little vinegar in it, so it tastes a bit sour and a bit sweet. On top or inside, there is fish, egg or vegetables.
         text_he: סושי זה אורז עם קצת חומץ, אז הטעם שלו קצת חמוץ וקצת מתוק. מעליו או בתוכו יש דג, ביצה או ירקות.
       - kind: spots
@@ -179,6 +189,7 @@ activities:
             label_he: "ניגירי"
             japanese: "にぎり"
             reading: "nigiri"
+            reading_hebrew: "ניגירי"
             meaning: "rice with a topping"
             meaning_he: "אורז עם תוספת מעל"
             text: "A little bed of rice with a topping on it."
@@ -188,6 +199,7 @@ activities:
             label_he: "מאקי"
             japanese: "まき"
             reading: "maki"
+            reading_hebrew: "מאקי"
             text: "Rice and a filling rolled up in seaweed, then cut into circles."
             text_he: "אורז ומילוי מגולגלים באצה, ואז חתוכים לעיגולים."
           - img: "lesson/sushi/ikura.svg"
@@ -195,6 +207,7 @@ activities:
             label_he: "גונקאן"
             japanese: "ぐんかん"
             reading: "gunkan"
+            reading_hebrew: "גונקן"
             text: "\"Battleship\" sushi: a wall of seaweed holds soft things on top, like fish eggs."
             text_he: "סושי \"ספינת קרב\": קיר של אצה מחזיק דברים רכים למעלה, כמו ביצי דגים."
           - img: "lesson/sushi/temaki.svg"
@@ -202,6 +215,7 @@ activities:
             label_he: "טמאקי"
             japanese: "てまき"
             reading: "temaki"
+            reading_hebrew: "טמאקי"
             text: "A hand roll. The seaweed is a cone, like an ice cream cone!"
             text_he: "רול יד. האצה היא קונוס, כמו גביע של גלידה!"
           - img: "lesson/sushi/inari.svg"
@@ -209,6 +223,7 @@ activities:
             label_he: "אינארי"
             japanese: "いなり"
             reading: "inari"
+            reading_hebrew: "אינארי"
             meaning: "rice in a tofu pocket"
             meaning_he: "אורז בכיס טופו"
             text: "Rice inside a sweet pocket of fried tofu. No fish at all."
@@ -248,6 +263,7 @@ activities:
             label_he: "מגורו"
             japanese: "まぐろ"
             reading: "maguro"
+            reading_hebrew: "מגורו"
             text: "Tuna. Deep red. A whole tuna can be bigger than a grown-up!"
             text_he: "טונה. אדומה כהה. טונה שלמה יכולה להיות גדולה יותר ממבוגר!"
           - img: "lesson/sushi/sake.svg"
@@ -257,6 +273,7 @@ activities:
             label_he: "סאמון"
             japanese: "サーモン"
             reading: "saamon"
+            reading_hebrew: "סאמון"
             text: "Salmon. Orange with white stripes. Many kids in Japan love it most."
             text_he: "סלמון. כתום עם פסים לבנים. הרבה ילדים ביפן הכי אוהבים אותו."
           - img: "lesson/sushi/ebi.svg"
@@ -266,6 +283,7 @@ activities:
             label_he: "אבי"
             japanese: "えび"
             reading: "ebi"
+            reading_hebrew: "אבי"
             text: "Shrimp. Cooked, with a little tail at the end."
             text_he: "שרימפס. מבושל, עם זנב קטן בסוף."
           - img: "lesson/sushi/tamago.svg"
@@ -275,6 +293,7 @@ activities:
             label_he: "טמאגו"
             japanese: "たまご"
             reading: "tamago"
+            reading_hebrew: "טמאגו"
             text: "A sweet egg omelette, tied on with a seaweed belt. No fish!"
             text_he: "חביתה מתוקה, קשורה עם חגורה של אצה. בלי דג!"
           - img: "lesson/sushi/unagi.svg"
@@ -284,6 +303,7 @@ activities:
             label_he: "אונאגי"
             japanese: "うなぎ"
             reading: "unagi"
+            reading_hebrew: "אונאגי"
             text: "Eel. Cooked over a grill with a sweet, sticky sauce."
             text_he: "צלופח. צלוי על גריל עם רוטב מתוק ודביק."
           - img: "lesson/sushi/ikura.svg"
@@ -293,6 +313,7 @@ activities:
             label_he: "איקורה"
             japanese: "いくら"
             reading: "ikura"
+            reading_hebrew: "איקורה"
             meaning: "salmon eggs"
             meaning_he: "ביצי סלמון"
             text: "Salmon eggs. Shiny orange balls that pop in your mouth!"
@@ -326,6 +347,7 @@ activities:
         emoji: "🚂"
         japanese: かいてんずし
         reading: kaitenzushi
+        reading_hebrew: "קאיטן זושי"
         text: In many sushi shops, little plates ride past you on a moving belt. You take the plates you like! You can also order on a screen, and your sushi comes to you on a fast lane.
         text_he: בהרבה מסעדות סושי, צלחות קטנות נוסעות לידכם על מסוע. לוקחים את הצלחות שאוהבים! אפשר גם להזמין במסך, והסושי מגיע אליכם במסלול מהיר.
       - kind: train
@@ -371,6 +393,7 @@ activities:
         emoji: "🌶️"
         japanese: さびぬき
         reading: sabinuki
+        reading_hebrew: "סאבינוקי"
         text: Some sushi has a little hot wasabi under the fish. Kids can say "sabi-nuki". It means "no wasabi". Many sushi train shops make sushi with no wasabi, and you add it yourself.
         text_he: בחלק מהסושי יש קצת וואסבי חריף מתחת לדג. ילדים יכולים להגיד "סאבי-נוקי". זה אומר "בלי וואסבי". בהרבה מסעדות של רכבת סושי מכינים סושי בלי וואסבי, ומוסיפים אותו לבד.
       - kind: pick
@@ -443,20 +466,20 @@ activities:
     intro: Every part of Japan has its own special food. Let's go and see!
     intro_he: לכל מקום ביפן יש אוכל מיוחד משלו. בואו נראה!
     pictures:
-      - {id: ramen, img: photo/food/food-ramen.jpg, label: Ramen, label_he: ראמן, japanese: ラーメン, reading: ramen}
-      - {id: onigiri, img: photo/food/food-onigiri.jpg, label: Onigiri, label_he: אוניגירי, japanese: おにぎり, reading: onigiri}
-      - {id: ekiben, img: photo/food/food-ekiben.jpg, label: Ekiben, label_he: אקיבן, japanese: えきべん, reading: ekiben}
-      - {id: okonomiyaki, img: photo/food/food-okonomiyaki.jpg, label: Okonomiyaki, label_he: אוקונומיאקי, japanese: おこのみやき, reading: okonomiyaki}
-      - {id: takoyaki, img: photo/food/food-takoyaki.jpg, label: Takoyaki, label_he: טאקויאקי, japanese: たこやき, reading: takoyaki}
-      - {id: curry, img: photo/food/food-curry-rice.jpg, label: Curry rice, label_he: קארה ראיסו, japanese: カレーライス, reading: karee raisu}
-      - {id: udon, img: photo/food/food-udon.jpg, label: Udon, label_he: אודון, japanese: うどん, reading: udon}
-      - {id: taiyaki, img: photo/food/food-taiyaki.jpg, label: Taiyaki, label_he: טאיאקי, japanese: たいやき, reading: taiyaki}
-      - {id: champuru, img: photo/food/food-okinawa.jpg, label: Champuru, label_he: צ'אמפורו, japanese: チャンプルー, reading: champuru}
-      - {id: bento, img: photo/food/food-bento.jpg, label: Bento, label_he: בנטו, japanese: おべんとう, reading: bento}
-      - {id: tempura, img: photo/food/food-tempura.jpg, label: Tempura, label_he: טמפורה, japanese: てんぷら, reading: tempura}
-      - {id: miso, img: photo/food/food-miso.jpg, label: Miso soup, label_he: מרק מיסו, japanese: みそしる, reading: misoshiru}
+      - {id: ramen, img: photo/food/food-ramen.jpg, label: Ramen, label_he: ראמן, japanese: ラーメン, reading: ramen, reading_hebrew: "ראמן"}
+      - {id: onigiri, img: photo/food/food-onigiri.jpg, label: Onigiri, label_he: אוניגירי, japanese: おにぎり, reading: onigiri, reading_hebrew: "אוניגירי"}
+      - {id: ekiben, img: photo/food/food-ekiben.jpg, label: Ekiben, label_he: אקיבן, japanese: えきべん, reading: ekiben, reading_hebrew: "אקיבן"}
+      - {id: okonomiyaki, img: photo/food/food-okonomiyaki.jpg, label: Okonomiyaki, label_he: אוקונומיאקי, japanese: おこのみやき, reading: okonomiyaki, reading_hebrew: "אוקונומיאקי"}
+      - {id: takoyaki, img: photo/food/food-takoyaki.jpg, label: Takoyaki, label_he: טאקויאקי, japanese: たこやき, reading: takoyaki, reading_hebrew: "טאקויאקי"}
+      - {id: curry, img: photo/food/food-curry-rice.jpg, label: Curry rice, label_he: קארה ראיסו, japanese: カレーライス, reading: karee raisu, reading_hebrew: "קארה ראיסו"}
+      - {id: udon, img: photo/food/food-udon.jpg, label: Udon, label_he: אודון, japanese: うどん, reading: udon, reading_hebrew: "אודון"}
+      - {id: taiyaki, img: photo/food/food-taiyaki.jpg, label: Taiyaki, label_he: טאיאקי, japanese: たいやき, reading: taiyaki, reading_hebrew: "טאיאקי"}
+      - {id: champuru, img: photo/food/food-okinawa.jpg, label: Champuru, label_he: צ'אמפורו, japanese: チャンプルー, reading: champuru, reading_hebrew: "צ'אמפורו"}
+      - {id: bento, img: photo/food/food-bento.jpg, label: Bento, label_he: בנטו, japanese: おべんとう, reading: bento, reading_hebrew: "בנטו"}
+      - {id: tempura, img: photo/food/food-tempura.jpg, label: Tempura, label_he: טמפורה, japanese: てんぷら, reading: tempura, reading_hebrew: "טמפורה"}
+      - {id: miso, img: photo/food/food-miso.jpg, label: Miso soup, label_he: מרק מיסו, japanese: みそしる, reading: misoshiru, reading_hebrew: "מיסו שירו"}
       # Not a quiz choice: this entry tells the say tag that "איטדקימס" in Hebrew text is the word itadakimasu.
-      - {id: itadakimasu, quiz: false, img: photo/food/food-school-lunch.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu}
+      - {id: itadakimasu, quiz: false, img: photo/food/food-school-lunch.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu, reading_hebrew: "איטדקימס"}
     pages:
       - kind: text
         title: A food trip!
@@ -472,6 +495,7 @@ activities:
         photo_credit: food-ramen
         japanese: ラーメン
         reading: ramen
+        reading_hebrew: "ראמן"
         text: Ramen is noodles in a hot soup. Each city makes it a little different.
         text_he: ראמן זה אטריות במרק חם. כל עיר מכינה אותו קצת אחרת.
         tips:
@@ -492,6 +516,7 @@ activities:
         photo_credit: food-onigiri
         japanese: おにぎり
         reading: onigiri
+        reading_hebrew: "אוניגירי"
         text: Onigiri is rice in a triangle, wrapped in crunchy seaweed (nori). Every konbini shop sells it.
         text_he: אוניגירי זה אורז בצורת משולש, עטוף באצה פריכה (נורי). כל חנות קונביני מוכרת אותו.
         tips:
@@ -508,6 +533,7 @@ activities:
         photo_credit: food-bento
         japanese: おべんとう
         reading: bento
+        reading_hebrew: "בנטו"
         text: A bento is a lunch box with many little foods inside. Each food sits in its own corner.
         text_he: בנטו זו קופסת אוכל עם הרבה מאכלים קטנים בפנים. כל מאכל יושב בפינה משלו.
         tips:
@@ -526,6 +552,7 @@ activities:
         photo_credit: food-ekiben
         japanese: えきべん
         reading: ekiben
+        reading_hebrew: "אקיבן"
         text: '"Eki" means train station. An ekiben is a bento you buy at the station and eat on the train.'
         text_he: '"אקי" זה תחנת רכבת. אקיבן הוא בנטו שקונים בתחנה ואוכלים ברכבת.'
         tips:
@@ -544,6 +571,7 @@ activities:
         photo_credit: food-okonomiyaki
         japanese: おこのみやき
         reading: okonomiyaki
+        reading_hebrew: "אוקונומיאקי"
         text: Okonomiyaki is a big pancake with cabbage, cooked on a hot flat grill. It is not sweet.
         text_he: אוקונומיאקי זה פנקייק גדול עם כרוב, שמכינים על פלטה חמה. הוא לא מתוק.
         tips:
@@ -562,6 +590,7 @@ activities:
         photo_credit: food-takoyaki
         japanese: たこやき
         reading: takoyaki
+        reading_hebrew: "טאקויאקי"
         text: '"Tako" means octopus. Takoyaki are little balls with a piece of octopus inside. They come from Osaka.'
         text_he: '"טאקו" זה תמנון. טאקויאקי הם כדורים קטנים עם חתיכת תמנון בפנים. הם באים מאוסקה.'
         tips:
@@ -580,6 +609,7 @@ activities:
         photo_credit: food-tempura
         japanese: てんぷら
         reading: tempura
+        reading_hebrew: "טמפורה"
         text: Tempura is shrimp or vegetables in a thin, light batter, fried until it is crispy.
         text_he: טמפורה זה שרימפס או ירקות בבלילה דקה וקלה, מטוגנים עד שהם פריכים.
         tips:
@@ -598,6 +628,7 @@ activities:
         photo_credit: food-curry
         japanese: カレーライス
         reading: karee raisu
+        reading_hebrew: "קארה ראיסו"
         text: Japanese curry is a thick brown sauce on rice. It is mild and a little sweet, so many kids love it.
         text_he: קארי יפני זה רוטב חום וסמיך על אורז. הוא לא חריף וקצת מתוק, אז הרבה ילדים אוהבים אותו.
         tips:
@@ -614,6 +645,7 @@ activities:
         photo_credit: food-udon
         japanese: うどん
         reading: udon
+        reading_hebrew: "אודון"
         text: Japan has two more famous noodles. Udon is thick and white. Soba is thin and brown.
         text_he: ביפן יש עוד שתי אטריות מפורסמות. אודון עבה ולבנה. סובה דקה וחומה.
         tips:
@@ -632,6 +664,7 @@ activities:
         photo_credit: food-miso
         japanese: みそしる
         reading: misoshiru
+        reading_hebrew: "מיסו שירו"
         text: Miso soup is a warm soup made from miso, a paste of soy beans. Many people in Japan eat it at breakfast.
         text_he: מרק מיסו הוא מרק חם שעשוי ממיסו, ממרח של פולי סויה. הרבה אנשים ביפן אוכלים אותו בארוחת בוקר.
         tips:
@@ -648,6 +681,7 @@ activities:
         photo_credit: food-taiyaki
         japanese: たいやき
         reading: taiyaki
+        reading_hebrew: "טאיאקי"
         text: Taiyaki is a warm cake in the shape of a fish. Inside there is sweet red bean paste.
         text_he: טאיאקי זו עוגה חמה בצורת דג. בפנים יש ממרח מתוק של שעועית אדומה.
         tips:
@@ -666,6 +700,7 @@ activities:
         photo_credit: food-okinawa
         japanese: チャンプルー
         reading: champuru
+        reading_hebrew: "צ'אמפורו"
         text: Okinawa is warm islands far in the south. The food there is a little different.
         text_he: אוקינאווה הם איים חמים רחוק בדרום. האוכל שם קצת אחר.
         tips:
@@ -684,6 +719,7 @@ activities:
         photo_credit: food-school-lunch
         japanese: いただきます
         reading: itadakimasu
+        reading_hebrew: "איטדקימס"
         text: Before they eat, people in Japan put their hands together and say "itadakimasu". It is a way to say thank you for the food.
         text_he: לפני שאוכלים, אנשים ביפן מצמידים את הידיים ואומרים "איטדקימס". ככה אומרים תודה על האוכל.
         tips:

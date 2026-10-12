@@ -14,6 +14,8 @@ from courses.builder import build_course
 from trips.models import Traveller, Trip
 
 CONTENT = Path(settings.BASE_DIR) / "content" / "uzbekistan"
+# Japan files that carry reading_hebrew on every native word (T200; the rest follow in T201).
+HEBREW_DONE = [Path(settings.BASE_DIR) / "content" / "japan" / "food.yaml"]
 
 
 class UzbekistanCourseTests(TestCase):
@@ -131,7 +133,7 @@ class HebrewReadingTests(TestCase):
                 for v in node:
                     yield from dicts(v)
 
-        missing = [f"{path.name}: {d['japanese']}" for path in sorted(CONTENT.glob("*.yaml"))
+        missing = [f"{path.name}: {d['japanese']}" for path in [*sorted(CONTENT.glob("*.yaml")), *HEBREW_DONE]
                    for d in dicts(yaml.safe_load(path.read_text())) if d.get("japanese") and not d.get("reading_hebrew")]
         self.assertEqual(missing, [])
 
