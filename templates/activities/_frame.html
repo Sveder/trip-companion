@@ -5,7 +5,7 @@
 {% if progress %}
 {% blocktranslate asvar progress_line with number=progress.number total=progress.total %}Activity {{ number }} of {{ total }}{% endblocktranslate %}
 <div class="progress" aria-label="{{ progress_line }}">
-  <span>{{ module.emoji }} {{ module.local_title }}</span>
+  <span title="{{ module.local_title }}">{{ module.emoji }} {{ module.local_title }}</span>
   <span>{{ progress_line }}</span>
   <div class="bar"><div class="fill" style="width: {% widthratio progress.done progress.total 100 %}%"></div></div>
 </div>

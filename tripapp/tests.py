@@ -308,6 +308,14 @@ class SpeakerMarkTests(TestCase):
         self.assertIn("var KANA = '.choice-word .jp, .flip .jp, .match-plate .jp';", js)
         self.assertIn("document.addEventListener('lpage-show', function (e) { fitKana(e.target); }, true);", js)
 
+    def test_module_row_stays_on_one_line(self):
+        # T238: a long module name ends in '...'; 'Activity N of M' never wraps to a second line. The TV keeps its row.
+        css = self.read("static/css/app.css")
+        self.assertIn(".progress > span:first-child:not(:last-of-type) { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }", css)
+        self.assertIn(".progress > span + span { flex: none; white-space: nowrap; }", css)
+        self.assertIn(".tv .progress > span:first-child { flex: 0 1 auto; }", css)
+        self.assertIn('<span title="{{ module.local_title }}">', self.read("templates/activities/_frame.html"))
+
     def test_dot_tap_says_the_word(self):
         self.assertIn("window.tcSay = say", self.read("static/js/speak.js"))
         self.assertIn("classList.add('playing')", self.read("static/js/speak.js"))
