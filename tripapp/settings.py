@@ -122,6 +122,16 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# Production (and STATIC_HASHED=1) serves content-hashed file names; nginx caches them for a year (T229).
+# A dev run and the tests keep the plain names, so they need no collectstatic.
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "tripapp.storage.HashedStaticStorage"
+        if env_bool("STATIC_HASHED", not DEBUG)
+        else "django.contrib.staticfiles.storage.StaticFilesStorage"
+    },
+}
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 CLIP_ROOT = Path(os.environ.get("TRIP_CLIP_ROOT", BASE_DIR / "private" / "clips"))

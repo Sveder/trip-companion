@@ -6,7 +6,7 @@ cd /srv/www/trip-companion
 venv/bin/pip install -q -r requirements.txt
 venv/bin/python manage.py migrate --noinput
 venv/bin/python manage.py load_content japan uzbekistan
-venv/bin/python manage.py collectstatic --noinput -v0
+venv/bin/python manage.py collectstatic --noinput  # T229: prints the copied and post-processed (hashed) counts
 # Only our own files: a root-owned file (a hand-made test page) must not stop the restart below.
 find staticfiles -user "$(id -u)" -exec chmod a+rX {} +
 sudo install -m 644 deploy/trip-reminders.cron /etc/cron.d/trip-reminders
