@@ -166,6 +166,10 @@ class UzbekistanCourseTests(TestCase):
         self.assertNotIn('class="he-say', en)
         he = self.client.get(reverse("highlights") + "?lang=he").content.decode()
         self.assertIn('<p class="he-say reading-he" lang="he">סלום</p>', he)
+        grid = he[he.find("word-grid"):]
+        # Every card, also the text-page words Registon and Bozor, carries its Hebrew spelling.
+        self.assertEqual(grid.count('class="card word'), grid.count('class="he-say reading-he"'))
+        self.assertIn(">רגיסטון</p>", grid)
         self.assertIn('<p class="meaning">סומסה, מאפה בשר</p>', he)
         self.assertNotIn('<p class="meaning"></p>', he)
         self.assertNotIn('lang="ja"', he.split("Words we met")[-1] if "Words we met" in he else he[he.find("word-grid"):])

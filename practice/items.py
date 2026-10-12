@@ -45,8 +45,10 @@ def _text_entries(data, start):
             "label": pic.get("label") or page.get("title", ""),
             "label_he": pic.get("label_he") or page.get("title_he", ""),
         }
-        if pic.get("say_he"):
-            e["reading_hebrew"] = pic["say_he"]
+        # The Hebrew spelling: the picture's, else the page's own (Registon, Bozor have no game picture, T221).
+        he = pic.get("say_he") or pic.get("reading_hebrew") or page.get("reading_hebrew")
+        if he:
+            e["reading_hebrew"] = he
         out.append(e)
     return out
 
