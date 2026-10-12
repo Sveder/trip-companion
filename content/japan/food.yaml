@@ -344,7 +344,8 @@ activities:
       - kind: text
         title: The sushi train
         title_he: רכבת הסושי
-        emoji: "🚂"
+        img: photo/food/food-kaiten.jpg
+        photo_credit: food-kaiten
         japanese: かいてんずし
         reading: kaitenzushi
         reading_hebrew: "קאיטן זושי"
@@ -372,7 +373,8 @@ activities:
       - kind: text
         title: How to eat sushi
         title_he: איך אוכלים סושי
-        emoji: "🍣"
+        img: photo/sushi/sushi-eat.jpg
+        photo_credit: sushi-eat
         text: Some easy tips for the table.
         text_he: כמה טיפים קלים לשולחן.
         tips:
@@ -484,7 +486,7 @@ activities:
       - kind: text
         title: A food trip!
         title_he: טיול של אוכל!
-        emoji: "🗾"
+        img: lesson/sushi/food-map.svg
         text: In the north it is cold, in the south it is warm, and every city cooks something it is proud of. Turn the page and meet them.
         text_he: בצפון קר, בדרום חם, ולכל עיר יש מאכל שהיא גאה בו. הפכו את הדף ותכירו אותם.
         source: https://en.wikipedia.org/wiki/Japanese_cuisine

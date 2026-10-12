@@ -1059,3 +1059,31 @@ class WordsMatchGameTests(TestCase):
         self.assertIn("touch-action: none", css)
         self.assertIn('.match-plate[aria-pressed="true"] { transform: translateY(-6px)', css)
         self.assertIn(".match-plate.placed { visibility: hidden; }", css)
+
+
+class HeroPicturesAreNotEmoji(TestCase):
+    """T225: a system emoji as the only picture of a word page looks different on every phone (🗾 was a blue square)."""
+
+    # Part 2 (T226) draws these three; empty the list when it lands.
+    PART2 = {"No wasabi, please!", "Count to five", "Say your name"}
+
+    def test_no_word_page_uses_an_emoji_as_its_only_picture(self):
+        import yaml
+        bad = []
+        for path in sorted((Path(settings.BASE_DIR) / "content" / "japan").glob("*.yaml")):
+            for act in yaml.safe_load(path.read_text()).get("activities", []):
+                for p in act.get("pages", []) or []:
+                    if p.get("kind") == "text" and p.get("japanese") and p.get("emoji") and not p.get("img"):
+                        if p["title"] not in self.PART2:
+                            bad.append((path.name, p["title"]))
+        self.assertEqual(bad, [])
+
+    def test_the_three_t225_pages_show_a_picture(self):
+        call_command("load_content", verbosity=0)
+        pages = {p["title"]: p for a in Activity.objects.filter(type="lesson") for p in a.data["pages"]}
+        static = Path(settings.BASE_DIR) / "static" / "img"
+        for title in ("The sushi train", "How to eat sushi", "A food trip!"):
+            self.assertNotIn("emoji", pages[title], title)
+            self.assertTrue((static / pages[title]["img"]).exists(), title)
+        self.assertEqual(pages["The sushi train"]["photo_credit"], "food-kaiten")
+        self.assertEqual(pages["How to eat sushi"]["photo_credit"], "sushi-eat")
