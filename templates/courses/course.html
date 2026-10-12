@@ -17,7 +17,7 @@
       {% else %}
       <a class="course-item{% if item.is_review %} review{% endif %}{% if item.is_done %} done{% endif %}{% if item.id == next_id %} next{% endif %}" href="{% url 'activity' item.id %}">
         <span class="card-emoji" aria-hidden="true">{{ item.activity.emoji }}</span>
-        <span class="course-text"><strong>{{ item.activity.local_title }}</strong><small>{{ item.activity.module.local_title }}</small>
+        <span class="course-text"><strong>{{ item.activity.local_title }}</strong>{% if not item.is_review or item.activity.module.local_title not in item.activity.local_title %}<small>{{ item.activity.module.local_title }}</small>{% endif %}
           {% if item.done_at and item.found is not None %}<span class="hunt-count">{% blocktranslate with found=item.found total=item.hunt_total %}found {{ found }} of {{ total }}{% endblocktranslate %}</span>{% endif %}
           {% if item.skipped %}<span class="badge muted">{% translate "Skipped" %}</span>{% elif item.done_at %}<span class="badge done">✓ {% translate "Done" %}</span>{% elif item.id == next_id %}<span class="badge">{% translate "Next" %}</span>{% endif %}
         </span>

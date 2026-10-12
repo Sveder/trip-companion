@@ -539,6 +539,10 @@ class AfterTheTripTests(TestCase):
             self.assertIsNotNone(m, item.activity.slug)
             review = " review" in m.group(1)
             self.assertEqual(review, item.activity.type in ("cards", "words"), item.activity.slug)
+            if review and item.activity.module.title in item.activity.title:
+                # The title names the module, so the card has no second line with the module name.
+                card = html[m.end():html.index("</a>", m.end())]
+                self.assertNotIn("<small>", card, item.activity.slug)
             seen.add((item.activity.type, review))
         self.assertIn(("lesson", False), seen)
         self.assertIn(("streetview", False), seen)
@@ -828,7 +832,9 @@ class CoursePageTests(TestCase):
             self.assertEqual(len(rows), len(items), lang)
             for row, item in zip(rows, items):
                 module = getattr(item.activity.module, field) or item.activity.module.title
-                self.assertIn(f"<small>{escape(module)}</small>", row, (lang, item.activity.slug))
+                # T198: a quick review names its module in its title ('Japanese words: quick review'), so it has no <small> line.
+                shown = f"<small>{escape(module)}</small>" in row or f"<strong>{escape(module)}" in row
+                self.assertTrue(shown, (lang, item.activity.slug))
 
     def test_no_course_yet_goes_to_the_builder(self):
         self.course.delete()
