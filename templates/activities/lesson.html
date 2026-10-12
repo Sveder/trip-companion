@@ -9,7 +9,7 @@
 {% block activity %}
 {% include "includes/js_strings.html" %}
 {% get_current_language_bidi as bidi %}
-<script>window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}"; window.T.catchIt = "{{ _("Catch the {name}!")|escapejs }}"; window.T.score = "{{ _("Caught: {n}")|escapejs }}"; window.T.streakEnd = "{{ _("You caught {n}! Best: {best}")|escapejs }}"; window.T.best = "{{ _("Best: {best}")|escapejs }}"; window.T.placedAll = "{{ _("You placed all {n}!")|escapejs }}"; window.T.pickWord = "{{ _("Pick a word first.")|escapejs }}";</script>
+<script nonce="{{ csp_nonce }}">window.T.right = "{{ _("Yes! Well done!")|escapejs }}"; window.T.wrong = "{{ _("Not that one. Try again!")|escapejs }}"; window.T.allRounds = "{{ _("You did every round! 🎉")|escapejs }}"; window.T.seen = "{{ _("{n} of {total} found")|escapejs }}"; window.T.catchIt = "{{ _("Catch the {name}!")|escapejs }}"; window.T.score = "{{ _("Caught: {n}")|escapejs }}"; window.T.streakEnd = "{{ _("You caught {n}! Best: {best}")|escapejs }}"; window.T.best = "{{ _("Best: {best}")|escapejs }}"; window.T.placedAll = "{{ _("You placed all {n}!")|escapejs }}"; window.T.pickWord = "{{ _("Pick a word first.")|escapejs }}";</script>
 <div class="lesson" data-lesson>
   <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
   <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
@@ -171,6 +171,6 @@
     <button type="button" class="btn" data-next>{% translate "Next" %} {% if bidi %}←{% else %}→{% endif %}</button>
   </div>
 </div>
-<script src="{% static 'js/lesson.js' %}" defer></script>
-<script src="{% static 'js/video_track.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/lesson.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/video_track.js' %}" defer></script>
 {% endblock %}

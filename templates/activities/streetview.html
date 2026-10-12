@@ -40,5 +40,5 @@
     {% endif %}
   </form>
 </div>
-<script src="{% static 'js/hunt.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/hunt.js' %}" defer></script>
 {% endblock %}

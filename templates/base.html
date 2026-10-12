@@ -22,14 +22,14 @@
   {% if LANG == "he" %}<link rel="preload" href="{% static 'fonts/rubik-hebrew.woff2' %}" as="font" type="font/woff2" crossorigin>{% endif %}
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   {# Chrome 87 (the LG TV) has no .at(); the Sentry loader calls it (T101). Not enumerable, so for-in stays clean. #}
-  <script>[Array, String].forEach(function (C) { if (!C.prototype.at) Object.defineProperty(C.prototype, 'at', { configurable: true, writable: true, value: function (n) { n = Math.trunc(n) || 0; if (n < 0) n += this.length; return this[n]; } }); });</script>
-  {% if sentry_js_loader %}<script src="{{ sentry_js_loader }}" crossorigin="anonymous"></script>{% endif %}
-  <script src="{% static 'js/compat.js' %}" defer></script>
-  <script src="/sveder-badge.js" defer></script>
-  <script src="{% static 'js/tv.js' %}" defer></script>
-  <script src="{% static 'js/celebrate.js' %}" defer></script>
-  <script src="{% static 'js/speak.js' %}" defer></script>
-  <script src="{% static 'js/state.js' %}" defer></script>
+  <script nonce="{{ csp_nonce }}">[Array, String].forEach(function (C) { if (!C.prototype.at) Object.defineProperty(C.prototype, 'at', { configurable: true, writable: true, value: function (n) { n = Math.trunc(n) || 0; if (n < 0) n += this.length; return this[n]; } }); });</script>
+  {% if sentry_js_loader %}<script nonce="{{ csp_nonce }}" src="{{ sentry_js_loader }}" crossorigin="anonymous"></script>{% endif %}
+  <script nonce="{{ csp_nonce }}" src="{% static 'js/compat.js' %}" defer></script>
+  <script nonce="{{ csp_nonce }}" src="/sveder-badge.js" defer></script>
+  <script nonce="{{ csp_nonce }}" src="{% static 'js/tv.js' %}" defer></script>
+  <script nonce="{{ csp_nonce }}" src="{% static 'js/celebrate.js' %}" defer></script>
+  <script nonce="{{ csp_nonce }}" src="{% static 'js/speak.js' %}" defer></script>
+  <script nonce="{{ csp_nonce }}" src="{% static 'js/state.js' %}" defer></script>
 </head>
 <body class="{% block body_class %}{% endblock %}" data-family="{% if user.is_authenticated %}1{% else %}0{% endif %}"{% block body_attrs %}{% endblock %}>
   <header class="top">
@@ -57,7 +57,7 @@
         {% if LANG == "he" %}<button class="link" name="language" value="en" lang="en">English</button>{% else %}<button class="link" name="language" value="he" lang="he">עברית</button>{% endif %}
       </form>
     </div>
-    {% if user.is_authenticated %}<script>(function () {
+    {% if user.is_authenticated %}<script nonce="{{ csp_nonce }}">(function () {
       var top = document.currentScript.parentNode, btn = top.querySelector('.menu-btn');
       function set(open) { top.classList.toggle('open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
       btn.addEventListener('click', function () { set(!top.classList.contains('open')); });

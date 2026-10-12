@@ -46,5 +46,5 @@
   <a class="btn big alt" href="{% url 'course' %}">{% translate "Our course" %}</a>
   {% include "includes/back_home.html" %}
 </section>
-<script src="{% static 'js/there.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/there.js' %}" defer></script>
 {% endblock %}

@@ -215,3 +215,63 @@ class HeaderTests(TestCase):
         self.assertIn('raise ImproperlyConfigured("Set DJANGO_SECRET_KEY', settings_py)
         self.assertNotIn("csrf_exempt", "".join(p.read_text() for p in Path(__file__).parent.parent.glob("*/*.py")
                                                     if not p.name.startswith("test")))
+
+
+class ScriptNonceTests(TestCase):
+    """T233: a strict script-src. Every <script> tag carries the nonce of its own response."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+
+    def setUp(self):
+        import re
+        self.re = re
+        user = get_user_model().objects.create_user("family-n", is_staff=True)
+        self.trip = Trip.objects.create(user=user, destination="japan")
+        Traveller.objects.create(trip=self.trip, age=6)
+        build_course(self.trip, [m.id for m, on in suggestions(self.trip) if on])
+        self.client.force_login(user)
+
+    def nonce(self, response):
+        m = self.re.search(r"script-src 'nonce-([A-Za-z0-9_-]{20,})' 'strict-dynamic'", response["Content-Security-Policy"])
+        self.assertIsNotNone(m, response["Content-Security-Policy"])
+        return m.group(1)
+
+    def item(self, **filters):
+        return self.trip.course.items.filter(**filters).first()
+
+    def test_every_script_tag_carries_the_response_nonce(self):
+        items = self.trip.course.items
+        urls = [reverse("home"), reverse("course"), reverse("highlights"), reverse("trip_setup"), reverse("there"),
+                reverse("stats"), reverse("privacy"),
+                reverse("activity", args=[items.filter(activity__type="lesson").first().id]),
+                reverse("activity", args=[items.get(activity__slug="words-lesson").id])]
+        streetview = items.filter(activity__type="streetview").first()
+        if streetview:
+            urls.append(reverse("activity", args=[streetview.id]))
+        for url in urls:
+            r = self.client.get(url, follow=True)
+            self.assertEqual(r.status_code, 200, url)
+            nonce = self.nonce(r)
+            tags = self.re.findall(rb"<script\b[^>]*>", r.content)
+            self.assertTrue(tags, url)
+            for tag in tags:
+                self.assertIn(b'nonce="' + nonce.encode() + b'"', tag, (url, tag))
+
+    def test_two_requests_get_two_nonces(self):
+        self.assertNotEqual(self.nonce(self.client.get(reverse("privacy"))), self.nonce(self.client.get(reverse("privacy"))))
+
+    def test_admin_keeps_working_without_a_nonce(self):
+        # /admin/login/ sends a person to the site's own sign-in page, which has the nonce.
+        self.client.logout()
+        r = self.client.get("/admin/login/", follow=True)
+        self.assertEqual(r.status_code, 200)
+        self.nonce(r)
+        boss = get_user_model().objects.create_superuser("boss", "boss@example.com", "pw-123-long-enough")
+        self.client.force_login(boss)
+        for url in ("/admin/", "/admin/trips/trip/", f"/admin/trips/trip/{self.trip.id}/change/"):
+            r = self.client.get(url)
+            self.assertEqual(r.status_code, 200, url)
+            self.assertNotIn("script-src", r["Content-Security-Policy"], url)
+            self.assertIn("frame-ancestors 'none'", r["Content-Security-Policy"], url)

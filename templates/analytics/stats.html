@@ -51,7 +51,7 @@
   {% endif %}
   <p class="hint">{{ all_time }} event{{ all_time|pluralize }} in all. Every event: <a href="{% url 'admin:analytics_event_changelist' %}">admin</a>.</p>
 </section>
-<script>
+<script nonce="{{ csp_nonce }}">
 document.querySelectorAll("table[data-sortable]").forEach(function (t) {
   t.querySelectorAll("thead th").forEach(function (th, i) {
     th.style.cursor = "pointer";

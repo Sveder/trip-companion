@@ -49,5 +49,5 @@
   <p>{% translate "By the time you fly, everyone is excited." %}</p>
   <form method="dialog"><button class="btn big" value="close">{% translate "Let's go!" %}</button></form>
 </dialog>
-<script src="{% static 'js/why.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/why.js' %}" defer></script>
 {% endblock %}

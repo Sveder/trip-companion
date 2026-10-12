@@ -69,6 +69,7 @@ TEMPLATES = [
                 "tripapp.tv.tv_mode",
                 "tripapp.pages.site_meta",
                 "tripapp.guides.country_guide",
+                "tripapp.security.csp_nonce",
             ],
         },
     },

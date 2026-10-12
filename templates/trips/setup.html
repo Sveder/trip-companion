@@ -73,6 +73,6 @@
     <button class="btn big" type="submit">{% translate "Next: choose your course" %}</button>
   </form>
 </section>
-<script>window.T = window.T || {}; window.T.onPlane = "{{ _("{n} on the plane")|escapejs }}"; window.T.takeOff = "{{ _("Take off the plane: {who}")|escapejs }}";</script>
-<script src="{% static 'js/family.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}">window.T = window.T || {}; window.T.onPlane = "{{ _("{n} on the plane")|escapejs }}"; window.T.takeOff = "{{ _("Take off the plane: {who}")|escapejs }}";</script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/family.js' %}" defer></script>
 {% endblock %}
