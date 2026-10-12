@@ -3,6 +3,7 @@
 {% load say %}
 {% block title %}{% translate "Our trip highlights" %}{% endblock %}
 {% block content %}
+{% get_current_language_bidi as bidi %}
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide" label=_("Our guide waves hello") %}
   {% if trip_country.other %}
@@ -62,8 +63,9 @@
 <div class="cards word-grid">
   {% for w in words %}
   <article class="card word{% if w.known %} known{% endif %}" tabindex="0" data-say="{{ w.entry.japanese }}" data-say-src="{{ w.entry.reading|word_audio }}">
-    <p class="jp small" lang="ja">{% if w.entry.emoji %}<span aria-hidden="true">{{ w.entry.emoji }}</span> {% endif %}{{ w.entry.japanese }}</p>
-    <h3 class="reading">{{ w.entry.reading }}{% if w.known %} ⭐{% endif %}</h3>
+    <p class="jp small" lang="{{ word_lang }}">{% if w.entry.emoji %}<span aria-hidden="true">{{ w.entry.emoji }}</span> {% endif %}{{ w.entry.japanese }}{% if not w.entry.show_reading and w.known %} ⭐{% endif %}</p>
+    {% if w.entry.show_reading %}<h3 class="reading">{{ w.entry.reading }}{% if w.known %} ⭐{% endif %}</h3>{% endif %}
+    {% if bidi and w.entry.reading_hebrew %}<p class="he-say reading-he" lang="he">{{ w.entry.reading_hebrew }}</p>{% endif %}
     <p class="meaning">{{ w.entry.meaning }}</p>
   </article>
   {% endfor %}

@@ -437,6 +437,24 @@ class AfterTheTripTests(TestCase):
         self.assertNotIn('<p class="meaning">אריגטו</p>', html)
         self.assertNotIn("העובד בחנות</p>", html)
 
+    def test_highlights_hebrew_cards_show_kana_reading_and_hebrew_spelling(self):
+        """T221: in Hebrew a Japan card shows ネタ, neta and נטה, like the words cards (T197)."""
+        from courses.highlights import met_words
+        from practice.items import add_items
+        self.set_dates(-20, -1)
+        add_items(self.trip, self.lesson("food", "sushi-lesson"))
+        add_items(self.trip, self.lesson("words", "words-lesson"))
+        words = [w["entry"] for w in met_words(self.trip)]
+        self.assertTrue(all(w["reading_hebrew"] for w in words), [w["japanese"] for w in words if not w["reading_hebrew"]])
+        self.assertTrue(all(w["show_reading"] for w in words))
+        he = self.client.get(reverse("highlights") + "?lang=he").content.decode()
+        grid = he[he.find("word-grid"):]
+        self.assertEqual(grid.count('class="card word'), grid.count('class="he-say reading-he"'))
+        self.assertIn('lang="ja">', grid)
+        self.assertIn('<h3 class="reading">neta', grid)
+        en = self.client.get(reverse("highlights") + "?lang=en").content.decode()
+        self.assertNotIn('reading-he', en)
+
     def test_highlights_list_words_module_first(self):
         """T112: lesson words come after the words module, and the list stops at WORDS_MAX."""
         from courses.highlights import WORDS_MAX, highlights

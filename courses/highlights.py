@@ -43,6 +43,10 @@ def highlights(trip, course):
     return {"done": done, "clips": clips, "photos": photos, "words": met_words(trip)}
 
 
+def _plain(word):
+    return word.lower().replace("'", "").replace("\u02bb", "").replace("\u2019", "")
+
+
 def met_words(trip):
     """Every practice item with a Japanese word: the words module first, then lesson spots and flip cards (T112).
 
@@ -51,12 +55,15 @@ def met_words(trip):
     the entry's own `meaning`, then a lesson label for the same word on another page ("Tuna" names the まぐろ flip card),
     then its own label. A label that only repeats the reading ("Ebi" / ebi) gives no meaning.
     """
-    meanings, names = {}, {}
+    meanings, names, spellings = {}, {}, {}
     for a in Activity.objects.filter(type__in=["words", "lesson"], module__country=trip.destination):
         # A lesson's `pictures` (the game pictures) name words too: "Tuna" for まぐろ.
         for e in [e for _, e in quiz_entries(a, everything=True)] + (a.data or {}).get("pictures", []):
             if not e.get("japanese"):
                 continue
+            # The Hebrew spelling of the word (T221): a lesson page or a game picture may carry it when the entry does not.
+            if e.get("reading_hebrew") or e.get("say_he"):
+                spellings.setdefault(e["japanese"], e.get("reading_hebrew") or e["say_he"])
             if e.get("meaning"):
                 # A words-module meaning wins over a lesson's own meaning.
                 if a.type == "words" or e["japanese"] not in meanings:
@@ -78,5 +85,9 @@ def met_words(trip):
         if not meaning:
             meaning = "" if reading_only else entry.get("label", "")
         entry["meaning"] = meaning
+        entry["reading_hebrew"] = entry.get("reading_hebrew") or entry.get("say_he") or spellings.get(entry["japanese"], "")
+        # An Uzbek word is written in Latin letters, so its reading only repeats it ("Salom" / salom): no second line (T221).
+        # The reading drops the apostrophe for the sound file name: "Ko'k" / kok is still the same word.
+        entry["show_reading"] = _plain(entry.get("reading", "")) != _plain(entry["japanese"])
         (first if activity.type == "words" or activity.module.slug == "words" else rest).append({"entry": entry, "known": p.box >= 2})
     return (first + rest)[:WORDS_MAX]

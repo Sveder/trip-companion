@@ -103,6 +103,8 @@ def _highlights_page(request, trip, course, past=False):
     others = [] if past else list(Trip.objects.filter(user=request.user).exclude(id=trip.id))
     return render(request, "courses/highlights.html", {"trip": trip, "course": course, "phase": trip_phase(trip), "past": past,
                                                        "past_trips": others, "has_quiz": trip.practice_items.exists(),
+                                                       # T221: a screen reader reads an Uzbek word in an Uzbek voice, not a Japanese one.
+                                                       "word_lang": "ja" if trip.destination == "japan" else "uz",
                                                        **trip_highlights(trip, course)})
 
 

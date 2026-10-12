@@ -148,6 +148,28 @@ class UzbekistanCourseTests(TestCase):
         credits = self.client.get(reverse("credits"))
         self.assertContains(credits, "Shahrisyabz suzani")
 
+    def test_highlights_show_each_uzbek_word_once_with_a_meaning(self):
+        """T221: 'Salom' over 'salom' was one word printed twice; Somsa had an empty meaning line."""
+        from courses.highlights import met_words
+        from practice.items import add_items
+        for act in Activity.objects.filter(module__country="uzbekistan"):
+            add_items(self.trip, act)
+        words = [w["entry"] for w in met_words(self.trip)]
+        self.assertGreaterEqual(len(words), 8)
+        self.assertTrue(all(w["meaning"] for w in words), [(w["japanese"], w["meaning"]) for w in words])
+        self.assertFalse(any(w["show_reading"] for w in words))
+        en = self.client.get(reverse("highlights")).content.decode()
+        self.assertNotIn('<h3 class="reading">salom', en)
+        self.assertIn('lang="uz">Salom', en.replace("\n", ""))
+        self.assertIn('<p class="meaning">Somsa, a meat pastry</p>', en)
+        self.assertNotIn('<p class="meaning"></p>', en)
+        self.assertNotIn('class="he-say', en)
+        he = self.client.get(reverse("highlights") + "?lang=he").content.decode()
+        self.assertIn('<p class="he-say reading-he" lang="he">סלום</p>', he)
+        self.assertIn('<p class="meaning">סומסה, מאפה בשר</p>', he)
+        self.assertNotIn('<p class="meaning"></p>', he)
+        self.assertNotIn('lang="ja"', he.split("Words we met")[-1] if "Words we met" in he else he[he.find("word-grid"):])
+
     def test_uzbek_screens_show_tuya_the_camel_and_japan_keeps_the_deer(self):
         # T234: Uzbekistan has its own guide, so its 'Great job!' page has a picture (it was an empty box).
         from django.template.loader import render_to_string

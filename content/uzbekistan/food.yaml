@@ -19,7 +19,7 @@ activities:
     pictures:
       - {id: osh, img: photo/uzbekistan/uz-plov.jpg, label: Plov, label_he: פלוב, japanese: Osh, reading: osh, reading_hebrew: "אוש"}
       - {id: non, img: photo/uzbekistan/uz-non.jpg, label: Bread, label_he: לחם, japanese: Non, reading: non, reading_hebrew: "נון"}
-      - {id: somsa, img: photo/uzbekistan/uz-somsa.jpg, label: Somsa, label_he: סומסה, japanese: Somsa, reading: somsa, reading_hebrew: "סומסה"}
+      - {id: somsa, img: photo/uzbekistan/uz-somsa.jpg, label: Somsa, label_he: סומסה, japanese: Somsa, reading: somsa, reading_hebrew: "סומסה", meaning: "Somsa, a meat pastry", meaning_he: "סומסה, מאפה בשר"}
       - {id: choy, img: photo/uzbekistan/uz-tea.jpg, label: Tea, label_he: תה, japanese: Choy, reading: choy, reading_hebrew: "צ'וי"}
     pages:
       - kind: text
