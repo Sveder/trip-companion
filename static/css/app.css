@@ -255,6 +255,7 @@ html.tv { font-size: 30px; }
 /* The Hebrew way to say a word, next to the Latin reading on Hebrew pages (T197). */
 .he-say { unicode-bidi: isolate; font-family: inherit; }
 .flip-front .he-say { font-size: 1rem; font-weight: 700; }
+.word .reading-he { font-size: 1.3rem; font-weight: 700; margin: 0; }
 .word .reading { font-size: 1.5rem; }
 .word .meaning { font-size: 1.2rem; color: var(--c-muted); }
 .say-hint { display: inline-block; margin-top: .4rem; font-size: .9rem; font-weight: 700; color: var(--c-accent); }

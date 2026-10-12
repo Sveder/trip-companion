@@ -152,5 +152,5 @@ class HebrewReadingTests(TestCase):
         item = self.jp.items.filter(activity__type="words").first()
         url = reverse("activity", args=[item.id])
         he = self.client.get(url + "?lang=he").content.decode()
-        self.assertIn('konnichiwa · <span class="he-say" lang="he">קוניצ\'יווה</span>', he.replace("&#x27;", "'"))
+        self.assertIn('konnichiwa</h3>\n    <p class="he-say reading-he" lang="he">קוניצ\'יווה</p>', he.replace("&#x27;", "'"))
         self.assertNotIn("he-say", self.client.get(url + "?lang=en").content.decode())
