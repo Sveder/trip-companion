@@ -1101,6 +1101,17 @@ class NewCourseTests(TestCase):
     def test_course_page_links_to_a_new_course(self):
         self.assertContains(self.client.get(reverse("course")), f'href="{reverse("new_trip")}"')
 
+    def test_continue_link_sits_in_the_bottom_row_not_above_the_list(self):
+        """T196: no big button above the list; one small link next to 'New course', en and he."""
+        for lang, label in (("en", "Continue on another device"), ("he", "להמשיך במכשיר אחר")):
+            html = self.client.get(reverse("course") + f"?lang={lang}").content.decode()
+            main = html[html.index("<main"):html.index("</main>")]
+            self.assertNotIn("continue-btn", main)
+            self.assertEqual(main.count(label), 1, lang)
+            bottom = main[main.index('class="new-course-link"'):]
+            self.assertIn(f'href="{reverse("continue")}">{label}</a>', bottom)
+            self.assertLess(main.index('class="course-list"'), main.index(label))
+
     def test_get_asks_and_changes_nothing(self):
         r = self.client.get(reverse("new_trip"))
         self.assertContains(r, "Start a new course?")

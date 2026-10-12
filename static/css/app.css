@@ -613,7 +613,6 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   .flip .jp.small { font-size: 1.1rem; }
   .flip-back { font-size: .82rem; line-height: 1.25; }
 }
-.continue-btn { margin: 0 0 .8rem; }
 
 /* T154: the buzzing word 'excited' in the welcome heading, and its 'why' dialog. */
 .buzz { font: inherit; color: var(--c-primary); background: none; border: 0; padding: 0; margin: 0; cursor: pointer; text-decoration: underline dotted; text-decoration-thickness: .08em; text-underline-offset: .15em; display: inline-block; animation: buzz 5s ease-in-out infinite; }
