@@ -558,6 +558,23 @@ class AfterTheTripTests(TestCase):
         css = (settings.BASE_DIR / "static/css/app.css").read_text()
         self.assertIn(".hl-date { display: block; white-space: nowrap; }", css)
 
+    def test_highlights_after_the_trip_offer_the_next_trip_not_the_course(self):
+        # T189: a family back home gets 'Plan our next trip', not 'Start our course' or 'Change our trip'.
+        before = self.client.get(reverse("highlights")).content.decode()
+        self.assertIn("Start our course", before)
+        self.assertIn("Change our trip", before)
+        self.assertNotIn("Plan our next trip", before)
+        self.client.post(reverse("back_home"))
+        for lang, gone, here in (("en", ("Start our course", "Change our trip"), "Plan our next trip"),
+                                 ("he", ("מתחילים את המסלול", "שינוי הטיול"), "מתכננים את הטיול הבא")):
+            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
+            for url in (reverse("highlights"), reverse("home")):
+                html = self.client.get(url).content.decode()
+                for text in gone:
+                    self.assertNotIn(text, html)
+                self.assertIn(here, html)
+                self.assertIn(f'href="{reverse("new_trip")}"', html)
+
     def test_highlights_page_after_the_trip_says_welcome_back(self):
         self.set_dates(-20, -1)
         html = self.client.get(reverse("highlights")).content.decode()

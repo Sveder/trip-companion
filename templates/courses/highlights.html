@@ -88,10 +88,14 @@
   {% else %}
   {% if has_quiz %}
   <a class="btn big alt" href="{% url 'quiz' %}?new=1">{% translate "Play the quiz" %} ⭐</a>
-  {% else %}{# T142: no quiz words yet, so the button opens the next activity, not an empty quiz. #}
+  {% elif phase != "after" %}{# T142: no quiz words yet, so the button opens the next activity, not an empty quiz. #}
   <a class="btn big alt" href="{% url 'next_step' %}">{% translate "Start our course" %}</a>
   {% endif %}
+  {% if phase == "after" %}{# T189: a family back home plans the next trip; it does not start the old course. #}
+  <a class="btn big" href="{% url 'new_trip' %}">{% translate "Plan our next trip" %}</a>
+  {% else %}
   <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Change our trip" %}</a>
+  {% endif %}
   {% endif %}
 </section>
 {% endblock %}
