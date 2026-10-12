@@ -5,6 +5,7 @@ from trips.models import active_trip
 # destination -> template of the guide's artwork
 GUIDES = {
     "japan": "includes/guides/japan.html",
+    "uzbekistan": "includes/guides/uzbekistan.html",  # T234: Tuya the camel
 }
 
 

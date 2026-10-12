@@ -30,7 +30,7 @@ Develops `scope.md > The Core Loop` and `scope.md > What "Working" Looks Like`.
 - **Today / next activity** — the main screen after the course exists; opens the next activity.
 - **Activity screen** — the steps of one activity (video, practice, game, test).
 - **Quiz / practice.**
-- **Country preview cards** — places that are "coming soon". Uzbekistan is a real choice since 2026-10-11 (feedback T171): a short demo course of three modules, four since 2026-10-12 (feedback T234: 'At the bazaar'; a fifth, Silk Road crafts, follows).
+- **Country preview cards** — places that are "coming soon". Uzbekistan is a real choice since 2026-10-11 (feedback T171): a short demo course of three modules, five since 2026-10-12 (feedback T234: 'At the bazaar' and 'Silk Road crafts and blue tiles'), with its own guide, Tuya the camel.
 - **After the trip** — highlights.
 
 **Rich lessons (Michael, feedback 2026-10-08):** each module grows a lesson of 10-20 short pages, one screen each: pictures,

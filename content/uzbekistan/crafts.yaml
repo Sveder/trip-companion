@@ -1,0 +1,121 @@
+id: crafts
+title: Silk Road crafts and blue tiles
+title_he: מלאכות דרך המשי ואריחים כחולים
+summary: Blue tiles, silk from cocoons, and the things people make by hand.
+summary_he: אריחים כחולים, משי מפקעות, ודברים שאנשים מכינים בידיים.
+emoji: "🧵"
+audience: all
+order: 50
+ready: true
+activities:
+  # Feedback T234 (Michael, 2026-10-12): two more Uzbekistan modules; this is the second one.
+  # Photos are from Wikimedia Commons (content/photo_credits.yaml). Uzbek Latin spelling. Facts checked 2026-10-12.
+  - id: uz-crafts-lesson
+    title: Made by hand on the Silk Road
+    title_he: עבודת יד על דרך המשי
+    intro: Swipe through the pages. Tap a word to hear it!
+    intro_he: עוברים דף אחרי דף. געו במילה כדי לשמוע אותה!
+    type: lesson
+    pictures:
+      - {id: kok, img: photo/uzbekistan/uz-tiles.jpg, label: Blue, label_he: כחול, japanese: "Ko'k", reading: kok, reading_hebrew: "קוק"}
+      - {id: suzani, img: photo/uzbekistan/uz-suzani.jpg, label: Embroidered cloth, label_he: בד רקום, japanese: Suzani, reading: suzani, reading_hebrew: "סוזני"}
+      - {id: atlas, img: photo/uzbekistan/uz-atlas.jpg, label: Atlas silk, label_he: משי אטלס, japanese: Atlas, reading: atlas, reading_hebrew: "אטלס"}
+      - {id: doppi, img: photo/uzbekistan/uz-doppi.jpg, label: Little hat, label_he: כובע קטן, japanese: "Do'ppi", reading: doppi, reading_hebrew: "דופי"}
+      - {id: lagan, img: photo/uzbekistan/uz-lagan.jpg, label: Big plate, label_he: צלחת גדולה, japanese: Lagan, reading: lagan, reading_hebrew: "לגן"}
+      - {id: ipak, img: photo/uzbekistan/uz-cocoons.jpg, label: Silk, label_he: משי, japanese: Ipak, reading: ipak, reading_hebrew: "איפק"}
+    pages:
+      - kind: text
+        title: Blue tiles in Samarkand
+        title_he: אריחים כחולים בסמרקנד
+        img: photo/uzbekistan/uz-tiles.jpg
+        photo_credit: uz-tiles
+        japanese: "Ko'k"
+        reading: kok
+        reading_hebrew: "קוק"
+        text: "Look up! This round roof is in Shah-i-Zinda, in the city of Samarkand. Tiny tiles make stars and flowers. \"Ko'k\" means blue, the color of the sky."
+        text_he: "הסתכלו למעלה! הגג העגול הזה נמצא בשאה-י-זינדה, בעיר סמרקנד. אריחים קטנים יוצרים כוכבים ופרחים. \"קוק\" זה כחול, הצבע של השמיים."
+        tips:
+          - Builders put these tiles up about 600 years ago, and the blue is still bright.
+          - In Bukhara and in the Registan you can see blue tiles too. Count the stars you find!
+        tips_he:
+          - בנאים שמו את האריחים האלה לפני בערך 600 שנה, והכחול עדיין חזק.
+          - גם בבוכרה וברגיסטאן יש אריחים כחולים. ספרו כמה כוכבים אתם מוצאים!
+        source: https://en.wikipedia.org/wiki/Shah-i-Zinda
+      - kind: flip
+        title: Things made by hand
+        title_he: דברים שמכינים בידיים
+        text: Tap a card to turn it. Then say the Uzbek word!
+        text_he: געו בכרטיס כדי להפוך אותו. אחר כך אומרים את המילה באוזבקית!
+        cards:
+          - img: photo/uzbekistan/uz-suzani.jpg
+            label: Embroidered cloth
+            label_he: בד רקום
+            japanese: Suzani
+            reading: suzani
+            reading_hebrew: "סוזני"
+            text: "A \"suzani\" is a big cloth. People sew flowers on it with a needle and colored thread."
+            text_he: "\"סוזני\" זה בד גדול. רוקמים עליו פרחים עם מחט וחוטים צבעוניים."
+          - img: photo/uzbekistan/uz-atlas.jpg
+            label: Atlas silk
+            label_he: משי אטלס
+            japanese: Atlas
+            reading: atlas
+            reading_hebrew: "אטלס"
+            text: "\"Atlas\" is shiny silk with wavy stripes. People make coats and dresses from it."
+            text_he: "\"אטלס\" זה משי מבריק עם פסים גליים. תופרים ממנו מעילים ושמלות."
+          - img: photo/uzbekistan/uz-doppi.jpg
+            label: Little hat
+            label_he: כובע קטן
+            japanese: "Do'ppi"
+            reading: doppi
+            reading_hebrew: "דופי"
+            text: "A \"do'ppi\" is a little hat with four corners. This one has white pepper shapes on black."
+            text_he: "\"דופי\" זה כובע קטן עם ארבע פינות. על הכובע הזה יש צורות של פלפלים לבנים על שחור."
+          - img: photo/uzbekistan/uz-lagan.jpg
+            label: Big plate
+            label_he: צלחת גדולה
+            japanese: Lagan
+            reading: lagan
+            reading_hebrew: "לגן"
+            text: "A \"lagan\" is a big painted plate. The family puts the plov on it, and everyone eats together."
+            text_he: "\"לגן\" זו צלחת גדולה וצבועה. המשפחה שמה עליה את הפלוב, וכולם אוכלים ביחד."
+        source: https://en.wikipedia.org/wiki/Suzani_(textile)
+      - kind: text
+        title: Silk comes from a little worm
+        title_he: משי מגיע מתולעת קטנה
+        img: photo/uzbekistan/uz-cocoons.jpg
+        photo_credit: uz-cocoons
+        japanese: Ipak
+        reading: ipak
+        reading_hebrew: "איפק"
+        text: "A silkworm spins a white cocoon around itself. In the city of Margilan, people put the cocoons in hot water and pull out one long thread. \"Ipak\" means silk."
+        text_he: "תולעת משי טווה סביבה פקעת לבנה. בעיר מרגילאן שמים את הפקעות במים חמים ומושכים מהן חוט אחד ארוך. \"איפק\" זה משי."
+        tips:
+          - The thread of one cocoon is very long, often longer than three football fields.
+          - Long ago, traders carried silk on camels from city to city. People call that road the Silk Road.
+        tips_he:
+          - החוט של פקעת אחת ארוך מאוד, הרבה פעמים יותר משלושה מגרשי כדורגל.
+          - פעם סוחרים העבירו משי על גמלים מעיר לעיר. לדרך הזאת קוראים דרך המשי.
+        source: https://en.wikipedia.org/wiki/Silk
+      - kind: pick
+        title: Match the craft
+        title_he: מתאימים את המלאכה
+        text: Last game! Tap the right picture.
+        text_he: משחק אחרון! געו בתמונה הנכונה.
+        rounds:
+          - ask: "Flowers sewn with a needle. Where is the \"suzani\"?"
+            ask_he: "פרחים רקומים עם מחט. איפה ה\"סוזני\"?"
+            answer: suzani
+            choices: [lagan, suzani, doppi, atlas]
+          - ask: "A little hat with four corners. Where is the \"do'ppi\"?"
+            ask_he: "כובע קטן עם ארבע פינות. איפה ה\"דופי\"?"
+            answer: doppi
+            choices: [doppi, atlas, suzani, lagan]
+          - ask: "A big round plate for plov. Where is the \"lagan\"?"
+            ask_he: "צלחת גדולה ועגולה לפלוב. איפה ה\"לגן\"?"
+            answer: lagan
+            choices: [atlas, doppi, lagan, suzani]
+          - ask: "Shiny silk with wavy stripes. Where is the \"atlas\"?"
+            ask_he: "משי מבריק עם פסים גליים. איפה ה\"אטלס\"?"
+            answer: atlas
+            choices: [suzani, lagan, doppi, atlas]

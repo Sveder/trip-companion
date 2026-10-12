@@ -32,13 +32,13 @@ class UzbekistanCourseTests(TestCase):
         self.client.force_login(self.user)
 
     def test_ready_modules_of_3_to_5_pages(self):
-        # T234 added 'At the bazaar' (bazaar.yaml) to the first three.
+        # T234 added 'At the bazaar' (bazaar.yaml) and 'Silk Road crafts and blue tiles' (crafts.yaml) to the first three.
         modules = Module.objects.filter(country="uzbekistan", ready=True)
-        self.assertEqual(sorted(m.slug for m in modules), ["bazaar", "food", "places", "words"])
+        self.assertEqual(sorted(m.slug for m in modules), ["bazaar", "crafts", "food", "places", "words"])
         for act in Activity.objects.filter(module__country="uzbekistan"):
             self.assertEqual(act.type, "lesson")
             self.assertTrue(3 <= len(act.data["pages"]) <= 5, act.slug)
-        self.assertEqual(self.course.items.count(), 4)
+        self.assertEqual(self.course.items.count(), 5)
 
     def test_trip_form_offers_uzbekistan_and_keeps_other_places_coming_soon(self):
         page = self.client.get(reverse("trip_setup"))
@@ -129,6 +129,33 @@ class UzbekistanCourseTests(TestCase):
         credits = self.client.get(reverse("credits"))
         self.assertContains(credits, "Chorsu Bazaar in Tashkent.jpg")
 
+    def test_crafts_lesson_shows_tiles_crafts_silk_and_a_match_game(self):
+        # T234 (Michael, 2026-10-12): 'Silk Road crafts and blue tiles': Samarkand tiles, suzani, atlas silk, a match-the-craft game.
+        item = self.course.items.get(activity__slug="uz-crafts-lesson")
+        url = reverse("activity", args=[item.id])
+        en = self.client.get(url + "?lang=en")
+        self.assertContains(en, "Made by hand on the Silk Road")
+        for img in ("uz-tiles", "uz-suzani", "uz-atlas", "uz-doppi", "uz-lagan", "uz-cocoons"):
+            self.assertContains(en, f"img/photo/uzbekistan/{img}.jpg")
+        for word in ("kok", "suzani", "atlas", "doppi", "lagan", "ipak"):
+            self.assertContains(en, f"audio/uzbekistan/{word}.mp3")
+        self.assertContains(en, "Ko&#x27;k")
+        game = en.content.decode().rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
+        self.assertEqual(game.count('class="choice"'), 16)
+        he = self.client.get(url + "?lang=he")
+        self.assertContains(he, "עבודת יד על דרך המשי")
+        self.assertContains(he, 'Ipak · <span class="he-say" lang="he">איפק</span>')
+        credits = self.client.get(reverse("credits"))
+        self.assertContains(credits, "Shahrisyabz suzani")
+
+    def test_uzbek_screens_show_tuya_the_camel_and_japan_keeps_the_deer(self):
+        # T234: Uzbekistan has its own guide, so its 'Great job!' page has a picture (it was an empty box).
+        from django.template.loader import render_to_string
+        self.assertIn('class="guide hero-guide"', render_to_string("includes/guides/uzbekistan.html", {"cls": "hero-guide"}))
+        html = self.client.get(reverse("course")).content.decode()
+        self.assertIn("var(--guide-camel)", html)
+        self.assertNotIn("var(--guide-antler)", html)
+
 
 class HebrewReadingTests(TestCase):
     """T197: a Hebrew page shows the Hebrew spelling next to the Latin word ('Osh · אוש'); an English page does not."""
@@ -204,7 +231,7 @@ class HebrewReadingTests(TestCase):
         self.assertIn('Osh · <span class="he-say" lang="he">אוש</span>', food)
         words = self.page(self.uz, "uz-words-lesson", "he")
         self.assertIn('Rahmat · <span class="he-say" lang="he">רחמת</span>', words)
-        for slug in ("uz-food-lesson", "uz-words-lesson", "uz-places-lesson", "uz-bazaar-lesson"):
+        for slug in ("uz-food-lesson", "uz-words-lesson", "uz-places-lesson", "uz-bazaar-lesson", "uz-crafts-lesson"):
             self.assertNotIn("he-say", self.page(self.uz, slug, "en"), slug)
 
     def test_japan_words_cards_show_the_hebrew_spelling(self):

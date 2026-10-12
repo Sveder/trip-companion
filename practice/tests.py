@@ -521,7 +521,7 @@ class TextPageQuizTests(TestCase):
 
     def test_every_uzbek_lesson_and_food_around_japan_add_items(self):
         lessons = list(Activity.objects.filter(module__country="uzbekistan", type="lesson"))
-        self.assertEqual(len(lessons), 4)
+        self.assertEqual(len(lessons), 5)
         for lesson in lessons:
             self.assertGreaterEqual(add_items(self.trip, lesson), 3, lesson.slug)
         self.assertGreaterEqual(add_items(self.jtrip, Activity.objects.get(slug="food-around-japan")), 3)

@@ -1,0 +1,22 @@
+{# The Uzbekistan guide: Tuya ('camel' in Uzbek), a young two-humped Bactrian camel of the Silk Road (Michael, feedback T234). Uzbek screens only. Own artwork. Colours come from the theme variables. #}
+<svg class="guide {{ cls }}" viewBox="0 0 120 120" {% if label %}role="img" aria-label="{{ label }}"{% else %}aria-hidden="true" focusable="false"{% endif %}>
+  <g class="guide-body">
+    <path d="M10 112 C10 92 16 80 26 80 C34 80 36 90 40 96 L80 96 C84 90 86 80 94 80 C104 80 110 92 110 112 Z" fill="var(--guide-camel)"/>
+    <ellipse cx="34" cy="34" rx="11" ry="7" transform="rotate(-30 34 34)" fill="var(--guide-camel)"/>
+    <ellipse cx="86" cy="34" rx="11" ry="7" transform="rotate(30 86 34)" fill="var(--guide-camel)"/>
+    <ellipse cx="35" cy="34" rx="6" ry="3.2" transform="rotate(-30 35 34)" fill="var(--guide-camel-ear)"/>
+    <ellipse cx="85" cy="34" rx="6" ry="3.2" transform="rotate(30 85 34)" fill="var(--guide-camel-ear)"/>
+    <path d="M60 20 C80 20 88 36 86 56 C85 70 82 80 80 90 C78 104 70 110 60 110 C50 110 42 104 40 90 C38 80 35 70 34 56 C32 36 40 20 60 20 Z" fill="var(--guide-camel)"/>
+    <path d="M46 24 C46 12 54 8 60 12 C66 8 74 12 74 24 C68 18 52 18 46 24 Z" fill="var(--guide-camel-tuft)"/>
+    <ellipse cx="60" cy="92" rx="19" ry="16" fill="var(--guide-camel-muzzle)"/>
+    <circle class="guide-eye" cx="47" cy="56" r="6" fill="var(--c-ink)"/>
+    <circle class="guide-eye" cx="73" cy="56" r="6" fill="var(--c-ink)"/>
+    <circle cx="49" cy="54" r="2" fill="#fff"/>
+    <circle cx="75" cy="54" r="2" fill="#fff"/>
+    <path d="M41.5 53 L37 50 M43 51 L40 47 M78.5 53 L83 50 M77 51 L80 47" stroke="var(--c-ink)" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="38" cy="70" rx="6" ry="3.6" fill="var(--guide-cheek)"/>
+    <ellipse cx="82" cy="70" rx="6" ry="3.6" fill="var(--guide-cheek)"/>
+    <path d="M51 85 Q54 82 56 86 M64 86 Q66 82 69 85" fill="none" stroke="var(--c-ink)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M51 98 Q60 104 69 98" fill="none" stroke="var(--c-ink)" stroke-width="3.2" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,5 +1,5 @@
 /* Theme (feedback T83, our 4-year-old and Michael): Japan-flag red ONLY as a highlight (buttons, dots, marks), never a big area;
-   the Japan guide is a Nara deer (templates/includes/guides/japan.html, Japan screens only, T87). Nothing else names a colour. */
+   the Japan guide is a Nara deer (templates/includes/guides/japan.html, Japan screens only, T87); the Uzbekistan guide is Tuya the camel (guides/uzbekistan.html, T234). Nothing else names a colour. */
 @font-face {
   font-family: "Nunito";
   src: url("../fonts/nunito-latin.woff2") format("woff2");
@@ -40,6 +40,11 @@
   --guide-cheek: #ff9fa8;
   --guide-spot: #fff8ec;
   --guide-antler: #d9b98c;
+  /* The Uzbekistan guide, Tuya the camel (T234): */
+  --guide-camel: #d4a463;
+  --guide-camel-ear: #8a5a2b;
+  --guide-camel-tuft: #a8743c;
+  --guide-camel-muzzle: #f3dcb4;
   /* The star burst when a module is finished (gold first: most stars are gold): */
   --star-1: #ffc93c;
   --star-2: #ffb703;
