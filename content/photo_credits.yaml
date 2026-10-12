@@ -83,13 +83,6 @@
   licence: CC BY 2.0
   licence_url: https://creativecommons.org/licenses/by/2.0
   source_url: https://commons.wikimedia.org/wiki/File:Sanuki_udon_by_open-arms.jpg
-- id: food-taiyaki
-  file: photo/food/food-taiyaki.jpg
-  title: Taiyaki - sweet beanpaste filled fish waffle.jpg
-  author: Jon Åslund
-  licence: CC BY 2.0
-  licence_url: https://creativecommons.org/licenses/by/2.0
-  source_url: https://commons.wikimedia.org/wiki/File:Taiyaki_-_sweet_beanpaste_filled_fish_waffle.jpg
 - id: food-okinawa
   file: photo/food/food-okinawa.jpg
   title: Goya Champuru 1.jpg
@@ -265,3 +258,10 @@
   licence: CC BY-SA 4.0
   licence_url: https://creativecommons.org/licenses/by-sa/4.0
   source_url: https://commons.wikimedia.org/wiki/File:009_F%C3%A0brica_de_seda_Yodgorlik,_Imom_Zahiriddin_Ko%27chasi_138_(Marguilan),_capolls_bullint.jpg
+- id: food-taiyaki
+  file: photo/food/food-taiyaki.jpg
+  title: Taiyaki 005.jpg
+  author: Ocdp
+  licence: CC0
+  licence_url: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+  source_url: https://commons.wikimedia.org/wiki/File:Taiyaki_005.jpg

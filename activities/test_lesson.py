@@ -905,6 +905,17 @@ class SushiPhotoTests(TestCase):
             self.assertIn('/static/img/photo/sushi/sushi-maguro.jpg', html)
             self.assertIn(reverse("credits"), html)
 
+    def test_no_credited_photo_is_too_dark(self):
+        """T215: a night photo reads as a black square at 140 px. The old taiyaki photo had a mean grey of 33."""
+        from PIL import Image, ImageStat
+        from content_admin.loader import load_photo_credits
+        for credit in load_photo_credits().values():
+            with Image.open(Path(settings.BASE_DIR) / "static/img" / credit["file"]) as im:
+                grey = ImageStat.Stat(im.convert("L")).mean[0]
+            self.assertGreater(grey, 60, credit["file"])
+        with Image.open(Path(settings.BASE_DIR) / "static/img/photo/food/food-taiyaki.jpg") as im:
+            self.assertGreater(ImageStat.Stat(im.convert("L")).mean[0], 80)
+
     def test_credits_page_lists_every_photo(self):
         from content_admin.loader import load_photo_credits
         html = self.client.get(reverse("credits")).content.decode()
