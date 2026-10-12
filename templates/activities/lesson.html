@@ -4,6 +4,8 @@
 {% load say %}
 {# The intro line sits in page 1 only, so pages 2-N start right under the title (T100). #}
 {% block intro %}{% endblock %}
+{# The lesson shows the hint above the open page, under the page dots, whichever page first has a word. #}
+{% block saytip %}{% endblock %}
 {% block activity %}
 {% include "includes/js_strings.html" %}
 {% get_current_language_bidi as bidi %}
@@ -11,6 +13,7 @@
 <div class="lesson" data-lesson>
   <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
   <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
+  {% include "includes/say_tip.html" %}
   {% for page in pages %}
   <section class="lpage panel lpage-{{ page.kind }}" data-page data-label="{% blocktranslate with n=forloop.counter total=pages|length %}Page {{ n }} of {{ total }}{% endblocktranslate %}">
     <h2>{% if page.emoji %}<span aria-hidden="true">{{ page.emoji }}</span> {% endif %}{{ page.title }}</h2>

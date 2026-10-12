@@ -1,0 +1,4 @@
+{% load i18n %}
+{# T156/T194: once per browser, the first page with a talking word shows this hint (speak.js, localStorage 'tc_hint_say').
+   It sits in the page flow, under the intro line, so it never covers a word card or a tip (T194: fixed at the bottom it did). #}
+<p class="say-tip" role="status" hidden><span class="say-mark" aria-hidden="true"></span> {% if trip_country.other %}{% translate "Tap a word to hear it" %}{% else %}{% translate "Tap a Japanese word to hear it" %}{% endif %}</p>

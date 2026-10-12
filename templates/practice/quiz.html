@@ -11,6 +11,7 @@
 </div>
 <section class="quiz">
   <h1>{{ q.prompt }}</h1>
+  {% include "includes/say_tip.html" %}
   {# A food card says its name only after the answer, so the sound does not give the answer away. #}
   <div class="card ask"{% if q.kind == "word" or result and q.japanese %} data-say="{{ q.japanese }}" data-say-src="{{ q.reading|word_audio }}"{% endif %} tabindex="0">
     {% if q.kind == "word" %}

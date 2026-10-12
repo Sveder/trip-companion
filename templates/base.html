@@ -69,8 +69,6 @@
     {% block content %}{% endblock %}
   </main>
   <footer class="foot">{% translate "Made by" %} <a href="https://sveder.com">Sveder</a> · <a href="{% url 'privacy' %}">{% translate "Privacy" %}</a> · <a href="{% url 'credits' %}">{% translate "Credits" %}</a></footer>
-  {# T156: once per browser, the first page with a talking word shows this hint (speak.js, localStorage 'tc_hint_say'). #}
-  <div class="say-hint" role="status" hidden><span class="say-mark" aria-hidden="true"></span> {% if trip_country.other %}{% translate "Tap a word to hear it" %}{% else %}{% translate "Tap a Japanese word to hear it" %}{% endif %}</div>
   <template id="penguin-egg">{% include "includes/penguin.html" %}</template>
 </body>
 </html>

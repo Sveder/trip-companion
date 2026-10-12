@@ -656,12 +656,16 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .sound-btn.off .sound-mark {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M15.3 8.7l1.4-1.4 2.3 2.3 2.3-2.3 1.4 1.4-2.3 2.3 2.3 2.3-1.4 1.4-2.3-2.3-2.3 2.3-1.4-1.4 2.3-2.3z'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 9v6h4l5 5V4L7 9H3z'/%3E%3Cpath d='M15.3 8.7l1.4-1.4 2.3 2.3 2.3-2.3 1.4 1.4-2.3 2.3 2.3 2.3-1.4 1.4-2.3-2.3-2.3 2.3-1.4-1.4 2.3-2.3z'/%3E%3C/svg%3E"); }
-.say-hint { position: fixed; left: 50%; bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px)); z-index: 60; transform: translate(-50%, 8px); opacity: 0; transition: opacity .25s, transform .25s;
-  display: flex; align-items: center; gap: .4rem; max-width: calc(100vw - 2rem); padding: .6rem 1.1rem; border-radius: 999px;
-  background: var(--c-ink); color: var(--c-surface); font-weight: 800; box-shadow: var(--shadow); pointer-events: none; }
-.say-hint.show { opacity: 1; transform: translate(-50%, 0); }
-.say-hint .say-mark { background-color: var(--c-sun); margin: 0; width: 1.3em; height: 1.3em; flex: none; }
-@media (prefers-reduced-motion: reduce) { .say-hint { transition: none; } }
+/* T194: the one-time 'tap a word' hint sits in the page flow (fixed at the bottom it covered word cards and tips).
+   A small sun-yellow bar that opens and folds away with max-height and opacity. */
+.say-tip { display: flex; align-items: center; gap: .4rem; width: fit-content; max-width: 100%; margin: .3rem auto .5rem; padding: .4rem .8rem;
+  border-radius: 999px; background: var(--c-sun); color: var(--c-ink); font-size: .9rem; font-weight: 800; line-height: 1.3;
+  max-height: 0; opacity: 0; overflow: hidden; box-sizing: border-box; transition: max-height .25s, opacity .25s, padding .25s, margin .25s; }
+.say-tip.show { max-height: 4rem; opacity: 1; }
+.say-tip.gone { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; }
+.say-tip[hidden] { display: none; }
+.say-tip .say-mark { background-color: var(--c-ink); margin: 0; width: 1.2em; height: 1.2em; flex: none; }
+@media (prefers-reduced-motion: reduce) { .say-tip { transition: none; } }
 /* On a phone the toggle keeps only its mark, so the header stays one line (T105). The word stays for screen readers. */
 @media (max-width: 600px) {
   .sound-btn { padding: .45rem .55rem; border-radius: 999px; background: var(--c-bg); }

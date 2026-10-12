@@ -269,20 +269,31 @@ class SoundToggleAndHintTests(TestCase):
     def test_header_holds_the_toggle_and_the_hint_in_both_languages(self):
         html = self.client.get("/", follow=True).content.decode()
         self.assertIn('class="sound-btn link" aria-pressed="true" data-on="Sound on" data-off="Sound off"', html)
-        self.assertIn("Tap a Japanese word to hear it", html)
         self.client.cookies.load({"django_language": "he"})
         html = self.client.get("/", follow=True).content.decode()
         self.assertIn('data-on="צליל פועל" data-off="צליל כבוי"', html)
-        self.assertIn("לחצו על מילה ביפנית כדי לשמוע אותה", html)
+        # T194: the hint left the base page; it sits in the flow of the pages with a talking word.
+        from django.template.loader import render_to_string
+        from django.utils import translation
+        for lang, text in (("en", "Tap a Japanese word to hear it"), ("he", "לחצו על מילה ביפנית כדי לשמוע אותה")):
+            with translation.override(lang):
+                self.assertIn(text, render_to_string("includes/say_tip.html", {}))
 
-    def test_say_hint_sits_at_the_bottom(self):
-        # T174: under the header the hint covered the lesson title and the module line.
+    def test_say_hint_sits_in_the_page_flow(self):
+        # T194: fixed at the bottom it covered word cards and tips; under the header it covered the title (T174).
         css = self.read("static/css/app.css")
-        rule = css[css.index(".say-hint { position: fixed;"):]
+        rule = css[css.index(".say-tip { "):]
         rule = rule[:rule.index("}")]
-        self.assertIn("bottom:", rule)
-        self.assertNotIn("top:", rule)
-        self.assertNotIn("hint.style.top", self.read("static/js/speak.js"))
+        self.assertNotIn("position: fixed", rule)
+        self.assertIn("max-height: 0", rule)
+        self.assertNotIn("say-hint { position: fixed", css)
+        self.assertNotIn("say-tip", self.read("templates/base.html"))
+        for rel in ("templates/activities/_frame.html", "templates/activities/lesson.html",
+                    "templates/practice/quiz.html", "templates/courses/highlights.html"):
+            self.assertIn('{% include "includes/say_tip.html" %}', self.read(rel), rel)
+        # The lesson puts it once, above the pages, not under the title as well.
+        self.assertIn("{% block saytip %}{% endblock %}", self.read("templates/activities/lesson.html"))
+        self.assertIn("querySelector('.say-tip')", self.read("static/js/speak.js"))
 
     def test_every_sound_obeys_the_toggle(self):
         speak = self.read("static/js/speak.js")
