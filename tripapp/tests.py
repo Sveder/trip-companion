@@ -321,7 +321,7 @@ class SoundToggleAndHintTests(TestCase):
         self.assertIn('class="sound-btn link" aria-pressed="true" data-on="Sound on" data-off="Sound off"', html)
         self.client.cookies.load({"django_language": "he"})
         html = self.client.get("/", follow=True).content.decode()
-        self.assertIn('data-on="צליל פועל" data-off="צליל כבוי"', html)
+        self.assertIn('data-on="צליל מופעל" data-off="צליל מושתק"', html)
         # T194: the hint left the base page; it sits in the flow of the pages with a talking word.
         from django.template.loader import render_to_string
         from django.utils import translation

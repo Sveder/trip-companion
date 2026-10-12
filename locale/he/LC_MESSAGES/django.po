@@ -422,11 +422,11 @@ msgstr "מתכוננים ליפן"
 
 #: templates/base.html:38
 msgid "Sound on"
-msgstr "צליל פועל"
+msgstr "צליל מופעל"
 
 #: templates/base.html:38
 msgid "Sound off"
-msgstr "צליל כבוי"
+msgstr "צליל מושתק"
 
 #: templates/base.html:39
 msgid "Menu"
