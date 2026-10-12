@@ -285,6 +285,7 @@ activities:
         fallback_title_he: ההליכה של חמשת הדברים
         fallback_text: "Go on a five-thing walk with your family."
         fallback_text_he: "יוצאים עם המשפחה להליכה של חמשת הדברים."
+        fallback_img: lesson/street/hunt.svg
         fallback:
           - "Before the trip: walk around your street with your family. Find five things: a post box, a drinks machine, a manhole cover, a shop door and a bicycle."
           - "Say what is different in Japan: the post box is red, the drinks machine has hot drinks, the manhole cover has a picture."

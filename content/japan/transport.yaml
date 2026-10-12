@@ -278,6 +278,7 @@ activities:
         fallback_title_he: ארבעה שלבים לעלות לשינקנסן
         fallback_text: "Play the four boarding steps at home with chairs."
         fallback_text_he: "משחקים בבית עם כיסאות את ארבעת שלבי העלייה לרכבת."
+        fallback_img: lesson/transport/shinkansen-big.svg
         fallback:
           - "Find the car number on your ticket. The same number is on the platform floor and on the signs above it."
           - "Wait in line at that number. Let the people get off first."

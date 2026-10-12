@@ -255,6 +255,7 @@ activities:
         fallback_title_he: תרגיל הבטיחות המשפחתי
         fallback_text: "Play the safety drill with your family."
         fallback_text_he: "מתאמנים בתרגיל הבטיחות עם המשפחה."
+        fallback_img: lesson/safety/table.svg
         fallback:
           - "Turtle time: a grown-up says \"shake!\". Everybody drops to the floor, crawls under the table and holds a leg, like a turtle in its shell. Count to ten."
           - "Statue game: a grown-up says \"lost!\". Everybody freezes like a statue and stays there until the grown-up finds them."

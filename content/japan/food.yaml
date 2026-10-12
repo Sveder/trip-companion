@@ -331,16 +331,20 @@ activities:
         fallback_title_he: איך מכינים רול
         fallback_text: "Make a cucumber roll at home. How does the roll stay closed?"
         fallback_text_he: "מכינים בבית רול מלפפון. איך הרול נשאר סגור?"
+        # T230: the fallback page gets a picture too, so it is not the only page with none.
+        fallback_img: lesson/sushi/rolling.svg
         fallback:
           - Put a sheet of seaweed on a bamboo mat.
-          - Spread rice on it with wet fingers.
+          - Spread rice on it with wet fingers. Leave the far edge empty.
           - Lay a line of cucumber across the rice.
           - Roll the mat up tight, then cut the roll into circles.
+          - "How does the roll stay closed? Wet the empty edge with a little water. It sticks like glue!"
         fallback_he:
           - שמים דף של אצה על מחצלת במבוק.
-          - מורחים עליו אורז עם אצבעות רטובות.
+          - מורחים עליו אורז עם אצבעות רטובות. משאירים את הקצה הרחוק ריק.
           - מניחים שורה של מלפפון לרוחב האורז.
           - מגלגלים את המחצלת חזק, ואז חותכים את הרול לעיגולים.
+          - "איך הרול נשאר סגור? מרטיבים את הקצה הריק בקצת מים. הוא נדבק כמו דבק!"
       - kind: text
         title: The sushi train
         title_he: רכבת הסושי

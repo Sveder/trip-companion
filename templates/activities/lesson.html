@@ -149,6 +149,8 @@
           allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
       </div>
       {% endif %}
+      {# T230: with no approved video the written lines get a drawing, so no lesson page is text only. #}
+      {% if not page.show_video and page.fallback_img %}<img class="lpic" src="{% static 'img/'|add:page.fallback_img %}"{{ 'img/'|add:page.fallback_img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt="">{% endif %}
       {% if page.fallback %}
       <ol class="how">{% for line in page.fallback %}<li>{{ line|say_quoted }}</li>{% endfor %}</ol>
       {% endif %}

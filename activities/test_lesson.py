@@ -159,6 +159,24 @@ class SushiLessonTests(TestCase):
         self.assertIn("How to make a roll", html)
         self.assertIn("bamboo mat", html)
 
+    def test_roll_page_has_a_picture_and_says_how_the_roll_stays_closed(self):
+        """T230: the video fallback page shows a drawing and answers its own question, en and he."""
+        for lang, answer in (("en", "Wet the empty edge with a little water. It sticks like glue!"),
+                             ("he", "מרטיבים את הקצה הריק בקצת מים. הוא נדבק כמו דבק!")):
+            html = self.page(lang)
+            section = html[html.index("lpage-video"):]
+            section = section[:section.index("</section>")]
+            self.assertIn("lesson/sushi/rolling", section, lang)
+            self.assertIn(answer, section, lang)
+
+    def test_an_approved_video_page_has_no_fallback_picture(self):
+        data = dict(self.act.data)
+        data["pages"] = [dict(p, approved=True) if p["kind"] == "video" else p for p in data["pages"]]
+        Activity.objects.filter(pk=self.act.pk).update(data=data)
+        html = self.page()
+        self.assertIn("R7zkF_wpmLI", html)
+        self.assertNotIn("lesson/sushi/rolling", html)
+
     def test_approved_video_renders(self):
         data = dict(self.act.data)
         data["pages"] = [dict(p, approved=True) if p["kind"] == "video" else p for p in data["pages"]]
@@ -222,11 +240,14 @@ class EveryLessonIsWellFormed(TestCase):
             if "video" in kinds:
                 self.assertTrue(len(pages) // 4 <= kinds.index("video") <= 3 * len(pages) // 4, name)
                 self.assertTrue(all(p.get("fallback") for p in pages if p["kind"] == "video"), name)
+                # T230: every fallback page has a picture too.
+                self.assertTrue(all(p.get("fallback_img") for p in pages if p["kind"] == "video"), name)
             pics = {p["id"] for p in data.get("pictures", [])}
             by_id = {p["id"]: p for p in data.get("pictures", [])}
             imgs = [p["img"] for p in data.get("pictures", [])] + [p["img"] for p in pages if p.get("img")]
             imgs += [c["img"] for p in pages for c in p.get("cards", [])]
             imgs += [p["img_he"] for p in data.get("pictures", []) + pages if p.get("img_he")]
+            imgs += [p["fallback_img"] for p in pages if p.get("fallback_img")]
             for img in imgs:
                 self.assertTrue((static / img).exists(), (name, img))
             for p in pages:
