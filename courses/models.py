@@ -68,5 +68,10 @@ class CourseItem(models.Model):
         return self.done_at is not None and not self.skipped
 
     @property
+    def is_review(self):
+        """A quick review (flip cards or word cards) after a lesson. The course page shows it as a lighter, smaller card (T198)."""
+        return self.activity.type in ("cards", "words")
+
+    @property
     def hunt_total(self):
         return len((self.activity.data or {}).get("spots", [])) if self.activity.type == "streetview" else None

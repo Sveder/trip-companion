@@ -1,5 +1,5 @@
-from django.conf import settings
 import re
+from django.conf import settings
 import tempfile
 from datetime import date, timedelta
 from pathlib import Path
@@ -527,6 +527,22 @@ class AfterTheTripTests(TestCase):
             html = self.client.get(reverse("course")).content.decode()
             self.assertNotIn(start, html)
             self.assertIn(replay, html)
+
+    def test_quick_reviews_carry_the_review_class(self):
+        # T198: flip-card and word-card reviews are lighter cards; lessons and hunts are not.
+        html = self.client.get(reverse("course")).content.decode()
+        seen = set()
+        for item in self.course.items.select_related("activity"):
+            if item.is_stub:
+                continue
+            m = re.search(r'<a class="course-item([^"]*)" href="%s"' % re.escape(reverse("activity", args=[item.id])), html)
+            self.assertIsNotNone(m, item.activity.slug)
+            review = " review" in m.group(1)
+            self.assertEqual(review, item.activity.type in ("cards", "words"), item.activity.slug)
+            seen.add((item.activity.type, review))
+        self.assertIn(("lesson", False), seen)
+        self.assertIn(("streetview", False), seen)
+        self.assertTrue(any(review for _, review in seen))
 
     def test_highlights_quiz_button_only_with_quiz_words(self):
         # T142: with no quiz words the button opens the next activity, not the empty 'No quiz yet' page.
