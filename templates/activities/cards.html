@@ -6,7 +6,7 @@
 <div class="cards facts">
   {% for card in data.cards %}
   <article class="card fact" tabindex="0"{% if card.japanese %} data-say="{{ card.japanese }}" data-say-src="{{ card.reading|word_audio }}"{% endif %}>
-    {% if card.image %}<img src="{{ card.image }}" alt="{{ card.title }}">{% elif card.emoji %}<div class="card-emoji big" aria-hidden="true">{{ card.emoji }}</div>{% endif %}
+    {% if card.image %}<img src="{{ card.image }}"{% if forloop.counter > 2 %} loading="lazy"{% endif %} alt="{{ card.title }}">{% elif card.emoji %}<div class="card-emoji big" aria-hidden="true">{{ card.emoji }}</div>{% endif %}
     <h3>{{ card.title }}</h3>
     {% if card.japanese %}<p class="jp small" lang="ja">{{ card.japanese }}{% if bidi and card.reading_hebrew %} · <span class="he-say" lang="he">{{ card.reading_hebrew }}</span>{% endif %}</p>{% endif %}
     <p>{{ card.text|say_quoted }}</p>

@@ -1094,3 +1094,37 @@ class HeroPicturesAreNotEmoji(TestCase):
             self.assertLess(len(svg.encode()), 12 * 1024, title)
             self.assertNotIn("<image", svg, title)
             self.assertNotIn("data:", svg, title)
+
+
+class LazyLessonPhotoTests(TestCase):
+    """T227: a lesson loads only the pictures of its first page; every other picture is lazy and keeps its box."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("z@example.com", "z@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="japan")
+        Traveller.objects.create(trip=cls.trip, age=6)
+        acts = Activity.objects.filter(module__slug="food", slug__in=["food-around-japan", "sushi-lesson"])
+        course = build_course(cls.trip, sorted({a.module_id for a in acts}))
+        cls.items = [course.items.get(activity=a) for a in acts]
+
+    def test_only_first_page_pictures_load(self):
+        self.client.force_login(self.user)
+        self.assertEqual(len(self.items), 2)
+        for item in self.items:
+            for lang in ("en", "he"):
+                html = self.client.get(reverse("activity", args=[item.id]) + f"?lang={lang}").content.decode()
+                sections = re.findall(r'<section class="lpage[^"]*" data-page( hidden)?[^>]*>(.*?)</section>', html, re.S)
+                self.assertGreater(len(sections), 5)
+                for n, (hidden, body) in enumerate(sections):
+                    self.assertEqual(bool(hidden), n > 0, f"{item.activity.slug} page {n + 1} hidden")
+                    for img in re.findall(r"<img\b[^>]*>", body):
+                        self.assertRegex(img, r'width="\d+" height="\d+"', img)
+                        if n > 0:
+                            self.assertIn('loading="lazy"', img)
+                        elif "flip-photo" not in img:
+                            self.assertNotIn('loading="lazy"', img)
+                self.assertIn('<noscript><style>.lesson .lpage[hidden] { display: block; }', html)
+        js = (Path(settings.BASE_DIR) / "static" / "js" / "lesson.js").read_text()
+        self.assertIn("im.loading = 'eager'", js)

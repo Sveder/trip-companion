@@ -128,6 +128,10 @@ a.card.next-up { display: grid; grid-template-columns: auto 1fr; grid-template-a
 .card-emoji.big { width: 5rem; height: 5rem; font-size: 2.9rem; }
 .card p { margin: .3em 0 0; }
 .card img { width: 100%; border-radius: calc(var(--radius) - 8px); }
+/* T227: an img with width and height keeps its box before the file arrives. :where() has no weight, so every rule
+   that sets a picture height still wins over this one. A fact card picture has no known size: it gets a fixed ratio. */
+:where(img[width][height]) { height: auto; }
+.facts .card > img { aspect-ratio: 4 / 3; object-fit: cover; }
 .badge { display: inline-block; background: var(--c-sun); color: var(--c-ink); border-radius: 999px; padding: .1rem .7rem; font-size: .8rem; font-weight: 800; margin-top: .5rem; }
 .badge.muted { background: var(--c-line); color: var(--c-muted); }
 .country.soon { border: 4px dashed var(--c-line); }

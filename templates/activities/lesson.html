@@ -14,15 +14,18 @@
   <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
   <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
   {% include "includes/say_tip.html" %}
-  {% for page in pages %}
-  <section class="lpage panel lpage-{{ page.kind }}" data-page data-label="{% blocktranslate with n=forloop.counter total=pages|length %}Page {{ n }} of {{ total }}{% endblocktranslate %}">
+  {# Pages 2-N start hidden, so their lazy pictures wait until Next opens the page (T227). Without JavaScript the
+     noscript rule shows every page, one under the other. #}
+  <noscript><style>.lesson .lpage[hidden] { display: block; }</style></noscript>
+  {% for page in pages %}{% with first_page=forloop.first %}
+  <section class="lpage panel lpage-{{ page.kind }}" data-page{% if not first_page %} hidden{% endif %} data-label="{% blocktranslate with n=forloop.counter total=pages|length %}Page {{ n }} of {{ total }}{% endblocktranslate %}">
     <h2>{% if page.emoji %}<span aria-hidden="true">{{ page.emoji }}</span> {% endif %}{{ page.title }}</h2>
     {% if forloop.first and data.intro %}<p class="lead lpage-intro">{{ data.intro }}</p>{% endif %}
 
     {% if page.kind == "text" %}
       {# The picture of a word page says the word too: a child taps the picture first (T158). #}
-      {% if page.img and page.japanese %}<button type="button" class="lpic-say" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" aria-label="{{ page.japanese }}"><img class="lpic" src="{% static 'img/'|add:page.img %}" alt=""></button>
-      {% elif page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
+      {% if page.img and page.japanese %}<button type="button" class="lpic-say" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" aria-label="{{ page.japanese }}"><img class="lpic" src="{% static 'img/'|add:page.img %}"{{ 'img/'|add:page.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt=""></button>
+      {% elif page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}"{{ 'img/'|add:page.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
       {# A real photo names its author and licence under it; the link opens the full list (T160). #}
       {% if page.photo_credit %}{% with credit=page.photo_credit|photo_credit %}{% if credit %}<p class="lphoto-credit"><a href="{% url 'credits' %}">{% translate "Photo:" %} {{ credit.author }}, {{ credit.licence }}</a></p>{% endif %}{% endwith %}{% endif %}
       {# T224: two fixed lines. Line 1 is the kana alone; line 2 is the reading, the Hebrew spelling (he) and the speaker. #}
@@ -37,7 +40,7 @@
       {# A small ring marks each thing; its number sits at the side of the picture with a line to the ring, so no number hides the thing (T103). #}
       <div class="lspots" data-spots data-total="{{ page.spots|length }}">
         <div class="lspots-pic">
-          <img class="lpic" src="{% static 'img/'|add:page.img %}" alt="">
+          <img class="lpic" src="{% static 'img/'|add:page.img %}"{{ 'img/'|add:page.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt="">
           <svg class="lspot-lines" aria-hidden="true"></svg>
           {% for spot in page.spots %}
           <span class="lspot-dot" style="left: {{ spot.x }}%; top: {{ spot.y }}%" data-spot="{{ forloop.counter0 }}" aria-hidden="true"></span>
@@ -66,8 +69,8 @@
         {% for card in page.cards %}
         {# A card with a Japanese word also says it: data-say sits on the button itself, so one tap (or OK on the TV remote) flips and speaks (T91). #}
         <button type="button" class="flip" data-flip aria-pressed="false"{% if card.japanese %} data-say="{{ card.japanese }}" data-say-src="{{ card.reading|word_audio }}"{% endif %}>
-          <span class="flip-front"><img src="{% static 'img/'|add:card.img %}" alt=""><strong>{{ card.label }}</strong>{% if card.japanese %}<span class="jp small" lang="ja">{{ card.japanese }}<span class="say-mark" aria-hidden="true"></span></span>{% if bidi and card.reading_hebrew and card.reading_hebrew != card.label %}<span class="he-say small" lang="he">{{ card.reading_hebrew }}</span>{% endif %}{% endif %}</span>
-          <span class="flip-back{% if card.photo %} has-photo{% endif %}">{% if card.photo %}<span class="flip-photo-box"><img class="flip-photo" src="{% static 'img/'|add:card.photo %}" alt="" loading="lazy">{% with credit=card.photo_credit|photo_credit %}{% if credit %}<span class="photo-credit">{% translate "Photo:" %} {{ credit.author }}, {{ credit.licence }}</span>{% endif %}{% endwith %}</span>{% endif %}<strong>{{ card.label }}</strong><span>{{ card.text }}</span></span>
+          <span class="flip-front"><img src="{% static 'img/'|add:card.img %}"{{ 'img/'|add:card.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt=""><strong>{{ card.label }}</strong>{% if card.japanese %}<span class="jp small" lang="ja">{{ card.japanese }}<span class="say-mark" aria-hidden="true"></span></span>{% if bidi and card.reading_hebrew and card.reading_hebrew != card.label %}<span class="he-say small" lang="he">{{ card.reading_hebrew }}</span>{% endif %}{% endif %}</span>
+          <span class="flip-back{% if card.photo %} has-photo{% endif %}">{% if card.photo %}<span class="flip-photo-box"><img class="flip-photo" src="{% static 'img/'|add:card.photo %}"{{ 'img/'|add:card.photo|img_size }} alt="" loading="lazy">{% with credit=card.photo_credit|photo_credit %}{% if credit %}<span class="photo-credit">{% translate "Photo:" %} {{ credit.author }}, {{ credit.licence }}</span>{% endif %}{% endwith %}</span>{% endif %}<strong>{{ card.label }}</strong><span>{{ card.text }}</span></span>
         </button>
         {% endfor %}
       </div>
@@ -83,7 +86,7 @@
           <p class="ask">{{ round.ask }}</p>
           <div class="choices">
             {% for pic in round.choices %}
-            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}">{% if page.words and pic.japanese %}<span class="choice-word"><span class="jp small" lang="ja">{{ pic.japanese }}</span>{% if pic.say %}<span class="choice-say">{{ pic.say }}</span>{% endif %}</span>{% endif %}</button>
+            <button type="button" class="choice" data-choice{% if pic.id == round.answer %} data-right{% endif %}{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}><img src="{% static 'img/'|add:pic.img %}"{{ 'img/'|add:pic.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt="{{ pic.label }}">{% if page.words and pic.japanese %}<span class="choice-word"><span class="jp small" lang="ja">{{ pic.japanese }}</span>{% if pic.say %}<span class="choice-say">{{ pic.say }}</span>{% endif %}</span>{% endif %}</button>
             {% endfor %}
           </div>
         </div>
@@ -101,7 +104,7 @@
         <div class="round" data-endless hidden><p class="ask" data-endless-ask></p></div>
         <div class="belt"><div class="belt-track">
           {% for pass in "ab" %}{% for pic in page.belt %}
-          <button type="button" class="plate" data-plate="{{ pic.id }}"{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}{% if pass == "b" %} aria-hidden="true" tabindex="-1"{% endif %}><img src="{% static 'img/'|add:pic.img %}" alt="{{ pic.label }}"></button>
+          <button type="button" class="plate" data-plate="{{ pic.id }}"{% with src=pic.id|word_audio %}{% if src %} data-say="{{ pic.id }}" data-say-src="{{ src }}"{% endif %}{% endwith %}{% if pass == "b" %} aria-hidden="true" tabindex="-1"{% endif %}><img src="{% static 'img/'|add:pic.img %}"{{ 'img/'|add:pic.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt="{{ pic.label }}"></button>
           {% endfor %}{% endfor %}
         </div></div>
         <p class="game-msg" data-game-msg aria-live="polite"></p>
@@ -123,7 +126,7 @@
           <p class="ask">{{ round.title }}</p>
           <div class="match-targets{% if round.targets|length == 6 %} six{% endif %}">
             {% for t in round.targets %}
-            <button type="button" class="match-target" data-target="{{ t.id }}"><img src="{% static 'img/'|add:t.img %}" alt=""><strong>{{ t.label }}</strong><span class="match-slot" data-slot></span></button>
+            <button type="button" class="match-target" data-target="{{ t.id }}"><img src="{% static 'img/'|add:t.img %}"{{ 'img/'|add:t.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt=""><strong>{{ t.label }}</strong><span class="match-slot" data-slot></span></button>
             {% endfor %}
           </div>
           <div class="match-plates">
@@ -160,7 +163,7 @@
       {% endfor %}
     {% endif %}
   </section>
-  {% endfor %}
+  {% endwith %}{% endfor %}
   <div class="lesson-nav" data-lesson-nav hidden>
     <button type="button" class="btn alt" data-prev>{% if bidi %}→{% else %}←{% endif %} {% translate "Back" %}</button>
     <button type="button" class="btn" data-next>{% translate "Next" %} {% if bidi %}←{% else %}→{% endif %}</button>

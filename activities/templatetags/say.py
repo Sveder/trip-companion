@@ -115,3 +115,36 @@ def say_quoted(text, country="japan"):
         pos = m.end(2)
     out.append(escape(text[pos:]))
     return mark_safe("".join(out))
+
+
+@lru_cache(maxsize=1024)
+def _img_size(path):
+    """(width, height) of a static image: Pillow for a photo, the viewBox (or width/height) for an SVG."""
+    found = finders.find(path)
+    if not found:
+        return None
+    if path.endswith(".svg"):
+        head = Path(found).read_text(encoding="utf-8", errors="ignore")[:4000]
+        tag = re.search(r"<svg\b[^>]*>", head, re.S)
+        if not tag:
+            return None
+        box = re.search(r'viewBox\s*=\s*"\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)', tag.group(0))
+        if box:
+            return round(float(box.group(1))), round(float(box.group(2)))
+        w = re.search(r'\bwidth\s*=\s*"([\d.]+)', tag.group(0))
+        h = re.search(r'\bheight\s*=\s*"([\d.]+)', tag.group(0))
+        return (round(float(w.group(1))), round(float(h.group(1)))) if w and h else None
+    try:
+        from PIL import Image
+        with Image.open(found) as im:
+            return im.size
+    except Exception:
+        return None
+
+
+@register.filter
+def img_size(path):
+    """' width="W" height="H"' for a static image, so the browser keeps the picture's box before the file
+    arrives and the page does not jump when a lazy photo lands (T227). '' when the size is unknown."""
+    size = _img_size(str(path or ""))
+    return mark_safe(f' width="{size[0]}" height="{size[1]}"') if size and all(size) else ""

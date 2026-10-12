@@ -35,6 +35,11 @@
       }
       count.textContent = pages[at].getAttribute('data-label');
       pages[at].dispatchEvent(new CustomEvent('lpage-show'));
+      // Pages 2-N carry lazy pictures (T227). The open page and the next one load theirs now, so a picture is
+      // ready when Next slides its page in.
+      [pages[at], pages[at + 1]].forEach(function (pg) {
+        if (pg) pg.querySelectorAll('img[loading="lazy"]').forEach(function (im) { im.loading = 'eager'; });
+      });
       prev.style.visibility = at === 0 ? 'hidden' : '';
       next.hidden = at === pages.length - 1;
       if (done) done.hidden = at !== pages.length - 1;
