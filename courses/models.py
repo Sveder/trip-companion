@@ -7,6 +7,8 @@ from trips.models import Trip
 # Activity types that have a real player. Any other type, or a module with ready=False, is a
 # "coming soon" stub: it cannot be marked done and the course goes past it.
 PLAYABLE_TYPES = ("cards", "lesson", "links", "steps", "streetview", "words")
+# The quick review that follows a lesson in its module (every playable type but lessons and hunts).
+REVIEW_TYPES = ("cards", "links", "steps", "words")
 
 
 class Course(models.Model):
@@ -69,8 +71,9 @@ class CourseItem(models.Model):
 
     @property
     def is_review(self):
-        """A quick review (flip cards or word cards) after a lesson. The course page shows it as a lighter, smaller card (T198)."""
-        return self.activity.type in ("cards", "words")
+        """A quick review after a lesson: flip cards, word cards, steps or links. Lessons and hunts are not.
+        The course page shows it as a lighter, smaller card (T198)."""
+        return self.activity.type in REVIEW_TYPES
 
     @property
     def hunt_total(self):

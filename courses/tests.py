@@ -529,7 +529,7 @@ class AfterTheTripTests(TestCase):
             self.assertIn(replay, html)
 
     def test_quick_reviews_carry_the_review_class(self):
-        # T198: flip-card and word-card reviews are lighter cards; lessons and hunts are not.
+        # T198: quick reviews (cards, words, steps, links) are lighter cards; lessons and hunts are not.
         html = self.client.get(reverse("course")).content.decode()
         seen = set()
         for item in self.course.items.select_related("activity"):
@@ -538,7 +538,7 @@ class AfterTheTripTests(TestCase):
             m = re.search(r'<a class="course-item([^"]*)" href="%s"' % re.escape(reverse("activity", args=[item.id])), html)
             self.assertIsNotNone(m, item.activity.slug)
             review = " review" in m.group(1)
-            self.assertEqual(review, item.activity.type in ("cards", "words"), item.activity.slug)
+            self.assertEqual(review, item.activity.type not in ("lesson", "streetview"), item.activity.slug)
             if review and item.activity.module.title in item.activity.title:
                 # The title names the module, so the card has no second line with the module name.
                 card = html[m.end():html.index("</a>", m.end())]
