@@ -864,6 +864,13 @@ class FlipSayTests(TestCase):
         self.assertIn("html:not(.tv) .flips-two > .flip { flex: 0 1 320px; }", css)
         self.assertIn("html:not(.tv) .flips-two { grid-template-columns: 1fr 1fr; }", css)
 
+    def test_tv_pick_answers_sit_in_one_row(self):
+        """T235: on the TV the pick answers sit in one row with a capped picture height, so all answers fit one screen."""
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn(".tv .choices { grid-template-columns: none; grid-auto-flow: column;", css)
+        self.assertIn(".tv .choice img { height: 28vh; object-fit: contain; }", css)
+        self.assertNotIn(".tv .choices { max-width: 70vw; }", css)
+
     def test_shrine_cards_name_the_place_they_say(self):
         """T119: the label over じんじゃ names the shrine, the label over おてら names the temple, and every card has a word and an mp3."""
         act = Activity.objects.get(module__slug="streetview", slug="streetview-lesson")

@@ -289,7 +289,10 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 @keyframes ring-pulse { 50% { transform: translate(-50%, -50%) scale(1.12); } }
 @media (prefers-reduced-motion: reduce) { .ask-ring { animation: none; } }
 .answer-note .big-line { font-size: 1.5rem; font-weight: 900; margin: .4rem 0; }
-.tv .choices { max-width: 70vw; }
+/* T235: on the TV the answers sit in ONE row and each picture is at most 28vh tall, so the question and all
+   4 answers fit one 1080 px screen. A round with 3 answers stays centred. Phones and desktop do not change. */
+.tv .choices { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 21vw); justify-content: center; max-width: 92vw; }
+.tv .choice img { height: 28vh; object-fit: contain; }
 
 /* Steps activity (chopsticks) */
 .steps { list-style: none; padding: 0; margin: .7rem 0 0; display: grid; gap: .7rem; }
