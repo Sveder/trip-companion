@@ -36,7 +36,8 @@
     <fieldset class="family-pick" id="family" data-family-pick>
       <legend>{% translate "Who is coming? Put everyone on the plane!" %}</legend>
       <p class="hint" data-js-only hidden>{% translate "Drag a person into the plane, or tap them. Tap a person in the plane to take them off." %}</p>
-      {{ form.non_field_errors }}
+      {# T207: the empty-plane message sits by the plane, in a sun-yellow box; family.js shows it before the submit and scrolls to it. #}
+      <div class="plane-error" role="alert" data-plane-error{% if not form.non_field_errors %} hidden{% endif %}>{% if form.non_field_errors %}{{ form.non_field_errors }}{% else %}<ul class="errorlist nonfield"><li>{% translate "Put at least one person on the plane." %}</li></ul>{% endif %}</div>
       <div class="plane" data-plane aria-live="polite">
         {# T153: a side view. Nose on the right, one wing toward the viewer, one engine, a tall tail fin. No stretching. #}
         <svg class="plane-body" viewBox="0 0 400 190" aria-hidden="true" focusable="false" stroke="var(--c-ink)" stroke-width="3" stroke-linejoin="round">

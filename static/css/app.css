@@ -595,6 +595,12 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .plane.over .plane-body .fuselage { stroke: var(--c-accent); }
 .plane.bump { animation: plane-bump .35s; }
 @keyframes plane-bump { 40% { transform: translateY(-6px) rotate(-1deg); } }
+/* T207: the empty-plane message, a sun-yellow box by the plane; the plane shakes once (not under reduced motion). */
+.plane-error { background: var(--c-sun); border: 3px solid var(--c-ink); border-radius: 14px; padding: .5rem .9rem; margin: .5rem auto; max-width: 560px; }
+.plane-error[hidden] { display: none; }
+.plane-error .errorlist { color: var(--c-ink); margin: 0; font-size: 1.1rem; }
+.plane.shake { animation: shake .45s; }
+@media (prefers-reduced-motion: reduce) { .plane.shake { animation: none; } }
 .plane-body { position: absolute; inset: 0; width: 100%; height: 100%; }
 .seats { position: absolute; left: 12%; right: 13%; top: 20%; bottom: 27%; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2px; direction: ltr; }
 .seat { font-size: clamp(1.1rem, 5vw, 3rem); line-height: 1; background: none; border: 0; padding: 0; margin: 0 -2px; cursor: pointer; }

@@ -50,6 +50,7 @@
     if (next < 0 || (by > 0 && total() >= MAX)) return;
     input(g).value = next;
     draw();
+    if (total() > 0) { var pe = box.querySelector("[data-plane-error]"); if (pe) pe.hidden = true; }
     if (by > 0) {
       plane.classList.remove("bump");
       void plane.offsetWidth;
@@ -118,4 +119,27 @@
   });
   var nextStep = document.querySelector("[data-next-step]");
   if (nextStep) nextStep.addEventListener("click", function (e) { e.preventDefault(); toFamily(e.detail === 0); });
+
+  // T207: an empty plane. Show the message by the plane at once (no round trip), or after the server sent it
+  // back; scroll it into view and shake the plane, so the family sees why nothing moved on.
+  var planeError = box.querySelector("[data-plane-error]");
+  function showError() {
+    planeError.hidden = false;
+    planeError.scrollIntoView({ block: "center" });
+    plane.classList.remove("shake");
+    void plane.offsetWidth;
+    plane.classList.add("shake");
+  }
+  var form = box.closest("form");
+  if (form && planeError) form.addEventListener("submit", function (e) {
+    if (total() > 0) return;
+    e.preventDefault();
+    showError();
+  });
+  if (planeError && !planeError.hidden) showError();
+  else {
+    var firstError = Array.prototype.filter.call(document.querySelectorAll("form .errorlist"), function (el) { return el.offsetParent; })[0];
+    if (firstError) firstError.scrollIntoView({ block: "center" });
+  }
+  groups.forEach(function (g) { input(g).addEventListener("input", function () { if (total() > 0 && planeError) planeError.hidden = true; }); });
 })();

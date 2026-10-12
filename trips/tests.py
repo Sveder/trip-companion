@@ -57,6 +57,10 @@ class FamilyPlaneTests(TestCase):
     def test_empty_plane_and_too_many_are_refused(self):
         r = self.client.post(reverse("trip_setup"), {"destination": "japan"})
         self.assertContains(r, "Put at least one person on the plane.")
+        # T207: the message sits in the alert box by the plane, shown, so family.js scrolls to it.
+        self.assertContains(r, '<div class="plane-error" role="alert" data-plane-error>')
+        page = self.client.get(reverse("trip_setup"))
+        self.assertContains(page, '<div class="plane-error" role="alert" data-plane-error hidden>')
         r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 8, "kid": 5})
         self.assertContains(r, "up to 12 people")
         self.assertFalse(Trip.objects.exists())
