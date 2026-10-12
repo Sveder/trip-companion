@@ -436,6 +436,24 @@
     rounds.forEach(shuffle);
   }
 
+  // T236: a kana word on a pick choice, a flip card or a match plate stays on one line. When it is wider than
+  // its card, the font shrinks in 5 percent steps (down to 55 percent) until the word fits.
+  var KANA = '.choice-word .jp, .flip .jp, .match-plate .jp';
+  function fitKana(scope) {
+    (scope || document).querySelectorAll(KANA).forEach(function (el) {
+      if (!el.offsetParent) return;
+      el.style.fontSize = '';
+      var box = el.parentElement, cs = getComputedStyle(box);
+      var room = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var base = parseFloat(getComputedStyle(el).fontSize), f = 1;
+      function wide() { return Math.max(el.scrollWidth, el.getBoundingClientRect().width); }
+      while (wide() > room + 0.5 && f > 0.55) {
+        f -= 0.05;
+        el.style.fontSize = (base * f) + 'px';
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-spots]').forEach(setupSpots);
     document.querySelectorAll('[data-game]').forEach(setupGame);
@@ -447,5 +465,9 @@
       });
     });
     document.querySelectorAll('[data-lesson]').forEach(setupLesson);
+    document.addEventListener('lpage-show', function (e) { fitKana(e.target); }, true);
+    window.addEventListener('resize', function () { fitKana(); });
+    window.addEventListener('load', function () { fitKana(); });
+    fitKana();
   });
 })();

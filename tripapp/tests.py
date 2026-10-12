@@ -300,6 +300,14 @@ class SpeakerMarkTests(TestCase):
         self.assertIn('<span class="say-mark" aria-hidden="true"></span>', lesson)
         self.assertNotIn("flip-say", lesson)
 
+    def test_game_kana_stays_on_one_line(self):
+        # T236: a kana word on a pick choice, a flip card or a match plate never breaks; JS shrinks it to fit.
+        css = self.read("static/css/app.css")
+        self.assertIn(".choice-word .jp, .flip .jp, .match-plate .jp { white-space: nowrap; word-break: keep-all;", css)
+        js = self.read("static/js/lesson.js")
+        self.assertIn("var KANA = '.choice-word .jp, .flip .jp, .match-plate .jp';", js)
+        self.assertIn("document.addEventListener('lpage-show', function (e) { fitKana(e.target); }, true);", js)
+
     def test_dot_tap_says_the_word(self):
         self.assertIn("window.tcSay = say", self.read("static/js/speak.js"))
         self.assertIn("classList.add('playing')", self.read("static/js/speak.js"))
