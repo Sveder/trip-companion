@@ -14,8 +14,8 @@ from courses.builder import build_course
 from trips.models import Traveller, Trip
 
 CONTENT = Path(settings.BASE_DIR) / "content" / "uzbekistan"
-# Japan files that carry reading_hebrew on every native word (T200; the rest follow in T201).
-HEBREW_DONE = [Path(settings.BASE_DIR) / "content" / "japan" / "food.yaml"]
+# Every content file: each native word with a reading carries reading_hebrew (T200, T201).
+ALL_CONTENT = Path(settings.BASE_DIR) / "content"
 
 
 class UzbekistanCourseTests(TestCase):
@@ -173,7 +173,7 @@ class HebrewReadingTests(TestCase):
         cls.jp_user = other
         cls.jp = build_course(jp, list(Module.objects.filter(country="japan", slug="words").values_list("id", flat=True)))
 
-    def test_every_uzbek_word_has_a_hebrew_spelling(self):
+    def test_every_native_word_has_a_hebrew_spelling(self):
         def dicts(node):
             if isinstance(node, dict):
                 yield node
@@ -183,8 +183,14 @@ class HebrewReadingTests(TestCase):
                 for v in node:
                     yield from dicts(v)
 
-        missing = [f"{path.name}: {d['japanese']}" for path in [*sorted(CONTENT.glob("*.yaml")), *HEBREW_DONE]
-                   for d in dicts(yaml.safe_load(path.read_text())) if d.get("japanese") and not d.get("reading_hebrew")]
+        def has_hebrew(d):
+            # A game item with no reading line says the word through say_he or label_he instead.
+            if d.get("reading"):
+                return bool(d.get("reading_hebrew"))
+            return bool(d.get("reading_hebrew") or d.get("say_he") or d.get("label_he"))
+
+        missing = [f"{path.relative_to(ALL_CONTENT)}: {d['japanese']}" for path in sorted(ALL_CONTENT.glob("**/*.yaml"))
+                   for d in dicts(yaml.safe_load(path.read_text())) if d.get("japanese") and not has_hebrew(d)]
         self.assertEqual(missing, [])
 
     @staticmethod

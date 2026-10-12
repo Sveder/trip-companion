@@ -91,6 +91,7 @@ activities:
         img: lesson/transport/trains.svg
         japanese: 電車
         reading: densha
+        reading_hebrew: "דנשה"
         text: In Japan, most families travel by train. The trains are clean, and they leave on time, to the minute. Let's learn how to ride them!
         text_he: ביפן, רוב המשפחות נוסעות ברכבת. הרכבות נקיות, והן יוצאות בזמן, בדיוק בדקה. בואו נלמד איך נוסעים בהן!
         tips:
@@ -250,6 +251,7 @@ activities:
         img: lesson/transport/shinkansen-big.svg
         japanese: 新幹線
         reading: shinkansen
+        reading_hebrew: "שינקנסן"
         text: The Shinkansen is the bullet train. It goes up to 320 km an hour, and it is famous for being on time. Families can eat their lunch box on the train.
         text_he: השינקנסן הוא רכבת הקליע. היא נוסעת עד 320 קמ"ש, והיא מפורסמת בזה שהיא מגיעה בזמן. משפחות יכולות לאכול על הרכבת את קופסת האוכל שלהן.
         tips:
@@ -297,6 +299,7 @@ activities:
             label_he: "מאספת"
             japanese: "かくえきていしゃ"
             reading: "kakueki teisha"
+            reading_hebrew: "קאקואקי טישה"
             text: "The local train stops at every station. Going to a small station? Take this one."
             text_he: "הרכבת המאספת עוצרת בכל תחנה. נוסעים לתחנה קטנה? לוקחים אותה."
           - img: "lesson/transport/rapid.svg"
@@ -304,6 +307,7 @@ activities:
             label_he: "מהירה ואקספרס"
             japanese: "かいそく"
             reading: "kaisoku"
+            reading_hebrew: "קאיסוקו"
             text: "Rapid and express trains skip the small stations. On most lines they cost nothing extra."
             text_he: "רכבות מהירות ורכבות אקספרס מדלגות על התחנות הקטנות. ברוב הקווים הן לא עולות יותר."
           - img: "lesson/transport/ltd.svg"
@@ -311,6 +315,7 @@ activities:
             label_he: "אקספרס מוגבל"
             japanese: "とっきゅう"
             reading: "tokkyuu"
+            reading_hebrew: "טוקקיו"
             text: "The limited express makes very few stops. On JR and on some other lines it needs an extra ticket."
             text_he: "האקספרס המוגבל עוצר בתחנות מעטות מאוד. ב-JR ובעוד כמה קווים צריך בשבילו כרטיס נוסף."
       - kind: train
@@ -396,6 +401,7 @@ activities:
         img: lesson/transport/takkyubin.svg
         japanese: 宅急便
         reading: takkyuubin
+        reading_hebrew: "טאקיובין"
         text: Big suitcases make train rides hard. In Japan, the hotel desk or a konbini can send them to your next hotel. You ride with small bags only.
         text_he: מזוודות גדולות מקשות על הנסיעה ברכבת. ביפן, הדלפק במלון או הקונביני יכולים לשלוח אותן למלון הבא. נוסעים רק עם תיקים קטנים.
         tips:

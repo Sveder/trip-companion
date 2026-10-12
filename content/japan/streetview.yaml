@@ -88,6 +88,7 @@ activities:
         img: lesson/street/hunt.svg
         japanese: 見つけた
         reading: mitsuketa
+        reading_hebrew: "מיצוקטה"
         text: A street in Japan has many things we do not have at home. This lesson shows you what to look for. Then you play the three hunts and find them in real places!
         text_he: ברחוב ביפן יש הרבה דברים שאין לנו בבית. השיעור הזה מראה לכם מה לחפש. אחר כך משחקים בשלושת הצידים ומוצאים אותם במקומות אמיתיים!
         tips:
@@ -161,6 +162,7 @@ activities:
             label_he: "מקדש שינטו: שער טוריאי"
             japanese: "じんじゃ"
             reading: "jinja"
+            reading_hebrew: "ג'ינג'ה"
             meaning: "Shinto shrine"
             meaning_he: "מקדש שינטו"
             text: "A torii gate shows you a shrine, a jinja: a Shinto place for the kami, the spirits of nature."
@@ -170,6 +172,7 @@ activities:
             label_he: "מקדש בודהיסטי: שער עץ גדול"
             japanese: "おてら"
             reading: "otera"
+            reading_hebrew: "אוטרה"
             meaning: "Buddhist temple"
             meaning_he: "מקדש בודהיסטי"
             text: "A big wooden gate with a roof shows a Buddhist temple, an otera. Two strong guardians often stand in it."
@@ -179,6 +182,7 @@ activities:
             label_he: "חיות השמירה"
             japanese: "こまいぬ"
             reading: "komainu"
+            reading_hebrew: "קומאינו"
             text: "Two lion-dogs, komainu, guard the way into many shrines. At a fox shrine, two foxes guard it."
             text_he: "שני כלבים-אריות, קומאינו, שומרים על הכניסה להרבה מקדשי שינטו. במקדש של שועלים, שני שועלים שומרים."
           - img: "lesson/street/incense.svg"
@@ -186,6 +190,7 @@ activities:
             label_he: "סיר הקטורת"
             japanese: "じょうこうろ"
             reading: "joukouro"
+            reading_hebrew: "ג'וקורו"
             text: "Many temples have a big pot of incense. People wave the smoke over their body, for good health."
             text_he: "בהרבה מקדשים בודהיסטיים יש סיר גדול של קטורת. מנפנפים את העשן על הגוף, לבריאות טובה."
       - kind: pick
@@ -255,6 +260,7 @@ activities:
         img: lesson/street/cats.svg
         japanese: 招き猫
         reading: maneki neko
+        reading_hebrew: "מאנקי נקו"
         text: The lucky cat, maneki-neko, holds one paw up. In Japan this wave means "come here!". Shops put a lucky cat by the door to call good luck and people in.
         text_he: חתול המזל, מנקי-נקו, מרים כף יד אחת. ביפן התנועה הזאת אומרת "בוא הנה!". חנויות שמות חתול מזל ליד הדלת כדי לקרוא למזל ולאנשים להיכנס.
         tips:
@@ -300,6 +306,7 @@ activities:
             label_he: "דגוצ'י"
             japanese: "でぐち"
             reading: "deguchi"
+            reading_hebrew: "דגוצ'י"
             meaning: "exit"
             meaning_he: "יציאה"
             text: "出口 means \"exit\", the way out. In many stations the exit signs are yellow."
@@ -309,6 +316,7 @@ activities:
             label_he: "איריגוצ'י"
             japanese: "いりぐち"
             reading: "iriguchi"
+            reading_hebrew: "איריגוצ'י"
             meaning: "entrance"
             meaning_he: "כניסה"
             text: "入口 means \"entrance\", the way in. The first letter looks like a person walking in."
@@ -318,6 +326,7 @@ activities:
             label_he: "אקי"
             japanese: "えき"
             reading: "eki"
+            reading_hebrew: "אקי"
             meaning: "station"
             meaning_he: "תחנה"
             text: "駅 means \"station\". Look for it when you need a train."
@@ -332,6 +341,7 @@ activities:
             label_he: "טוירה"
             japanese: "トイレ"
             reading: "toire"
+            reading_hebrew: "טוירה"
             meaning: "toilet"
             meaning_he: "שירותים"
             text: "トイレ says \"toire\". It means \"toilet\". Good to know!"
@@ -414,6 +424,7 @@ activities:
         img: lesson/street/manholes.svg
         japanese: マンホール
         reading: manhooru
+        reading_hebrew: "מנהול"
         text: Many towns in Japan have their own manhole cover. Each one shows a picture from that town, like a flower, a fish, a castle or a festival. Some are painted in bright colours.
         text_he: להרבה ערים ביפן יש מכסה ביוב משלהן. על כל אחד יש תמונה מהעיר, כמו פרח, דג, טירה או חג. חלק מהם צבועים בצבעים חזקים.
         tips:

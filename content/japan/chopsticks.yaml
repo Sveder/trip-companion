@@ -112,6 +112,7 @@ activities:
         img: lesson/chopsticks/hashi.svg
         japanese: 箸
         reading: hashi
+        reading_hebrew: "האשי"
         text: In Japan, chopsticks are called hashi. People in Japan eat almost everything with them. Rice, noodles, fish, and even salad!
         text_he: ביפן, לצ'ופסטיקס קוראים האשי. אנשים ביפן אוכלים כמעט הכל איתם. אורז, נודלס, דגים, ואפילו סלט!
         tips:
@@ -196,6 +197,7 @@ activities:
             label_he: "אדממה"
             japanese: "えだまめ"
             reading: "edamame"
+            reading_hebrew: "אדממה"
             text: "No chopsticks! Hold the pod and push the beans into your mouth. Empty pods go in a dish."
             text_he: "בלי צ'ופסטיקס! מחזיקים את התרמיל ודוחפים את השעועית לפה. תרמילים ריקים שמים בצלוחית."
           - img: "lesson/chopsticks/onigiri.svg"
@@ -203,6 +205,7 @@ activities:
             label_he: "כדור אורז"
             japanese: "おにぎり"
             reading: "onigiri"
+            reading_hebrew: "אוניגירי"
             text: "No chopsticks! A rice ball is food for your hands. Hold it by the seaweed."
             text_he: "בלי צ'ופסטיקס! כדור אורז אוכלים בידיים. מחזיקים אותו באצה."
       - kind: pick
@@ -254,6 +257,7 @@ activities:
             label_he: "מניחים אותם על המעמד"
             japanese: "はしおき"
             reading: "hashioki"
+            reading_hebrew: "האשיאוקי"
             meaning: "chopstick rest"
             meaning_he: "מעמד לצ'ופסטיקס"
             text: "When you stop to talk or drink, lay your chopsticks side by side on the small rest, the hashioki."
@@ -393,6 +397,7 @@ activities:
             label_he: "צ'ופסטיקס שמפרידים"
             japanese: "わりばし"
             reading: "waribashi"
+            reading_hebrew: "ואריבאשי"
             text: "Two wooden sticks, joined at the top. Pull them apart to eat. A konbini gives them with a lunch box."
             text_he: "שני מקלות עץ, מחוברים למעלה. מפרידים אותם לפני האוכל. בקונביני נותנים אותם עם קופסת אוכל."
           - img: "lesson/chopsticks/myhashi.svg"
@@ -400,6 +405,7 @@ activities:
             label_he: "הצ'ופסטיקס שלי"
             japanese: "マイはし"
             reading: "mai hashi"
+            reading_hebrew: "מאי האשי"
             text: "Some people carry their own chopsticks in a small case. No new wooden pair each time. Good for the trees!"
             text_he: "יש אנשים שמחזיקים צ'ופסטיקס משלהם בנרתיק קטן. ככה לא צריך זוג עץ חדש כל פעם. טוב לעצים!"
       - kind: pick

@@ -78,6 +78,7 @@ activities:
         img: lesson/safety/safe.svg
         japanese: 安全
         reading: anzen
+        reading_hebrew: "אנזן"
         text: Japan is one of the safest places in the world. Children there even walk to school on their own! We still learn the plan, so we know what to do if something goes wrong.
         text_he: יפן היא אחד המקומות הכי בטוחים בעולם. ילדים שם אפילו הולכים לבית הספר לבד! בכל זאת לומדים את התוכנית, כדי שנדע מה לעשות אם משהו משתבש.
         tips:
@@ -183,6 +184,7 @@ activities:
         img: lesson/safety/lost.svg
         japanese: 迷子
         reading: maigo
+        reading_hebrew: "מאיגו"
         text: Did you lose your family? Do not run to look for them. Stand still. Your family comes back to the place where they saw you last.
         text_he: איבדתם את המשפחה? לא רצים לחפש אותם. עומדים במקום. המשפחה חוזרת למקום שבו היא ראתה אתכם בפעם האחרונה.
         tips:
@@ -269,6 +271,7 @@ activities:
         img: lesson/safety/quake.svg
         japanese: 地震
         reading: jishin
+        reading_hebrew: "ג'ישין"
         text: Japan has many small earthquakes. Most of them are so small that people do not feel them. Buildings in Japan are made to stay strong when the ground shakes.
         text_he: ביפן יש הרבה רעידות אדמה קטנות. רובן כל כך קטנות שאנשים לא מרגישים אותן. הבניינים ביפן בנויים כדי להישאר חזקים כשהאדמה רועדת.
         tips:

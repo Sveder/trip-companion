@@ -86,6 +86,7 @@ activities:
         img: lesson/manners/bow.svg
         japanese: マナー
         reading: manaa
+        reading_hebrew: "מאנא"
         text: In Japan, people are kind to each other in many small ways. They call it "manaa", good manners. A visitor with good manners gets a lot of smiles. Let's learn the secret moves!
         text_he: ביפן, אנשים נחמדים אחד לשני בהרבה דרכים קטנות. קוראים לזה "מאנא", נימוסים טובים. אורח עם נימוסים טובים מקבל הרבה חיוכים. בואו נלמד את התנועות הסודיות!
         tips:
@@ -202,6 +203,7 @@ activities:
         img: lesson/manners/train.svg
         japanese: でんしゃ
         reading: densha
+        reading_hebrew: "דנשה"
         text: A train in Japan is very quiet, even when it is full. People read, look at their phones or sleep. Here is how to be a train pro.
         text_he: רכבת ביפן מאוד שקטה, גם כשהיא מלאה. אנשים קוראים, מסתכלים בטלפון או ישנים. ככה תהיו מקצוענים ברכבת.
         tips:
@@ -288,6 +290,7 @@ activities:
         img: lesson/manners/trash.svg
         japanese: ごみ
         reading: gomi
+        reading_hebrew: "גומי"
         text: The streets in Japan are very clean, but there are almost no trash bins! People carry their trash home. Keep a small bag in your pocket for wrappers and tissues.
         text_he: הרחובות ביפן מאוד נקיים, אבל כמעט אין פחי זבל! אנשים לוקחים את הזבל הביתה. תשמרו שקית קטנה בכיס לעטיפות ולממחטות.
         tips:
@@ -362,6 +365,7 @@ activities:
         img: lesson/manners/onsen.svg
         japanese: おんせん
         reading: onsen
+        reading_hebrew: "אונסן"
         text: An onsen is a big hot bath with water from the ground. Everybody shares the water, so everybody gets clean first.
         text_he: אונסן הוא אמבטיה גדולה וחמה עם מים מהאדמה. כולם חולקים את המים, אז כולם מתנקים קודם.
         tips:
@@ -384,6 +388,7 @@ activities:
         img: lesson/manners/escalator.svg
         japanese: エスカレーター
         reading: esukareetaa
+        reading_hebrew: "אסקרטא"
         text: On an escalator in Tokyo, people stand on the left side. In Osaka, they stand on the right! Look at the people in front of you and do the same.
         text_he: על מדרגות נעות בטוקיו, אנשים עומדים בצד שמאל. באוסקה, הם עומדים בצד ימין! מסתכלים על האנשים שלפניכם ועושים אותו דבר.
         tips:
