@@ -254,6 +254,8 @@ html.tv { font-size: 30px; }
 .tv .flip-back strong { font-size: .8rem; }
 /* T237: on the TV the lesson header is two short rows, so the lesson card starts high on the screen.
    Row 1: module, progress bar, 'Activity N of M'. Row 2: guide and title at the start, 'Page N of M' and the dots at the end. */
+/* The menu is one line on the TV in English too (at 30 px it wrapped to a second line of 53 px). */
+.tv .top-nav, .tv .top-menu { font-size: .8rem; }
 .tv .progress { flex-wrap: nowrap; align-items: center; gap: .6rem; margin-top: .2rem; font-size: .6rem; white-space: nowrap; }
 .tv .progress .bar { flex: 1 1 auto; order: 1; height: 8px; }
 .tv .progress > span:nth-child(2) { order: 2; }

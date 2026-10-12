@@ -212,6 +212,7 @@ class SushiLessonTests(TestCase):
         self.assertIn(".tv .lesson-pager { position: absolute; top: -2rem; right: 0; height: 1.8rem;", css)
         self.assertIn(".tv h1.lesson-title { height: 1.8rem; margin: 0 0 .2rem;", css)
         self.assertIn("html.tv[dir=rtl] .lesson-pager { right: auto; left: 0; }", css)
+        self.assertIn(".tv .top-nav, .tv .top-menu { font-size: .8rem; }", css)
         # Phones and desktop keep the centred counter under the title.
         self.assertIn(".lesson-count { margin: 0; color: var(--c-muted); font-weight: 700; text-align: center; }", css)
 
