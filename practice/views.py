@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 
 from analytics.models import track
+from courses.models import Course
 from trips.models import active_trip
 
 from .items import due_items, question
@@ -34,8 +35,12 @@ def quiz(request):
     if not state["keys"]:
         nxt = PracticeItem.objects.filter(trip=trip).order_by("due_on").first()
         missed = PracticeItem.objects.filter(trip=trip, last_result=False, due_on__gt=timezone.localdate()).exists()
+        # T208: the button leads on: no quiz yet opens the next activity, otherwise the course list.
+        course = Course.objects.filter(trip=trip).first()
+        nxt_activity = course.next_item() if course else None
         return render(request, "practice/empty.html", {
             "trip": trip, "next_item": nxt, "count": trip.practice_items.count(), "missed": missed,
+            "course": course, "next_activity": nxt_activity,
         })
 
     if request.method == "POST" and state["i"] < len(state["keys"]):

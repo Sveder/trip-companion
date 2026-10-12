@@ -14,6 +14,12 @@
   <h1>{% translate "No quiz yet" %}</h1>
   <p class="lead">{% translate "Do an activity first. Then the quiz asks you about it." %}</p>
   {% endif %}
+  {% if course and not count and next_activity %}
+  <a class="btn big" href="{% url 'activity' next_activity.id %}">{% translate "Start our course" %}</a>
+  {% elif course %}
+  <a class="btn big" href="{% url 'course' %}">{% translate "Our course" %}</a>
+  {% else %}
   <a class="btn big" href="{% url 'home' %}">{% translate "Back home" %}</a>
+  {% endif %}
 </section>
 {% endblock %}

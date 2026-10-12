@@ -213,6 +213,25 @@ class QuizFlowTests(TestCase):
         self.assertContains(page, "You got 0 of 1 right. The ones we missed come back tomorrow.")
         self.assertNotContains(page, "come back soon")
 
+    def test_empty_quiz_button_leads_to_the_course(self):
+        """T208: no quiz yet opens the next activity; no quiz today opens the course; no course goes home."""
+        trip = make_trip(self.user)
+        self.client.force_login(self.user)
+        page = self.client.get(reverse("quiz"))
+        self.assertContains(page, f'href="{reverse("home")}">Back home<')
+        course = build_course(trip, list(Module.objects.filter(slug="words").values_list("id", flat=True)))
+        nxt = reverse("activity", args=[course.next_item().id])
+        for lang, label in (("en", "Start our course"), ("he", "מתחילים את המסלול")):
+            self.client.cookies["django_language"] = lang
+            page = self.client.get(reverse("quiz"))
+            self.assertContains(page, f'href="{nxt}">{label}<')
+            self.assertNotContains(page, f'href="{reverse("home")}" ')
+        self.client.cookies["django_language"] = "en"
+        PracticeItem.objects.create(trip=trip, key="words/words-intro/hai", due_on=timezone.localdate() + timedelta(days=3))
+        page = self.client.get(reverse("quiz") + "?new=1")
+        self.assertContains(page, "No quiz today!")
+        self.assertContains(page, f'href="{reverse("course")}">Our course<')
+
     def test_quiz_ignores_a_stale_answer(self):
         trip = make_trip(self.user)
         PracticeItem.objects.create(trip=trip, key="words/words-intro/hai")
