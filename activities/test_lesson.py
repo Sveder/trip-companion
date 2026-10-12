@@ -77,6 +77,18 @@ class SushiLessonTests(TestCase):
         outside = re.sub(r"@media \(hover: hover\) \{[^\n]*\}\s*\}", "", css)
         self.assertNotIn(".belt:hover", outside)
 
+    def test_page_turn_slides_in_t199(self):
+        # Next and Back slide the new page in from the reading side; reduced motion keeps the plain swap.
+        root = Path(settings.BASE_DIR) / "static"
+        js = (root / "js" / "lesson.js").read_text()
+        self.assertIn("classList.add('enter')", js)
+        self.assertIn("at > from ? 'next' : 'back'", js)
+        css = (root / "css" / "app.css").read_text()
+        block = css.split("@media (prefers-reduced-motion: no-preference) {\n  .lesson .lpage.enter")[1].split("\n}")[0]
+        self.assertIn("animation: lpage-in 180ms ease-out", block)
+        self.assertIn('[dir="rtl"] .lesson .lpage.enter[data-dir="back"] { --lp-x: 24px; }', block)
+        self.assertIn("translateX(var(--lp-x)); opacity: .4;", css)
+
     def test_michael_feedback_t157(self):
         """The belt is 30 percent faster (21 s), and 'Keep going!' starts endless rounds with a kept best score."""
         root = Path(settings.BASE_DIR) / "static"

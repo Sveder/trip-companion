@@ -415,6 +415,15 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .lesson-dots .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--c-line); }
 .lesson-dots .dot.seen { background: var(--c-accent); }
 .lesson-dots .dot.on { background: var(--c-primary); transform: scale(1.3); }
+/* Next and Back: the new page slides in 24 px from the reading side, and its dot grows (T199). */
+@media (prefers-reduced-motion: no-preference) {
+  .lesson .lpage.enter { --lp-x: 24px; animation: lpage-in 180ms ease-out; }
+  .lesson .lpage.enter[data-dir="back"], [dir="rtl"] .lesson .lpage.enter { --lp-x: -24px; }
+  [dir="rtl"] .lesson .lpage.enter[data-dir="back"] { --lp-x: 24px; }
+  .lesson-dots .dot.on { animation: dot-grow 120ms ease-out; }
+}
+@keyframes lpage-in { from { transform: translateX(var(--lp-x)); opacity: .4; } to { transform: none; opacity: 1; } }
+@keyframes dot-grow { from { transform: scale(.6); } to { transform: scale(1.3); } }
 .lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: .4rem 0; }
 .lesson .lpic { display: block; width: 100%; max-width: 420px; height: auto; margin: .3rem auto; }
 .lesson .lemoji { font-size: 5rem; line-height: 1.1; }

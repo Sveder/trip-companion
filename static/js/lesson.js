@@ -20,10 +20,18 @@
     root.classList.add('paged');
     nav.hidden = false;
     function show(n, scroll) {
+      var from = at;
       at = Math.max(0, Math.min(pages.length - 1, n));
       for (var i = 0; i < pages.length; i++) {
         pages[i].hidden = i !== at;
+        pages[i].classList.remove('enter');
         if (dots[i]) dots[i].className = 'dot' + (i === at ? ' on' : i < at ? ' seen' : '');
+      }
+      // The new page slides in like a book page: from the reading side on Next, from the other side on Back (T199).
+      if (at !== from) {
+        pages[at].setAttribute('data-dir', at > from ? 'next' : 'back');
+        void pages[at].offsetWidth;
+        pages[at].classList.add('enter');
       }
       count.textContent = pages[at].getAttribute('data-label');
       pages[at].dispatchEvent(new CustomEvent('lpage-show'));
@@ -66,6 +74,9 @@
       if (Math.abs(dx) < 70 || (e.target.closest && (e.target.closest('.belt') || e.target.closest('[data-match]')))) return;
       var fwd = document.documentElement.dir === 'rtl' ? dx > 0 : dx < 0;
       show(at + (fwd ? 1 : -1), true);
+    });
+    root.addEventListener('animationend', function (e) {
+      if (e.target.classList && e.target.classList.contains('lpage')) e.target.classList.remove('enter');
     });
     show(0, false);
   }
