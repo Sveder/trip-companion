@@ -8,7 +8,7 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
 
-from content_admin.models import Activity
+from content_admin.models import Activity, Module
 from courses.builder import build_course
 from courses.models import CourseItem
 from trips.models import Traveller, Trip
@@ -1128,3 +1128,31 @@ class LazyLessonPhotoTests(TestCase):
                 self.assertIn('<noscript><style>.lesson .lpage[hidden] { display: block; }', html)
         js = (Path(settings.BASE_DIR) / "static" / "js" / "lesson.js").read_text()
         self.assertIn("im.loading = 'eager'", js)
+
+
+class NoRawTemplateSyntax(TestCase):
+    """T249: a Django {# #} comment over two lines rendered as text above every lesson card."""
+    RAW = ("{#", "#}", "{%", "%}")
+
+    def test_every_activity_of_both_countries_in_both_languages(self):
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        user = get_user_model().objects.create_user("raw@example.com", "raw@example.com")
+        self.client.force_login(user)
+        seen = 0
+        for country in ("japan", "uzbekistan"):
+            trip = Trip.objects.create(user=user, destination=country)
+            for age in (40, 5):
+                Traveller.objects.create(trip=trip, age=age)
+            modules = Module.objects.filter(country=country).values_list("id", flat=True)
+            course = build_course(trip, list(modules))
+            items = list(course.items.all())
+            self.assertTrue(items, country)
+            for item in items:
+                for lang in ("en", "he"):
+                    r = self.client.get(reverse("activity", args=[item.id]) + f"?lang={lang}")
+                    self.assertEqual(r.status_code, 200, (country, item.activity.slug, lang))
+                    html = r.content.decode()
+                    for token in self.RAW:
+                        self.assertNotIn(token, html, (country, item.activity.slug, lang, token))
+                    seen += 1
+        self.assertGreaterEqual(seen, 2 * 19)

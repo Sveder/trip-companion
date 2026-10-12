@@ -14,8 +14,8 @@
   <p class="lesson-count" data-count aria-live="polite">{% blocktranslate with total=pages|length %}Page 1 of {{ total }}{% endblocktranslate %}</p>
   <div class="lesson-dots" aria-hidden="true">{% for page in pages %}<span class="dot{% if forloop.first %} on{% endif %}"></span>{% endfor %}</div>
   {% include "includes/say_tip.html" %}
-  {# Pages 2-N start hidden, so their lazy pictures wait until Next opens the page (T227). Without JavaScript the
-     noscript rule shows every page, one under the other. #}
+  {% comment %}Pages 2-N start hidden, so their lazy pictures wait until Next opens the page (T227). Without JavaScript the
+     noscript rule shows every page, one under the other.{% endcomment %}
   <noscript><style>.lesson .lpage[hidden] { display: block; }</style></noscript>
   {% for page in pages %}{% with first_page=forloop.first %}
   <section class="lpage panel lpage-{{ page.kind }}" data-page{% if not first_page %} hidden{% endif %} data-label="{% blocktranslate with n=forloop.counter total=pages|length %}Page {{ n }} of {{ total }}{% endblocktranslate %}">
