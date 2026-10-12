@@ -181,3 +181,45 @@
   licence: CC BY-SA 2.0
   licence_url: https://creativecommons.org/licenses/by-sa/2.0
   source_url: https://commons.wikimedia.org/wiki/File:School_lunch_(4196393696).jpg
+- id: uz-chorsu
+  file: photo/uzbekistan/uz-chorsu.jpg
+  title: Chorsu Bazaar in Tashkent.jpg
+  author: Adam Harangozó
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Chorsu_Bazaar_in_Tashkent.jpg
+- id: uz-melon
+  file: photo/uzbekistan/uz-melon.jpg
+  title: Узбекистан, рынок Чорсу, бахчевая торговля.jpg
+  author: ElenaLitera
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:%D0%A3%D0%B7%D0%B1%D0%B5%D0%BA%D0%B8%D1%81%D1%82%D0%B0%D0%BD,_%D1%80%D1%8B%D0%BD%D0%BE%D0%BA_%D0%A7%D0%BE%D1%80%D1%81%D1%83,_%D0%B1%D0%B0%D1%85%D1%87%D0%B5%D0%B2%D0%B0%D1%8F_%D1%82%D0%BE%D1%80%D0%B3%D0%BE%D0%B2%D0%BB%D1%8F.jpg
+- id: uz-spices
+  file: photo/uzbekistan/uz-spices.jpg
+  title: Spice desk at Chorsu Bazaar.jpg
+  author: Dudva
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Spice_desk_at_Chorsu_Bazaar.jpg
+- id: uz-pomegranate
+  file: photo/uzbekistan/uz-pomegranate.jpg
+  title: Pomegranate fruit - whole and piece with arils.jpg
+  author: Ivar Leidus
+  licence: CC BY-SA 4.0
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0
+  source_url: https://commons.wikimedia.org/wiki/File:Pomegranate_fruit_-_whole_and_piece_with_arils.jpg
+- id: uz-apple
+  file: photo/uzbekistan/uz-apple.jpg
+  title: Red Apple.jpg
+  author: Abhijit Tembhekar from Mumbai, India
+  licence: CC BY 2.0
+  licence_url: https://creativecommons.org/licenses/by/2.0
+  source_url: https://commons.wikimedia.org/wiki/File:Red_Apple.jpg
+- id: uz-grapes
+  file: photo/uzbekistan/uz-grapes.jpg
+  title: Green Grape 3.jpg
+  author: Martin Kozák
+  licence: Public domain
+  licence_url: ''
+  source_url: https://commons.wikimedia.org/wiki/File:Green_Grape_3.jpg

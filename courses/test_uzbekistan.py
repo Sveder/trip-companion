@@ -31,13 +31,14 @@ class UzbekistanCourseTests(TestCase):
     def setUp(self):
         self.client.force_login(self.user)
 
-    def test_three_ready_modules_of_3_to_5_pages(self):
+    def test_ready_modules_of_3_to_5_pages(self):
+        # T234 added 'At the bazaar' (bazaar.yaml) to the first three.
         modules = Module.objects.filter(country="uzbekistan", ready=True)
-        self.assertEqual(sorted(m.slug for m in modules), ["food", "places", "words"])
+        self.assertEqual(sorted(m.slug for m in modules), ["bazaar", "food", "places", "words"])
         for act in Activity.objects.filter(module__country="uzbekistan"):
             self.assertEqual(act.type, "lesson")
             self.assertTrue(3 <= len(act.data["pages"]) <= 5, act.slug)
-        self.assertEqual(self.course.items.count(), 3)
+        self.assertEqual(self.course.items.count(), 4)
 
     def test_trip_form_offers_uzbekistan_and_keeps_other_places_coming_soon(self):
         page = self.client.get(reverse("trip_setup"))
@@ -61,8 +62,11 @@ class UzbekistanCourseTests(TestCase):
                 for pic in act["pictures"]:
                     self.assertTrue((Path(settings.BASE_DIR) / "static/img" / pic["img"]).exists(), pic["img"])
                 for page in act["pages"]:
-                    if page.get("reading"):
-                        self.assertTrue((Path(settings.BASE_DIR) / f"static/audio/uzbekistan/{page['reading']}.mp3").exists(), page["reading"])
+                    for word in [page, *page.get("cards", [])]:
+                        if word.get("reading"):
+                            self.assertTrue((Path(settings.BASE_DIR) / f"static/audio/uzbekistan/{word['reading']}.mp3").exists(), word["reading"])
+                        if word.get("img"):
+                            self.assertTrue((Path(settings.BASE_DIR) / "static/img" / word["img"]).exists(), word["img"])
                     if page.get("photo_credit"):
                         self.assertIn(page["photo_credit"], credits)
                     self.assertTrue(page.get("title_he") and (page.get("text_he") or not page.get("text")), page["title"])
@@ -105,6 +109,25 @@ class UzbekistanCourseTests(TestCase):
                 self.assertNotIn("choice-say", game)  # the Latin word is not printed twice
             else:
                 self.assertIn('<span class="choice-say">רחמת</span>', game)
+
+
+    def test_bazaar_lesson_counts_to_five_and_picks_the_fruit(self):
+        # T234 (Michael, 2026-10-12): 'At the bazaar', Chorsu, fruit, spices, count 1-5 with sound, a pick-the-fruit game.
+        item = self.course.items.get(activity__slug="uz-bazaar-lesson")
+        url = reverse("activity", args=[item.id])
+        en = self.client.get(url + "?lang=en")
+        self.assertContains(en, "A trip to the bazaar")
+        self.assertContains(en, "img/photo/uzbekistan/uz-chorsu.jpg")
+        for word in ("bir", "ikki", "uch", "tort", "besh", "olma", "anor", "uzum", "qovun", "zira", "chorsu"):
+            self.assertContains(en, f"audio/uzbekistan/{word}.mp3")
+        self.assertContains(en, "To&#x27;rt")
+        game = en.content.decode().rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
+        self.assertEqual(game.count('class="choice"'), 16)
+        he = self.client.get(url + "?lang=he")
+        self.assertContains(he, "טיול לשוק")
+        self.assertContains(he, 'Chorsu · <span class="he-say" lang="he">צ\'ורסו</span>'.replace("'", "&#x27;"))
+        credits = self.client.get(reverse("credits"))
+        self.assertContains(credits, "Chorsu Bazaar in Tashkent.jpg")
 
 
 class HebrewReadingTests(TestCase):
@@ -181,7 +204,7 @@ class HebrewReadingTests(TestCase):
         self.assertIn('Osh · <span class="he-say" lang="he">אוש</span>', food)
         words = self.page(self.uz, "uz-words-lesson", "he")
         self.assertIn('Rahmat · <span class="he-say" lang="he">רחמת</span>', words)
-        for slug in ("uz-food-lesson", "uz-words-lesson", "uz-places-lesson"):
+        for slug in ("uz-food-lesson", "uz-words-lesson", "uz-places-lesson", "uz-bazaar-lesson"):
             self.assertNotIn("he-say", self.page(self.uz, slug, "en"), slug)
 
     def test_japan_words_cards_show_the_hebrew_spelling(self):

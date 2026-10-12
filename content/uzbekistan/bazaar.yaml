@@ -1,0 +1,166 @@
+id: bazaar
+title: At the bazaar
+title_he: בשוק
+summary: Melons, spices and counting to five at a big Uzbek bazaar.
+summary_he: מלונים, תבלינים וספירה עד חמש בשוק אוזבקי גדול.
+emoji: "🍉"
+audience: all
+order: 40
+ready: true
+activities:
+  # Feedback T234 (Michael, 2026-10-12): two more Uzbekistan modules; this is the first one.
+  # Photos are from Wikimedia Commons (content/photo_credits.yaml). Uzbek Latin spelling. Facts checked 2026-10-12.
+  - id: uz-bazaar-lesson
+    title: A trip to the bazaar
+    title_he: טיול לשוק
+    type: lesson
+    intro: Swipe through the pages. Tap a word to hear it!
+    intro_he: עוברים דף אחרי דף. געו במילה כדי לשמוע אותה!
+    pictures:
+      - {id: chorsu, img: photo/uzbekistan/uz-chorsu.jpg, label: Chorsu Bazaar, label_he: שוק צ'ורסו, japanese: Chorsu, reading: chorsu, reading_hebrew: "צ'ורסו"}
+      - {id: olma, img: photo/uzbekistan/uz-apple.jpg, label: Apple, label_he: תפוח, japanese: Olma, reading: olma, reading_hebrew: "אולמה"}
+      - {id: anor, img: photo/uzbekistan/uz-pomegranate.jpg, label: Pomegranate, label_he: רימון, japanese: Anor, reading: anor, reading_hebrew: "אנור"}
+      - {id: uzum, img: photo/uzbekistan/uz-grapes.jpg, label: Grapes, label_he: ענבים, japanese: Uzum, reading: uzum, reading_hebrew: "אוזום"}
+      - {id: qovun, img: photo/uzbekistan/uz-melon.jpg, label: Melon, label_he: מלון, japanese: Qovun, reading: qovun, reading_hebrew: "קובון"}
+      - {id: zira, img: photo/uzbekistan/uz-spices.jpg, label: Cumin, label_he: כמון, japanese: Zira, reading: zira, reading_hebrew: "זירה"}
+    pages:
+      - kind: text
+        title: Chorsu, the bazaar with a blue dome
+        title_he: צ'ורסו, השוק עם הכיפה הכחולה
+        img: photo/uzbekistan/uz-chorsu.jpg
+        photo_credit: uz-chorsu
+        japanese: Chorsu
+        reading: chorsu
+        reading_hebrew: "צ'ורסו"
+        text: Chorsu is a giant bazaar in Tashkent, the capital city. Its big round roof is a dome made of blue and green tiles. People come to buy fruit, bread, spices and more.
+        text_he: צ'ורסו הוא שוק ענק בטשקנט, עיר הבירה. הגג העגול והגדול שלו הוא כיפה מאריחים כחולים וירוקים. אנשים באים לקנות פירות, לחם, תבלינים ועוד.
+        tips:
+          - A market is called a "bozor". You can buy hot round non bread there too.
+          - At the bazaar, people ask for a better price. A seller often gives you a little taste first.
+        tips_he:
+          - לשוק קוראים "בוזור". אפשר לקנות שם גם לחם נון חם ועגול.
+          - בשוק מבקשים מחיר טוב יותר. הרבה פעמים המוכר נותן לטעום קצת קודם.
+        source: https://en.wikipedia.org/wiki/Chorsu_Bazaar
+      - kind: flip
+        title: Fruit at the bazaar
+        title_he: פירות בשוק
+        text: Tap a card to turn it. Then say the Uzbek word!
+        text_he: געו בכרטיס כדי להפוך אותו. אחר כך אומרים את המילה באוזבקית!
+        cards:
+          - img: photo/uzbekistan/uz-apple.jpg
+            label: Apple
+            label_he: תפוח
+            japanese: Olma
+            reading: olma
+            reading_hebrew: "אולמה"
+            text: "\"Olma\" is an apple. Crunch!"
+            text_he: "\"אולמה\" זה תפוח. קראנץ'!"
+          - img: photo/uzbekistan/uz-pomegranate.jpg
+            label: Pomegranate
+            label_he: רימון
+            japanese: Anor
+            reading: anor
+            reading_hebrew: "אנור"
+            text: "\"Anor\" is a pomegranate, full of red seeds."
+            text_he: "\"אנור\" זה רימון, מלא גרגרים אדומים."
+          - img: photo/uzbekistan/uz-grapes.jpg
+            label: Grapes
+            label_he: ענבים
+            japanese: Uzum
+            reading: uzum
+            reading_hebrew: "אוזום"
+            text: "\"Uzum\" means grapes. Many are dried into raisins."
+            text_he: "\"אוזום\" זה ענבים. מהרבה ענבים מייבשים צימוקים."
+          - img: photo/uzbekistan/uz-melon.jpg
+            label: Melon
+            label_he: מלון
+            japanese: Qovun
+            reading: qovun
+            reading_hebrew: "קובון"
+            text: "\"Qovun\" is a melon. Uzbek melons are sweet and some are long like a rugby ball."
+            text_he: "\"קובון\" זה מלון. המלונים באוזבקיסטן מתוקים, ויש מלונים ארוכים כמו כדור רוגבי."
+        source: https://en.wikipedia.org/wiki/Uzbek_cuisine
+      - kind: text
+        title: Zira, the spice for plov
+        title_he: זירה, התבלין של הפלוב
+        img: photo/uzbekistan/uz-spices.jpg
+        photo_credit: uz-spices
+        japanese: Zira
+        reading: zira
+        reading_hebrew: "זירה"
+        text: At the bazaar, spices sit in big colorful piles. Zira is cumin, the little seeds that go into plov. Sniff it. It smells warm!
+        text_he: בשוק התבלינים עומדים בערימות גדולות וצבעוניות. זירה זה כמון, הגרגרים הקטנים שמכניסים לפלוב. הריחו. יש לו ריח חם!
+        tips:
+          - Red pepper, black pepper and yellow spices sit side by side. Can you find three colors in the photo?
+        tips_he:
+          - פלפל אדום, פלפל שחור ותבלינים צהובים עומדים אחד ליד השני. מוצאים שלושה צבעים בתמונה?
+        source: https://en.wikipedia.org/wiki/Cumin
+      - kind: flip
+        title: Count to five
+        title_he: סופרים עד חמש
+        text: Count the apples with your fingers. Tap a card to turn it.
+        text_he: סופרים את התפוחים עם האצבעות. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: lesson/uzbekistan/bir.svg
+            label: One
+            label_he: אחת
+            japanese: Bir
+            reading: bir
+            reading_hebrew: "ביר"
+            text: "Bir! One apple."
+            text_he: "ביר! תפוח אחד."
+          - img: lesson/uzbekistan/ikki.svg
+            label: Two
+            label_he: שתיים
+            japanese: Ikki
+            reading: ikki
+            reading_hebrew: "איקי"
+            text: "Ikki! Two apples."
+            text_he: "איקי! שני תפוחים."
+          - img: lesson/uzbekistan/uch.svg
+            label: Three
+            label_he: שלוש
+            japanese: Uch
+            reading: uch
+            reading_hebrew: "אוץ'"
+            text: "Uch! Three apples."
+            text_he: "אוץ'! שלושה תפוחים."
+          - img: lesson/uzbekistan/tort.svg
+            label: Four
+            label_he: ארבע
+            japanese: "To'rt"
+            reading: tort
+            reading_hebrew: "טורט"
+            text: "To'rt! Four apples."
+            text_he: "טורט! ארבעה תפוחים."
+          - img: lesson/uzbekistan/besh.svg
+            label: Five
+            label_he: חמש
+            japanese: Besh
+            reading: besh
+            reading_hebrew: "בש"
+            text: "Besh! Five apples. Now count back: besh, to'rt, uch, ikki, bir!"
+            text_he: "בש! חמישה תפוחים. עכשיו סופרים אחורה: בש, טורט, אוץ', איקי, ביר!"
+        source: https://en.wikipedia.org/wiki/Uzbek_language
+      - kind: pick
+        title: Pick the fruit
+        title_he: בוחרים פרי
+        text: Last game! You are at the bazaar. Tap the right fruit.
+        text_he: משחק אחרון! אתם בשוק. געו בפרי הנכון.
+        rounds:
+          - ask: "Red and round, with a crunch. Where is the \"olma\"?"
+            ask_he: "אדום ועגול, ועושה קראנץ'. איפה ה\"אולמה\"?"
+            answer: olma
+            choices: [anor, olma, qovun, uzum]
+          - ask: "Full of little red seeds. Where is the \"anor\"?"
+            ask_he: "מלא גרגרים אדומים קטנים. איפה ה\"אנור\"?"
+            answer: anor
+            choices: [anor, uzum, olma, qovun]
+          - ask: "Small and green, in a bunch. Where is the \"uzum\"?"
+            ask_he: "קטנים וירוקים, באשכול. איפה ה\"אוזום\"?"
+            answer: uzum
+            choices: [qovun, olma, uzum, anor]
+          - ask: "Big, sweet and yellow. Where is the \"qovun\"?"
+            ask_he: "גדול, מתוק וצהוב. איפה ה\"קובון\"?"
+            answer: qovun
+            choices: [uzum, qovun, anor, olma]
