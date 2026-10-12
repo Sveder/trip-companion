@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from accounts.views import user_for_email
+from accounts.views import make_account
 
 
 class Command(BaseCommand):
@@ -10,7 +10,7 @@ class Command(BaseCommand):
         parser.add_argument("email")
 
     def handle(self, *args, email, **options):
-        user = user_for_email(email.strip().lower())
+        user = make_account(email.strip().lower())
         user.is_staff = user.is_superuser = True
         user.save(update_fields=["is_staff", "is_superuser"])
         self.stdout.write(self.style.SUCCESS(f"{user.email} is a superuser"))

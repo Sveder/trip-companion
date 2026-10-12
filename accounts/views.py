@@ -1,4 +1,8 @@
-"""The email-code sign-in page. Families no longer need it (T144: guest families); staff use it for the admin."""
+"""The email-code sign-in page. Families no longer need it (T144: guest families); staff use it for the admin.
+
+T191: the page makes no new accounts and mails a code only to an address that has an account. It is rate
+limited per address and per IP address, so nobody can use it to flood an inbox.
+"""
 from allauth.account.internal.flows.login_by_code import LoginCodeVerificationProcess
 from allauth.account.models import EmailAddress
 from django.contrib.auth import get_user_model
@@ -6,9 +10,11 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme, urlencode
 
-from analytics.models import track
-
 from .forms import EmailForm
+from .link import client_ip, over_limit
+
+SIGNIN_ADDRESS_LIMIT = 3  # codes per address per hour
+SIGNIN_IP_LIMIT = 10  # codes per IP address per hour
 
 
 def safe_next(request):
@@ -26,6 +32,11 @@ def signin(request):
     form = EmailForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         email = form.cleaned_data["email"].strip().lower()
+        if over_limit(f"signin:email:{email}", SIGNIN_ADDRESS_LIMIT) or \
+                over_limit(f"signin:ip:{client_ip(request)}", SIGNIN_IP_LIMIT):
+            return render(request, "accounts/signin.html", {"form": form, "next_url": next_url, "wait": True}, status=429)
+        # An unknown address goes to the same code page, so the page does not tell who has an account.
+        # ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False: no mail goes to it.
         user = user_for_email(email)
         LoginCodeVerificationProcess.initiate(request=request, user=user, email=email)
         url = reverse("account_confirm_login_code")
@@ -34,15 +45,19 @@ def signin(request):
 
 
 def user_for_email(email):
-    User = get_user_model()
+    """The account of this address, or None. The old sign-in made a family here; guest families replaced that."""
     address = EmailAddress.objects.filter(email__iexact=email).select_related("user").first()
     if address:
         return address.user
-    user = User.objects.filter(email__iexact=email).first()
+    return get_user_model().objects.filter(email__iexact=email).first()
+
+
+def make_account(email):
+    """The account of this address; a new one when none exists. Only `manage.py make_superuser` makes one now."""
+    user = user_for_email(email)
     if user is None:
-        user = User.objects.create_user(username=email[:150], email=email)
+        user = get_user_model().objects.create_user(username=email[:150], email=email)
         user.set_unusable_password()
         user.save()
-        track("signed_up", user=user)
     EmailAddress.objects.get_or_create(user=user, email=email, defaults={"primary": True, "verified": False})
     return user

@@ -113,6 +113,9 @@ class AdminEditTests(TestCase):
         self.assertRedirects(self.client.get(reverse("admin:login")), reverse("home"), fetch_redirect_response=False)
 
     def test_signin_passes_next_to_the_code_page(self):
+        from django.core.cache import cache
+
+        cache.clear()
         r = self.client.post(reverse("signin") + "?next=/admin/", {"email": "boss@example.com"})
         self.assertEqual(r["Location"], reverse("account_confirm_login_code") + "?next=%2Fadmin%2F")
         r = self.client.post(reverse("signin") + "?next=https://evil.example/", {"email": "boss@example.com"})

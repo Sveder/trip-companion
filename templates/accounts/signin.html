@@ -4,6 +4,7 @@
 {% block content %}
 <section class="panel narrow">
   <h1>{% translate "Sign in" %}</h1>
+  {% if wait %}<p class="msg">{% translate "Try again in an hour" %}</p>{% endif %}
   <p>{% translate "Type your email. We send you a 6-digit code. No password needed." %}</p>
   <form method="post" class="form">
     {% csrf_token %}

@@ -141,7 +141,6 @@ class HeaderClearOfBadgeTests(TestCase):
     def test_tablet_header_puts_the_language_link_beside_sound(self):
         # T184: at 601-1279 px the language link wrapped to a row of its own. Row 1 is now brand, Sound on and the
         # language link; the nav is row 2 and stays inside the 140 px right padding, clear of the corner badge.
-        import re
         from pathlib import Path
         from django.conf import settings
         css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text()

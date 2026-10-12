@@ -261,7 +261,6 @@ class LessonQuizTests(TestCase):
 
     def test_every_hebrew_spot_prompt_has_no_latin_letters(self):
         """T123: in Hebrew every spots question of every lesson asks with Hebrew letters ('נטה', not 'neta')."""
-        import re
 
         from .items import item_key, quiz_entries
 

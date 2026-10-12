@@ -9,8 +9,21 @@ from django.urls import reverse
 from analytics.models import Event
 
 
+def account(email):
+    """T191: the sign-in page mails a code only to an address that has an account."""
+    from django.core.cache import cache
+
+    from accounts.views import make_account
+
+    cache.clear()  # the sign-in rate limit counts per address and per IP address
+    return make_account(email)
+
+
 class SignInMessageTests(TestCase):
     """Sign-in shows one short friendly line, not allauth's grown-up banners."""
+
+    def setUp(self):
+        account("kid@example.com")
 
     def test_code_page_has_no_banner(self):
         r = self.client.post("/signin/", {"email": "kid@example.com"}, follow=True)
@@ -31,6 +44,11 @@ class SignInMessageTests(TestCase):
 
 class SixDigitCodeTests(TestCase):
     """Michael (feedback #1): the sign-in code is 6 digits, numbers only."""
+
+    def setUp(self):
+        for n in range(5):
+            account(f"kid{n}@example.com")
+        account("kid@example.com")
 
     def test_email_code_is_six_digits(self):
         for n in range(5):

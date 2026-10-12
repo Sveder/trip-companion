@@ -10,4 +10,9 @@ venv/bin/python manage.py collectstatic --noinput -v0
 # Only our own files: a root-owned file (a hand-made test page) must not stop the restart below.
 find staticfiles -user "$(id -u)" -exec chmod a+rX {} +
 sudo install -m 644 deploy/trip-reminders.cron /etc/cron.d/trip-reminders
+# The unit (T191: the gunicorn log hides link tokens). Reload systemd only when the file changed.
+if ! cmp -s deploy/trip.service /etc/systemd/system/trip.service; then
+    sudo install -m 644 deploy/trip.service /etc/systemd/system/trip.service
+    sudo systemctl daemon-reload
+fi
 sudo systemctl restart trip

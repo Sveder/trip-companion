@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "tripapp.security.ContentSecurityPolicyMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -83,6 +84,10 @@ CACHES = {
     }
 }
 
+if sys.argv[1:2] == ["test"]:
+    # Tests must not share (or wipe) the dev server's file cache. Each rate-limit test clears this one.
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -123,6 +128,9 @@ CLIP_ROOT = Path(os.environ.get("TRIP_CLIP_ROOT", BASE_DIR / "private" / "clips"
 CLIP_MAX_BYTES = 40 * 1024 * 1024
 # A phone photo. The page shrinks it in the browser first; this limit is for a browser that cannot.
 PHOTO_MAX_BYTES = 25 * 1024 * 1024
+# T191: a cap per trip, so one browser cannot fill the disk.
+PHOTO_MAX_PER_TRIP = 300
+CLIP_MAX_PER_TRIP = 60
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -135,6 +143,8 @@ ACCOUNT_LOGIN_BY_CODE_TIMEOUT = 15 * 60
 ACCOUNT_LOGIN_BY_CODE_FORMAT = {"length": 6, "numeric": True, "dashed": False}
 ACCOUNT_FORMS = {"confirm_login_code": "accounts.forms.SixDigitCodeForm"}
 ACCOUNT_EMAIL_VERIFICATION = "none"
+# T191: a code request for an address with no account sends no mail (the sign-in page cannot spam an inbox).
+ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "Trip Companion: "
 LOGIN_URL = "signin"
@@ -158,6 +168,10 @@ else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 if not DEBUG:
+    if SECRET_KEY == "dev-only-not-secret":
+        from django.core.exceptions import ImproperlyConfigured
+
+        raise ImproperlyConfigured("Set DJANGO_SECRET_KEY: production never runs on the dev key (T191).")
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -188,7 +202,11 @@ SENTRY_JS_LOADER = os.environ.get("SENTRY_JS_LOADER", "")
 if SENTRY_DSN and sentry_wanted(sys.argv):
     import sentry_sdk
 
+    from tripapp.redact import scrub_event
+
     sentry_sdk.init(
+        before_send=scrub_event,
+        before_send_transaction=scrub_event,
         dsn=SENTRY_DSN,
         environment=os.environ.get("SENTRY_ENVIRONMENT", "production"),
         traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "0.1")),

@@ -11,6 +11,7 @@ from analytics.models import track
 from content_admin.i18n import localize
 from courses.models import CourseItem
 from practice.items import add_items
+from tripapp.security import private_file
 
 from .links import find_link, visible_links
 from .models import Clip, ReferralClick
@@ -139,6 +140,8 @@ def clip_save(request, item_id):
     upload = request.FILES.get("clip")
     if upload is None or upload.size == 0:
         return HttpResponseBadRequest("No clip.")
+    if Clip.objects.filter(trip=item.course.trip).count() >= settings.CLIP_MAX_PER_TRIP:
+        return HttpResponseBadRequest("Too many clips.")
     if upload.size > settings.CLIP_MAX_BYTES:
         return HttpResponseBadRequest("The clip is too long.")
     content_type = (upload.content_type or "").split(";")[0].strip().lower()
@@ -155,7 +158,7 @@ def clip_save(request, item_id):
 @family_required
 def clip_file(request, clip_id):
     clip = get_object_or_404(Clip, id=clip_id, trip__user=request.user)
-    return FileResponse(clip.file.open("rb"), content_type=clip.content_type)
+    return private_file(FileResponse(clip.file.open("rb"), content_type=clip.content_type))
 
 
 @family_required

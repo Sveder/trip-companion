@@ -3,6 +3,7 @@ from urllib.parse import urlsplit
 from datetime import date, timedelta
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core import mail
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management import call_command
@@ -33,8 +34,10 @@ class EventTests(TestCase):
 
     def test_journey_writes_one_event_per_action(self):
         c = self.client
+        # T191: the sign-in page makes no account. A family with an email account signs in with a code.
+        get_user_model().objects.create_user(username="fam@example.com", email="fam@example.com")
+        cache.clear()
         c.post(reverse("signin"), {"email": "fam@example.com"})
-        self.assertOne("signed_up")
         code = re.search(r"code is:\s+(\S+)", mail.outbox[0].body).group(1)
         c.post(reverse("account_confirm_login_code"), {"code": code})
         self.assertOne("signed_in")

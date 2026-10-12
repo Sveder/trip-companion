@@ -178,6 +178,8 @@ class FlowTests(TestCase):
     def test_signin_by_email_code_then_setup_build_and_next(self):
         c = self.client
         self.assertContains(c.get("/"), "Uzbekistan")
+        # T191: the sign-in page mails a code only to an address that has an account (an old email family).
+        get_user_model().objects.create_user(username="parent@example.com", email="parent@example.com")
         r = c.post(reverse("signin"), {"email": "Parent@Example.com"})
         self.assertRedirects(r, reverse("account_confirm_login_code"), fetch_redirect_response=False)
         self.assertEqual(len(mail.outbox), 1)

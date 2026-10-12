@@ -52,7 +52,7 @@ def owner_of(email):
     return get_user_model().objects.filter(email__iexact=email).first()
 
 
-def _over_limit(key, limit):
+def over_limit(key, limit):
     cache.add(key, 0, WINDOW)
     try:
         count = cache.incr(key)
@@ -62,7 +62,8 @@ def _over_limit(key, limit):
     return count > limit
 
 
-def _client_ip(request):
+def client_ip(request):
+    """nginx sets X-Real-IP to the real address and overwrites a value the browser sent (deploy/nginx-trip.conf)."""
     return request.META.get("HTTP_X_REAL_IP") or request.META.get("REMOTE_ADDR") or "?"
 
 
@@ -84,8 +85,8 @@ def continue_page(request):
     if request.method == "POST" and form.is_valid():
         email = form.cleaned_data["email"].strip().lower()
         me = contact_for(request.user)
-        if _over_limit(f"continue:family:{request.user.pk}", FAMILY_LIMIT) or \
-                _over_limit(f"continue:ip:{_client_ip(request)}", IP_LIMIT):
+        if over_limit(f"continue:family:{request.user.pk}", FAMILY_LIMIT) or \
+                over_limit(f"continue:ip:{client_ip(request)}", IP_LIMIT):
             return render(request, "accounts/continue.html", {"state": "wait"}, status=429)
         owner = owner_of(email)
         if owner is None:

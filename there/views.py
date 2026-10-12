@@ -11,6 +11,7 @@ from analytics.models import track
 from content_admin.i18n import localize
 from courses.highlights import trip_phase
 from trips.models import active_trip
+from tripapp.security import private_file
 
 from .models import Photo
 from .shrink import shrink_upload
@@ -53,6 +54,8 @@ def add_photo(request, thing):
     upload = request.FILES.get("photo")
     if upload is None or upload.size == 0:
         return HttpResponseBadRequest("No photo.")
+    if Photo.objects.filter(trip=trip).count() >= settings.PHOTO_MAX_PER_TRIP:
+        return HttpResponseBadRequest("Too many photos.")
     if upload.size > settings.PHOTO_MAX_BYTES:
         return HttpResponseBadRequest("The photo is too big.")
     content_type = (upload.content_type or "").split(";")[0].strip().lower()
@@ -73,7 +76,7 @@ def photo_file(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id, trip__user=request.user)
     response = FileResponse(photo.file.open("rb"), content_type=photo.content_type)
     response["Cache-Control"] = "private, max-age=86400"
-    return response
+    return private_file(response)
 
 
 @family_required
