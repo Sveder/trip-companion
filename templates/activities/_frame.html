@@ -10,7 +10,7 @@
   <div class="bar"><div class="fill" style="width: {% widthratio progress.done progress.total 100 %}%"></div></div>
 </div>
 {% endif %}
-<h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{{ activity.local_title }}</span></h1>
+<h1 class="with-guide{% block h1class %}{% endblock %}">{% include "includes/guide.html" with cls="title-guide" %}<span>{{ activity.local_title }}</span></h1>
 {% block intro %}{% if data.intro %}<p class="lead">{{ data.intro }}</p>{% endif %}{% endblock %}
 {% block saytip %}{% include "includes/say_tip.html" %}{% endblock %}
 {% block activity %}{% endblock %}

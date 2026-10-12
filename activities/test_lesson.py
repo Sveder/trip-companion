@@ -200,6 +200,21 @@ class SushiLessonTests(TestCase):
         self.item.refresh_from_db()
         self.assertIsNotNone(self.item.done_at)
 
+    def test_tv_header_is_two_rows(self):
+        """T237: the title row carries a class, and 'Page N of M' + the dots sit in one box, so on the TV they move to the
+        end of the title row. The browser check is trip-companion-tools/t237_tv_head.cjs (card top at most 260 px)."""
+        html = self.page()
+        self.assertIn('<h1 class="with-guide lesson-title">', html)
+        pager = html[html.index('<div class="lesson-pager">'):]
+        self.assertLess(pager.index("data-count"), pager.index('class="lesson-dots"'))
+        self.assertLess(pager.index('class="lesson-dots"'), pager.index("</div>\n  </div>"))
+        css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
+        self.assertIn(".tv .lesson-pager { position: absolute; top: -2rem; right: 0; height: 1.8rem;", css)
+        self.assertIn(".tv h1.lesson-title { height: 1.8rem; margin: 0 0 .2rem;", css)
+        self.assertIn("html.tv[dir=rtl] .lesson-pager { right: auto; left: 0; }", css)
+        # Phones and desktop keep the centred counter under the title.
+        self.assertIn(".lesson-count { margin: 0; color: var(--c-muted); font-weight: 700; text-align: center; }", css)
+
 
 class NewActivityJoinsBuiltCourses(TestCase):
     def test_load_content_adds_a_new_activity_and_keeps_done_marks(self):

@@ -252,6 +252,19 @@ html.tv { font-size: 30px; }
 .tv .flip-front strong { line-height: 1.2; }
 .tv .flip-back { font-size: .7rem; line-height: 1.3; }
 .tv .flip-back strong { font-size: .8rem; }
+/* T237: on the TV the lesson header is two short rows, so the lesson card starts high on the screen.
+   Row 1: module, progress bar, 'Activity N of M'. Row 2: guide and title at the start, 'Page N of M' and the dots at the end. */
+.tv .progress { flex-wrap: nowrap; align-items: center; gap: .6rem; margin-top: .2rem; font-size: .6rem; white-space: nowrap; }
+.tv .progress .bar { flex: 1 1 auto; order: 1; height: 8px; }
+.tv .progress > span:nth-child(2) { order: 2; }
+.tv h1.lesson-title { height: 1.8rem; margin: 0 0 .2rem; font-size: 1.3rem; padding-inline-end: 36%; white-space: nowrap; overflow: hidden; }
+.tv h1.lesson-title > span { overflow: hidden; text-overflow: ellipsis; }
+.tv .lesson-title .guide.title-guide { width: 1.8rem; height: 1.8rem; }
+.tv .lesson { position: relative; }
+.tv .lesson-pager { position: absolute; top: -2rem; right: 0; height: 1.8rem; max-width: 35%; display: flex; align-items: center; gap: .5rem; font-size: .6rem; }
+html.tv[dir=rtl] .lesson-pager { right: auto; left: 0; }
+.tv .lesson-pager .lesson-dots { margin: 0; flex-wrap: nowrap; }
+.tv .lesson .lpage { margin-top: 0; }
 .tv .tv-hint { text-align: center; color: var(--c-muted); font-size: .8rem; }
 .tv-debug { position: fixed; left: .5rem; bottom: .5rem; z-index: 99; max-width: 60vw; padding: .4rem .6rem; background: rgba(0, 0, 0, .8); color: #fff; font: 14px/1.35 monospace; pointer-events: none; }
 
@@ -734,6 +747,8 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .say-tip[hidden] { display: none; }
 .say-tip .say-mark { background-color: var(--c-ink); margin: 0; width: 1.2em; height: 1.2em; flex: none; }
 @media (prefers-reduced-motion: reduce) { .say-tip { transition: none; } }
+/* T237: on the TV the hint is a small line, so the lesson card starts high on the screen. */
+.tv .lesson .say-tip { margin: 0 auto .3rem; padding: .1rem .6rem; font-size: .55rem; }
 /* On a phone the toggle keeps only its mark, so the header stays one line (T105). The word stays for screen readers. */
 @media (max-width: 600px) {
   .sound-btn { padding: .45rem .55rem; border-radius: 999px; background: var(--c-bg); }
