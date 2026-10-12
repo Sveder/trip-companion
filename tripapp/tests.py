@@ -159,6 +159,8 @@ class HeaderMenuTests(TestCase):
     def test_signed_in_header_has_the_menu_button_and_the_links(self):
         from django.contrib.auth import get_user_model
         u = get_user_model().objects.create_user("m@example.com", "m@example.com", "pw-123456")
+        from trips.models import Trip
+        Trip.objects.create(user=u, destination="japan")
         self.client.force_login(u)
         html = self.client.get("/", follow=True).content.decode()
         self.assertIn('class="menu-btn link" aria-expanded="false" aria-controls="top-menu" aria-label="Menu"', html)
@@ -172,6 +174,44 @@ class HeaderMenuTests(TestCase):
         self.assertNotIn("menu-btn", html)
         self.assertIn('class="top-menu" id="top-menu"', html)
         self.assertIn("lang-switch", html)
+
+
+class HeaderTripLinksTests(TestCase):
+    """T210: the course, quiz and hunt links show only when they lead somewhere."""
+
+    def nav(self, destination=None, lang="en"):
+        import re
+        from django.contrib.auth import get_user_model
+        from trips.models import Trip
+        u = get_user_model().objects.create_user(f"{destination}{lang}@example.com", "", "pw-123456")
+        if destination:
+            Trip.objects.create(user=u, destination=destination)
+        self.client.force_login(u)
+        self.client.cookies.load({"django_language": lang})
+        html = self.client.get("/trip/").content.decode()
+        return re.search(r'<nav class="top-nav">(.*?)</nav>', html, re.S).group(1)
+
+    def test_no_trip_shows_no_course_quiz_or_hunt_link(self):
+        from django.urls import reverse
+        for lang in ("en", "he"):
+            nav = self.nav(None, lang)
+            for name in ("course", "quiz", "there"):
+                self.assertNotIn(f'href="{reverse(name)}"', nav, (lang, name))
+            self.assertIn(f'href="{reverse("trip_setup")}"', nav)
+
+    def test_japan_trip_shows_all_three(self):
+        from django.urls import reverse
+        nav = self.nav("japan")
+        for name in ("course", "quiz", "there"):
+            self.assertIn(f'href="{reverse(name)}"', nav, name)
+        self.assertIn("In Japan", nav)
+
+    def test_uzbek_trip_shows_course_and_quiz_but_no_hunt(self):
+        from django.urls import reverse
+        nav = self.nav("uzbekistan")
+        self.assertIn(f'href="{reverse("course")}"', nav)
+        self.assertIn(f'href="{reverse("quiz")}"', nav)
+        self.assertNotIn(f'href="{reverse("there")}"', nav)
 
 
 class OldTvBrowserTests(TestCase):
