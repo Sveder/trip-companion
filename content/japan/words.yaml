@@ -99,6 +99,7 @@ activities:
         img: lesson/words/konnichiwa.svg
         japanese: こんにちは
         reading: konnichiwa
+        reading_hebrew: "קוניצ'יווה"
         text: A few Japanese words open a lot of smiles. People in Japan are very happy when a visitor says hello in Japanese. Tap the word to hear it.
         text_he: כמה מילים ביפנית פותחות הרבה חיוכים. אנשים ביפן מאוד שמחים כשאורח אומר שלום ביפנית. געו במילה כדי לשמוע אותה.
       - kind: flip
@@ -112,6 +113,7 @@ activities:
             label_he: "אוהאיו"
             japanese: "おはよう"
             reading: "ohayou"
+            reading_hebrew: "אוהאיו"
             text: "Good morning! Say it when you wake up. To a grown-up, say \"ohayou gozaimasu\"."
             text_he: "בוקר טוב! אומרים את זה כשמתעוררים. למבוגר אומרים \"אוהאיו גוזאימס\"."
           - img: "lesson/words/konnichiwa.svg"
@@ -119,6 +121,7 @@ activities:
             label_he: "קוניצ'יווה"
             japanese: "こんにちは"
             reading: "konnichiwa"
+            reading_hebrew: "קוניצ'יווה"
             text: "Hello! Say it in the day, from late morning until it gets dark."
             text_he: "שלום! אומרים את זה ביום, מסוף הבוקר ועד שמחשיך."
           - img: "lesson/words/konbanwa.svg"
@@ -126,6 +129,7 @@ activities:
             label_he: "קונבנווה"
             japanese: "こんばんは"
             reading: "konbanwa"
+            reading_hebrew: "קונבנווה"
             meaning: "good evening"
             meaning_he: "ערב טוב"
             text: "Good evening! Say it when it is dark outside."
@@ -135,6 +139,7 @@ activities:
             label_he: "אויאסומי"
             japanese: "おやすみ"
             reading: "oyasumi"
+            reading_hebrew: "אויאסומי"
             meaning: "good night"
             meaning_he: "לילה טוב"
             text: "Good night! Say it before you go to sleep."
@@ -144,6 +149,7 @@ activities:
             label_he: "סאיונרה"
             japanese: "さようなら"
             reading: "sayounara"
+            reading_hebrew: "סאיונרה"
             text: "Goodbye! Friends often say \"bai bai\" too, like \"bye bye\"."
             text_he: "להתראות! חברים אומרים הרבה פעמים גם \"באי באי\", כמו \"ביי ביי\"."
       - kind: pick
@@ -174,6 +180,7 @@ activities:
         img: lesson/words/arigatou.svg
         japanese: おじぎ
         reading: ojigi
+        reading_hebrew: "אוג'יגי"
         text: In Japan, people often bow when they say hello, thank you or sorry. A bow is called ojigi.
         text_he: ביפן, אנשים הרבה פעמים מתכופפים קדימה כשהם אומרים שלום, תודה או סליחה. הקידה הזו נקראת אוג'יגי.
         tips:
@@ -197,6 +204,7 @@ activities:
             label_he: "אריגטו"
             japanese: "ありがとう"
             reading: "arigatou"
+            reading_hebrew: "אריגטו"
             text: "Thank you! To a grown-up or in a shop, say \"arigatou gozaimasu\"."
             text_he: "תודה! למבוגר או בחנות אומרים \"אריגטו גוזאימס\"."
           - img: "lesson/words/sumimasen.svg"
@@ -204,6 +212,7 @@ activities:
             label_he: "סומימסן"
             japanese: "すみません"
             reading: "sumimasen"
+            reading_hebrew: "סומימסן"
             text: "Excuse me! Say it to ask for help, to call the waiter, or to pass someone."
             text_he: "סליחה! אומרים את זה כדי לבקש עזרה, לקרוא למלצר או לעבור ליד מישהו."
           - img: "lesson/words/please.svg"
@@ -211,6 +220,7 @@ activities:
             label_he: "אונגאישימס"
             japanese: "おねがいします"
             reading: "onegaishimasu"
+            reading_hebrew: "אונגאישימס"
             meaning: "please"
             meaning_he: "בבקשה"
             text: "Please! Point at what you want and say it."
@@ -220,6 +230,7 @@ activities:
             label_he: "האי"
             japanese: "はい"
             reading: "hai"
+            reading_hebrew: "האי"
             text: "Yes! You also say \"hai\" when someone calls your name, like \"here!\"."
             text_he: "כן! אומרים \"האי\" גם כשמישהו קורא בשם שלכם, כמו \"כאן!\"."
           - img: "lesson/words/iie.svg"
@@ -227,6 +238,7 @@ activities:
             label_he: "אייה"
             japanese: "いいえ"
             reading: "iie"
+            reading_hebrew: "אייה"
             meaning: "no"
             meaning_he: "לא"
             text: "No. To say \"no, thank you\" in a nice way, say \"daijoubu desu\"."
@@ -237,6 +249,7 @@ activities:
         img: lesson/words/hai.svg
         japanese: まる
         reading: maru
+        reading_hebrew: "מארו"
         text: In Japan, a red circle (maru) means yes or right. A cross (batsu) means no or wrong. Some people make a big X with their arms to say no! On a test in a Japanese school, a circle means a right answer.
         text_he: ביפן, עיגול אדום (מארו) אומר כן או נכון. איקס (באטסו) אומר לא או לא נכון. יש אנשים שעושים איקס גדול עם הידיים כדי להגיד לא! במבחן בבית ספר ביפן, עיגול אומר תשובה נכונה.
       - kind: video
@@ -320,6 +333,7 @@ activities:
         img: lesson/words/itadakimasu.svg
         japanese: いただきます
         reading: itadakimasu
+        reading_hebrew: "איטדקימס"
         text: Before you eat, put your hands together and say "itadakimasu". After you eat, say "gochisousama deshita". It means "thank you for the meal".
         text_he: לפני שאוכלים, מצמידים את הידיים ואומרים "איטדקימס". אחרי שאוכלים, אומרים "גוצ'יסוסאמה דשיטה". זה אומר "תודה על הארוחה".
         tips:
@@ -371,6 +385,7 @@ activities:
         emoji: "🖐️"
         japanese: いち、に、さん
         reading: ichi, ni, san
+        reading_hebrew: "איצ'י, ני, סאן"
         text: Hold up your fingers and count with us!
         text_he: מרימים את האצבעות וסופרים איתנו!
         tips:
@@ -393,6 +408,7 @@ activities:
         emoji: "🙋"
         japanese: わたしは … です
         reading: watashi wa … desu
+        reading_hebrew: "ווטאשי וא … דס"
         text: Say "watashi wa", then your name, then "desu". It means "I am …". Try it now, everybody!
         text_he: אומרים "ווטאשי וה", אחר כך את השם, ואז "דס". זה אומר "אני …". נסו עכשיו, כולם!
         tips:
@@ -481,48 +497,56 @@ activities:
       - id: konnichiwa
         japanese: こんにちは
         reading: konnichiwa
+        reading_hebrew: "קוניצ'יווה"
         meaning: hello
         meaning_he: שלום
         emoji: "👋"
       - id: arigatou
         japanese: ありがとう
         reading: arigatou
+        reading_hebrew: "אריגטו"
         meaning: thank you
         meaning_he: תודה
         emoji: "🙏"
       - id: ohayou
         japanese: おはよう
         reading: ohayou
+        reading_hebrew: "אוהאיו"
         meaning: good morning
         meaning_he: בוקר טוב
         emoji: "🌅"
       - id: sayounara
         japanese: さようなら
         reading: sayounara
+        reading_hebrew: "סאיונרה"
         meaning: goodbye
         meaning_he: להתראות
         emoji: "🚶"
       - id: hai
         japanese: はい
         reading: hai
+        reading_hebrew: "האי"
         meaning: "yes"
         meaning_he: כן
         emoji: "👍"
       - id: oishii
         japanese: おいしい
         reading: oishii
+        reading_hebrew: "אוישי"
         meaning: yummy
         meaning_he: טעים
         emoji: "😋"
       - id: itadakimasu
         japanese: いただきます
         reading: itadakimasu
+        reading_hebrew: "איטדקימס"
         meaning: thank you for the food
         meaning_he: תודה על האוכל
         emoji: "🥢"
       - id: sumimasen
         japanese: すみません
         reading: sumimasen
+        reading_hebrew: "סומימסן"
         meaning: excuse me
         meaning_he: סליחה
         emoji: "🙋"

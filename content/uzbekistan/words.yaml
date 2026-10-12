@@ -16,11 +16,11 @@ activities:
     intro: Swipe through the pages. Say each word out loud!
     intro_he: עוברים דף אחרי דף. אומרים כל מילה בקול!
     pictures:
-      - {id: salom, img: lesson/uzbekistan/salom.svg, label: Hello, label_he: שלום, japanese: Salom, reading: salom, say: "", say_he: סלום}
-      - {id: rahmat, img: lesson/uzbekistan/rahmat.svg, label: Thank you, label_he: תודה, japanese: Rahmat, reading: rahmat, say: "", say_he: רחמת}
-      - {id: ha, img: lesson/uzbekistan/ha.svg, label: "Yes", label_he: כן, japanese: Ha, reading: ha, say: "", say_he: הא}
-      - {id: yoq, img: lesson/uzbekistan/yoq.svg, label: "No", label_he: לא, japanese: "Yo'q", reading: yoq, say: "", say_he: יוק}
-      - {id: xayr, img: lesson/uzbekistan/xayr.svg, label: Goodbye, label_he: להתראות, japanese: Xayr, reading: xayr, say: "", say_he: חייר}
+      - {id: salom, img: lesson/uzbekistan/salom.svg, label: Hello, label_he: שלום, japanese: Salom, reading: salom, reading_hebrew: "סלום", say: "", say_he: סלום}
+      - {id: rahmat, img: lesson/uzbekistan/rahmat.svg, label: Thank you, label_he: תודה, japanese: Rahmat, reading: rahmat, reading_hebrew: "רחמת", say: "", say_he: רחמת}
+      - {id: ha, img: lesson/uzbekistan/ha.svg, label: "Yes", label_he: כן, japanese: Ha, reading: ha, reading_hebrew: "הא", say: "", say_he: הא}
+      - {id: yoq, img: lesson/uzbekistan/yoq.svg, label: "No", label_he: לא, japanese: "Yo'q", reading: yoq, reading_hebrew: "יוק", say: "", say_he: יוק}
+      - {id: xayr, img: lesson/uzbekistan/xayr.svg, label: Goodbye, label_he: להתראות, japanese: Xayr, reading: xayr, reading_hebrew: "חייר", say: "", say_he: חייר}
     pages:
       - kind: text
         title: Salom!
@@ -28,6 +28,7 @@ activities:
         img: lesson/uzbekistan/salom.svg
         japanese: Salom
         reading: salom
+        reading_hebrew: "סלום"
         text: Salom means hello. Tap the word to hear it. Grown-ups often say the long hello, "Assalomu alaykum".
         text_he: סלום זה שלום. געו במילה כדי לשמוע אותה. מבוגרים אומרים הרבה פעמים את השלום הארוך, "אסלומו עליכום".
         tips:
@@ -41,6 +42,7 @@ activities:
         img: lesson/uzbekistan/rahmat.svg
         japanese: Rahmat
         reading: rahmat
+        reading_hebrew: "רחמת"
         text: Say "rahmat" when someone gives you tea, bread or a present. People smile a lot when a visitor says it.
         text_he: אומרים "רחמת" כשמישהו נותן לכם תה, לחם או מתנה. אנשים מחייכים הרבה כשאורח אומר את זה.
       - kind: flip
@@ -54,6 +56,7 @@ activities:
             label_he: כן
             japanese: Ha
             reading: ha
+            reading_hebrew: "הא"
             text: "Yes! \"Ha\" sounds like a little laugh."
             text_he: "כן! \"הא\" נשמע כמו צחוק קטן."
           - img: lesson/uzbekistan/yoq.svg
@@ -61,6 +64,7 @@ activities:
             label_he: לא
             japanese: "Yo'q"
             reading: yoq
+            reading_hebrew: "יוק"
             text: "No! Say \"yo'q, rahmat\" for no, thank you."
             text_he: "לא! אומרים \"יוק, רחמת\" כשרוצים לומר לא, תודה."
       - kind: text
@@ -69,6 +73,7 @@ activities:
         img: lesson/uzbekistan/xayr.svg
         japanese: Xayr
         reading: xayr
+        reading_hebrew: "חייר"
         text: When you go, wave and say "xayr". The letter X in Uzbek sounds like the H in "Hanukkah".
         text_he: כשהולכים, מנופפים ואומרים "חייר". האות X באוזבקית נשמעת כמו ח'.
       - kind: pick

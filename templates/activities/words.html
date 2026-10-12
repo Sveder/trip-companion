@@ -2,13 +2,14 @@
 {% load i18n %}
 {% load say %}
 {% block activity %}
+{% get_current_language_bidi as bidi %}
 <div class="cards words">
   {% for w in data.words %}
   <article class="card word" tabindex="0" data-say="{{ w.japanese }}" data-say-src="{{ w.reading|word_audio }}">
     {% if w.emoji %}<div class="card-emoji big" aria-hidden="true">{{ w.emoji }}</div>{% endif %}
     <p class="jp{% if w.japanese|length >= 6 %} long{% endif %}" lang="ja">{{ w.japanese }}</p>
     <span class="say-mark word-say" aria-hidden="true"></span>
-    <h3 class="reading">{{ w.reading }}</h3>
+    <h3 class="reading">{{ w.reading }}{% if bidi and w.reading_hebrew %} · <span class="he-say" lang="he">{{ w.reading_hebrew }}</span>{% endif %}</h3>
     <p class="meaning">{{ w.meaning }}</p>
     <span class="say-hint" data-say-hint hidden>🔊 {% translate "Tap to hear it" %}</span>
   </article>

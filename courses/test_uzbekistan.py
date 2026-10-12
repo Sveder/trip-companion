@@ -103,3 +103,54 @@ class UzbekistanCourseTests(TestCase):
                 self.assertNotIn("choice-say", game)  # the Latin word is not printed twice
             else:
                 self.assertIn('<span class="choice-say">רחמת</span>', game)
+
+
+class HebrewReadingTests(TestCase):
+    """T197: a Hebrew page shows the Hebrew spelling next to the Latin word ('Osh · אוש'); an English page does not."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        cls.user = get_user_model().objects.create_user("he@example.com", "he@example.com")
+        uz = Trip.objects.create(user=cls.user, destination="uzbekistan")
+        Traveller.objects.create(trip=uz, age=5)
+        cls.uz = build_course(uz, list(Module.objects.filter(country="uzbekistan").values_list("id", flat=True)))
+        other = get_user_model().objects.create_user("jp@example.com", "jp@example.com")
+        jp = Trip.objects.create(user=other, destination="japan")
+        Traveller.objects.create(trip=jp, age=5)
+        cls.jp_user = other
+        cls.jp = build_course(jp, list(Module.objects.filter(country="japan", slug="words").values_list("id", flat=True)))
+
+    def test_every_uzbek_word_has_a_hebrew_spelling(self):
+        def dicts(node):
+            if isinstance(node, dict):
+                yield node
+                for v in node.values():
+                    yield from dicts(v)
+            elif isinstance(node, list):
+                for v in node:
+                    yield from dicts(v)
+
+        missing = [f"{path.name}: {d['japanese']}" for path in sorted(CONTENT.glob("*.yaml"))
+                   for d in dicts(yaml.safe_load(path.read_text())) if d.get("japanese") and not d.get("reading_hebrew")]
+        self.assertEqual(missing, [])
+
+    def page(self, course, slug, lang):
+        return self.client.get(reverse("activity", args=[course.items.get(activity__slug=slug).id]) + f"?lang={lang}").content.decode()
+
+    def test_hebrew_word_line_and_no_hebrew_in_english(self):
+        self.client.force_login(self.user)
+        food = self.page(self.uz, "uz-food-lesson", "he")
+        self.assertIn('Osh · <span class="he-say" lang="he">אוש</span>', food)
+        words = self.page(self.uz, "uz-words-lesson", "he")
+        self.assertIn('Rahmat · <span class="he-say" lang="he">רחמת</span>', words)
+        for slug in ("uz-food-lesson", "uz-words-lesson", "uz-places-lesson"):
+            self.assertNotIn("he-say", self.page(self.uz, slug, "en"), slug)
+
+    def test_japan_words_cards_show_the_hebrew_spelling(self):
+        self.client.force_login(self.jp_user)
+        item = self.jp.items.filter(activity__type="words").first()
+        url = reverse("activity", args=[item.id])
+        he = self.client.get(url + "?lang=he").content.decode()
+        self.assertIn('konnichiwa · <span class="he-say" lang="he">קוניצ\'יווה</span>', he.replace("&#x27;", "'"))
+        self.assertNotIn("he-say", self.client.get(url + "?lang=en").content.decode())

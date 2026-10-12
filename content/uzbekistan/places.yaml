@@ -28,6 +28,7 @@ activities:
         photo_credit: uz-registan
         japanese: Registon
         reading: registon
+        reading_hebrew: "רגיסטון"
         text: The Registan is a big square in the city of Samarkand. Three old schools stand around it, with blue domes and walls made of tiny colored tiles.
         text_he: הרגיסטאן הוא כיכר גדולה בעיר סמרקנד. סביבה עומדים שלושה בתי ספר עתיקים, עם כיפות כחולות וקירות מאריחים צבעוניים קטנים.
         tips:
@@ -44,6 +45,7 @@ activities:
         photo_credit: uz-bazaar
         japanese: Bozor
         reading: bozor
+        reading_hebrew: "בוזור"
         text: A bazaar is a big market. In Uzbek it is "bozor". There are mountains of fruit, nuts, dried apricots and warm bread.
         text_he: בזאר זה שוק גדול. באוזבקית זה "בוזור". יש הרים של פירות, אגוזים, משמשים מיובשים ולחם חם.
         tips:

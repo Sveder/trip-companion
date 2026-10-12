@@ -17,10 +17,10 @@ activities:
     intro: Swipe through the pages. Tap a word to hear it!
     intro_he: עוברים דף אחרי דף. געו במילה כדי לשמוע אותה!
     pictures:
-      - {id: osh, img: photo/uzbekistan/uz-plov.jpg, label: Plov, label_he: פלוב, japanese: Osh, reading: osh}
-      - {id: non, img: photo/uzbekistan/uz-non.jpg, label: Bread, label_he: לחם, japanese: Non, reading: non}
-      - {id: somsa, img: photo/uzbekistan/uz-somsa.jpg, label: Somsa, label_he: סומסה, japanese: Somsa, reading: somsa}
-      - {id: choy, img: photo/uzbekistan/uz-tea.jpg, label: Tea, label_he: תה, japanese: Choy, reading: choy}
+      - {id: osh, img: photo/uzbekistan/uz-plov.jpg, label: Plov, label_he: פלוב, japanese: Osh, reading: osh, reading_hebrew: "אוש"}
+      - {id: non, img: photo/uzbekistan/uz-non.jpg, label: Bread, label_he: לחם, japanese: Non, reading: non, reading_hebrew: "נון"}
+      - {id: somsa, img: photo/uzbekistan/uz-somsa.jpg, label: Somsa, label_he: סומסה, japanese: Somsa, reading: somsa, reading_hebrew: "סומסה"}
+      - {id: choy, img: photo/uzbekistan/uz-tea.jpg, label: Tea, label_he: תה, japanese: Choy, reading: choy, reading_hebrew: "צ'וי"}
     pages:
       - kind: text
         title: Plov, the big pot of rice
@@ -29,6 +29,7 @@ activities:
         photo_credit: uz-plov
         japanese: Osh
         reading: osh
+        reading_hebrew: "אוש"
         text: Plov is rice cooked with carrots, onions and meat in a giant pot. In Uzbek it is called "osh".
         text_he: פלוב זה אורז שמבשלים עם גזר, בצל ובשר בסיר ענק. באוזבקית קוראים לו "אוש".
         tips:
@@ -45,6 +46,7 @@ activities:
         photo_credit: uz-non
         japanese: Non
         reading: non
+        reading_hebrew: "נון"
         text: Non is a round bread. The baker sticks it on the hot wall of a clay oven, the tandir. A stamp makes a pretty pattern in the middle.
         text_he: נון הוא לחם עגול. האופה מדביק אותו על הדופן החמה של תנור חימר, הטנדיר. חותמת עושה דוגמה יפה באמצע.
         tips:
@@ -61,6 +63,7 @@ activities:
         photo_credit: uz-somsa
         japanese: Somsa
         reading: somsa
+        reading_hebrew: "סומסה"
         text: Somsa is a crispy pastry with meat and onion inside. It bakes in the tandir oven, like the bread. Careful, it is hot!
         text_he: סומסה הוא מאפה פריך עם בשר ובצל בפנים. אופים אותו בתנור הטנדיר, כמו את הלחם. זהירות, הוא חם!
         tips:
@@ -75,6 +78,7 @@ activities:
         photo_credit: uz-tea
         japanese: Choy
         reading: choy
+        reading_hebrew: "צ'וי"
         text: Choy means tea. People drink green tea from a small bowl with no handle, the piyola. Hold it with your fingers.
         text_he: צ'וי זה תה. שותים תה ירוק מקערה קטנה בלי ידית, הפיאלה. מחזיקים אותה באצבעות.
         tips:
