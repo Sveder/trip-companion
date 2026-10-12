@@ -385,3 +385,66 @@ class ContinueLinkTests(TestCase):
         boss = get_user_model().objects.create_user("boss", "boss@example.com", is_staff=True)
         Contact.objects.create(user=boss, link_token="x" * 43)
         self.assertEqual(self.client.get("/continue/" + "x" * 43 + "/").status_code, 404)
+
+
+class DeleteEmptyGuestsTests(TestCase):
+    """T232: a daily command deletes guest families with no trip and no visit for 30 days."""
+
+    def _user(self, username, email="", days_old=40):
+        from datetime import timedelta
+        from django.utils import timezone
+        from reminders.models import Contact
+        user = get_user_model().objects.create(username=username, email=email,
+                                               date_joined=timezone.now() - timedelta(days=days_old))
+        Contact.objects.create(user=user)
+        return user
+
+    def _run(self, *args):
+        from io import StringIO
+        from django.core.management import call_command
+        out = StringIO()
+        call_command("delete_empty_guests", *args, stdout=out)
+        return out.getvalue()
+
+    def test_only_old_empty_guests_go(self):
+        from datetime import timedelta
+        from django.utils import timezone
+        from reminders.models import Contact
+        from trips.models import Trip
+        empty = self._user("family-empty")
+        with_trip = self._user("family-trip")
+        Trip.objects.create(user=with_trip, destination="japan")
+        came_back = self._user("family-back")
+        Event.objects.create(name="activity_opened", user=came_back, at=timezone.now() - timedelta(days=3))
+        old_visit = self._user("family-oldvisit")
+        Event.objects.create(name="signed_up", user=old_visit, at=timezone.now() - timedelta(days=40))
+        new = self._user("family-new", days_old=5)
+        email = self._user("parent@example.com", email="parent@example.com")
+
+        out = self._run("--dry-run")
+        self.assertIn("family-empty", out)
+        self.assertIn("family-oldvisit", out)
+        self.assertIn("would delete 2 guest families", out)
+        self.assertEqual(get_user_model().objects.count(), 6)
+
+        out = self._run()
+        self.assertIn("deleted 2 guest families", out)
+        left = set(get_user_model().objects.values_list("username", flat=True))
+        self.assertEqual(left, {with_trip.username, came_back.username, new.username, email.username})
+        self.assertFalse(Contact.objects.filter(user_id=empty.id).exists())
+        # The old event stays for the stats, with no user.
+        self.assertTrue(Event.objects.filter(name="signed_up", user__isnull=True).exists())
+
+    def test_days_option(self):
+        self._user("family-ten", days_old=10)
+        self.assertIn("would delete 0", self._run("--dry-run"))
+        self.assertIn("would delete 1", self._run("--dry-run", "--days", "7"))
+
+    def test_welcome_and_credits_make_no_family(self):
+        User = get_user_model()
+        for url in ("/", "/credits/", "/privacy/"):
+            before = User.objects.count()
+            r = self.client.get(url)
+            self.assertEqual(r.status_code, 200, url)
+            self.assertEqual(User.objects.count(), before, url)
+        self.assertEqual(User.objects.count(), 0)

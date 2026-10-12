@@ -11,5 +11,6 @@ staticfiles/
 media/
 private/
 reminders.log
+cleanup.log
 # LG TV pairing key (bscpylgtv), never public
 .aiopylgtv.sqlite
