@@ -456,7 +456,7 @@ activities:
       - {id: tempura, img: photo/food/food-tempura.jpg, label: Tempura, label_he: טמפורה, japanese: てんぷら, reading: tempura}
       - {id: miso, img: photo/food/food-miso.jpg, label: Miso soup, label_he: מרק מיסו, japanese: みそしる, reading: misoshiru}
       # Not a quiz choice: this entry tells the say tag that "איטדקימס" in Hebrew text is the word itadakimasu.
-      - {id: itadakimasu, img: photo/food/food-school-lunch.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu}
+      - {id: itadakimasu, quiz: false, img: photo/food/food-school-lunch.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu}
     pages:
       - kind: text
         title: A food trip!

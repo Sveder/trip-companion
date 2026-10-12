@@ -494,3 +494,86 @@ class PhotoFileTests(TestCase):
                     if c.get("label_he") and c["label_he"] in own | spelled.get(str(c["japanese"]).lower(), set()):
                         bad.append(f"{where}: label_he {c['label_he']} over {c['japanese']}")
         self.assertEqual(bad, [])
+
+
+class TextPageQuizTests(TestCase):
+    """T211: a lesson made of text pages (Uzbekistan, Food around Japan) still puts its words into the quiz."""
+
+    # The item keys of every other Japan lesson, saved before T211. They must not change.
+    JAPAN_KEYS = {
+        "buy_in_advance/pack-lesson": ["hankachi", "the-esim", "okane", "kozeniire", "visit-japan-web", "seven-bank-atm", "the-ic-card", "japan-post-atm", "kasa", "snacks-for-the-day"],
+        "chopsticks/chopsticks-lesson": ["sushi", "never-stand-them-in-rice", "oshibori", "waribashi", "noodles", "never-pass-food-stick-to-stick", "renge", "mai-hashi", "a-grape", "do-not-point-with-them", "misoshiru", "peas"],
+        "dos_donts/manners-lesson": ["genkan", "a-home", "torii", "slurp", "getabako", "a-temple-hall", "temizuya", "oshibori", "a-japanese-inn", "two-hands", "a-train-or-a-shop", "no-tips"],
+        "food/sushi-lesson": ["neta", "nigiri", "maguro", "shari", "maki", "saamon", "nori", "gunkan", "ebi", "kappamaki", "temaki", "tamago"],
+        "safety/safety-lesson": ["koban", "one-one-zero", "maigo-desu", "the-map-on-the-door", "konbini", "one-one-nine-fire", "tasukete", "the-torch", "one-one-nine-ambulance", "the-hotel-card", "help-in-english", "our-meeting-place"],
+        "streetview/streetview-lesson": ["jidouhanbaiki", "jinja", "gojuunotou", "deguchi", "attakai", "posuto", "otera", "ojizousan", "iriguchi", "tsumetai", "noren", "komainu"],
+        "transport/transport-lesson": ["midori-no-madoguchi", "suica-and-pasmo", "yuusenseki", "kakueki-teisha", "takushii", "kaisatsu", "welcome-suica", "tsurikawa", "kaisoku", "kuusha", "bansen", "in-the-phone"],
+        "words/words-lesson": ["ohayou", "arigatou", "irasshaimase", "konnichiwa", "sumimasen", "fukuro", "konbanwa", "onegaishimasu", "atatamemasu-ka", "oyasumi", "hai", "sayounara"],
+    }
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        cls.user = get_user_model().objects.create_user("tp@example.com", "tp@example.com")
+        cls.trip = Trip.objects.create(user=cls.user, destination="uzbekistan")
+        Traveller.objects.create(trip=cls.trip, age=38)
+        cls.jtrip = make_trip(get_user_model().objects.create_user("tpj@example.com", "tpj@example.com"))
+
+    def test_every_uzbek_lesson_and_food_around_japan_add_items(self):
+        lessons = list(Activity.objects.filter(module__country="uzbekistan", type="lesson"))
+        self.assertEqual(len(lessons), 3)
+        for lesson in lessons:
+            self.assertGreaterEqual(add_items(self.trip, lesson), 3, lesson.slug)
+        self.assertGreaterEqual(add_items(self.jtrip, Activity.objects.get(slug="food-around-japan")), 3)
+
+    def test_other_japan_lessons_keep_their_keys(self):
+        from .items import quiz_entries
+
+        for a in Activity.objects.select_related("module").filter(module__country="japan", type="lesson"):
+            name = f"{a.module.slug}/{a.slug}"
+            if name == "food/food-around-japan":
+                continue
+            self.assertEqual([i for i, _ in quiz_entries(a)], self.JAPAN_KEYS[name], name)
+
+    def test_text_page_question_has_photo_and_three_other_foods(self):
+        food = Activity.objects.get(slug="uz-food-lesson")
+        add_items(self.trip, food)
+        foods = {"Plov", "Bread", "Somsa", "Tea"}
+        with translation.override("en"):
+            q = question(self.trip, "food/uz-food-lesson/osh")
+            self.assertEqual((q["prompt"], q["answer"]), ("Which one is osh?", "Plov"))
+            self.assertTrue(q["image"].endswith("img/photo/uzbekistan/uz-plov.jpg"))
+            self.assertEqual(sorted(q["choices"]), sorted(foods))
+        with translation.override("he"):
+            q = question(self.trip, "food/uz-food-lesson/osh")
+            self.assertEqual(q["answer"], "פלוב")
+            self.assertEqual(len(set(q["choices"])), 4)
+            self.assertNotRegex(q["prompt"], r"[A-Za-z]")
+        jfood = Activity.objects.get(slug="food-around-japan")
+        add_items(self.jtrip, jfood)
+        names = {p["label"] for p in jfood.data["pictures"] if p.get("quiz") is not False}
+        with translation.override("en"):
+            for p in PracticeItem.objects.filter(trip=self.jtrip, key__startswith="food/food-around-japan/"):
+                q = question(self.jtrip, p.key)
+                self.assertEqual(len(q["choices"]), 4, p.key)
+                self.assertEqual(len(set(q["choices"])), 4, p.key)
+                self.assertEqual(q["choices"].count(q["answer"]), 1, p.key)
+                self.assertTrue(set(q["choices"]) <= names, p.key)
+                self.assertTrue(q["image"], p.key)
+        self.assertFalse(PracticeItem.objects.filter(trip=self.jtrip, key="food/food-around-japan/itadakimasu").exists())
+
+    def test_uzbek_words_question_asks_in_hebrew_letters(self):
+        add_items(self.trip, Activity.objects.get(slug="uz-words-lesson"))
+        with translation.override("he"):
+            q = question(self.trip, "words/uz-words-lesson/salom")
+            self.assertEqual(q["answer"], "שלום")
+            self.assertIn("סלום", q["prompt"])
+            self.assertEqual(len(set(q["choices"])), 4)
+
+    def test_quiz_page_asks_after_the_uzbek_food_lesson(self):
+        add_items(self.trip, Activity.objects.get(slug="uz-food-lesson"))
+        PracticeItem.objects.filter(trip=self.trip).update(due_on=TODAY)
+        self.client.force_login(self.user)
+        page = self.client.get(reverse("quiz") + "?new=1")
+        self.assertNotContains(page, "No quiz yet")
+        self.assertContains(page, "uz-")

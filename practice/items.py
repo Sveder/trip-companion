@@ -21,15 +21,48 @@ def _card_id(card):
     return card.get("id") or slugify(card.get("title", ""))
 
 
+def _text_entries(data, start):
+    """One entry per text page that shows a word with a photo (a page with `img:` and `japanese:` or a picture).
+
+    The label comes from the lesson's `pictures` list (the same word), so the answer is "Plov", not the page title.
+    A picture marked `quiz: false` (itadakimasu among the foods) is not asked and is not a wrong choice.
+    """
+    pictures = data.get("pictures", [])
+    out = []
+    for n, page in enumerate(data.get("pages", [])):
+        if page.get("kind") != "text" or not page.get("img"):
+            continue
+        pic = next((p for p in pictures if p.get("img") == page["img"] or (page.get("reading") and p.get("reading") == page["reading"])), {})
+        # A page with no word of its own (tea, shoes off) counts when its photo is one of the lesson's pictures.
+        if pic.get("quiz") is False or not (page.get("japanese") or pic):
+            continue
+        e = {
+            "text_page": True,
+            "page": start + n,
+            "img": page["img"],
+            "japanese": page.get("japanese", ""),
+            "reading": page.get("reading", ""),
+            "label": pic.get("label") or page.get("title", ""),
+            "label_he": pic.get("label_he") or page.get("title_he", ""),
+        }
+        if pic.get("say_he"):
+            e["reading_hebrew"] = pic["say_he"]
+        out.append(e)
+    return out
+
+
 def _lesson_entries(data):
     """Every spot and flip card of a lesson, in page order, first copy of a repeated id only.
 
     Each entry is a copy that knows its page (`page`), so the wrong choices come from the same page:
     two cards on different pages can share one picture (nigiri and salmon both use sake.svg).
     A spot has no picture of its own, so it carries its page's picture (`page_img`).
+    A lesson with fewer than CHOICES spots and flip cards (the Uzbek lessons, Food around Japan) also gives
+    its word-and-photo text pages (T211); the other lessons do not read their text pages.
     """
     out, seen = [], set()
-    for n, page in enumerate(data.get("pages", [])):
+    pages = data.get("pages", [])
+    for n, page in enumerate(pages):
         if page.get("kind") == "spots":
             items = [dict(s, page=n, page_img=page.get("img", "")) for s in page.get("spots", [])]
         elif page.get("kind") == "flip":
@@ -41,6 +74,13 @@ def _lesson_entries(data):
             if i and i not in seen:
                 seen.add(i)
                 out.append((i, e))
+    if len(out) < CHOICES:
+        for e in _text_entries(data, 0):
+            i = slugify(e["reading"]) or slugify(e["label"])
+            if i and i not in seen:
+                seen.add(i)
+                out.append((i, e))
+        out.sort(key=lambda x: x[1]["page"])
     return out
 
 
@@ -134,7 +174,16 @@ def question(trip, key):
             # A small page (two spots in the shop) borrows from the other pages, but never a card with the same picture.
             entries = [e for e in every if e["page"] == entry["page"] or not (e.get("img") and e.get("img") == entry.get("img"))]
         img = entry.get("img") or entry.get("page_img", "")
-        if not entry.get("img"):
+        if entry.get("text_page"):
+            # A word-and-photo text page: wrong choices are the other text pages of the lesson (other foods), never a flip card.
+            entries = [e for e in every if e.get("text_page") and e["page"] != entry["page"]]
+            if len(entries) < CHOICES - 1:
+                # Three text pages only (Uzbek words): the flip cards fill the rest.
+                entries = [e for e in every if e["page"] != entry["page"] and e.get("img") != entry["img"]]
+            reading = entry.get("reading_hebrew") if is_hebrew() else entry.get("reading", "")
+            # Hebrew has no Hebrew spelling of most readings yet (T197), and "איזה מהם נקרא osh?" mixes scripts.
+            prompt = _("Which one is %(reading)s?") % {"reading": reading} if reading else _("What is this?")
+        elif not entry.get("img"):
             # Hebrew asks with the reading in Hebrew letters ("נטה", not "neta"); `reading` stays Latin for the audio file (T123).
             reading = (is_hebrew() and entry.get("reading_hebrew")) or entry.get("reading", "")
             prompt = _("Which one is %(reading)s?") % {"reading": reading}
