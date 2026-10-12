@@ -513,8 +513,13 @@ msgstr "המסלול שלנו ליפן"
 
 #: templates/courses/course.html:7
 #, python-format
-msgid "We did %(done)s of %(total)s. Tap any one to play it again!"
-msgstr "עשינו %(done)s מתוך %(total)s. לחצו על כל אחת כדי לשחק בה שוב!"
+msgid "We did all %(total)s! Tap any one to play it again."
+msgstr "עשינו את כל ה־%(total)s! לחצו על כל אחת כדי לשחק בה שוב."
+
+#: templates/courses/course.html:7
+#, python-format
+msgid "We did %(done)s of %(total)s. The next one is waiting!"
+msgstr "עשינו %(done)s מתוך %(total)s. הבאה מחכה לכם!"
 
 #: templates/courses/course.html:16 templates/courses/welcome.html:40
 #: templates/trips/setup.html:26

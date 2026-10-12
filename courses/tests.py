@@ -512,21 +512,29 @@ class AfterTheTripTests(TestCase):
         self.assertIn("Look at everything you did to get ready for Japan!", html)
         self.assertNotIn("next trip", html)
 
-    def test_course_page_says_start_at_zero_and_replay_after_one(self):
-        # T142: a new family gets a start line, not 'play it again'. From one done on, the replay line.
-        for lang, start, replay in (("en", "Tap the first one to start!", "Tap any one to play it again!"),
-                                    ("he", "לחצו על הראשונה כדי להתחיל!", "לחצו על כל אחת כדי לשחק בה שוב!")):
-            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
-            html = self.client.get(reverse("course")).content.decode()
-            self.assertIn(start, html)
-            self.assertNotIn(replay, html)
-        self.course.items.first().mark_done()
-        for lang, start, replay in (("en", "Tap the first one to start!", "We did 1 of"),
-                                    ("he", "לחצו על הראשונה כדי להתחיל!", "עשינו 1 מתוך")):
-            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
-            html = self.client.get(reverse("course")).content.decode()
-            self.assertNotIn(start, html)
-            self.assertIn(replay, html)
+    def test_course_page_lead_line_for_none_some_and_all_done(self):
+        # T142/T209: 0 done = a start line; some done = 'the next one is waiting'; all done = the replay line.
+        lines = {"en": ("Tap the first one to start!", "The next one is waiting!", "Tap any one to play it again."),
+                 "he": ("לחצו על הראשונה כדי להתחיל!", "הבאה מחכה לכם!", "לחצו על כל אחת כדי לשחק בה שוב.")}
+        ready = [i for i in self.course.items.all() if not i.is_stub]
+        total = len(ready)
+        self.assertGreater(total, 1)
+
+        def check(expect, number):
+            for lang, texts in lines.items():
+                self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
+                html = self.client.get(reverse("course")).content.decode()
+                for k, text in enumerate(texts):
+                    (self.assertIn if k == expect else self.assertNotIn)(text, html, (lang, number))
+                if number is not None:
+                    self.assertIn(number[lang], html)
+
+        check(0, None)
+        ready[0].mark_done()
+        check(1, {"en": "We did 1 of %d." % total, "he": "עשינו 1 מתוך %d." % total})
+        for item in ready[1:]:
+            item.mark_done()
+        check(2, {"en": "We did all %d!" % total, "he": "עשינו את כל ה־%d!" % total})
 
     def test_quick_reviews_carry_the_review_class(self):
         # T198: quick reviews (cards, words, steps, links) are lighter cards; lessons and hunts are not.
