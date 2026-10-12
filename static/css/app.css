@@ -241,7 +241,7 @@ html.tv { font-size: 30px; }
 .tv video, .tv iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
 /* T138: flip cards on the TV: 4 wide cards per row with a big picture. The name sits right under the picture,
    so the names in a row line up even when one name or its Japanese line wraps. Smaller back text keeps the card short. */
-.tv .flips { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1rem; }
+.tv .flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1rem; }
 .tv .flip { padding: .4rem; }
 .tv .flip img, .tv .flip img.flip-photo { height: 260px; }
 .tv .flip-front { justify-content: flex-start; }
@@ -494,7 +494,10 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
   html:not(.tv) .lspots.edge { max-width: 760px; }
   html:not(.tv) .lspots .lpic { max-width: none; }
 }
-.flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 200px)); justify-content: center; gap: .7rem; margin-top: .6rem; }
+/* T213: a wrapping flex row, not a grid, so a short last row (the 5th card under 4) sits in the centre, also in RTL.
+   Each card is 200 px, like the old grid columns. The phone and the TV keep their grids (below and in the TV rules). */
+.flips { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; margin-top: .6rem; }
+.flips > .flip { flex: 0 1 200px; min-width: 0; }
 /* Both faces share one grid cell, so a card has the same size on each side: a turn moves nothing around it (T103). */
 /* T118: the back text must not make the card taller than the front. Every picture gets the same height (a wide one gets wider),
    the front fills the card with the name at the bottom, so names line up across a row, and the back text is smaller. */
@@ -640,7 +643,7 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .form input::placeholder { color: var(--c-muted); opacity: .55; font-weight: 400; }
 .form .field-hint { display: block; margin-top: .25rem; }
 @media (max-width: 600px) {
-  .flips { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .5rem; }
+  .flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .5rem; }
   .flip img, .flip img.flip-photo { height: 72px; }
   /* The front already shows the name; on a phone the photo back skips it, so the card stays short (T118 limit). */
   .flip-back.has-photo > strong { display: none; }

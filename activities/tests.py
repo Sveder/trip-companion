@@ -654,13 +654,24 @@ class TvFlipCardTests(TestCase):
 
     def test_tv_flip_rules(self):
         css = (settings.BASE_DIR / "static/css/app.css").read_text()
-        self.assertIn(".tv .flips { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));", css)
+        self.assertIn(".tv .flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));", css)
         self.assertIn(".tv .flip img, .tv .flip img.flip-photo { height: 260px; }", css)
         self.assertIn(".tv .flip-front { justify-content: flex-start; }", css)
         # Phone and desktop keep the T118 rules.
         self.assertIn(".flip-front { align-self: stretch; justify-content: space-between; }", css)
         self.assertIn(".flip img, .flip img.flip-photo { height: 72px; }", css)
 
+
+class FlipRowTests(TestCase):
+    """T213: on a tablet or a desktop the flip cards wrap in a centred flex row, so a short last row sits in the centre.
+    The phone and the TV keep a grid. The browser check is trip-companion-tools/dev_69aa1f_fliprow.cjs (gaps within 8 px)."""
+
+    def test_flip_row_rules(self):
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn(".flips { display: flex; flex-wrap: wrap; justify-content: center;", css)
+        self.assertIn(".flips > .flip { flex: 0 1 200px; min-width: 0; }", css)
+        phone = css[css.index("@media (max-width: 600px) {\n  .flips"):]
+        self.assertIn(".flips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));", phone[:200])
 
 class TabletSpotsTests(TestCase):
     """T141: on a tablet or a desktop the tap-the-dots picture grows past 420 px; the TV and the phone keep their own rules."""
