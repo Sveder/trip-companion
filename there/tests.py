@@ -100,6 +100,9 @@ class WhileWeAreThereTests(TestCase):
         for p in Photo.objects.all():
             self.assertIn(reverse("photo", args=[p.id]), html)
         self.assertIn("A pretty manhole cover", html)
+        # T190: the date sits in a nowrap span, so the day and the month never part.
+        day = Photo.objects.first().created_at
+        self.assertIn('<span class="hl-when">· %d %s</span>' % (day.day, day.strftime("%b")), html)
 
     def test_in_japan_home_opens_the_hunt_once_a_day(self):
         self.set_dates(-2, 5)

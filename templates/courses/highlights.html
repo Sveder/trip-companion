@@ -21,7 +21,7 @@
   {% for p in photos %}
   <figure class="card">
     <a href="{% url 'photo' p.photo.id %}" target="_blank"><img src="{% url 'photo' p.photo.id %}" alt="{{ p.title }}" loading="lazy"></a>
-    <figcaption class="hint">{{ p.title }} · {{ p.photo.created_at|date:"j M" }}</figcaption>
+    <figcaption class="hint">{{ p.title }} <span class="hl-when">· {{ p.photo.created_at|date:"j M" }}</span></figcaption>
   </figure>
   {% endfor %}
 </div>
@@ -50,7 +50,7 @@
   {% for clip in clips %}
   <figure class="card">
     <video class="clip-view" src="{% url 'clip' clip.id %}" controls playsinline preload="metadata"></video>
-    <figcaption class="hint">{{ clip.created_at|date:"j M Y" }}</figcaption>
+    <figcaption class="hint"><span class="hl-when">{{ clip.created_at|date:"j M Y" }}</span></figcaption>
   </figure>
   {% endfor %}
 </div>

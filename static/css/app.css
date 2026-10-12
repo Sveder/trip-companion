@@ -301,6 +301,7 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .cards.compact .hint { margin: 0; font-size: .9rem; }
 /* T140: the date sits on its own line and never breaks in two; the card text starts at the top with no gap under a short title. */
 .hl-date { display: block; white-space: nowrap; }
+.hl-when { white-space: nowrap; } /* T190: the day and the month of a photo date stay on one line */
 .cards.highlights-done .card { align-items: start; align-content: start; }
 .cards.highlights-done .card-emoji { align-self: start; }
 .cards.word-grid { grid-template-columns: repeat(auto-fit, minmax(190px, 220px)); gap: .6rem; }
