@@ -453,23 +453,44 @@ class PhotoFileTests(TestCase):
         self.assertEqual(bad, [])
 
     def test_no_flip_card_repeats_the_word_on_its_front(self):
-        """T183: the front shows label over the native word; label == word printed 'Ha' over 'Ha' in English."""
-        bad = []
-
-        def walk(node, where):
-            if isinstance(node, dict):
-                for c in node.get("cards") or []:
-                    if isinstance(c, dict) and c.get("japanese") and c.get("label") == c["japanese"]:
-                        bad.append(f"{where}: {c['label']}")
-                for v in node.values():
-                    walk(v, where)
-            elif isinstance(node, list):
-                for v in node:
-                    walk(v, where)
-
-        # Read the YAML itself: the test database loads only japan.
+        """T183/T188: the front shows the meaning over the native word. label == word printed 'Ha' over 'Ha'
+        in English; label_he == the Hebrew spelling of the word (say_he) printed 'הא' over 'Ha' in Hebrew."""
         import yaml
         from django.conf import settings
-        for path in sorted((settings.BASE_DIR / "content").glob("*/*.yaml")):
-            walk(yaml.safe_load(path.read_text()), path.relative_to(settings.BASE_DIR))
+
+        def dicts(node):
+            if isinstance(node, dict):
+                yield node
+                for v in node.values():
+                    yield from dicts(v)
+            elif isinstance(node, list):
+                for v in node:
+                    yield from dicts(v)
+
+        # Read the YAML itself: the test database loads only japan.
+        files = {path.relative_to(settings.BASE_DIR): yaml.safe_load(path.read_text())
+                 for path in sorted((settings.BASE_DIR / "content").glob("*/*.yaml"))}
+        # Every Hebrew spelling of a native word, from any file: say_he, reading_he, reading_hebrew.
+        spelled = {}
+        for data in files.values():
+            for d in dicts(data):
+                if d.get("japanese"):
+                    for k in ("say_he", "reading_he", "reading_hebrew"):
+                        if d.get(k):
+                            spelled.setdefault(str(d["japanese"]).lower(), set()).add(d[k])
+        bad = []
+        for where, data in files.items():
+            for node in dicts(data):
+                for c in node.get("cards") or []:
+                    if not (isinstance(c, dict) and c.get("japanese")):
+                        continue
+                    if c.get("label") == c["japanese"]:
+                        bad.append(f"{where}: {c['label']}")
+                    # A Japan card shows the reading on both fronts ('Ohayou' / 'אוהאיו' over おはよう): fine.
+                    # A card whose English front is the meaning ('Yes' over Ha) needs the meaning in Hebrew too.
+                    if str(c.get("label", "")).lower() == str(c.get("reading", "")).lower():
+                        continue
+                    own = {c.get(k) for k in ("say_he", "reading_he", "reading_hebrew")} - {None, ""}
+                    if c.get("label_he") and c["label_he"] in own | spelled.get(str(c["japanese"]).lower(), set()):
+                        bad.append(f"{where}: label_he {c['label_he']} over {c['japanese']}")
         self.assertEqual(bad, [])

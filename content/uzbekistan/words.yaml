@@ -51,14 +51,14 @@ activities:
         cards:
           - img: lesson/uzbekistan/ha.svg
             label: "Yes"
-            label_he: הא
+            label_he: כן
             japanese: Ha
             reading: ha
             text: "Yes! \"Ha\" sounds like a little laugh."
             text_he: "כן! \"הא\" נשמע כמו צחוק קטן."
           - img: lesson/uzbekistan/yoq.svg
             label: "No"
-            label_he: יוק
+            label_he: לא
             japanese: "Yo'q"
             reading: yoq
             text: "No! Say \"yo'q, rahmat\" for no, thank you."
