@@ -43,12 +43,11 @@ class EventTests(TestCase):
         self.assertOne("signed_in")
 
         start = date.today() + timedelta(days=30)
+        # T264: one setup page saves the trip and builds the course.
+        ids = [str(m.id) for m in Module.objects.filter(slug__in=["food", "chopsticks"], country="japan")]
         c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1,
-                                       "start_date": start, "length_days": 11})
+                                       "start_date": start, "length_days": 11, "modules_shown": 1, "modules": ids})
         self.assertOne("trip_set_up", new=True, travellers=2)
-
-        ids = [str(m.id) for m in Module.objects.filter(slug__in=["food", "chopsticks"])]
-        c.post(reverse("builder"), {"modules": ids})
         self.assertOne("course_built", rebuild=False)
         self.assertFalse(Event.objects.filter(name__in=["module_added", "module_removed"]).exists())
 
@@ -79,7 +78,8 @@ class EventTests(TestCase):
         # Rebuild without chopsticks, with the words module.
         words = Module.objects.get(slug="words")
         food = Module.objects.get(slug="food")
-        c.post(reverse("builder"), {"modules": [str(food.id), str(words.id)]})
+        c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1, "start_date": start, "length_days": 11,
+                                       "modules_shown": 1, "modules": [str(food.id), str(words.id)]})
         self.assertEqual(Event.objects.filter(name="course_built").count(), 2)
         self.assertOne("module_added", module=words.id)
         self.assertOne("module_removed", module=Module.objects.get(slug="chopsticks").id)

@@ -11,6 +11,7 @@ from django.urls import reverse
 from content_admin.loader import load_photo_credits
 from content_admin.models import Activity, Module
 from courses.builder import build_course
+from courses.models import Course
 from trips.models import Traveller, Trip
 
 CONTENT = Path(settings.BASE_DIR) / "content" / "uzbekistan"
@@ -47,12 +48,15 @@ class UzbekistanCourseTests(TestCase):
         self.assertContains(page, "Coming soon")
         other = get_user_model().objects.create_user("uz2@example.com", "uz2@example.com")
         self.client.force_login(other)
+        # T264: the setup page holds both countries' module switches; the chosen country's modules build the course.
+        setup = self.client.get(reverse("trip_setup")).content.decode()
+        self.assertIn("Uzbek words", setup.split('data-modules-for="uzbekistan"')[1])
+        self.assertNotIn("Japanese words", setup.split('data-modules-for="uzbekistan"')[1])
         r = self.client.post(reverse("trip_setup"), {"destination": "uzbekistan", "grownup": 2, "kid": 1})
-        self.assertRedirects(r, reverse("builder"))
-        self.assertEqual(Trip.objects.get(user=other).destination, "uzbekistan")
-        builder = self.client.get(reverse("builder"))
-        self.assertContains(builder, "Uzbek words")
-        self.assertNotContains(builder, "Japanese words")
+        self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
+        trip = Trip.objects.get(user=other)
+        self.assertEqual(trip.destination, "uzbekistan")
+        self.assertTrue(Course.objects.get(trip=trip).module_ids)
 
     def test_every_word_has_sound_every_photo_has_credit_every_answer_is_a_choice(self):
         credits = load_photo_credits()

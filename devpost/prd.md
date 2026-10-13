@@ -13,7 +13,7 @@ Source: `scope.md > The Unique Kernel`, `scope.md > Who It's For`.
 Develops `scope.md > The Core Loop` and `scope.md > What "Working" Looks Like`.
 
 1. **No account** — anyone opens the site and starts. The browser keeps the family; no email, no password (Michael, 2026-10-11).
-2. **Tell the app about the trip** — where (Japan; other countries show as "coming soon"), who is coming, in four age groups (little ones 0-3, kids 4-8, big kids 9-12, grown-ups 13+): the parent drags each person into a plane (Michael, feedback 2026-10-08).
+2. **Tell the app about the trip** — where (Japan; other countries show as "coming soon"), who is coming (how many kids and how many grown-ups), and which modules to learn, all on one page (Michael, feedback 2026-10-13, T264; the plane of 2026-10-08 is gone).
 3. **See the suggested course** — the app suggests a course and shows all available modules. Modules that fit the family are
    in the suggestion; the others (e.g. kids' activities for a family without kids) are shown, ready to add.
 4. **Customise** — the parent adds or removes modules, e.g. adds "buy a snack box".
@@ -25,7 +25,7 @@ Develops `scope.md > The Core Loop` and `scope.md > What "Working" Looks Like`.
 
 ## Screens and Layout
 - **Login.**
-- **Trip setup** — destination, and who is coming in four age groups, put on a plane.
+- **Trip setup** — destination, how many kids and grown-ups, the trip length and the module switches, on one page.
 - **Course builder** — the suggested course, the module list with add/remove, and the "build" action.
 - **Today / next activity** — the main screen after the course exists; opens the next activity.
 - **Activity screen** — the steps of one activity (video, practice, game, test).
@@ -59,7 +59,7 @@ Works on a phone and in the TV's web browser (big, readable, remote-friendly on 
 
 ### Trip setup and course builder
 - [ ] The user picks Japan; other countries appear as "coming soon" cards and cannot be built.
-- [ ] The user puts the family on a plane: drag (or tap) people from four age groups.
+- [ ] The user sets how many kids and grown-ups come, with - and + buttons, and switches modules on or off on the same page.
 - [ ] The app shows a suggested course that matches the family: adults-only families get no kids' items in the suggestion,
       but kids' items stay visible and can be added.
 - [ ] The user can add and remove modules, and the course updates.

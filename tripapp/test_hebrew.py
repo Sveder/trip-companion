@@ -91,7 +91,7 @@ class HebrewContentTests(TestCase):
 
     def test_course_and_builder_use_hebrew_titles(self):
         self.assertIn("אוכל יפני", self.client.get(reverse("course")).content.decode())
-        self.assertIn("אומרים שלום ותודה ביפנית.", self.client.get(reverse("builder")).content.decode())
+        self.assertIn("מילים ביפנית", self.client.get(reverse("trip_setup")).content.decode())
 
     def test_quiz_asks_and_checks_in_hebrew(self):
         words = Activity.objects.get(slug="words-intro")

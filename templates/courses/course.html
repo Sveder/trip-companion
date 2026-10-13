@@ -28,7 +28,7 @@
     </li>
     {% endfor %}
   </ol>
-  <a class="btn alt" href="{% url 'builder' %}">{% translate "Change our course" %}</a>
+  <a class="btn alt" href="{% url 'trip_setup' %}#modules">{% translate "Change our course" %}</a>
   {# T196: the link to another device sits in the bottom row; the header menu holds it too. #}
   <p class="new-course-link"><a class="hint" href="{% url 'new_trip' %}">{% translate "New course" %}</a> · <a class="hint" href="{% url 'continue' %}">{% translate "Continue on another device" %}</a></p>
 </section>

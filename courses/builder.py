@@ -16,6 +16,15 @@ def fits(module, trip):
     return True
 
 
+def fits_counts(module, counts):
+    """fits() for a family that is not saved yet: {"kid": 1, "grownup": 2} (feedback T264)."""
+    if module.audience == "child":
+        return bool(counts.get("kid"))
+    if module.audience == "adult":
+        return bool(counts.get("grownup"))
+    return True
+
+
 def suggestions(trip):
     """Every module for the trip's country, each with suggested=True/False.
 

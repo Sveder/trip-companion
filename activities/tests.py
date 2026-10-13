@@ -544,7 +544,7 @@ class LookTests(TestCase):
         call_command("load_content", verbosity=0)
         item = chopsticks_item(user, [5])
         self.assertNotIn(deer, self.client.get(reverse("trip_setup")).content.decode())  # app-wide, also with a Japan trip
-        for url in (reverse("course"), reverse("builder"), reverse("activity", args=[item.id]), reverse("there"), reverse("quiz")):
+        for url in (reverse("course"), reverse("activity", args=[item.id]), reverse("there"), reverse("quiz")):
             html = self.client.get(url, follow=True).content.decode()
             self.assertIn(deer, html, url)
         # A country with no guide yet: its screens show no deer.

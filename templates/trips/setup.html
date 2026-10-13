@@ -2,10 +2,12 @@
 {% load i18n static %}
 {% block title %}{% translate "Our trip" %}{% endblock %}
 {% block content %}
-<section class="panel">
-  <h1>{% translate "Tell us about your trip" %}</h1>
-  <form method="post" class="form">
+{# Feedback T264: one clean page builds the adventure: where, who, how long, and what to learn. #}
+<section class="panel setup">
+  <h1>{% translate "Plan your adventure" %}</h1>
+  <form method="post" class="form" data-setup>
     {% csrf_token %}
+    {% if form.non_field_errors %}<div class="setup-error" role="alert">{{ form.non_field_errors }}</div>{% endif %}
     <fieldset class="countries-pick">
       <legend>{% translate "Where are you going?" %}</legend>
       <div class="cards countries">
@@ -30,50 +32,69 @@
         {% endfor %}
       </div>
       {{ form.destination.errors }}
-      {# T166: after the pick, a visible way on to the next step. On the TV, OK on the country moves the focus there. #}
-      <a class="btn next-step" href="#family" data-next-step>{% translate "Next: who is coming?" %} <span aria-hidden="true">↓</span></a>
     </fieldset>
-    {# Feedback T53: drag (or tap) each person into the plane. Without JavaScript the number boxes do the same job. #}
-    <fieldset class="family-pick" id="family" data-family-pick>
-      <legend>{% translate "Who is coming? Put everyone on the plane!" %}</legend>
-      <p class="hint" data-js-only hidden>{% translate "Drag a person into the plane, or tap them. Tap a person in the plane to take them off." %}</p>
-      {# T207: the empty-plane message sits by the plane, in a sun-yellow box; family.js shows it before the submit and scrolls to it. #}
-      <div class="plane-error" role="alert" data-plane-error{% if not form.non_field_errors %} hidden{% endif %}>{% if form.non_field_errors %}{{ form.non_field_errors }}{% else %}<ul class="errorlist nonfield"><li>{% translate "Put at least one person on the plane." %}</li></ul>{% endif %}</div>
-      <div class="plane" data-plane aria-live="polite">
-        {# T153: a side view. Nose on the right, one wing toward the viewer, one engine, a tall tail fin. No stretching. #}
-        <svg class="plane-body" viewBox="0 0 400 190" aria-hidden="true" focusable="false" stroke="var(--c-ink)" stroke-width="3" stroke-linejoin="round">
-          <path d="M28 40 L6 3 L50 3 L112 40 Z" fill="var(--c-primary)"/>
-          <path class="fuselage" d="M40 36 L320 36 C372 36 396 64 396 92 C396 120 372 140 330 140 L110 140 C70 140 40 120 24 80 L18 50 C16 40 26 36 40 36 Z" fill="var(--c-surface)"/>
-          <path d="M70 120 L372 120" stroke="var(--c-primary)" stroke-width="7" stroke-linecap="round"/>
-          <path d="M350 52 C372 54 386 66 390 78 L350 78 Z" fill="var(--c-tint-4)"/>
-          <g fill="var(--c-tint-4)"><circle cx="90" cy="86" r="9"/><circle cx="123" cy="86" r="9"/><circle cx="156" cy="86" r="9"/><circle cx="189" cy="86" r="9"/><circle cx="222" cy="86" r="9"/><circle cx="255" cy="86" r="9"/><circle cx="288" cy="86" r="9"/><circle cx="321" cy="86" r="9"/></g>
-          <path d="M26 78 L3 92 L24 97 L82 86 Z" fill="var(--c-primary)"/>
-          <path d="M272 124 L212 124 L130 186 L182 186 Z" fill="var(--c-accent)"/>
-          <rect x="176" y="150" width="58" height="22" rx="11" fill="var(--c-sun)"/>
-          <ellipse cx="232" cy="161" rx="4" ry="9" fill="var(--c-ink)"/>
-        </svg>
-        <div class="seats" data-seats></div>
-        <p class="plane-empty" data-empty>{% translate "The plane is empty." %}</p>
-      </div>
-      <p class="plane-count" data-count></p>
-      <div class="groups">
+
+    <fieldset class="setup-block" id="family">
+      <legend>{% translate "Who is coming?" %}</legend>
+      <div class="steppers">
         {% for g in groups %}
-        <div class="group" data-group="{{ g.id }}" data-emoji="{{ g.emoji }}" data-label="{{ g.label }}">
-          <button type="button" class="person" data-person aria-label="{% blocktranslate with who=g.label %}Add one: {{ who }}{% endblocktranslate %}"><span aria-hidden="true">{{ g.emoji }}</span></button>
-          <label for="{{ g.field.id_for_label }}">{{ g.label }} <span class="hint age-range" dir="ltr">{{ g.range }}</span></label>
-          <input type="number" name="{{ g.field.html_name }}" id="{{ g.field.id_for_label }}" min="0" max="12" inputmode="numeric" value="{{ g.field.value|default_if_none:0 }}">
+        <div class="stepper" data-stepper="{{ g.id }}">
+          <label for="{{ g.field.id_for_label }}">{{ g.label }} <span class="hint" dir="ltr">{{ g.range }}</span></label>
+          <div class="stepper-row">
+            <button type="button" class="step-btn" data-step="-1" aria-label="{% blocktranslate with who=g.label %}One less: {{ who }}{% endblocktranslate %}">−</button>
+            <input type="number" name="{{ g.field.html_name }}" id="{{ g.field.id_for_label }}" min="0" max="12" inputmode="numeric" value="{{ g.value }}">
+            <button type="button" class="step-btn" data-step="1" aria-label="{% blocktranslate with who=g.label %}One more: {{ who }}{% endblocktranslate %}">+</button>
+          </div>
           {{ g.field.errors }}
         </div>
         {% endfor %}
       </div>
     </fieldset>
-    <div class="row">
-      <p>{{ form.length_days.label_tag }} {{ form.length_days }}<span class="hint field-hint">{% translate "For example 10" %}</span>{{ form.length_days.errors }}</p>
-      <p>{{ form.start_date.label_tag }} {{ form.start_date }}{{ form.start_date.errors }}</p>
-    </div>
-    <button class="btn big" type="submit">{% translate "Next: choose your course" %}</button>
+
+    <fieldset class="setup-block">
+      <legend>{% translate "How long is the trip?" %}</legend>
+      <div class="row">
+        <p>{{ form.length_days.label_tag }} {{ form.length_days }}<span class="hint field-hint">{% translate "For example 10" %}</span>{{ form.length_days.errors }}</p>
+        <p>{{ form.start_date.label_tag }} {{ form.start_date }}{{ form.start_date.errors }}</p>
+      </div>
+    </fieldset>
+
+    <fieldset class="setup-block" id="modules">
+      <legend>{% translate "What do you want to learn?" %}</legend>
+      <input type="hidden" name="modules_shown" value="1">
+      {{ form.modules.errors }}
+      {% for set in module_sets %}
+      <div class="module-set" data-modules-for="{{ set.country }}">
+        <div class="switch-groups" data-js-only hidden>
+          <label class="switch-row group-switch" data-audience-switch="child">
+            <input type="checkbox">
+            <span class="switch-text">{% translate "Add all the kids activities" %}</span>
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+          <label class="switch-row group-switch" data-audience-switch="adult">
+            <input type="checkbox">
+            <span class="switch-text">{% translate "Add the grown-up travel tips" %}</span>
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+        </div>
+        <div class="switch-list">
+          {% for row in set.rows %}
+          <label class="switch-row" data-audience="{{ row.module.audience }}">
+            <input type="checkbox" name="modules" value="{{ row.module.id }}" {% if row.on %}checked{% endif %}>
+            <span class="switch-emoji" aria-hidden="true">{{ row.module.emoji }}</span>
+            <span class="switch-text"><strong>{{ row.module.local_title }}</strong>
+              {% if row.module.audience == "child" %}<span class="badge">{% translate "For kids" %}</span>{% elif row.module.audience == "adult" %}<span class="badge">{% translate "For grown-ups" %}</span>{% endif %}
+            </span>
+            <span class="switch" aria-hidden="true"></span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </fieldset>
+
+    <button class="btn big" type="submit">{% if course %}{% translate "Save our adventure" %}{% else %}{% translate "Start our adventure!" %}{% endif %}</button>
   </form>
 </section>
-<script nonce="{{ csp_nonce }}">window.T = window.T || {}; window.T.onPlane = "{{ _("{n} on the plane")|escapejs }}"; window.T.takeOff = "{{ _("Take off the plane: {who}")|escapejs }}";</script>
-<script nonce="{{ csp_nonce }}" src="{% static 'js/family.js' %}" defer></script>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/setup.js' %}" defer></script>
 {% endblock %}

@@ -6,13 +6,12 @@ from django.utils.translation import gettext_lazy as _, ngettext
 
 CHILD_MAX_AGE = 12
 
-# Feedback T53: the family is four age groups, not exact ages. Each group stores one typical age,
-# so "is this a child" and everything built on it keep working.
+# Feedback T53 made the family age groups, not exact ages. Feedback T264 cut them to two: no lesson is
+# for one age of child only, so 'little ones' and 'big kids' are all 'kids'. Each group stores one typical
+# age, so "is this a child" and everything built on it keep working. Old trips with ages 2 or 10 read as kids.
 GROUPS = [
     # (id, typical age, top age of the group, label, emoji)
-    ("little", 2, 3, _("Little ones"), "👶"),
-    ("kid", 6, 8, _("Kids"), "🧒"),
-    ("big", 10, 12, _("Big kids"), "👦"),
+    ("kid", 6, 12, _("Kids"), "🧒"),
     ("grownup", 35, 200, _("Grown-ups"), "🧑"),
 ]
 GROUP_IDS = [g[0] for g in GROUPS]
@@ -29,12 +28,10 @@ def group_of_age(age):
 def family_line(counts):
     """"2 grown-ups, 1 kid" for {"grownup": 2, "kid": 1}, in the page language."""
     words = {
-        "little": lambda n: ngettext("%(n)d little one", "%(n)d little ones", n),
         "kid": lambda n: ngettext("%(n)d kid", "%(n)d kids", n),
-        "big": lambda n: ngettext("%(n)d big kid", "%(n)d big kids", n),
         "grownup": lambda n: ngettext("%(n)d grown-up", "%(n)d grown-ups", n),
     }
-    order = ["grownup", "big", "kid", "little"]
+    order = ["grownup", "kid"]
     return ", ".join(words[g](counts[g]) % {"n": counts[g]} for g in order if counts.get(g))
 
 

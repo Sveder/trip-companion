@@ -188,21 +188,12 @@ class FlowTests(TestCase):
         self.assertEqual(r.status_code, 302)
         # First visit: no trip yet -> trip setup.
         self.assertRedirects(c.get("/"), reverse("trip_setup"))
-        # Michael's feedback: the step after setup is "choose your course", on the button and on the next page.
-        self.assertContains(c.get(reverse("trip_setup")), "Next: choose your course")
-        r = c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 2, "kid": 1, "little": 1})
-        self.assertRedirects(r, reverse("builder"))
-        page = c.get(reverse("builder"))
-        self.assertContains(page, "<span>Choose your course</span></h1>", html=False)
-        self.assertContains(page, "Street View hunt")
-        # T106: the server marks each card on or off, so an off card is grey before any script runs.
-        cards = re.findall(r'<label class="card module ([^"]*)">\s*<input type="checkbox" name="modules" value="\d+" ?(checked)?', page.content.decode())
-        self.assertTrue(cards)
-        for cls, checked in cards:
-            self.assertIn("on" if checked else "off", cls.split())
-        # Parent adds "buy before you go" on top of the suggestion (it is suggested anyway here).
+        # Feedback T264: one page sets up the trip and switches the modules; its button starts the adventure.
+        setup = c.get(reverse("trip_setup"))
+        self.assertContains(setup, "Start our adventure!")
+        self.assertContains(setup, "Street View hunt")
         ids = [str(m.id) for m in Module.objects.all()]
-        r = c.post(reverse("builder"), {"modules": ids})
+        r = c.post(reverse("trip_setup"), {"destination": "japan", "grownup": 2, "kid": 2, "modules_shown": 1, "modules": ids})
         self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
         course = Course.objects.get()
         first = course.items.first()
@@ -228,26 +219,27 @@ class FlowTests(TestCase):
         r = self.client.get(reverse("activity", args=[course.items.first().id]))
         self.assertEqual(r.status_code, 404)
 
-    def test_builder_marks_a_switched_off_card_off(self):
-        # T106: a module the family switched off gets the 'off' class (grey border), the others 'on'.
+    def test_setup_marks_a_switched_off_module_off(self):
+        # T106, T264: the server marks each module switch on or off, so the page is right before any script runs.
         u = get_user_model().objects.create_user("t106@example.com", "t106@example.com")
         trip = make_trip(u, [35, 6])
-        food = Module.objects.get(slug="food")
+        food = Module.objects.get(slug="food", country="japan")
         build_course(trip, [food.id])
         self.client.force_login(u)
-        html = self.client.get(reverse("builder")).content.decode()
-        cards = re.findall(r'<label class="card module ([^"]*)">\s*<input type="checkbox" name="modules" value="(\d+)"', html)
-        self.assertEqual(len(cards), Module.objects.filter(country="japan").count())
-        for cls, mid in cards:
-            self.assertIn("on" if int(mid) == food.id else "off", cls.split())
+        html = self.client.get(reverse("trip_setup")).content.decode()
+        japan = html.split('data-modules-for="japan"')[1].split('data-modules-for=')[0]
+        boxes = re.findall(r'<input type="checkbox" name="modules" value="(\d+)" ?(checked)?', japan)
+        self.assertEqual(len(boxes), Module.objects.filter(country="japan").count())
+        for mid, checked in boxes:
+            self.assertEqual(bool(checked), int(mid) == food.id)
 
     def test_bad_ages_rejected(self):
         u = get_user_model().objects.create_user("c@example.com", "c@example.com")
         self.client.force_login(u)
         r = self.client.post(reverse("trip_setup"), {"destination": "japan", "kid": "two"})
         self.assertContains(r, "Enter a whole number")
-        r = self.client.post(reverse("trip_setup"), {"destination": "japan"})
-        self.assertContains(r, "Put at least one person on the plane.")
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "kid": 0, "grownup": 0})
+        self.assertContains(r, "Add at least one person.")
 
 
 class ThemeTests(TestCase):
@@ -780,7 +772,7 @@ class CoursePageTests(TestCase):
     def test_nav_our_course_opens_the_course_page(self):
         page = self.client.get(reverse("course"))
         self.assertContains(page, f'href="{reverse("course")}">Our course')
-        self.assertContains(page, f'href="{reverse("builder")}"')
+        self.assertContains(page, f'href="{reverse("trip_setup")}#modules"')
         self.assertContains(page, "Change our course")
 
     def test_lists_items_in_order_with_done_marks(self):
@@ -862,9 +854,9 @@ class CoursePageTests(TestCase):
                 shown = f"<small>{escape(module)}</small>" in row or f"<strong>{escape(module)}" in row
                 self.assertTrue(shown, (lang, item.activity.slug))
 
-    def test_no_course_yet_goes_to_the_builder(self):
+    def test_no_course_yet_goes_to_the_setup_page(self):
         self.course.delete()
-        self.assertRedirects(self.client.get(reverse("course")), reverse("builder"))
+        self.assertRedirects(self.client.get(reverse("course")), reverse("trip_setup"))
 
 
 class JapanFlagTests(TestCase):
@@ -1192,11 +1184,11 @@ class NewCourseTests(TestCase):
         self.assertEqual(sorted(new.ages), sorted(old.ages))
         self.assertEqual(new.destination, old.destination)
         self.assertFalse(Course.objects.filter(trip=new).exists())
-        # The new trip is the active one: the course page sends the family to the builder.
-        self.assertRedirects(self.client.get(reverse("course")), reverse("builder"), fetch_redirect_response=False)
-        # The setup form for the new trip, then the builder.
-        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1, "big": 0, "little": 0})
-        self.assertRedirects(r, reverse("builder"), fetch_redirect_response=False)
+        # The new trip is the active one: the course page sends the family to the setup page (T264).
+        self.assertRedirects(self.client.get(reverse("course")), reverse("trip_setup"), fetch_redirect_response=False)
+        # The setup form for the new trip builds its course and opens the first step.
+        r = self.client.post(reverse("trip_setup"), {"destination": "japan", "grownup": 1, "kid": 1})
+        self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
         self.assertEqual(Trip.objects.filter(user=self.user).count(), 2)
         # The old done mark is still there, and Highlights lists the old course.
         self.first.refresh_from_db()
@@ -1210,8 +1202,9 @@ class NewCourseTests(TestCase):
 
     def test_place_card_keeps_the_old_course(self):
         """T175: a country card on home (/trip/?destination=...) with a course already built starts a new trip."""
+        call_command("load_content", "uzbekistan", verbosity=0)
         r = self.client.post(reverse("trip_setup"), {"destination": "uzbekistan", "grownup": 1, "kid": 1})
-        self.assertRedirects(r, reverse("builder"), fetch_redirect_response=False)
+        self.assertRedirects(r, reverse("next_step"), fetch_redirect_response=False)
         trips = Trip.objects.filter(user=self.user).order_by("created_at", "id")
         self.assertEqual([t.destination for t in trips], [self.trip.destination, "uzbekistan"])
         self.assertTrue(Course.objects.filter(trip=self.trip).exists())

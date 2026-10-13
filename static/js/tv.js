@@ -7,7 +7,8 @@
   var BACK = { 461: 1, 27: 1, 8: 1 }; // webOS Back, Escape, Backspace
   var DIRS = { 37: 'left', 38: 'up', 39: 'right', 40: 'down' };
   // .say-word: the Japanese word on a lesson page; OK on it plays the word (speak.js) (T137).
-  var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card, .spot, .say-word[tabindex]';
+  // .switch-row: a module switch on the trip page; OK turns it on or off (T264).
+  var SELECTOR = 'a[href], button, input:not([type=hidden]):not([type=checkbox]), select, textarea, .card, .spot, .say-word[tabindex], .switch-row';
 
   // In a lesson the arrows stay inside the lesson (its dots, cards, Back and Next) and the "We did it!" form.
   // Only UP with nothing above inside the lesson may leave it, to reach the header (T104).
@@ -36,7 +37,7 @@
   }
 
   function prepare() {
-    var cards = document.querySelectorAll('.card');
+    var cards = document.querySelectorAll('.card, .switch-row');
     for (var i = 0; i < cards.length; i++) {
       if (!cards[i].hasAttribute('tabindex')) cards[i].setAttribute('tabindex', '0');
     }
@@ -172,6 +173,7 @@
       var lost = !el || el === document.body || el === root;
       el = current();
       if (el && el.classList && el.classList.contains('card')) { e.preventDefault(); activate(el); }
+      else if (el && el.classList && el.classList.contains('switch-row')) { e.preventDefault(); el.click(); el.focus(); }
       else if ((lost || e.type === 'keyup') && el && el.click && el !== document.body) { e.preventDefault(); el.click(); }
     }
   }

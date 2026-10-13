@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from accounts.guest import family_required
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -42,7 +43,7 @@ def _next_step(request, welcome):
         request.session["there_seen"] = str(timezone.localdate())
         return redirect("there")
     if course is None:
-        return redirect("builder")
+        return redirect("trip_setup")
     item = course.next_item()
     if item is None:
         return render(request, "courses/finished.html", {"trip": trip, "course": course, "phase": phase, "more_soon": course.has_stubs(),
@@ -61,7 +62,7 @@ def course(request):
         return redirect("trip_setup")
     course = Course.objects.filter(trip=trip).first()
     if course is None:
-        return redirect("builder")
+        return redirect("trip_setup")
     items = list(course.items.select_related("activity__module"))
     nxt = course.next_item()
     ready = [i for i in items if not i.is_stub]
@@ -72,30 +73,22 @@ def course(request):
 
 @family_required
 def builder(request):
+    """Feedback T264: the module switches live on the trip page now. A GET opens that page;
+    a POST (an old form or a bookmark) still rebuilds the course."""
     trip = active_trip(request.user)
     if trip is None:
         return redirect("trip_setup")
-    course = Course.objects.filter(trip=trip).first()
-    rows = suggestions(trip)
     if request.method == "POST":
-        valid = {m.id for m, _ in rows}
+        valid = {m.id for m, _ in suggestions(trip)}
         chosen = [int(x) for x in request.POST.getlist("modules") if x.isdigit() and int(x) in valid]
-        if not chosen:
-            messages.error(request, _("Pick at least one thing to learn."))
-        else:
+        if chosen:
+            course = Course.objects.filter(trip=trip).first()
             before = set(course.module_ids) if course else set()
             course = build_course(trip, chosen)
-            after = set(course.module_ids)
-            track("course_built", trip=trip, modules=sorted(after), rebuild=bool(before))
-            if before:
-                for m in sorted(after - before):
-                    track("module_added", trip=trip, module=m)
-                for m in sorted(before - after):
-                    track("module_removed", trip=trip, module=m)
+            track("course_built", trip=trip, modules=sorted(course.module_ids), rebuild=bool(before))
             return redirect("next_step")
-    on = set(course.module_ids) if course else {m.id for m, fit in rows if fit}
-    modules = [{"module": m, "suggested": fit, "on": m.id in on} for m, fit in rows]
-    return render(request, "courses/builder.html", {"trip": trip, "modules": modules, "course": course})
+        messages.error(request, _("Pick at least one thing to learn."))
+    return redirect(reverse("trip_setup") + "#modules")
 
 
 def _highlights_page(request, trip, course, past=False):
