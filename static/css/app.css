@@ -795,3 +795,7 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 /* T264: in Hebrew the switch knob moves to the left when on. */
 [dir="rtl"] .switch-row .switch::after { left: auto; right: 3px; transition: right .15s; }
 [dir="rtl"] .switch-row input:checked ~ .switch::after { left: auto; right: 25px; }
+/* T264: the TV font is big, so a switch row needs a wide column (3 per row at 1920 px), and a badge stays on one line. */
+.tv .switch-list { grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); }
+.switch-text .badge { white-space: nowrap; }
+.switch-text { overflow-wrap: anywhere; }
