@@ -162,6 +162,9 @@ class SushiLessonTests(TestCase):
         """T268: Michael approved R7zkF_wpmLI on 2026-10-13, so the live sushi lesson plays it."""
         html = self.page()
         self.assertIn("youtube-nocookie.com/embed/R7zkF_wpmLI", html)
+        # YouTube answers "Error 153" to an embed with no Referer; the site policy is same-origin, so the iframe sets its own.
+        frame = html[html.index("youtube-nocookie.com/embed/R7zkF_wpmLI"):]
+        self.assertIn('referrerpolicy="strict-origin-when-cross-origin"', frame[:frame.index("</iframe>")])
         self.assertNotIn("lesson/sushi/rolling", html)
 
     def test_unapproved_video_shows_the_written_lines_and_no_id(self):

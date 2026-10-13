@@ -147,7 +147,8 @@
       {% if page.show_video %}
       <div class="video-frame" data-video-play="{% url 'track_video' item.id %}" data-video="{{ page.youtube }}">
         <iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}?rel=0" title="{{ page.title }}"
-          allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+          allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       {% endif %}
       {# T230: with no approved video the written lines get a drawing, so no lesson page is text only. #}
