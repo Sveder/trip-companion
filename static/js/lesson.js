@@ -355,7 +355,7 @@
       plate.classList.add('placed');
       plate.disabled = true;
       plate.setAttribute('aria-hidden', 'true');
-      if (window.tcSay) window.tcSay(plate);
+      if (window.tcSay && plate.hasAttribute('data-say')) window.tcSay(plate);
       msg.textContent = T.right;
       var left = round().querySelectorAll('[data-match-plate]:not(.placed)');
       if (left.length) {

@@ -336,25 +336,25 @@ activities:
           - עוברים רק כשהאיש ברמזור ירוק.
           - ברחוב עמוס מחזיקים יד של מבוגר.
           - אופניים ביפן נוסעים הרבה על המדרכה. מקשיבים לפעמון.
-      - kind: train
-        title: Catch the helper!
-        title_he: תפסו את העוזר!
-        text: The plates ride past. Tap the helper we ask for, not the other things.
-        text_he: הצלחות נוסעות. געו בעוזר שאנחנו מבקשים, לא בדברים האחרים.
-        belt: [police, car, staff, balloon, clerk, icecream, koban, vending, ambulance, crossing]
+      - kind: match
+        # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
+        title: Who helps us?
+        title_he: מי עוזר לנו?
+        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
+        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
         rounds:
-          - ask: "Catch the police officer!"
-            ask_he: "תפסו את השוטר!"
-            answer: "police"
-          - ask: "Lost at the station? Catch the station worker!"
-            ask_he: "הלכתם לאיבוד בתחנה? תפסו את עובד התחנה!"
-            answer: "staff"
-          - ask: "Lost in a shop? Catch the shop worker!"
-            ask_he: "הלכתם לאיבוד בחנות? תפסו את המוכר!"
-            answer: "clerk"
-          - ask: "Catch the little police house, the koban!"
-            ask_he: "תפסו את בית המשטרה הקטן, הקובאן!"
-            answer: "koban"
+          - title: Put each plate on the helper
+            title_he: שימו כל צלחת ליד העוזר
+            targets:
+              - {id: police, img: "lesson/safety/police.svg", label: "Police", label_he: "משטרה"}
+              - {id: ambulance, img: "lesson/safety/ambulance.svg", label: "Ambulance", label_he: "אמבולנס"}
+              - {id: staff, img: "lesson/safety/staff.svg", label: "Station worker", label_he: "עובד תחנה"}
+              - {id: clerk, img: "lesson/safety/clerk.svg", label: "Shop worker", label_he: "מוכר בחנות"}
+            plates:
+              - {label: "Call 110", label_he: "מתקשרים 110", target: police}
+              - {label: "Call 119", label_he: "מתקשרים 119", target: ambulance}
+              - {label: "Lost at the station", label_he: "הלכנו לאיבוד בתחנה", target: staff}
+              - {label: "Lost in a shop", label_he: "הלכנו לאיבוד בחנות", target: clerk}
       - kind: flip
         title: At the hotel
         title_he: במלון

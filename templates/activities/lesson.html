@@ -132,7 +132,8 @@
           </div>
           <div class="match-plates">
             {% for pl in round.plates %}
-            <button type="button" class="match-plate" data-match-plate="{{ pl.target }}" aria-pressed="false" data-say="{{ pl.japanese }}" data-say-src="{{ pl.word|word_audio }}"><span class="jp" lang="ja">{{ pl.japanese }}</span><span class="match-reading">{{ pl.label }}</span></button>
+            {# T269: a plate with no Japanese word (manners, safety, street games) shows its label only and says nothing. #}
+            {% if pl.japanese %}<button type="button" class="match-plate" data-match-plate="{{ pl.target }}" aria-pressed="false" data-say="{{ pl.japanese }}" data-say-src="{{ pl.word|word_audio }}"><span class="jp" lang="ja">{{ pl.japanese }}</span><span class="match-reading">{{ pl.label }}</span></button>{% else %}<button type="button" class="match-plate text-plate" data-match-plate="{{ pl.target }}" aria-pressed="false"><span class="match-text">{{ pl.label }}</span></button>{% endif %}
             {% endfor %}
           </div>
         </div>

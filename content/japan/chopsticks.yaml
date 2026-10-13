@@ -335,25 +335,25 @@ activities:
             label_he: "שקית הנייר"
             text: "Chopsticks often come in a paper sleeve. No rest on the table? Some people fold the sleeve into a little rest."
             text_he: "הרבה פעמים הצ'ופסטיקס מגיעים בשקית נייר. אין מעמד על השולחן? יש אנשים שמקפלים את השקית למעמד קטן."
-      - kind: train
-        title: Catch it!
-        title_he: תפסו את זה!
-        text: The plates ride past. Tap the food we ask for, not the other things.
-        text_he: הצלחות נוסעות. געו באוכל שאנחנו מבקשים, לא בדברים האחרים.
-        belt: [sushi, curry, grape, ramen, hashioki, onigiri, peas, renge, edamame, waribashi]
+      - kind: match
+        # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
+        title: What do we eat it with?
+        title_he: עם מה אוכלים את זה?
+        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
+        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
         rounds:
-          - ask: "Catch the sushi! Eat it with chopsticks, or with your fingers."
-            ask_he: "תפסו את הסושי! אוכלים אותו עם צ'ופסטיקס, או עם האצבעות."
-            answer: "sushi"
-          - ask: "Catch the noodles! Pick up a few and slurp."
-            ask_he: "תפסו את הנודלס! מרימים כמה ושואבים."
-            answer: "ramen"
-          - ask: "Catch the rice ball! In Japan you eat it with your hands."
-            ask_he: "תפסו את כדור האורז! ביפן אוכלים אותו בידיים."
-            answer: "onigiri"
-          - ask: "Catch the curry rice! In Japan you eat it with a spoon."
-            ask_he: "תפסו את האורז עם הקארי! ביפן אוכלים אותו בכפית."
-            answer: "curry"
+          - title: Put each way to eat on its food
+            title_he: שימו כל דרך לאכול ליד האוכל שלה
+            targets:
+              - {id: ramen, img: "lesson/manners/noodles.svg", label: "Noodles", label_he: "נודלס"}
+              - {id: onigiri, img: "lesson/chopsticks/onigiri.svg", label: "Rice ball", label_he: "כדור אורז"}
+              - {id: curry, img: "lesson/chopsticks/curry.svg", label: "Curry rice", label_he: "אורז עם קארי"}
+              - {id: edamame, img: "lesson/chopsticks/edamame.svg", label: "Edamame beans", label_he: "אדממה"}
+            plates:
+              - {label: "Chopsticks", label_he: "צ'ופסטיקס", target: ramen}
+              - {label: "Your hands", label_he: "הידיים", target: onigiri}
+              - {label: "A spoon", label_he: "כפית", target: curry}
+              - {label: "Pop them out of the pod", label_he: "לוחצים על התרמיל", target: edamame}
       - kind: text
         title: Chopsticks around Asia
         title_he: צ'ופסטיקס באסיה

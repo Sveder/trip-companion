@@ -400,25 +400,25 @@ activities:
             label_he: "תא האיסוף"
             text: "The drink falls down here with a loud CLUNK. Reach in and take it out."
             text_he: "השתייה נופלת לכאן עם קול חזק: קלאנק! מכניסים יד ולוקחים אותה."
-      - kind: train
-        title: Catch the Japan things!
-        title_he: תפסו את הדברים של יפן!
-        text: The plates ride past. Tap the thing we ask for, not the other things.
-        text_he: הצלחות נוסעות. געו בדבר שאנחנו מבקשים, לא בדברים האחרים.
-        belt: [car, torii, balloon, neko, icecream, vending, bike, manhole, postbox, jizo]
+      - kind: match
+        # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
+        title: What is it for?
+        title_he: בשביל מה זה?
+        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
+        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
         rounds:
-          - ask: "Catch the torii gate!"
-            ask_he: "תפסו את שער הטוריאי!"
-            answer: "torii"
-          - ask: "Catch the lucky cat!"
-            ask_he: "תפסו את חתול המזל!"
-            answer: "neko"
-          - ask: "Catch the vending machine!"
-            ask_he: "תפסו את מכונת המשקאות!"
-            answer: "vending"
-          - ask: "Catch the painted manhole cover!"
-            ask_he: "תפסו את מכסה הביוב המצויר!"
-            answer: "manhole"
+          - title: Put each job on its street thing
+            title_he: שימו כל תפקיד ליד הדבר ברחוב
+            targets:
+              - {id: torii, img: "lesson/street/torii.svg", label: "A torii gate", label_he: "שער טוריאי"}
+              - {id: vending, img: "lesson/safety/vending.svg", label: "A vending machine", label_he: "מכונת משקאות"}
+              - {id: postbox, img: "lesson/street/postbox.svg", label: "A red post box", label_he: "תיבת דואר אדומה"}
+              - {id: manhole, img: "lesson/street/manhole.svg", label: "A painted manhole cover", label_he: "מכסה ביוב מצויר"}
+            plates:
+              - {label: "Walk into a shrine", label_he: "נכנסים למקדש", target: torii}
+              - {label: "Buy a drink", label_he: "קונים שתייה", target: vending}
+              - {label: "Send a letter", label_he: "שולחים מכתב", target: postbox}
+              - {label: "Pipes under the street", label_he: "צינורות מתחת לרחוב", target: manhole}
       - kind: text
         title: Pictures under your feet
         title_he: תמונות מתחת לרגליים

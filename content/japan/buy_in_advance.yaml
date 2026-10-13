@@ -343,25 +343,6 @@ activities:
             label_he: "כרטיס ה-IC"
             text: "The train card also pays at the konbini, the drinks machines and the lockers."
             text_he: "כרטיס הרכבת משלם גם בקונביני, במכונות המשקאות ובלוקרים."
-      - kind: train
-        title: Catch the things to pack!
-        title_he: תפסו את מה שאורזים!
-        text: The plates ride past. Tap the one we ask for, not the other things.
-        text_he: הצלחות נוסעות. געו במה שאנחנו מבקשים, לא בדברים האחרים.
-        belt: [typea, umbrella, chopsticks, euplug, towel, cash, namecard, jrpass, shoes, snacks, purse, ukplug]
-        rounds:
-          - ask: "Catch the plug that fits Japan: two flat pins!"
-            ask_he: "תפסו את התקע שמתאים ליפן: שני פינים שטוחים!"
-            answer: "typea"
-          - ask: "Catch the towel for wet hands!"
-            ask_he: "תפסו את המגבת לידיים רטובות!"
-            answer: "towel"
-          - ask: "Catch the card with your name on it!"
-            ask_he: "תפסו את הכרטיס עם השם שלכם!"
-            answer: "namecard"
-          - ask: "Catch the shoes that come off fast!"
-            ask_he: "תפסו את הנעליים שחולצים מהר!"
-            answer: "shoes"
       - kind: text
         title: Taste Japan at home
         title_he: טועמים את יפן בבית

@@ -319,25 +319,25 @@ activities:
             reading_hebrew: "טוקקיו"
             text: "The limited express makes very few stops. On JR and on some other lines it needs an extra ticket."
             text_he: "האקספרס המוגבל עוצר בתחנות מעטות מאוד. ב-JR ובעוד כמה קווים צריך בשבילו כרטיס נוסף."
-      - kind: train
-        title: Catch the right ride!
-        title_he: תפסו את הנסיעה הנכונה!
-        text: The plates ride past. Tap the one we ask for, not the other things.
-        text_he: הצלחות נוסעות. געו במה שאנחנו מבקשים, לא בדברים האחרים.
-        belt: [rapid, bus, local, stroller, shinkansen, ic, taxi, ltd, truck, suitcase]
+      - kind: match
+        # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
+        title: Which ride?
+        title_he: באיזו נסיעה?
+        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
+        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
         rounds:
-          - ask: "We go to a small station. Catch the local train, it stops everywhere!"
-            ask_he: "נוסעים לתחנה קטנה. תפסו את הרכבת המאספת, היא עוצרת בכל מקום!"
-            answer: "local"
-          - ask: "We go far and fast. Catch the Shinkansen!"
-            ask_he: "נוסעים רחוק ומהר. תפסו את השינקנסן!"
-            answer: "shinkansen"
-          - ask: "Catch the bus!"
-            ask_he: "תפסו את האוטובוס!"
-            answer: "bus"
-          - ask: "Our bags go to the next hotel. Catch the truck!"
-            ask_he: "התיקים שלנו נוסעים למלון הבא. תפסו את המשאית!"
-            answer: "truck"
+          - title: Put each trip on its ride
+            title_he: שימו כל נסיעה ליד כלי התחבורה שלה
+            targets:
+              - {id: local, img: "lesson/transport/local.svg", label: "Local train", label_he: "רכבת מאספת"}
+              - {id: shinkansen, img: "lesson/transport/shinkansen.svg", label: "Shinkansen", label_he: "שינקנסן"}
+              - {id: bus, img: "lesson/transport/bus.svg", label: "Bus", label_he: "אוטובוס"}
+              - {id: truck, img: "lesson/transport/truck.svg", label: "Bag delivery truck", label_he: "משאית המזוודות"}
+            plates:
+              - {label: "A small station", label_he: "תחנה קטנה", target: local}
+              - {label: "Far and fast", label_he: "רחוק ומהר", target: shinkansen}
+              - {label: "A stop on the street", label_he: "תחנה ברחוב", target: bus}
+              - {label: "Our bags to the next hotel", label_he: "התיקים למלון הבא", target: truck}
       - kind: text
         title: Busy times and strollers
         title_he: שעות עומס ועגלות

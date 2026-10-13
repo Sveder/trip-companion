@@ -588,6 +588,7 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .match-plate { font: inherit; color: inherit; display: flex; flex-direction: column; align-items: center; min-width: 7.5rem; min-height: 3.4rem; padding: .35rem .8rem; line-height: 1.15; border: 3px solid #d8d2c4; border-radius: 999px; background: #fff; box-shadow: 0 4px 0 rgba(0,0,0,.14); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; transition: transform .15s, box-shadow .15s; }
 .match-plate .jp, .match-slot .jp { font-size: 1.15rem; font-weight: 800; }
 .match-reading { font-size: .95rem; color: var(--c-muted); font-weight: 700; }
+.match-text { font-size: 1rem; font-weight: 800; }
 .match-plate[aria-pressed="true"] { transform: translateY(-6px); border-color: var(--c-sun); box-shadow: 0 10px 14px rgba(0,0,0,.2); }
 .match-plate.dragging { transition: none; cursor: grabbing; z-index: 5; position: relative; }
 .match-plate.wrong { animation: shake .3s; border-color: var(--c-primary); }

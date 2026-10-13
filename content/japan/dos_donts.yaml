@@ -338,28 +338,25 @@ activities:
             label_he: "חטיף מדוכן"
             text: "Buy a snack and eat it next to the stall. People in Japan do not eat while they walk."
             text_he: "קונים חטיף ואוכלים אותו ליד הדוכן. אנשים ביפן לא אוכלים בזמן שהם הולכים."
-      - kind: train
-        title: Catch the polite thing!
-        title_he: תפסו את הדבר המנומס!
-        text: The plates ride past. Tap the one we ask for.
-        text_he: הצלחות נוסעות. געו בצלחת שאנחנו מבקשים.
-        belt: [bow, shoes, quiet, trashbag, line, oshibori, hands, slippers, noodles, towel]
+      - kind: match
+        # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
+        title: What do we do here?
+        title_he: מה עושים כאן?
+        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
+        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
         rounds:
-          - ask: "Catch the shoes. They come off at the door!"
-            ask_he: "תפסו את הנעליים. מורידים אותן ליד הדלת!"
-            answer: "shoes"
-          - ask: "Catch the bow. It says hello and thank you!"
-            ask_he: "תפסו את הקידה. היא אומרת שלום ותודה!"
-            answer: "bow"
-          - ask: "Catch the trash bag. Our trash goes home with us!"
-            ask_he: "תפסו את שקית הזבל. הזבל שלנו הולך איתנו הביתה!"
-            answer: "trashbag"
-          - ask: "Catch \"shh\". We whisper on the train!"
-            ask_he: "תפסו את \"שש\". ברכבת לוחשים!"
-            answer: "quiet"
-          - ask: "Catch the two hands. That is how we give a gift!"
-            ask_he: "תפסו את שתי הידיים. ככה נותנים מתנה!"
-            answer: "hands"
+          - title: Put each place on the polite thing
+            title_he: שימו כל מקום ליד הדבר המנומס
+            targets:
+              - {id: shoes, img: "lesson/manners/shoes.svg", label: "Shoes off", label_he: "מורידים נעליים"}
+              - {id: quiet, img: "lesson/manners/quiet.svg", label: "Whisper", label_he: "לוחשים"}
+              - {id: hands, img: "lesson/manners/hands.svg", label: "Give with two hands", label_he: "נותנים בשתי ידיים"}
+              - {id: trashbag, img: "lesson/manners/trashbag.svg", label: "Take it home", label_he: "לוקחים הביתה"}
+            plates:
+              - {label: "At the house door", label_he: "בדלת של הבית", target: shoes}
+              - {label: "On the train", label_he: "ברכבת", target: quiet}
+              - {label: "We give a gift", label_he: "נותנים מתנה", target: hands}
+              - {label: "Trash, and no bin", label_he: "זבל, ואין פח", target: trashbag}
       - kind: text
         title: The hot spring bath
         title_he: אמבטיית המעיין החם
