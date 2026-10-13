@@ -527,7 +527,7 @@ class TextPageQuizTests(TestCase):
         "safety/safety-lesson": ["koban", "one-one-zero", "maigo-desu", "the-map-on-the-door", "konbini", "one-one-nine-fire", "tasukete", "the-torch", "one-one-nine-ambulance", "the-hotel-card", "help-in-english", "our-meeting-place"],
         "streetview/streetview-lesson": ["posuto", "jinja", "deguchi", "jidouhanbaiki", "otera", "iriguchi", "attakai", "komainu", "eki", "tsumetai", "joukouro", "the-post-mark"],  # T270: real photos, new spots
         "transport/transport-lesson": ["midori-no-madoguchi", "suica-and-pasmo", "yuusenseki", "kakueki-teisha", "takushii", "kaisatsu", "welcome-suica", "tsurikawa", "kaisoku", "kuusha", "bansen", "in-the-phone"],
-        "words/words-lesson": ["ohayou", "arigatou", "irasshaimase", "konnichiwa", "sumimasen", "fukuro", "konbanwa", "onegaishimasu", "atatamemasu-ka", "oyasumi", "hai", "sayounara"],
+        "words/words-lesson": ["ohayou", "arigatou", "irasshaimase", "ichi", "konnichiwa", "sumimasen", "fukuro", "ni", "konbanwa", "onegaishimasu", "atatamemasu-ka", "san"],  # T271: the numbers page joins the mix
     }
 
     @classmethod

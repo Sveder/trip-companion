@@ -121,7 +121,7 @@ class EveryWordTalksTests(TestCase):
                 if f'data-say-src="{static(f"audio/japan/{reading}.mp3")}"' not in html:
                     silent.append(f"{item.activity.slug} {lang} {reading}")
         self.assertGreater(n, 50)
-        self.assertEqual(sorted(set(missing)), ["ichi, ni, san", "watashi wa … desu"], "run deploy/make_word_audio.py")
+        self.assertEqual(sorted(set(missing)), ["watashi wa … desu"], "run deploy/make_word_audio.py")
         self.assertEqual(silent, [])
 
     def test_itadakimasu_talks_on_every_page_where_it_shows(self):

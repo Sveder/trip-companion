@@ -1096,10 +1096,10 @@ class WordsPicturesTests(TestCase):
         import xml.etree.ElementTree as ET
         folder = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson' / 'words'
         names = sorted(p.stem for p in folder.glob('*.svg'))
-        self.assertEqual(len(names), 18)  # + 4 time-of-day pictures for the match game (T162), + count and name (T226)
+        self.assertEqual(len(names), 22)  # + 4 time-of-day pictures (T162), + name (T226), + num-1..5 (T271, count.svg gone)
         for path in folder.glob('*.svg'):
             root = ET.parse(path).getroot()
-            want = '0 0 400 260' if path.stem == 'shop' else '0 0 120 90'
+            want = {'shop': '0 0 400 260'}.get(path.stem, '0 0 200 200' if path.stem.startswith('num-') else '0 0 120 90')
             self.assertEqual(root.get('viewBox'), want, path.name)
             self.assertTrue(root.get('aria-label'), path.name)
             self.assertIsNotNone(root.find('{http://www.w3.org/2000/svg}title'), path.name)
@@ -1179,12 +1179,33 @@ class HeroPicturesAreNotEmoji(TestCase):
         call_command("load_content", verbosity=0)
         pages = {p["title"]: p for a in Activity.objects.filter(type="lesson") for p in a.data["pages"]}
         static = Path(settings.BASE_DIR) / "static" / "img"
-        for title in ("No wasabi, please!", "Count to five", "Say your name"):
+        for title in ("No wasabi, please!", "Say your name"):
             self.assertNotIn("emoji", pages[title], title)
             svg = (static / pages[title]["img"]).read_text()
             self.assertLess(len(svg.encode()), 12 * 1024, title)
             self.assertNotIn("<image", svg, title)
             self.assertNotIn("data:", svg, title)
+
+
+    def test_count_to_five_shows_numbers_not_a_hand_t271(self):
+        """Michael 2026-10-13: no drawn hand. Five flip cards: the numeral, the kanji (drawn as strokes, so no font is
+        needed) and the dots; each card says its word."""
+        call_command("load_content", verbosity=0)
+        page = next(p for a in Activity.objects.filter(type="lesson", module__country="japan")
+                    for p in a.data["pages"] if p["title"] == "Count to five")
+        self.assertEqual(page["kind"], "flip")
+        self.assertNotIn("img", page)
+        static = Path(settings.BASE_DIR) / "static"
+        want = [("1", "いち", "ichi"), ("2", "に", "ni"), ("3", "さん", "san"), ("4", "よん", "yon"), ("5", "ご", "go")]
+        for card, (n, jp, reading) in zip(page["cards"], want, strict=True):
+            self.assertEqual((card["japanese"], card["reading"]), (jp, reading))
+            svg = (static / "img" / card["img"]).read_text()
+            self.assertIn(f">{n}</text>", svg)          # the big numeral
+            self.assertEqual(svg.count("<circle"), int(n))  # n dots to count
+            for bad in ("hand", "finger", "child", "<image", "data:"):
+                self.assertNotIn(bad, svg.lower(), card["img"])
+            self.assertTrue((static / "audio" / "japan" / f"{reading}.mp3").exists(), reading)
+        self.assertFalse((static / "img" / "lesson" / "words" / "count.svg").exists())
 
 
 class LazyLessonPhotoTests(TestCase):

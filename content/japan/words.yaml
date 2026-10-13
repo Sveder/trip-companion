@@ -380,29 +380,62 @@ activities:
               - {word: itadakimasu, japanese: "いただきます", label: "itadakimasu", label_he: "איטדקימס", target: eat}
               - {word: sumimasen, japanese: "すみません", label: "sumimasen", label_he: "סומימסן", target: excuse}
               - {word: sayounara, japanese: "さようなら", label: "sayounara", label_he: "סאיונרה", target: bye}
-      - kind: text
+      - kind: flip
         title: Count to five
         title_he: סופרים עד חמש
-        img: "lesson/words/count.svg"
-        japanese: いち、に、さん
-        reading: ichi, ni, san
-        reading_hebrew: "איצ'י, ני, סאן"
-        text: Hold up your fingers and count with us!
-        text_he: מרימים את האצבעות וסופרים איתנו!
-        tips:
-          - "1 = ichi"
-          - "2 = ni"
-          - "3 = san"
-          - "4 = yon"
-          - "5 = go"
-          - "In Japan, many people count with an open hand and fold one finger in for each number."
-        tips_he:
-          - "1 = איצ'י"
-          - "2 = ני"
-          - "3 = סאן"
-          - "4 = יון"
-          - "5 = גו"
-          - "ביפן, הרבה אנשים סופרים עם יד פתוחה, ומקפלים אצבע אחת פנימה לכל מספר."
+        text: Look at the number, then say it in Japanese. Tap a card to turn it and hear it.
+        text_he: מסתכלים על המספר, ואומרים אותו ביפנית. געו בכרטיס כדי להפוך אותו ולשמוע.
+        cards:
+          - img: "lesson/words/num-1.svg"
+            label: "Ichi"
+            label_he: "איצ'י"
+            japanese: "いち"
+            reading: "ichi"
+            meaning: "one"
+            meaning_he: "אחת"
+            reading_hebrew: "איצ'י"
+            text: "1 = ichi. Hold up one finger. Ichi!"
+            text_he: "1 = איצ'י. מרימים אצבע אחת. איצ'י!"
+          - img: "lesson/words/num-2.svg"
+            label: "Ni"
+            label_he: "ני"
+            japanese: "に"
+            reading: "ni"
+            meaning: "two"
+            meaning_he: "שתיים"
+            reading_hebrew: "ני"
+            text: "2 = ni. Two! Count two things near you: ichi, ni."
+            text_he: "2 = ני. שתיים! סופרים שני דברים לידכם: איצ'י, ני."
+          - img: "lesson/words/num-3.svg"
+            label: "San"
+            label_he: "סאן"
+            japanese: "さん"
+            reading: "san"
+            meaning: "three"
+            meaning_he: "שלוש"
+            reading_hebrew: "סאן"
+            text: "3 = san. Three! Ichi, ni, san. The kanji has three lines."
+            text_he: "3 = סאן. שלוש! איצ'י, ני, סאן. בקאנג'י יש שלושה קווים."
+          - img: "lesson/words/num-4.svg"
+            label: "Yon"
+            label_he: "יון"
+            japanese: "よん"
+            reading: "yon"
+            meaning: "four"
+            meaning_he: "ארבע"
+            reading_hebrew: "יון"
+            text: "4 = yon. Four! The kanji for four looks like a little window."
+            text_he: "4 = יון. ארבע! הקאנג'י של ארבע נראה כמו חלון קטן."
+          - img: "lesson/words/num-5.svg"
+            label: "Go"
+            label_he: "גו"
+            japanese: "ご"
+            reading: "go"
+            meaning: "five"
+            meaning_he: "חמש"
+            reading_hebrew: "גו"
+            text: "5 = go. Five! In Japan, many people count with an open hand and fold in one finger per number."
+            text_he: "5 = גו. חמש! ביפן, הרבה אנשים סופרים עם יד פתוחה, ומקפלים אצבע אחת לכל מספר."
       - kind: text
         title: Say your name
         title_he: אומרים את השם
