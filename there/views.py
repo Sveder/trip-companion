@@ -36,6 +36,8 @@ def hunt(request):
     trip = active_trip(request.user)
     if trip is None:
         return redirect("trip_setup")
+    if trip.destination != "japan":  # T258: the hunt list is Japan only; the menu hides it for other countries
+        return redirect("course")
     rows = things_with_photos(trip)
     track("hunt_opened", trip=trip)
     return render(request, "there/hunt.html", {

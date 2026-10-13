@@ -1,6 +1,6 @@
 {% load i18n %}{% autoescape off %}{% trans "Hello!" %}
 
-{% trans "Your next Japan activity is ready:" %}
+{% blocktrans %}Your next {{ place }} activity is ready:{% endblocktrans %}
 {{ item.activity.local_title }}
 
 {% trans "It takes a few minutes. Do it together as a family." %}

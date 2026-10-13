@@ -2,7 +2,7 @@
 <html{% if rtl %} dir="rtl" lang="he"{% endif %}><body style="margin:0;padding:24px;background:#fff8ee;font-family:Arial,Helvetica,sans-serif;color:#2b2b2b">
 <div style="max-width:480px;margin:0 auto;background:#ffffff;border-radius:16px;padding:24px">
   <p style="font-size:18px;margin:0 0 12px">{% trans "Hello!" %}</p>
-  <p style="font-size:18px;margin:0 0 12px">{% trans "Your next Japan activity is ready:" %}<br><strong>{{ item.activity.local_title }}</strong></p>
+  <p style="font-size:18px;margin:0 0 12px">{% blocktrans %}Your next {{ place }} activity is ready:{% endblocktrans %}<br><strong>{{ item.activity.local_title }}</strong></p>
   <p style="font-size:16px;margin:0 0 20px">{% trans "It takes a few minutes. Do it together as a family." %}</p>
   <p style="margin:0 0 20px"><a href="{{ go }}" style="display:inline-block;background:#d7263d;color:#ffffff;text-decoration:none;font-size:18px;font-weight:bold;padding:14px 24px;border-radius:999px">{% trans "Let's go!" %}</a></p>
   <p style="font-size:14px;margin:0 0 20px">{% blocktrans trimmed count left=left %}{{ left }} activity waits before your trip.{% plural %}{{ left }} activities wait before your trip.{% endblocktrans %}</p>

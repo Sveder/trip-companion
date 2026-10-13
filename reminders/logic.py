@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.utils import timezone, translation
 
 from content_admin.i18n import localize
+from content_admin.loader import load_previews
 from courses.highlights import trip_phase
 from courses.models import Course
 from there.models import Photo
@@ -70,7 +71,8 @@ def due(user, now=None):
     if phase == "after":
         return None
     if phase == "during":
-        return _hunt_note(user, trip, now)
+        # T258: the photo hunt is a Japan list. Another country gets no mail during the trip.
+        return _hunt_note(user, trip, now) if trip.destination == "japan" else None
     course = Course.objects.filter(trip=trip).first()
     if course is None:
         return None
@@ -99,6 +101,12 @@ def build_email(user, item):
         return _build_email(user, item)
 
 
+def country_name(destination):
+    """T258: the trip's place in the current language ('Japan', 'יפן', 'Uzbekistan')."""
+    place = next((p for p in localize(load_previews()) if p["id"] == destination), None)
+    return place["name"] if place else destination
+
+
 def _build_email(user, item):
     base = settings.SITE_URL.rstrip("/")
     stop = base + reverse("reminders_stop", args=[unsubscribe_token(user)])
@@ -116,6 +124,7 @@ def _build_email(user, item):
             "item": item,
             "go": base + reverse("activity", args=[item.id]) + "?from=reminder",
             "left": item.course.ready_items().filter(done_at__isnull=True).count(),
+            "place": country_name(item.course.trip.destination),
         }
     ctx["stop"] = stop
     subject = settings.ACCOUNT_EMAIL_SUBJECT_PREFIX + render_to_string(f"reminders/{name}subject.txt", ctx).strip()

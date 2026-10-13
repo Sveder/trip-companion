@@ -18,9 +18,9 @@ from .logic import HuntNote, due, unsubscribe_token
 from .models import Contact, ReminderLog
 
 
-def family(email, start=None, length=None):
+def family(email, start=None, length=None, destination="japan"):
     user = get_user_model().objects.create_user(email, email)
-    trip = Trip.objects.create(user=user, destination="japan", start_date=start, length_days=length,
+    trip = Trip.objects.create(user=user, destination=destination, start_date=start, length_days=length,
                                end_date=start + timedelta(days=length - 1) if start and length else None)
     for age in (38, 4):
         Traveller.objects.create(trip=trip, age=age)
@@ -287,3 +287,49 @@ class DuringTripReminderTests(TestCase):
         self.assertIn('dir="rtl"', html)
         self.assertIn("הסתכלו למטה!", html)
         self.assertNotIn("Today in Japan", msg.subject + msg.body + html)
+
+
+class OtherCountryReminderTests(TestCase):
+    """T258: a family going to Uzbekistan never gets a mail that says Japan, and never the Japan photo hunt."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+
+    def _mail(self, email, lang):
+        user = family(email, destination="uzbekistan")
+        Contact.objects.create(user=user, language=lang, last_seen=timezone.now() - timedelta(days=3))
+        age_course(user, 3)
+        run()
+        self.assertEqual(len(mail.outbox), 1)
+        msg = mail.outbox[0]
+        return msg, msg.subject + msg.body + msg.alternatives[0][0]
+
+    def test_english_mail_names_uzbekistan(self):
+        msg, text = self._mail("uz@example.com", "en")
+        self.assertIn("Your next Uzbekistan activity is waiting", msg.subject)
+        self.assertIn("Your next Uzbekistan activity is ready:", msg.body)
+        self.assertNotIn("Japan", text)
+
+    def test_hebrew_mail_names_uzbekistan(self):
+        msg, text = self._mail("uzhe@example.com", "he")
+        self.assertIn("הפעילות הבאה שלכם על אוזבקיסטן מחכה", msg.subject)
+        self.assertIn("הפעילות הבאה שלכם על אוזבקיסטן מוכנה", msg.body)
+        self.assertNotIn("יפן", text)
+        self.assertNotIn("Japan", text)
+
+    def test_no_hunt_note_during_the_trip(self):
+        user = family("uzt@example.com", start=date.today() - timedelta(days=1), length=10, destination="uzbekistan")
+        age_course(user, 3)
+        Trip.objects.filter(user=user).update(created_at=timezone.now() - timedelta(days=3))
+        self.assertNotIsInstance(due(user), HuntNote)
+        run()
+        for msg in mail.outbox:
+            self.assertNotIn("Japan", msg.subject + msg.body)
+            self.assertNotIn("/there/", msg.body)
+
+    def test_hunt_page_sends_an_uzbek_family_to_the_course(self):
+        user = family("uzh@example.com", destination="uzbekistan")
+        self.client.force_login(user)
+        r = self.client.get(reverse("there"))
+        self.assertRedirects(r, reverse("course"), fetch_redirect_response=False)

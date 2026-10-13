@@ -1,1 +1,1 @@
-{% load i18n %}{% trans "Your next Japan activity is waiting" %}
+{% load i18n %}{% blocktrans %}Your next {{ place }} activity is waiting{% endblocktrans %}

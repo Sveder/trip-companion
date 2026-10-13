@@ -1004,8 +1004,9 @@ msgid "Hello!"
 msgstr "שלום!"
 
 #: templates/reminders/email.html:5 templates/reminders/email.txt:3
-msgid "Your next Japan activity is ready:"
-msgstr "הפעילות הבאה שלכם על יפן מוכנה:"
+#, python-format
+msgid "Your next %(place)s activity is ready:"
+msgstr "הפעילות הבאה שלכם על %(place)s מוכנה:"
 
 #: templates/reminders/email.html:6 templates/reminders/email.txt:6
 msgid "It takes a few minutes. Do it together as a family."
@@ -1059,8 +1060,9 @@ msgid "We send a short email every two days at most, with your next activity."
 msgstr "אנחנו שולחים אימייל קצר לכל היותר פעם ביומיים, עם הפעילות הבאה שלכם."
 
 #: templates/reminders/subject.txt:1
-msgid "Your next Japan activity is waiting"
-msgstr "הפעילות הבאה שלכם על יפן מחכה"
+#, python-format
+msgid "Your next %(place)s activity is waiting"
+msgstr "הפעילות הבאה שלכם על %(place)s מחכה"
 
 #: templates/reminders/there_email.html:4 templates/reminders/there_email.txt:1
 msgid "Hello from Trip Companion!"
