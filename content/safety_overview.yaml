@@ -114,9 +114,5 @@ uzbekistan:
       tips_he:
         - אם הרצפה רועדת, נכנסים מתחת לשולחן ומחזיקים חזק עד שזה נגמר.
         - מתרחקים מחלונות. לא רצים החוצה.
-    - icon: "📇"
-      title: A name card in every pocket
-      title_he: כרטיס עם שם בכל כיס
-      text: "Write the child's name, a parent's phone with the country code, and the hotel name on a card. Put it in the child's pocket."
-      text_he: "כותבים על כרטיס את שם הילד, טלפון של הורה עם קידומת המדינה, ואת שם המלון. שמים אותו בכיס של הילד."
-  card: false
+  # T284: card: true adds the name card section with the card maker button (templates/safety.html).
+  card: true

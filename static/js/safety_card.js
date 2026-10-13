@@ -18,6 +18,25 @@
   var FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif';
   var RED = '#d62828', NAVY = '#1d3557', GREY = '#5c6670';
 
+  // T284: the words on the card, per country. Each label is English · the local language. `allergy` is the index
+  // of the local word in data-sc-allergy ("English|Japanese|Uzbek"). Uzbek words: Latin script, the official one.
+  var TEXT = {
+    japan: {
+      help: ['I am lost. Please help me.', '迷子です。助けてください。'],
+      name: 'Name · 名前', call: 'Please call my family · 家族に電話してください', hotel: 'My hotel · ホテル',
+      allergyLabel: 'Allergy · アレルギー', allergy: 1,
+      numbers: ['Police 110 · Fire / Ambulance 119', '警察 110 ・ 消防・救急 119']
+    },
+    uzbekistan: {
+      help: ['I am lost. Please help me.', 'Men adashib qoldim. Iltimos, yordam bering.'],
+      name: 'Name · Ism', call: "Please call my family · Oilamga qo'ng'iroq qiling", hotel: 'My hotel · Mehmonxona',
+      allergyLabel: 'Allergy · Allergiya', allergy: 2,
+      numbers: ['Fire 101 · Police 102 · Ambulance 103 · Any emergency 112',
+                "Yong'in 101 · Politsiya 102 · Tez yordam 103 · Favqulodda vaziyat 112"]
+    }
+  };
+  var T = TEXT[root.getAttribute('data-country')] || TEXT.japan;
+
   function val(key) {
     var el = form.querySelector('[data-sc="' + key + '"]');
     return el ? el.value.replace(/\s+/g, ' ').trim() : '';
@@ -28,13 +47,19 @@
     form.querySelectorAll('[data-sc-allergy]').forEach(function (box) {
       if (!box.checked) return;
       var p = box.getAttribute('data-sc-allergy').split('|');
-      out.push(p[0] + ' ' + p[1]);
+      out.push(p[0] + ' ' + (p[T.allergy] || ''));
     });
     if (val('allergy')) out.push(val('allergy'));
     return out.join(', ');
   }
 
   function font(size, bold) { return (bold ? '700 ' : '400 ') + Math.round(size) + 'px ' + FONT; }
+
+  // One line in a band: the font shrinks until the text fits `width`.
+  function fitText(text, size, x, y, width) {
+    do { ctx.font = font(size, true); size -= 1; } while (size > 12 && ctx.measureText(text).width > width);
+    ctx.fillText(text, x, y);
+  }
 
   // Lines of text that fit `width`, at most `max` lines; the last line ends with … when text is left over.
   function wrap(text, width, max) {
@@ -63,12 +88,12 @@
   // The text blocks of the right column, top to bottom. Each block: a small label and its value.
   function blocks() {
     var out = [];
-    if (val('name')) out.push({label: 'Name · 名前', value: val('name'), size: 60, lines: 1});
+    if (val('name')) out.push({label: T.name, value: val('name'), size: 60, lines: 1});
     var phones = [val('phone'), val('phone2')].filter(Boolean);
     // One phone number per line: a number never breaks in the middle.
-    if (phones.length) out.push({label: 'Please call my family · 家族に電話してください', value: phones, size: phones.length > 1 ? 46 : 54, lines: 1});
+    if (phones.length) out.push({label: T.call, value: phones, size: phones.length > 1 ? 46 : 54, lines: 1});
     if (val('hotel') || val('address')) {
-      out.push({label: 'My hotel · ホテル', value: val('hotel'), size: 38, lines: 1, sub: val('address'), subSize: 28, subLines: 2});
+      out.push({label: T.hotel, value: val('hotel'), size: 38, lines: 1, sub: val('address'), subSize: 28, subLines: 2});
     }
     return out;
   }
@@ -118,27 +143,23 @@
     ctx.fillStyle = RED;
     ctx.fillRect(0, 0, W, band);
     ctx.fillStyle = '#fff';
-    ctx.font = font(50, true);
-    ctx.fillText('I am lost. Please help me.', 36, 58);
-    ctx.font = font(44, true);
-    ctx.fillText('迷子です。助けてください。', 36, 112);
+    fitText(T.help[0], 50, 36, 58, W - 72);
+    fitText(T.help[1], 44, 36, 112, W - 72);
 
-    // The bottom band: the emergency numbers in Japan.
+    // The bottom band: the emergency numbers of the country.
     var foot = 76;
     ctx.fillStyle = NAVY;
     ctx.fillRect(0, H - foot, W, foot);
     ctx.fillStyle = '#fff';
-    ctx.font = font(27, true);
-    ctx.fillText('Police 110 · Fire / Ambulance 119', 36, H - foot + 32);
-    ctx.font = font(25, true);
-    ctx.fillText('警察 110 ・ 消防・救急 119', 36, H - foot + 64);
+    fitText(T.numbers[0], 27, 36, H - foot + 32, W - 72);
+    fitText(T.numbers[1], 25, 36, H - foot + 64, W - 72);
 
     var allergy = allergies();
     var top = band + 24, bottom = H - foot - 16;
     var allergyLines = [];
     if (allergy) {
       ctx.font = font(30, true);
-      allergyLines = wrap('Allergy · アレルギー: ' + allergy, W - 72, 2);
+      allergyLines = wrap(T.allergyLabel + ': ' + allergy, W - 72, 2);
       bottom -= allergyLines.length * 36 + 6;
     }
 
@@ -260,5 +281,5 @@
   root.querySelector('[data-sc-make]').addEventListener('click', make);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
   draw();
-  window.tcSafetyCard = {draw: draw, makePdf: makePdf};
+  window.tcSafetyCard = {draw: draw, makePdf: makePdf, text: T};
 })();

@@ -5,12 +5,12 @@
 {% comment %}T277 (Michael 2026-10-13): a printable card for a child's pocket. PRIVACY: the form has no action and no field has a
    name, so a submit sends nothing. static/js/safety_card.js reads the photo with FileReader, draws the card on a canvas and
    writes the PDF in the browser. Nothing is uploaded, and nothing is kept in localStorage.{% endcomment %}
-<article class="panel safety-card-page" data-safety-card
+<article class="panel safety-card-page" data-safety-card data-country="{{ country }}"
   data-ready="{% translate "Your PDF is ready. Print it at actual size (100 percent), then cut out the cards." %}"
   data-busy="{% translate "Making the PDF…" %}"
   data-failed="{% translate "This browser could not make the PDF. Try another browser." %}">
   <h1>{% translate "Child safety card" %}</h1>
-  <p class="lead">{% translate "Make a card for each child's pocket. A helper in Japan can read it in English and in Japanese." %}</p>
+  <p class="lead">{% if country == "uzbekistan" %}{% translate "Make a card for each child's pocket. A helper in Uzbekistan can read it in English and in Uzbek." %}{% else %}{% translate "Make a card for each child's pocket. A helper in Japan can read it in English and in Japanese." %}{% endif %}</p>
   <p class="sc-private"><span aria-hidden="true">🔒</span> {% translate "Everything stays on this device. The photo and the details are never sent to us and never saved. Close the page and they are gone." %}</p>
 
   <div class="sc-grid">
@@ -22,11 +22,11 @@
       <button type="button" class="link sc-photo-clear" data-sc-clear hidden>{% translate "Remove the photo" %}</button>
       <label>{% translate "Child's name" %}
         <input type="text" data-sc="name" maxlength="40" placeholder="Maya Cohen" dir="ltr">
-        <span class="hint">{% translate "In English letters, so a helper in Japan can read it." %}</span>
+        <span class="hint">{% if country == "uzbekistan" %}{% translate "In English letters, so a helper in Uzbekistan can read it." %}{% else %}{% translate "In English letters, so a helper in Japan can read it." %}{% endif %}</span>
       </label>
       <label>{% translate "Parent's phone" %}
         <input type="tel" data-sc="phone" maxlength="24" placeholder="+972 50 123 4567" dir="ltr">
-        <span class="hint">{% translate "With the country code, so a phone in Japan can call it." %}</span>
+        <span class="hint">{% if country == "uzbekistan" %}{% translate "With the country code, so a phone in Uzbekistan can call it." %}{% else %}{% translate "With the country code, so a phone in Japan can call it." %}{% endif %}</span>
       </label>
       <label>{% translate "A second phone" %}
         <input type="tel" data-sc="phone2" maxlength="24" placeholder="+972 52 765 4321" dir="ltr">
@@ -36,22 +36,22 @@
       </label>
       <label>{% translate "Hotel address" %}
         <textarea data-sc="address" rows="2" maxlength="120" dir="auto"></textarea>
-        <span class="hint">{% translate "Ask at the hotel desk to write it in Japanese too." %}</span>
+        <span class="hint">{% if country == "uzbekistan" %}{% translate "Ask at the hotel desk to write it in Uzbek too." %}{% else %}{% translate "Ask at the hotel desk to write it in Japanese too." %}{% endif %}</span>
       </label>
       <fieldset class="sc-allergies">
         <legend>{% translate "Allergies" %}</legend>
-        <p class="hint">{% translate "The card writes each one in English and in Japanese." %}</p>
-        {# The Japanese words are the names on Japanese food allergy labels. #}
-        <label><input type="checkbox" data-sc-allergy="Peanuts|ピーナッツ"> {% translate "Peanuts" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Tree nuts|ナッツ類"> {% translate "Tree nuts" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Egg|卵"> {% translate "Egg" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Milk|乳"> {% translate "Milk" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Wheat|小麦"> {% translate "Wheat" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Buckwheat (soba)|そば"> {% translate "Buckwheat (soba)" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Shrimp|えび"> {% translate "Shrimp" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Crab|かに"> {% translate "Crab" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Fish|魚"> {% translate "Fish" %}</label>
-        <label><input type="checkbox" data-sc-allergy="Sesame|ごま"> {% translate "Sesame" %}</label>
+        <p class="hint">{% if country == "uzbekistan" %}{% translate "The card writes each one in English and in Uzbek." %}{% else %}{% translate "The card writes each one in English and in Japanese." %}{% endif %}</p>
+        {# Each box: English | Japanese (the names on Japanese food allergy labels) | Uzbek (T284). #}
+        <label><input type="checkbox" data-sc-allergy="Peanuts|ピーナッツ|yeryong'oq"> {% translate "Peanuts" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Tree nuts|ナッツ類|yong'oq"> {% translate "Tree nuts" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Egg|卵|tuxum"> {% translate "Egg" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Milk|乳|sut"> {% translate "Milk" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Wheat|小麦|bug'doy"> {% translate "Wheat" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Buckwheat (soba)|そば|grechka"> {% translate "Buckwheat (soba)" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Shrimp|えび|krevetka"> {% translate "Shrimp" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Crab|かに|qisqichbaqa"> {% translate "Crab" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Fish|魚|baliq"> {% translate "Fish" %}</label>
+        <label><input type="checkbox" data-sc-allergy="Sesame|ごま|kunjut"> {% translate "Sesame" %}</label>
         <label class="sc-other">{% translate "Other (in English)" %}
           <input type="text" data-sc="allergy" maxlength="40" dir="ltr">
         </label>

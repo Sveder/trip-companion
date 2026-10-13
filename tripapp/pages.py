@@ -12,8 +12,19 @@ def privacy(request):
 
 def safety_card(request):
     """T277: the child safety card. The form has no action and its fields have no name, so nothing in it reaches
-    the server. static/js/safety_card.js draws the card and writes the PDF in the browser."""
-    return render(request, "safety_card.html")
+    the server. static/js/safety_card.js draws the card and writes the PDF in the browser.
+    T284: ?country=uzbekistan writes the card in English and Uzbek with the Uzbek numbers. With no country in the
+    URL the card follows the family's trip, else Japan."""
+    from trips.models import active_trip
+
+    country = request.GET.get("country")
+    if country not in SAFETY_CARD_COUNTRIES:
+        trip = active_trip(request.user) if request.user.is_authenticated else None
+        country = trip.destination if trip and trip.destination in SAFETY_CARD_COUNTRIES else "japan"
+    return render(request, "safety_card.html", {"country": country})
+
+
+SAFETY_CARD_COUNTRIES = ("japan", "uzbekistan")
 
 
 def safety(request, country=None):

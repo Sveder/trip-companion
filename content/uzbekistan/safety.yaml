@@ -81,6 +81,9 @@ activities:
         title: A name card in every pocket
         title_he: כרטיס עם שם בכל כיס
         img: lesson/safety/card.svg
+        # T284: a button under the page opens the card maker in English and Uzbek.
+        tool: safety_card
+        tool_country: uzbekistan
         text: "A grown-up writes a card for each child: the child's name, a parent's phone with the country code, and the hotel name. The card goes in your pocket. Show it to a helper if you get lost."
         text_he: "מבוגר כותב כרטיס לכל ילד: השם של הילד, הטלפון של הורה עם קידומת המדינה, ושם המלון. הכרטיס נכנס לכיס. מראים אותו למי שעוזר אם הולכים לאיבוד."
         tips:

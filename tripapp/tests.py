@@ -443,12 +443,56 @@ class SafetyCardTests(TestCase):
         self.assertIn("The child safety card is made on your device", self.client.get("/privacy/?lang=en").content.decode())
 
 
+    def test_card_follows_the_country(self):
+        """T284: ?country=uzbekistan sets the Uzbek card; the Japan card keeps its words and numbers."""
+        from pathlib import Path
+        from django.conf import settings
+        self.assertIn('data-country="japan"', self.client.get("/safety-card/").content.decode())
+        self.assertIn('data-country="japan"', self.client.get("/safety-card/?country=mars").content.decode())
+        uz = self.client.get("/safety-card/?country=uzbekistan").content.decode()
+        self.assertIn('data-country="uzbekistan"', uz)
+        self.assertIn("A helper in Uzbekistan can read it in English and in Uzbek.", uz)
+        self.assertNotIn("helper in Japan", uz)
+        self.assertIn('data-sc-allergy="Peanuts|ピーナッツ|yeryong\'oq"', uz)
+        he = self.client.get("/safety-card/?country=uzbekistan&lang=he").content.decode()
+        self.assertIn("מי שעוזר באוזבקיסטן", he)
+        js = (Path(settings.BASE_DIR) / "static/js/safety_card.js").read_text()
+        uzbek = js[js.index("uzbekistan: {"):js.index("};", js.index("uzbekistan: {"))]
+        for n in ("101", "102", "103", "112", "Men adashib qoldim", "Politsiya", "Tez yordam"):
+            self.assertIn(n, uzbek)
+        self.assertNotRegex(uzbek, r"[\u3040-\u30ff\u4e00-\u9fff]")
+        japan = js[js.index("japan: {"):js.index("uzbekistan: {")]
+        for text in ("迷子です。助けてください。", "Police 110 · Fire / Ambulance 119", "警察 110 ・ 消防・救急 119", "Name · 名前"):
+            self.assertIn(text, japan)
+
+    def test_uzbek_lesson_and_overview_link_to_the_uzbek_card(self):
+        from django.contrib.auth import get_user_model
+        from django.core.management import call_command
+        from django.urls import reverse
+        from content_admin.models import Activity
+        from courses.builder import build_course
+        from trips.models import Trip, Traveller
+        self.assertIn('href="/safety-card/?country=uzbekistan"', self.client.get("/safety/uzbekistan/").content.decode())
+        self.assertIn('href="/safety-card/?country=japan"', self.client.get("/safety/japan/").content.decode())
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        user = get_user_model().objects.create_user("u@example.com", "u@example.com")
+        trip = Trip.objects.create(user=user, destination="uzbekistan")
+        Traveller.objects.create(trip=trip, age=40)
+        Traveller.objects.create(trip=trip, age=5)
+        act = Activity.objects.get(slug="uz-safety-lesson")
+        item = build_course(trip, [act.module_id]).items.get(activity=act)
+        self.client.force_login(user)
+        html = self.client.get(reverse("activity", args=[item.id])).content.decode()
+        self.assertEqual(html.count('href="/safety-card/?country=uzbekistan"'), 1)
+        self.assertIn('data-country="uzbekistan"', self.client.get("/safety-card/").content.decode())
+
+
 class SafetyOverviewTests(TestCase):
     """T279 (Michael): a country overview page with the important safety things, linked from the adventure and the header."""
 
     def test_japan_page_has_numbers_koban_lost_plan_earthquake_and_card(self):
         en = self.client.get("/safety/japan/").content.decode()
-        for text in ('href="tel:110"', 'href="tel:119"', "koban", "maigo desu", "get under a table", 'href="/safety-card/"'):
+        for text in ('href="tel:110"', 'href="tel:119"', "koban", "maigo desu", "get under a table", 'href="/safety-card/?country=japan"'):
             self.assertIn(text, en)
         he = self.client.get("/safety/japan/?lang=he").content.decode()
         self.assertIn("שומרים על עצמנו ביפן", he)

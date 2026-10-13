@@ -1452,3 +1452,23 @@ msgstr "כל תשובה נשמרת. בפעם הבאה ממשיכים מכאן."
 
 msgid "Not this time. The right one has the green tick."
 msgstr "לא הפעם. לתשובה הנכונה יש וי ירוק."
+
+#: templates/safety_card.html
+msgid "Make a card for each child's pocket. A helper in Uzbekistan can read it in English and in Uzbek."
+msgstr "מכינים כרטיס לכיס של כל ילד. מי שעוזר באוזבקיסטן יכול לקרוא אותו באנגלית ובאוזבקית."
+
+#: templates/safety_card.html
+msgid "In English letters, so a helper in Uzbekistan can read it."
+msgstr "באותיות באנגלית, כדי שמי שעוזר באוזבקיסטן יוכל לקרוא."
+
+#: templates/safety_card.html
+msgid "With the country code, so a phone in Uzbekistan can call it."
+msgstr "עם הקידומת של המדינה, כדי שאפשר יהיה להתקשר מטלפון באוזבקיסטן."
+
+#: templates/safety_card.html
+msgid "Ask at the hotel desk to write it in Uzbek too."
+msgstr "מבקשים בדלפק של המלון לכתוב אותה גם באוזבקית."
+
+#: templates/safety_card.html
+msgid "The card writes each one in English and in Uzbek."
+msgstr "הכרטיס כותב כל אחת באנגלית ובאוזבקית."
