@@ -265,6 +265,18 @@ class StreetViewHuntTests(TestCase):
         item.refresh_from_db()
         self.assertIsNotNone(item.done_at)
 
+    def test_found_things_render_folded_and_the_list_is_compact(self):
+        # T273 (Michael): a found thing folds to its title; a tap opens it again (hunt.js).
+        item = self.item()
+        html = self.client.get(self.done(item, ["0", "2"])["Location"]).content.decode()
+        self.assertEqual(html.count('class="spot done"'), 2)
+        self.assertEqual(html.count('class="spot"'), 3)
+        css = (Path(settings.BASE_DIR) / "static" / "css" / "app.css").read_text()
+        self.assertIn(".spot.done:not(.open) .spot-about", css)
+        self.assertIn("padding: .35rem .6rem", css)
+        js = (Path(settings.BASE_DIR) / "static" / "js" / "hunt.js").read_text()
+        self.assertIn("' open'", js)
+
     def test_missing_keeps_the_ticks_and_shows_the_skip_button(self):
         item = self.item()
         r = self.done(item, ["0", "2"])

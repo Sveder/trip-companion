@@ -358,18 +358,23 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .sv-col { display: grid; gap: 1rem; }
 .sv-help { margin: -.4rem 0 0; }
 .spot-form h2 { margin: 0 0 .5rem; }
-.spots { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; gap: .6rem; }
-.spot { display: flex; align-items: flex-start; gap: .8rem; padding: .7rem 1rem; background: var(--c-surface); border: 4px solid var(--c-line); border-radius: var(--radius); font-weight: 800; font-size: 1.15rem; cursor: pointer; }
+.spots { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; gap: .35rem; }
+/* T273: a compact row, so more things fit on one screen. */
+.spot { display: flex; align-items: center; gap: .55rem; padding: .35rem .6rem; background: var(--c-surface); border: 3px solid var(--c-line); border-radius: var(--radius); font-weight: 800; font-size: 1.05rem; line-height: 1.25; cursor: pointer; }
 .spot input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.spot-emoji { font-size: 1.8rem; line-height: 1; }
+.spot-emoji { font-size: 1.5rem; line-height: 1; }
 /* T272: a drawn icon, so an old phone or TV never shows a blank square for a new emoji. */
-.spot-icon { width: 2.5rem; height: 2.5rem; flex: none; }
-.spot-body { flex: 1; display: grid; gap: .15rem; }
-.spot-name { font-size: 1.2rem; color: var(--c-accent); }
-.spot-about { font-weight: 500; font-size: .95rem; line-height: 1.35; }
-.spot-tick { display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 3px solid var(--c-line); color: transparent; font-size: 1.3rem; flex: none; }
+.spot-icon { width: 2rem; height: 2rem; flex: none; }
+.spot-body { flex: 1; display: grid; gap: .1rem; }
+.spot-name { font-size: 1.1rem; color: var(--c-accent); }
+.spot-about { font-weight: 500; font-size: .9rem; line-height: 1.3; }
+.spot-tick { display: inline-grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; border: 3px solid var(--c-line); color: transparent; font-size: 1.1rem; flex: none; }
 .spot input:checked ~ .spot-tick { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
-.spot input:checked ~ .spot-text { text-decoration: line-through; text-decoration-thickness: 3px; }
+/* T273: a found thing folds to its title; a tap on the row opens it again (hunt.js). */
+.spot.done { background: var(--c-bg); border-color: var(--c-accent); }
+.spot.done:not(.open) .spot-about, .spot.done:not(.open):not(.no-name) .spot-text { display: none; }
+.spot.done:not(.open) .spot-icon { width: 1.5rem; height: 1.5rem; }
+.spot.done:not(.open) .spot-emoji { font-size: 1.1rem; }
 .spot input:focus-visible ~ .spot-tick, .spot:focus { outline: 4px solid var(--c-sun); outline-offset: 2px; }
 .spot-count { font-weight: 800; min-height: 1.4em; }
 @media (min-width: 900px) {

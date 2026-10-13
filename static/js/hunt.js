@@ -21,19 +21,38 @@
       }
     }
 
+    // T273: a found thing folds to its title. A tap on a found row opens or folds it;
+    // a tap on its round tick un-finds it.
+    function mark(label) {
+      var box = label.querySelector('input');
+      label.className = label.className.replace(/ ?\b(done|open)\b/g, '') + (box.checked ? ' done' : '');
+    }
+
     var labels = form.querySelectorAll('.spot');
     for (var i = 0; i < labels.length; i++) {
       labels[i].setAttribute('tabindex', '0');
+      labels[i].addEventListener('click', function (e) {
+        var box = this.querySelector('input');
+        if (e.target === box || !box.checked) return;
+        var t = e.target;
+        while (t && t !== this) { if (t.className === 'spot-tick') return; t = t.parentNode; }
+        e.preventDefault();
+        if (/\bopen\b/.test(this.className)) this.className = this.className.replace(/ ?\bopen\b/, '');
+        else this.className += ' open';
+      });
       labels[i].addEventListener('keydown', function (e) {
         if (e.keyCode === 13 || e.keyCode === 32) {
           e.preventDefault();
           var box = this.querySelector('input');
+          // OK on the TV: find it; OK again opens it; OK on an open one un-finds it.
+          if (box.checked && !/\bopen\b/.test(this.className)) { this.className += ' open'; return; }
           box.checked = !box.checked;
+          mark(this);
           update();
         }
       });
     }
-    for (var j = 0; j < boxes.length; j++) boxes[j].addEventListener('change', update);
+    for (var j = 0; j < boxes.length; j++) boxes[j].addEventListener('change', function () { mark(this.parentNode); update(); });
     update();
   });
 })();

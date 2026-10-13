@@ -21,8 +21,9 @@
     {% if hunt.missing %}<p class="hint" role="status">{% translate "Keep looking! Tap each thing when you find it." %}</p>{% endif %}
     <ul class="spots">
       {% for spot in data.spots %}
-      <li><label class="spot">
-        <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% with n=forloop.counter0|stringformat:"d" %}{% if n in hunt.ticked %} checked{% endif %}{% endwith %}>
+      {% with n=forloop.counter0|stringformat:"d" %}
+      <li><label class="spot{% if n in hunt.ticked %} done{% endif %}{% if not spot.name %} no-name{% endif %}">
+        <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% if n in hunt.ticked %} checked{% endif %}>
         {% if spot.icon %}<img class="spot-icon" src="{% static "img/hunt/"|add:spot.icon|add:".svg" %}" alt="" width="40" height="40">{% else %}<span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>{% endif %}
         <span class="spot-body">
           {% if spot.name %}<span class="spot-name">{{ spot.name }}</span>{% endif %}
@@ -31,6 +32,7 @@
         </span>
         <span class="spot-tick" aria-hidden="true">✓</span>
       </label></li>
+      {% endwith %}
       {% endfor %}
     </ul>
     <p class="spot-count" data-count aria-live="polite"></p>
