@@ -283,7 +283,28 @@ class StreetViewHuntTests(TestCase):
         html = self.client.get(r["Location"]).content.decode()
         self.assertIn('name="skip"', html)
         self.assertEqual(html.count(" checked>"), 2)
-        self.assertNotIn('name="skip"', self.client.get(reverse("activity", args=[item.id])).content.decode())
+
+    def test_one_skip_button_that_turns_into_next(self):
+        # T274 (Michael): no 'We found them all' button. One button says Skip, and Next when all are found.
+        item = self.item()
+        html = self.client.get(reverse("activity", args=[item.id])).content.decode()
+        self.assertNotIn("We found them all!", html)
+        self.assertNotIn("We can't find them all", html)
+        self.assertEqual(html.count('type="submit"'), 1)
+        self.assertRegex(html, r'class="btn big hunt-skip alt"[^>]*name="skip"')
+        self.assertIn('<span data-label>Skip</span>', html)
+        self.assertIn('data-next="Next"', html)
+        n = len(item.activity.data["spots"])
+        all_url = reverse("activity", args=[item.id]) + "?found=" + ",".join(str(i) for i in range(n))
+        html = self.client.get(all_url).content.decode()
+        self.assertIn('class="btn big hunt-skip"', html)
+        self.assertIn('<span data-label>Next</span>', html)
+        js = (Path(settings.BASE_DIR) / "static" / "js" / "hunt.js").read_text()
+        self.assertIn("data-next", js)
+        # Skip with nothing found ends the hunt.
+        self.client.post(reverse("activity_done", args=[item.id]), {"found": [], "skip": "1"})
+        item.refresh_from_db()
+        self.assertIsNotNone(item.done_at)
 
     def test_skip_after_missing_marks_the_hunt_done_and_home_opens_the_next(self):
         trip = Trip.objects.create(user=self.user, destination="japan")
@@ -358,8 +379,7 @@ class StreetViewHuntTests(TestCase):
         self.assertIsNotNone(done_at)
         html = self.client.get(reverse("activity", args=[first.id])).content.decode()
         self.assertEqual(html.count(" checked>"), 0)
-        self.assertIn("We found them all!", html)
-        self.assertNotIn(">Next<", html)
+        self.assertIn("<span data-label>Skip</span>", html)
         # On a replay, missing things still say "Keep looking!" and offer the skip button.
         r = self.client.post(url, {"found": ["1"]})
         self.assertIn("missing=1", r["Location"])

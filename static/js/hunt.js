@@ -6,6 +6,8 @@
     if (!form) return;
     var boxes = form.querySelectorAll('input[name=found]');
     var count = form.querySelector('[data-count]');
+    var btn = form.querySelector('.hunt-skip');
+    var label = btn && btn.querySelector('[data-label]');
     var wasDone = boxes.length && form.querySelectorAll('input[name=found]:checked').length === boxes.length;
     var sent = false;
 
@@ -13,6 +15,12 @@
       var n = form.querySelectorAll('input[name=found]:checked').length;
       var T = window.T || {};
       count.textContent = (T.found || '{n} of {total} found').replace('{n}', n).replace('{total}', boxes.length);
+      // T274: the one button says "Skip" while things are missing and "Next" when all are found.
+      if (label) {
+        var all = n === boxes.length;
+        label.textContent = all ? btn.getAttribute('data-next') : btn.getAttribute('data-skip');
+        btn.className = btn.className.replace(/ ?\balt\b/g, '') + (all ? '' : ' alt');
+      }
       if (n === boxes.length && !wasDone && !sent) {
         sent = true;
         count.textContent = T.allFound || 'You found them all! 🎉';

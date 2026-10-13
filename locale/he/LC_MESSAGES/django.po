@@ -1269,3 +1269,6 @@ msgstr "טיול נהדר! הנה רשימת הצילומים שלכם."
 #: trips/views.py:145
 msgid "Welcome home! Here is what you did."
 msgstr "ברוכים השבים! הנה מה שעשיתם."
+
+msgid "Skip"
+msgstr "דילוג"

@@ -47,6 +47,8 @@ def activity(request, item_id):
         hunt = {"embed": streetview.embed_url(act.data), "link": streetview.maps_link(act.data),
                 "missing": request.GET.get("missing") == "1",
                 "ticked": set(request.GET.get("found", "").split(","))}
+        # T274: one button. It says "Skip" while things are missing and "Next" when all are found.
+        hunt["all"] = streetview.all_found(act.data, list(hunt["ticked"]))
     names = [f"activities/{act.type}.html"] if not item.is_stub else []
     template = select_template(names + ["activities/coming_soon.html"])
     return render(

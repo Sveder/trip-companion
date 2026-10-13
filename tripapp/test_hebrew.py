@@ -82,7 +82,7 @@ class HebrewContentTests(TestCase):
         self.assertNotIn(">hello<", html)
 
     def test_food_cards_streetview_and_chopsticks_are_hebrew(self):
-        pages = {"food-around-japan": ["טמפורה", "אוניגירי"], "streetview-intro": ["מנקי-נקו", "מה צריך למצוא", "מצאנו את כולם!"],
+        pages = {"food-around-japan": ["טמפורה", "אוניגירי"], "streetview-intro": ["מנקי-נקו", "מה צריך למצוא", "דילוג"],
                  "chopsticks-intro": ["מזיזים רק את המקל העליון", "הפעלת המצלמה"], "safety-intro": ["110", "קובאן"]}
         for slug, texts in pages.items():
             html = self.client.get(reverse("activity", args=[self.item(slug).id])).content.decode()

@@ -36,10 +36,8 @@
       {% endfor %}
     </ul>
     <p class="spot-count" data-count aria-live="polite"></p>
-    <button class="btn big" type="submit">{% translate "We found them all!" %}</button>
-    {% if hunt.missing %}
-    <button class="btn alt big hunt-skip" type="submit" name="skip" value="1">{% translate "We can't find them all. Next" %} <span class="arrow">➜</span></button>
-    {% endif %}
+    <button class="btn big hunt-skip{% if not hunt.all %} alt{% endif %}" type="submit" name="skip" value="1"
+      data-skip="{% translate "Skip" %}" data-next="{% translate "Next" %}"><span data-label>{% if hunt.all %}{% translate "Next" %}{% else %}{% translate "Skip" %}{% endif %}</span> <span class="arrow">➜</span></button>
   </form>
 </div>
 <script nonce="{{ csp_nonce }}" src="{% static 'js/hunt.js' %}" defer></script>
