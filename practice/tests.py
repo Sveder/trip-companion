@@ -260,7 +260,9 @@ class LessonQuizTests(TestCase):
         added = add_items(self.trip, self.lesson)
         keys = self.keys()
         self.assertEqual(added, len(keys))
-        self.assertTrue(0 < len(keys) <= 12)
+        # At most 12 spots and cards; the game rounds (keys "q-...", T281) come on top, at most 8.
+        self.assertTrue(0 < len({k for k in keys if "/q-" not in k}) <= 12)
+        self.assertTrue(len({k for k in keys if "/q-" in k}) <= 8)
         self.assertIn("food/sushi-lesson/shari", keys)  # a spot
         self.assertIn("food/sushi-lesson/nigiri", keys)  # a flip card
 
@@ -354,11 +356,11 @@ class LessonQuizTests(TestCase):
             self.assertIn(q["answer"], q["choices"])
         # A spot with no reading is never asked, but it can be a wrong choice.
         from .items import quiz_entries
-        self.assertTrue(all(e.get("img") or e.get("reading") for _, e in quiz_entries(words)))
+        self.assertTrue(all(e.get("img") or e.get("reading") or e.get("pick") for _, e in quiz_entries(words)))
 
     def test_the_cap_keeps_a_mix_of_pages(self):
         from .items import quiz_entries
-        pages = [e["page"] for _, e in quiz_entries(self.lesson)]
+        pages = [e["page"] for _, e in quiz_entries(self.lesson) if not e.get("pick")]
         self.assertEqual(len(pages), 12)
         self.assertEqual(len(set(pages)), 3)  # the spots page and both flip pages
         self.assertNotEqual(pages[0], pages[1])
@@ -552,7 +554,7 @@ class TextPageQuizTests(TestCase):
             name = f"{a.module.slug}/{a.slug}"
             if name == "food/food-around-japan":
                 continue
-            self.assertEqual([i for i, _ in quiz_entries(a)], self.JAPAN_KEYS[name], name)
+            self.assertEqual([i for i, e in quiz_entries(a) if not e.get("pick")], self.JAPAN_KEYS[name], name)
 
     def test_text_page_question_has_photo_and_three_other_foods(self):
         food = Activity.objects.get(slug="uz-food-lesson")
@@ -572,7 +574,7 @@ class TextPageQuizTests(TestCase):
         add_items(self.jtrip, jfood)
         names = {p["label"] for p in jfood.data["pictures"] if p.get("quiz") is not False}
         with translation.override("en"):
-            for p in PracticeItem.objects.filter(trip=self.jtrip, key__startswith="food/food-around-japan/"):
+            for p in PracticeItem.objects.filter(trip=self.jtrip, key__startswith="food/food-around-japan/").exclude(key__contains="/q-"):
                 q = question(self.jtrip, p.key)
                 self.assertEqual(len(q["choices"]), 4, p.key)
                 self.assertEqual(len(set(q["choices"])), 4, p.key)
@@ -596,3 +598,108 @@ class TextPageQuizTests(TestCase):
         page = self.client.get(reverse("quiz") + "?new=1")
         self.assertNotContains(page, "No quiz yet")
         self.assertContains(page, "uz-")
+
+
+class QuizMixTests(TestCase):
+    """T281 (Michael): the quiz asks about every lesson, not only food; game rounds are questions; missed and
+    new items come first; the family can stop at any time and go on later."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        cls.user = get_user_model().objects.create_user("mix@example.com", "mix@example.com")
+        cls.trip = make_trip(cls.user)
+        cls.uz_user = get_user_model().objects.create_user("mixuz@example.com", "mixuz@example.com")
+        cls.uz_trip = Trip.objects.create(user=cls.uz_user, destination="uzbekistan")
+        Traveller.objects.create(trip=cls.uz_trip, age=5)
+
+    def finish_all(self, trip):
+        for a in Activity.objects.filter(module__country=trip.destination, type="lesson"):
+            add_items(trip, a)
+
+    def test_every_lesson_gives_game_round_questions(self):
+        from .items import quiz_entries
+
+        for a in Activity.objects.select_related("module").filter(type="lesson"):
+            picks = [i for i, e in quiz_entries(a) if e.get("pick")]
+            self.assertGreaterEqual(len(picks), 4, f"{a.module.country}/{a.slug}")
+
+    def test_game_round_question_in_english_and_hebrew(self):
+        self.finish_all(self.trip)
+        key = "dos_donts/manners-lesson/q-where-do-we-whisper-and-sit-still"
+        with translation.override("en"):
+            q = question(self.trip, key)
+            self.assertEqual(q["prompt"], "Where do we whisper and sit still?")
+            self.assertEqual(q["answer"], "trainin")
+            self.assertEqual(len(q["choices"]), 4)
+            self.assertEqual([c for c, _, _ in q["choice_imgs"]], q["choices"])
+            self.assertTrue(all(img for _, img, _ in q["choice_imgs"]))
+        with translation.override("he"):
+            q = question(self.trip, key)
+            self.assertEqual(q["prompt"], "איפה לוחשים ויושבים בשקט?")
+            self.assertNotRegex(" ".join(label for _, _, label in q["choice_imgs"]), r"[A-Za-z]")
+
+    def test_picture_only_round_shows_no_labels(self):
+        # Four hands, one label ("A hand with chopsticks"): the pictures are the answers.
+        self.finish_all(self.trip)
+        q = question(self.trip, "chopsticks/chopsticks-lesson/q-which-hand-holds-the-chopsticks-the-right-way")
+        self.assertEqual(q["answer"], "quiz-grip-right")
+        self.assertEqual({label for _, _, label in q["choice_imgs"]}, {""})
+        self.assertEqual(q["answer_label"], "")
+
+    def test_first_quiz_mixes_the_lessons(self):
+        self.finish_all(self.trip)
+        PracticeItem.objects.filter(trip=self.trip).update(due_on=TODAY)
+        modules = {p.key.split("/")[0] for p in due_items(self.trip, TODAY)}
+        self.assertGreaterEqual(len(modules), 6, modules)  # 8 questions from at least 6 lessons, not 8 foods
+
+    def test_missed_items_first_then_new_then_the_rest(self):
+        self.finish_all(self.trip)
+        items = PracticeItem.objects.filter(trip=self.trip)
+        items.update(due_on=TODAY - timedelta(days=3), last_result=True)
+        missed = items.filter(key__startswith="safety/").first()
+        new = items.filter(key__startswith="transport/").first()
+        PracticeItem.objects.filter(pk=missed.pk).update(last_result=False, due_on=TODAY)
+        PracticeItem.objects.filter(pk=new.pk).update(last_result=None, due_on=TODAY)
+        got = [p.key for p in due_items(self.trip, TODAY)]
+        self.assertEqual(got[:2], [missed.key, new.key])
+
+    def test_uzbek_quiz_asks_uzbek_lessons(self):
+        self.finish_all(self.uz_trip)
+        PracticeItem.objects.filter(trip=self.uz_trip).update(due_on=TODAY)
+        keys = [p.key for p in due_items(self.uz_trip, TODAY)]
+        self.assertGreaterEqual(len({k.split("/")[0] for k in keys}), 5, keys)
+        self.assertTrue(all(question(self.uz_trip, k) for k in keys))
+
+    def test_answer_a_game_round_then_stop_and_go_on(self):
+        self.finish_all(self.trip)
+        PracticeItem.objects.filter(trip=self.trip).update(due_on=TODAY)
+        self.client.force_login(self.user)
+        self.client.get(reverse("quiz") + "?new=1")
+        state = self.client.session["quiz"]
+        # Put a game round first, so the POST below answers one by its picture id.
+        key = "dos_donts/manners-lesson/q-where-do-we-whisper-and-sit-still"
+        state["keys"] = [key] + [k for k in state["keys"] if k != key][:3]
+        s = self.client.session
+        s["quiz"] = state
+        s.save()
+        page = self.client.post(reverse("quiz"), {"key": key, "choice": "trainin"})
+        self.assertContains(page, "Yes! Great job!")
+        self.assertContains(page, "Stop for now")
+        item = PracticeItem.objects.get(trip=self.trip, key=key)
+        self.assertTrue(item.last_result)
+        self.assertGreater(item.due_on, TODAY)
+        # Stop: back to the course. The answer stays saved, and the quiz goes on at question 2.
+        self.assertRedirects(self.client.get(reverse("quiz") + "?stop=1"), reverse("course"), fetch_redirect_response=False)
+        page = self.client.get(reverse("quiz"))
+        self.assertContains(page, "Question 2 of 4")
+
+    def test_quiz_start_adds_game_rounds_for_lessons_finished_before(self):
+        from courses.models import Course
+
+        course = Course.objects.create(trip=self.trip)
+        item = item_for(course, "safety-lesson")
+        item.mark_done()
+        self.client.force_login(self.user)
+        self.client.get(reverse("quiz") + "?new=1")
+        self.assertTrue(PracticeItem.objects.filter(trip=self.trip, key__startswith="safety/safety-lesson/q-").exists())

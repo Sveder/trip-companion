@@ -13,7 +13,7 @@
   <h1>{{ q.prompt }}</h1>
   {% include "includes/say_tip.html" %}
   {# A food card says its name only after the answer, so the sound does not give the answer away. #}
-  <div class="card ask"{% if q.kind == "word" or result and q.japanese %} data-say="{{ q.japanese }}" data-say-src="{{ q.reading|word_audio }}"{% endif %} tabindex="0">
+  {% if q.kind != "pick" %}<div class="card ask"{% if q.kind == "word" or result and q.japanese %} data-say="{{ q.japanese }}" data-say-src="{{ q.reading|word_audio }}"{% endif %} tabindex="0">
     {% if q.kind == "word" %}
       <p class="jp big" lang="ja">{{ q.japanese }}</p>
       <h2 class="reading">{{ q.reading }}</h2>
@@ -25,26 +25,30 @@
       <p class="jp" lang="ja">{{ q.japanese }}</p>
       <span class="say-hint" data-say-hint hidden>🔊 {% translate "Tap to hear it" %}</span>
     {% endif %}
-  </div>
+  </div>{% endif %}
   {% if result %}
     <div class="answer-note {% if result.right %}right{% else %}wrong{% endif %}" role="status">
       {% if result.right %}
         <p class="big-line">🎉 {% translate "Yes! Great job!" %}</p>
       {% else %}
-        <p class="big-line">{% blocktranslate with answer=q.answer %}Not this time. It is <strong>{{ answer }}</strong>.{% endblocktranslate %}</p>
+        {% if q.kind == "pick" and not q.answer_label %}<p class="big-line">{% translate "Not this time. The right one has the green tick." %}</p>
+        {% else %}<p class="big-line">{% blocktranslate with answer=q.answer_label|default:q.answer %}Not this time. It is <strong>{{ answer }}</strong>.{% endblocktranslate %}</p>{% endif %}
         <p class="hint">{% translate "No problem! We ask this one again tomorrow." %}</p>
       {% endif %}
     </div>
     <div class="choices">
-      {% for c in q.choices %}<span class="choice{% if c == q.answer %} is-answer{% elif c == result.chosen %} is-wrong{% endif %}">{{ c }}</span>{% endfor %}
+      {% if q.choice_imgs %}{% for c, img, label in q.choice_imgs %}<span class="choice pic{% if c == q.answer %} is-answer{% elif c == result.chosen %} is-wrong{% endif %}">{% if img %}<img src="{{ img }}" alt="{{ label }}">{% endif %}{% if label %}<span>{{ label }}</span>{% endif %}</span>{% endfor %}
+      {% else %}{% for c in q.choices %}<span class="choice{% if c == q.answer %} is-answer{% elif c == result.chosen %} is-wrong{% endif %}">{{ c }}</span>{% endfor %}{% endif %}
     </div>
     <p class="center">{% if last %}<a class="btn big" href="{% url 'quiz' %}?end=1">{% translate "See how we did" %}</a>{% else %}<a class="btn big" href="{% url 'quiz' %}">{% translate "Next question" %}</a>{% endif %}</p>
   {% else %}
     <form method="post" class="choices">
       {% csrf_token %}
       <input type="hidden" name="key" value="{{ q.key }}">
-      {% for c in q.choices %}<button class="btn choice" type="submit" name="choice" value="{{ c }}">{{ c }}</button>{% endfor %}
+      {% if q.choice_imgs %}{% for c, img, label in q.choice_imgs %}<button class="btn choice pic" type="submit" name="choice" value="{{ c }}">{% if img %}<img src="{{ img }}" alt="{{ label }}">{% endif %}{% if label %}<span>{{ label }}</span>{% endif %}</button>{% endfor %}
+      {% else %}{% for c in q.choices %}<button class="btn choice" type="submit" name="choice" value="{{ c }}">{{ c }}</button>{% endfor %}{% endif %}
     </form>
   {% endif %}
+  {% if not last %}<p class="center quiz-stop"><a href="{% url 'quiz' %}?stop=1">{% translate "Stop for now" %}</a><br><small>{% translate "Every answer is saved. Next time we go on from here." %}</small></p>{% endif %}
 </section>
 {% endblock %}

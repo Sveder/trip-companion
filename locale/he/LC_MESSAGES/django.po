@@ -1436,3 +1436,12 @@ msgstr "בטיחות: הדברים החשובים"
 #: T279
 msgid "Safety"
 msgstr "בטיחות"
+
+msgid "Stop for now"
+msgstr "עוצרים בינתיים"
+
+msgid "Every answer is saved. Next time we go on from here."
+msgstr "כל תשובה נשמרת. בפעם הבאה ממשיכים מכאן."
+
+msgid "Not this time. The right one has the green tick."
+msgstr "לא הפעם. לתשובה הנכונה יש וי ירוק."

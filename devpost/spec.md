@@ -165,7 +165,7 @@ PRD ref: `prd.md > Street View tour`.
 
 ### Practice (repetition)
 Leitner boxes: each word or quiz fact has a box 1–5 per family. Right → box +1 and due later (1, 2, 4, 7, 14 days); wrong →
-box 1, due the next day. A quiz takes up to 8 due items, earliest due first. When the course is finished, practice keeps
+box 1, due the next day. A quiz takes up to 8 due items: missed items first, then new ones, then the rest, and the lessons take turns inside each group (T281). A lesson also gives up to 8 of its 'tap the right picture' game rounds as questions, answered by picture. 'Stop for now' leaves the quiz at any time; every answer is already saved, and the same quiz goes on that day. When the course is finished, practice keeps
 offering due items until the trip.
 PRD ref: `prd.md > Quiz and repetition`.
 

@@ -951,7 +951,7 @@ class HebrewPictureTwins(TestCase):
         import re
         root = Path(settings.BASE_DIR) / "static" / "img" / "lesson"
         twins = sorted(root.rglob("*_he.svg"))
-        self.assertGreaterEqual(len(twins), 6)
+        self.assertGreaterEqual(len(twins), 4)  # T280 removed the Pack lesson and its twins
         for twin in twins:
             self.assertTrue(twin.with_name(twin.name.replace("_he.svg", ".svg")).exists(), twin)
             for label in re.findall(r"<text[^>]*>([^<]*)</text>", twin.read_text()):

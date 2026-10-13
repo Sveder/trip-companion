@@ -6,7 +6,7 @@ from analytics.models import track
 from courses.models import Course
 from trips.models import active_trip
 
-from .items import due_items, question
+from .items import due_items, question, sync_items
 from .models import PracticeItem
 
 SESSION_KEY = "quiz"
@@ -14,8 +14,9 @@ SESSION_KEY = "quiz"
 
 def _start(request, trip):
     today = timezone.localdate()
+    sync_items(trip)
     keys = [p.key for p in due_items(trip, today) if question(trip, p.key)]
-    state = {"trip": trip.id, "keys": keys, "i": 0, "right": 0}
+    state = {"trip": trip.id, "keys": keys, "i": 0, "right": 0, "day": today.isoformat()}
     request.session[SESSION_KEY] = state
     return state
 
@@ -26,8 +27,14 @@ def quiz(request):
     trip = active_trip(request.user)
     if trip is None:
         return redirect("trip_setup")
+    if request.GET.get("stop"):
+        # T281: stop at any time. Every answer is already saved on its item; the session keeps the place,
+        # so the same quiz goes on from the next question today. Tomorrow a new quiz starts.
+        return redirect("course")
     state = request.session.get(SESSION_KEY)
     fresh = state is None or state.get("trip") != trip.id or request.GET.get("new") or (
+        request.method == "GET" and state.get("day") != timezone.localdate().isoformat()
+    ) or (
         request.method == "GET" and state["i"] >= len(state["keys"]) and not request.GET.get("end")
     )
     if fresh and request.method == "GET":

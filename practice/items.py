@@ -1,5 +1,5 @@
 """Quiz items come from the content: every word of a `words` activity, every card marked `quiz: true`,
-and the spots and flip cards of a `lesson` (at most LESSON_MAX of them)."""
+and the spots, flip cards and 'tap the right picture' rounds of a `lesson` (at most LESSON_MAX of them)."""
 import random
 
 from django.templatetags.static import static
@@ -15,6 +15,8 @@ QUIZ_SIZE = 8
 CHOICES = 4
 # One lesson holds up to ~20 spots and cards. A cap keeps one lesson from filling every daily quiz.
 LESSON_MAX = 12
+# Plus at most this many game rounds per lesson (T281), on top of LESSON_MAX, so the old items keep their keys.
+PICK_MAX = 8
 
 
 def _card_id(card):
@@ -50,6 +52,27 @@ def _text_entries(data, start):
         if he:
             e["reading_hebrew"] = he
         out.append(e)
+    return out
+
+
+def _pick_entries(data):
+    """One entry per round of a 'tap the right picture' page (T281): manners, safety, transport and customs
+    questions in the lesson's own words ("Where do we whisper and sit still?"). The id is the slug of the
+    English question, so it stays the same when pages move."""
+    pics = {p["id"]: p for p in data.get("pictures", [])}
+    out = []
+    for n, page in enumerate(data.get("pages", [])):
+        if page.get("kind") != "pick":
+            continue
+        for r in page.get("rounds", []):
+            choices = [c for c in r.get("choices", []) if c in pics]
+            if r.get("answer") not in choices or len(choices) < 3 or not r.get("ask"):
+                continue
+            out.append((
+                "q-" + slugify(r["ask"])[:60],
+                {"pick": True, "page": n, "ask": r["ask"], "ask_he": r.get("ask_he", ""), "answer": r["answer"],
+                 "choices": choices, "words": bool(page.get("words"))},
+            ))
     return out
 
 
@@ -94,15 +117,16 @@ def quiz_entries(activity, everything=False):
     data = activity.data or {}
     if activity.type == "lesson":
         entries = _lesson_entries(data)
+        picks = list(dict(_pick_entries(data)).items())
         if everything:
-            return entries
+            return entries + picks
         # A spot with no Japanese reading cannot be asked ("Which one is ?"); it still serves as a wrong choice.
         askable = [(i, e) for i, e in entries if e.get("img") or e.get("reading")]
         # Take one from each page in turn, so the cap keeps a mix of pages and the quiz does not ask one page 8 times.
         pages = sorted({e["page"] for _, e in askable})
         queues = [[x for x in askable if x[1]["page"] == n] for n in pages]
         mixed = [q[k] for k in range(max(map(len, queues), default=0)) for q in queues if k < len(q)]
-        return mixed[:LESSON_MAX]
+        return mixed[:LESSON_MAX] + picks[:PICK_MAX]
     if activity.type == "words":
         return [(w.get("id") or slugify(w["reading"]), w) for w in data.get("words", [])]
     if activity.type == "cards":
@@ -123,8 +147,33 @@ def add_items(trip, activity):
 
 
 def due_items(trip, today, limit=QUIZ_SIZE):
-    """At most `limit` items due today or earlier, earliest due first."""
-    return list(PracticeItem.objects.filter(trip=trip, due_on__lte=today).order_by("due_on", "box", "added_at", "id")[:limit])
+    """At most `limit` items due today or earlier: missed ones first, then new ones, then the rest (T281).
+
+    Inside each group the lessons take turns, so one quiz mixes food, manners, safety and the others
+    instead of 8 questions from the first lesson the family finished."""
+    items = PracticeItem.objects.filter(trip=trip, due_on__lte=today).order_by("due_on", "box", "added_at", "id")
+    group = lambda p: 0 if p.last_result is False else 1 if p.last_result is None else 2
+    out = []
+    for g in (0, 1, 2):
+        queues = {}
+        for p in items:
+            if group(p) == g:
+                queues.setdefault(p.key.split("/", 1)[0], []).append(p)
+        lanes = list(queues.values())
+        out += [lane[k] for k in range(max(map(len, lanes), default=0)) for lane in lanes if k < len(lane)]
+        if len(out) >= limit:
+            break
+    return out[:limit]
+
+
+def sync_items(trip):
+    """Add the quiz items of every finished activity. A family that finished lessons before a new kind of
+    question existed (the game rounds, T281) gets those questions too."""
+    from courses.models import CourseItem
+
+    done = CourseItem.objects.filter(course__trip=trip, done_at__isnull=False).select_related("activity__module")
+    for item in done:
+        add_items(trip, item.activity)
 
 
 def lookup(trip, key):
@@ -168,9 +217,11 @@ def question(trip, key):
             "reading": entry["reading"],
             "emoji": "",
         }
+    elif activity.type == "lesson" and entry.get("pick"):
+        return _pick_question(trip, key, activity, entry)
     elif activity.type == "lesson":
         answer_of = lambda e: e["label"]
-        every = [localize(e) for _, e in quiz_entries(activity, everything=True)]
+        every = [localize(e) for _, e in quiz_entries(activity, everything=True) if not e.get("pick")]
         entries = [e for e in every if e["page"] == entry["page"]]
         if len(entries) < CHOICES:
             # A small page (two spots in the shop) borrows from the other pages, but never a card with the same picture.
@@ -228,3 +279,32 @@ def question(trip, key):
     rng.shuffle(choices)
     q.update({"key": key, "answer": right, "choices": choices, "module": activity.module})
     return q
+
+
+def _pick_question(trip, key, activity, entry):
+    """A game round as a quiz question: the round's own question, its pictures as the choices (T281).
+
+    The answer is the picture id, as in the game: some rounds are pictures only (four hands that hold
+    chopsticks, one label). A label shows under its picture only when the labels of the round differ."""
+    pics = {p["id"]: localize(p) for p in activity.data.get("pictures", [])}
+    rng = random.Random(f"{trip.id}:{key}")
+    others = sorted(set(entry["choices"]) - {entry["answer"]})
+    choices = rng.sample(others, min(CHOICES - 1, len(others))) + [entry["answer"]]
+    rng.shuffle(choices)
+    labels = [pics[c].get("label", "") for c in choices]
+    show = len(set(labels)) == len(labels) and all(labels)
+    return {
+        "kind": "pick",
+        "prompt": entry["ask"],
+        "japanese": "",
+        "reading": "",
+        "emoji": "",
+        "image": "",
+        "choice_imgs": [(c, static(f"img/{pics[c]['img']}") if pics[c].get("img") else "", l if show else "")
+                        for c, l in zip(choices, labels)],
+        "key": key,
+        "answer": entry["answer"],
+        "answer_label": pics[entry["answer"]].get("label", "") if show else "",
+        "choices": choices,
+        "module": activity.module,
+    }

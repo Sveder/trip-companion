@@ -308,6 +308,11 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
   box-shadow: 0 0 0 3px var(--c-surface), 0 0 0 7px rgba(188, 0, 45, .25); pointer-events: none; animation: ring-pulse 1.6s ease-in-out infinite; }
 @keyframes ring-pulse { 50% { transform: translate(-50%, -50%) scale(1.12); } }
 @media (prefers-reduced-motion: reduce) { .ask-ring { animation: none; } }
+/* T281: a game round in the quiz shows its pictures in the answers; each picture has one fixed shape. */
+.quiz .choice.pic { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .5rem; font-size: 1.1rem; font-weight: 800; }
+.quiz .choice.pic img { width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: contain; }
+.quiz-stop { margin-top: 1.4rem; font-weight: 700; }
+.quiz-stop small { color: var(--c-muted); font-weight: 400; }
 .answer-note .big-line { font-size: 1.5rem; font-weight: 900; margin: .4rem 0; }
 /* T235: on the TV the answers sit in ONE row and each picture is at most 28vh tall, so the question and all
    4 answers fit one 1080 px screen. A round with 3 answers stays centred. Phones and desktop do not change. */
