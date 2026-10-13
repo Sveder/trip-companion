@@ -152,6 +152,8 @@ class BuilderTests(TestCase):
             items = list(build_course(trip, ids).items.select_related("activity__module"))
             self.assertTrue(items, ages)
             for i in items:
+                if i.activity.slug == "buy_in_advance-intro":
+                    continue  # T280: the grown-ups' shop list is its module's only item now (no lesson to review)
                 self.assertIn(i.activity.type, ("lesson", "streetview"), (ages, i.activity.slug))
 
     def test_rebuild_keeps_done_marks(self):
@@ -558,7 +560,8 @@ class AfterTheTripTests(TestCase):
             seen.add((item.activity.type, review))
         self.assertIn(("lesson", False), seen)
         self.assertIn(("streetview", False), seen)
-        self.assertFalse(any(review for _, review in seen))  # T279: no quick review left in a Japan course
+        # T279: no quick review left in a Japan course. T280: the grown-ups' shop list (no lesson in its module) stays a light card.
+        self.assertEqual({t for t, review in seen if review}, {"links"} if self.course.items.filter(activity__slug="buy_in_advance-intro").exists() else set())
 
     def test_highlights_quiz_button_only_with_quiz_words(self):
         # T142: with no quiz words the button opens the next activity, not the empty 'No quiz yet' page.

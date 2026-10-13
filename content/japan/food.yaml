@@ -483,6 +483,8 @@ activities:
       - {id: bento, img: photo/food/food-bento.jpg, label: Bento, label_he: בנטו, japanese: おべんとう, reading: bento, reading_hebrew: "בנטו"}
       - {id: tempura, img: photo/food/food-tempura.jpg, label: Tempura, label_he: טמפורה, japanese: てんぷら, reading: tempura, reading_hebrew: "טמפורה"}
       - {id: miso, img: photo/food/food-miso.jpg, label: Miso soup, label_he: מרק מיסו, japanese: みそしる, reading: misoshiru, reading_hebrew: "מיסו שירו"}
+      # T280: the snack box page; not a quiz choice (a box of snacks is not one food).
+      - {id: okashi, quiz: false, img: photo/food/food-snacks.jpg, label: Snacks, label_he: חטיפים, japanese: おかし, reading: okashi, reading_hebrew: "אוקאשי"}
       # Not a quiz choice: this entry tells the say tag that "איטדקימס" in Hebrew text is the word itadakimasu.
       - {id: itadakimasu, quiz: false, img: photo/food/food-school-lunch.jpg, label: Itadakimasu, label_he: איטדקימס, japanese: いただきます, reading: itadakimasu, reading_hebrew: "איטדקימס"}
     pages:
@@ -736,6 +738,31 @@ activities:
           - אחר כך כל הכיתה אומרת יחד "איטדקימס".
           - אחרי האוכל אומרים "גוצ'יסוסאמה דשיטה". זה אומר "תודה, זו הייתה ארוחה טובה".
         source: https://en.wikipedia.org/wiki/Itadakimasu
+      # T280 (Michael): the snack box page moved here from the removed 'Pack like a pro' lesson.
+      - kind: text
+        title: Taste Japan at home
+        title_he: טועמים את יפן בבית
+        img: photo/food/food-snacks.jpg
+        photo_credit: food-snacks
+        japanese: おかし
+        reading: okashi
+        reading_hebrew: "אוקאשי"
+        text: Snacks and sweets are "okashi" in Japanese. A box of Japanese snacks can come to your home by mail. Open it together and make it a game. Which one is sweet? Which one is salty? Which one is the strangest?
+        text_he: חטיפים וממתקים ביפנית הם "אוקאשי". קופסה של חטיפים יפניים יכולה להגיע אליכם הביתה בדואר. פותחים אותה יחד והופכים את זה למשחק. איזה חטיף מתוק? איזה מלוח? איזה הכי מוזר?
+        tips:
+          - TokyoTreat and Bokksu are two snack boxes from Japan.
+          - Keep the wrappers. In Japan, look for the same snacks in the shops.
+          - Give each snack a score from 1 to 5.
+        tips_he:
+          - TokyoTreat ו-Bokksu הן שתי קופסאות חטיפים מיפן.
+          - שומרים את העטיפות. ביפן, מחפשים את אותם החטיפים בחנויות.
+          - נותנים לכל חטיף ציון מ-1 עד 5.
+        link:
+          id: snack-box
+          url: https://www.tokyotreat.com/
+          label: See TokyoTreat
+          label_he: ל-TokyoTreat
+        source: https://www.tokyotreat.com/
       - kind: pick
         title: Food quiz
         title_he: חידון אוכל

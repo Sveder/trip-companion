@@ -74,7 +74,7 @@ From `scope.md > The POC Boundary`:
 - **Transport** — how to get around.
 - **Guided Street View tour** — an unusual Street View, e.g. a temple full of lucky cats or a fox shrine, with a "things to spot" game.
 - **Real-world activities** — e.g. chopsticks (below).
-- **Buy in advance** — things to get before the trip, with referral links, e.g. a Japan snack box.
+- **Buy in advance** — things to get before the trip, with referral links (chopsticks, plug adapter, Visit Japan Web, JR Pass). The Japan snack box page is in the food lesson 'Food around Japan' (T280).
 - **After the trip** — highlights.
 
 ### Chopsticks activity

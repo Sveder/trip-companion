@@ -498,13 +498,13 @@ class JapanContentTests(TestCase):
     def test_buy_links_go_through_the_click_hook(self):
         item = self.item("buy_in_advance")
         html = self.page(item)
-        self.assertIn(reverse("go", args=[item.id, "snack-box"]), html)
-        self.assertNotIn("tokyotreat.com", html)
-        r = self.client.get(reverse("go", args=[item.id, "snack-box"]))
+        self.assertIn(reverse("go", args=[item.id, "jr-pass"]), html)
+        self.assertNotIn("japanrailpass.net", html)
+        r = self.client.get(reverse("go", args=[item.id, "jr-pass"]))
         self.assertEqual(r.status_code, 302)
-        self.assertEqual(r["Location"], "https://www.tokyotreat.com/")
+        self.assertEqual(r["Location"], "https://japanrailpass.net/en/")
         click = ReferralClick.objects.get()
-        self.assertEqual((click.link_id, click.trip_id), ("snack-box", item.course.trip_id))
+        self.assertEqual((click.link_id, click.trip_id), ("jr-pass", item.course.trip_id))
 
     def test_go_is_not_an_open_redirect(self):
         item = self.item("buy_in_advance")
@@ -512,7 +512,7 @@ class JapanContentTests(TestCase):
         self.assertEqual(self.client.get(reverse("go", args=[item.id, "nope"])).status_code, 404)
         other = get_user_model().objects.create_user("o@example.com", "o@example.com")
         self.client.force_login(other)
-        self.assertEqual(self.client.get(reverse("go", args=[item.id, "snack-box"])).status_code, 404)
+        self.assertEqual(self.client.get(reverse("go", args=[item.id, "jr-pass"])).status_code, 404)
         self.assertEqual(ReferralClick.objects.count(), 0)
 
     def test_kids_chopsticks_only_with_a_child(self):

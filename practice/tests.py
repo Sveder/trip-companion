@@ -295,7 +295,7 @@ class LessonQuizTests(TestCase):
                 self.assertNotRegex(q["prompt"], r"[A-Za-z]", f"{lesson.slug}/{item_id}")
                 self.assertEqual(q["reading"], entry["reading"])  # the audio file name stays Latin
                 asked += 1
-        self.assertGreaterEqual(asked, 34)  # T270: no pagoda and no noren; T275: koban and konbini moved from spots to flip cards
+        self.assertGreaterEqual(asked, 32)  # T280: the pack lesson spots are gone; T270: no pagoda and no noren; T275: koban and konbini moved from spots to flip cards
         with translation.override("en"):
             self.assertEqual(question(self.trip, "food/sushi-lesson/neta")["prompt"], "Which one is neta?")
 
@@ -521,7 +521,6 @@ class TextPageQuizTests(TestCase):
 
     # The item keys of every other Japan lesson, saved before T211. They must not change.
     JAPAN_KEYS = {
-        "buy_in_advance/pack-lesson": ["hankachi", "the-esim", "okane", "kozeniire", "visit-japan-web", "seven-bank-atm", "the-ic-card", "japan-post-atm", "kasa", "snacks-for-the-day"],
         "chopsticks/chopsticks-lesson": ["sushi", "never-stand-them-in-rice", "oshibori", "waribashi", "noodles", "never-pass-food-stick-to-stick", "renge", "mai-hashi", "a-grape", "do-not-point-with-them", "misoshiru", "peas"],
         "dos_donts/manners-lesson": ["genkan", "a-home", "torii", "slurp", "getabako", "a-temple-hall", "temizuya", "oshibori", "a-japanese-inn", "two-hands", "a-train-or-a-shop", "no-tips"],
         "food/sushi-lesson": ["neta", "nigiri", "maguro", "shari", "maki", "saamon", "nori", "gunkan", "ebi", "kappamaki", "temaki", "tamago"],
