@@ -24,10 +24,10 @@
       {% with n=forloop.counter0|stringformat:"d" %}
       <li><label class="spot{% if n in hunt.ticked %} done{% endif %}{% if not spot.name %} no-name{% endif %}">
         <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% if n in hunt.ticked %} checked{% endif %}>
-        {% if spot.icon %}<img class="spot-icon" src="{% static "img/hunt/"|add:spot.icon|add:".svg" %}" alt="" width="40" height="40">{% else %}<span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>{% endif %}
         <span class="spot-body">
-          {% if spot.name %}<span class="spot-name">{{ spot.name }}</span>{% endif %}
-          <span class="spot-text">{{ spot.text|say_quoted }}</span>
+          <span class="spot-head">{% if spot.icon %}<img class="spot-icon" src="{% static "img/hunt/"|add:spot.icon|add:".svg" %}" alt="" width="40" height="40">{% else %}<span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>{% endif %}
+          {% if spot.name %}<span class="spot-name">{{ spot.name }}</span>{% else %}<span class="spot-text">{{ spot.text|say_quoted }}</span>{% endif %}</span>
+          {% if spot.name %}<span class="spot-text">{{ spot.text|say_quoted }}</span>{% endif %}
           {% if spot.about %}<span class="spot-about">{{ spot.about }}</span>{% endif %}
         </span>
         <span class="spot-tick" aria-hidden="true">✓</span>
