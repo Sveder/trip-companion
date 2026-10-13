@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>A shelf of cats under a little roof</title>
+<path d="M4 20 L32 6 L60 20 Z" fill="#474d70" stroke="#1d2145" stroke-width="3" stroke-linejoin="round"/>
+<rect x="9" y="20" width="46" height="38" fill="#c98a4b" stroke="#1d2145" stroke-width="3"/>
+<rect x="9" y="38" width="46" height="3" fill="#1d2145"/>
+<g fill="#fff" stroke="#1d2145" stroke-width="2">
+<path d="M14 37 v-9 l2 -3 l2 3 h2 l2 -3 l2 3 v9 z"/><path d="M28 37 v-9 l2 -3 l2 3 h2 l2 -3 l2 3 v9 z"/><path d="M42 37 v-9 l2 -3 l2 3 h2 l2 -3 l2 3 v9 z"/>
+<path d="M14 56 v-9 l2 -3 l2 3 h2 l2 -3 l2 3 v9 z"/><path d="M28 56 v-9 l2 -3 l2 3 h2 l2 -3 l2 3 v9 z"/><path d="M42 56 v-9 l2 -3 l2 3 h2 l2 -3 l2 3 v9 z"/>
+</g>
+<g fill="#bc002d"><rect x="15" y="33" width="8" height="2"/><rect x="29" y="33" width="8" height="2"/><rect x="43" y="33" width="8" height="2"/><rect x="15" y="52" width="8" height="2"/><rect x="29" y="52" width="8" height="2"/><rect x="43" y="52" width="8" height="2"/></g>
+</svg>

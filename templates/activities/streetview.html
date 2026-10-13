@@ -23,7 +23,7 @@
       {% for spot in data.spots %}
       <li><label class="spot">
         <input type="checkbox" name="found" value="{{ forloop.counter0 }}"{% with n=forloop.counter0|stringformat:"d" %}{% if n in hunt.ticked %} checked{% endif %}{% endwith %}>
-        <span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>
+        {% if spot.icon %}<img class="spot-icon" src="{% static "img/hunt/"|add:spot.icon|add:".svg" %}" alt="" width="40" height="40">{% else %}<span class="spot-emoji" aria-hidden="true">{{ spot.emoji }}</span>{% endif %}
         <span class="spot-body">
           {% if spot.name %}<span class="spot-name">{{ spot.name }}</span>{% endif %}
           <span class="spot-text">{{ spot.text|say_quoted }}</span>

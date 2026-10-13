@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>Sekihi, a stone with carved words</title>
+<rect x="10" y="52" width="44" height="8" rx="2" fill="#8d93a8" stroke="#1d2145" stroke-width="3"/>
+<path d="M18 52 V14 Q18 5 32 5 Q46 5 46 14 V52 Z" fill="#b8bdcc" stroke="#1d2145" stroke-width="3" stroke-linejoin="round"/>
+<g stroke="#1d2145" stroke-width="2.5" stroke-linecap="round" fill="none">
+<path d="M26 14 H30 M28 12 V22 M26 18 H30 M26 22 L30 24"/>
+<path d="M26 30 H30 M28 28 V38 M26 35 H30"/>
+<path d="M26 43 H30 M27 41 L29 47"/>
+<path d="M36 14 H40 M38 12 V20 M36 20 Q38 24 40 20"/>
+<path d="M36 28 H40 M36 32 H40 M38 26 V38"/>
+<path d="M36 43 H40 M38 41 V47"/>
+</g>
+</svg>

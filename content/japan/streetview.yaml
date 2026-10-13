@@ -517,6 +517,7 @@ activities:
     heading: 120
     spots:
       - emoji: "🐱"
+        icon: maneki
         name: Maneki-neko (lucky cat)
         name_he: מנקי-נקו (חתול המזל)
         text: A lucky cat with one paw up
@@ -524,27 +525,31 @@ activities:
         about: 'Maneki-neko means "beckoning cat". The raised paw waves good luck in. A story from the 1600s says a cat here waved a lord inside, just before a storm broke.'
         about_he: מנקי-נקו פירושו "החתול שקורא לבוא". הכף המורמת מנופפת למזל טוב שייכנס. סיפור משנות ה-1600 מספר שחתול כאן נופף לאציל להיכנס, רגע לפני שפרצה סערה.
       - emoji: "🏠"
+        icon: cat-shelf
         name: Thank-you cats
         name_he: חתולי התודה
         text: A shelf of cats with its own little roof
         text_he: מדף של חתולים עם גג קטן משלו
         about: 'When a wish comes true, people bring a cat back to the temple to say thank you. There are thousands of them here.'
         about_he: כשמשאלה מתגשמת, אנשים מחזירים חתול למקדש כדי להגיד תודה. יש כאן אלפים כאלה.
-      - emoji: "🪟"
+      - emoji: "🏠"
+        icon: koshi
         name: Koshi (wooden lattice)
         name_he: קושי (סבכת עץ)
         text: Wooden windows with rows of cats under them
         text_he: חלונות עץ עם שורות של חתולים מתחתם
         about: 'Koshi are thin wooden bars on a window. They let air and light in, but people outside cannot see in well.'
         about_he: קושי הם מוטות עץ דקים על חלון. הם מכניסים אוויר ואור, אבל מי שבחוץ לא רואה טוב פנימה.
-      - emoji: "🛖"
+      - emoji: "🏯"
+        icon: kawara
         name: Kawara (roof tiles)
         name_he: קווארה (רעפים)
         text: A tiny wooden house with a dark tile roof
         text_he: בית עץ קטנטן עם גג רעפים כהה
         about: 'Kawara are heavy clay tiles. They keep out rain and fire. Roof tiles came to Japan with Buddhism about 1,400 years ago.'
         about_he: קווארה הם רעפי חרס כבדים. הם שומרים מפני גשם ואש. הרעפים הגיעו ליפן יחד עם הבודהיזם לפני בערך 1,400 שנה.
-      - emoji: "🪨"
+      - emoji: "🗿"
+        icon: sekihi
         name: Sekihi (stone monument)
         name_he: סקיהי (מצבת אבן)
         text: A tall grey stone with writing on it

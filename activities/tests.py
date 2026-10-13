@@ -183,6 +183,27 @@ class StreetViewHuntTests(TestCase):
         self.assertIn('<span class="spot-name">Torii gate</span>', html)
         self.assertIn("the home of a kami", html)
 
+    def test_cat_temple_icons_are_drawn_files_not_new_emoji(self):
+        # T272, Michael 2026-10-13: koshi, kawara and sekihi showed a plain white square (Unicode 13 emoji).
+        cats = Activity.objects.get(module__slug="streetview", slug="streetview-intro")
+        html = self.client.get(reverse("activity", args=[self.item().id])).content.decode()
+        for spot in cats.data["spots"]:
+            self.assertTrue(spot.get("icon"), spot["name"])
+            path = Path(settings.BASE_DIR) / "static" / "img" / "hunt" / f"{spot['icon']}.svg"
+            self.assertTrue(path.exists(), path)
+            self.assertNotIn("<text", path.read_text(), path)
+            self.assertIn(f"img/hunt/{spot['icon']}", html)
+        self.assertNotIn('class="spot-emoji"', html)
+
+    def test_no_content_emoji_is_too_new_for_old_phones_and_tvs(self):
+        # T272: an emoji from Unicode 12 or later draws as a blank square on older Android phones and TVs.
+        new = re.compile("[\U0001FA70-\U0001FAFF\U0001F6D5-\U0001F6DF\U0001F6FB-\U0001F6FF\U0001F90C-\U0001F90F"
+                         "\U0001F972\U0001F977-\U0001F97A\U0001F9A3-\U0001F9AF\U0001F9CB-\U0001F9CF]")
+        files = list((Path(settings.BASE_DIR) / "content").rglob("*.yaml")) + [Path(settings.BASE_DIR) / "there" / "things.py"]
+        for f in files:
+            for n, line in enumerate(f.read_text().splitlines(), 1):
+                self.assertIsNone(new.search(line), f"{f.name}:{n}: {line.strip()}")
+
     def test_the_big_view_link_says_full_screen(self):
         html = self.client.get(reverse("activity", args=[self.item().id])).content.decode()
         self.assertIn('rel="noopener">Full screen</a>', html)

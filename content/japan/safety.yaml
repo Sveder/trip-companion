@@ -423,7 +423,7 @@ activities:
                 title_he: "מתחת לשולחן"
                 text: "Do the turtle drill once: drop, cover, hold on, and count to ten."
                 text_he: "עושים פעם אחת את תרגיל הצב: יורדים, מתכסים, מחזיקים, וסופרים עד עשר."
-              - emoji: "🪪"
+              - emoji: "📇"
                 title: "Make the name cards"
                 title_he: "מכינים את הכרטיסים"
                 text: "Write a card for each child and put it in a jacket pocket."
@@ -493,7 +493,7 @@ activities:
         text_he: תישארו במקום. תבקשו עזרה ממישהו שעובד שם, כמו מוכר בחנות או עובד בתחנת רכבת. תראו לו את הכרטיס עם השם שלכם.
       - title: A name card in the pocket
         title_he: כרטיס עם שם בכיס
-        emoji: "🪪"
+        emoji: "📇"
         text: For grown-ups. Put a card in each child's pocket with your phone number and the hotel name.
         text_he: למבוגרים. שימו בכיס של כל ילד כרטיס עם מספר הטלפון שלכם ושם המלון.
       - title: Help in English
