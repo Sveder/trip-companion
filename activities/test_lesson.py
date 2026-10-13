@@ -152,7 +152,20 @@ class SushiLessonTests(TestCase):
         self.assertIn("דף 1 מתוך 13", html)
         self.assertNotIn("Tap the plate", html)
 
+    def unapprove_video(self):
+        data = dict(self.act.data)
+        data["pages"] = [dict(p, approved=False) if p["kind"] == "video" else p for p in data["pages"]]
+        Activity.objects.filter(pk=self.act.pk).update(data=data)
+        return data
+
+    def test_michael_approved_the_sushi_video(self):
+        """T268: Michael approved R7zkF_wpmLI on 2026-10-13, so the live sushi lesson plays it."""
+        html = self.page()
+        self.assertIn("youtube-nocookie.com/embed/R7zkF_wpmLI", html)
+        self.assertNotIn("lesson/sushi/rolling", html)
+
     def test_unapproved_video_shows_the_written_lines_and_no_id(self):
+        self.unapprove_video()
         html = self.page()
         self.assertNotIn("R7zkF_wpmLI", html)
         self.assertNotIn("comes soon", html)
@@ -161,6 +174,7 @@ class SushiLessonTests(TestCase):
 
     def test_roll_page_has_a_picture_and_says_how_the_roll_stays_closed(self):
         """T230: the video fallback page shows a drawing and answers its own question, en and he."""
+        self.unapprove_video()
         for lang, answer in (("en", "Wet the empty edge with a little water. It sticks like glue!"),
                              ("he", "מרטיבים את הקצה הריק בקצת מים. הוא נדבק כמו דבק!")):
             html = self.page(lang)
@@ -189,7 +203,8 @@ class SushiLessonTests(TestCase):
 
     def test_unapproved_video_uses_the_fallback_title_and_text(self):
         """T107: a page with no approved video does not promise one."""
-        video = next(p for p in visible_pages(self.act.data, self.trip) if p["kind"] == "video")
+        data = self.unapprove_video()
+        video = next(p for p in visible_pages(data, self.trip) if p["kind"] == "video")
         self.assertFalse(video["show_video"])
         self.assertEqual(video["title"], "How to make a roll")
         self.assertNotIn("atch", video["text"])
@@ -311,8 +326,9 @@ class VideoPagesWithNoVideo(TestCase):
         trip = Trip.objects.create(user=user, destination="japan")
         for age in (40, 5):
             Traveller.objects.create(trip=trip, age=age)
-        lessons = [a for a in Activity.objects.filter(type="lesson") if any(p["kind"] == "video" for p in a.data["pages"])]
-        self.assertGreaterEqual(len(lessons), 7)
+        lessons = [a for a in Activity.objects.filter(type="lesson")
+                   if any(p["kind"] == "video" and p.get("approved") is not True for p in a.data["pages"])]
+        self.assertGreaterEqual(len(lessons), 6)
         course = build_course(trip, sorted({a.module_id for a in lessons}))
         self.client.force_login(user)
         for act in lessons:

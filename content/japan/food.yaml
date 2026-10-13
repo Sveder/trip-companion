@@ -323,10 +323,9 @@ activities:
         title_he: צפו איך מכינים סושי
         text: Watch the video together. How does the roll stay closed?
         text_he: צפו בסרטון ביחד. איך הרול נשאר סגור?
-        # Only Michael approves a video. Other candidates: SARU1JO0JPI (Kids Making Sushi, family channel),
-        # 77rPFAtqOwo (DIY conveyor belt sushi, Tokyo Creative with Abroad in Japan).
+        # Michael approved this video on 2026-10-13 (T268; 2,507 views on that day).
         youtube: R7zkF_wpmLI
-        approved: false
+        approved: true
         fallback_title: How to make a roll
         fallback_title_he: איך מכינים רול
         fallback_text: "Make a cucumber roll at home. How does the roll stay closed?"

@@ -51,14 +51,15 @@ class ExportTests(TestCase):
 
     def test_export_keeps_the_comments(self):
         lesson = Activity.objects.get(slug="sushi-lesson")
-        next(p for p in lesson.data["pages"] if p["kind"] == "video")["approved"] = True
+        # T268: the sushi video is approved in the YAML, so the admin edit here takes the approval away.
+        next(p for p in lesson.data["pages"] if p["kind"] == "video")["approved"] = False
         lesson.save()
         export_country("japan", self.tmp)
         text = (self.tmp / "japan" / "food.yaml").read_text(encoding="utf-8")
-        self.assertIn("# Only Michael approves a video.", text)
-        self.assertIn("approved: true", text)
+        self.assertIn("# Michael approved this video", text)
+        self.assertIn("approved: false", text)
         source = (CONTENT_DIR / "japan" / "food.yaml").read_text(encoding="utf-8")
-        self.assertEqual(text, source.replace("approved: false", "approved: true"))
+        self.assertEqual(text, source.replace("approved: true", "approved: false"))
 
     def test_export_writes_a_new_module_file(self):
         Module.objects.create(country="japan", slug="onsen", title="Hot springs", order=99)
@@ -143,4 +144,5 @@ class AdminEditTests(TestCase):
     def test_activity_list_shows_video_approval(self):
         self.client.force_login(self.boss)
         html = self.client.get(reverse("admin:content_admin_activity_changelist")).content.decode()
-        self.assertIn("R7zkF_wpmLI (not approved)", html)
+        self.assertIn("R7zkF_wpmLI (approved)", html)     # T268: Michael approved the sushi video
+        self.assertIn("4rY3y5VZcCg (not approved)", html)
