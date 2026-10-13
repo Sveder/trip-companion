@@ -637,6 +637,24 @@ class StreetLessonTests(TestCase):
         course = build_course(cls.trip, [cls.act.module_id])
         cls.item = course.items.get(activity=cls.act)
 
+    def test_every_picture_is_a_real_photo_except_the_signs(self):
+        """T270: Michael said the drawn street art is bad. Every picture is a credited Commons photo; only the 5 sign
+        cards keep their clean sign icons."""
+        import re
+
+        from content_admin.loader import load_photo_credits
+        files = {c["file"] for c in load_photo_credits().values()}
+        text = (Path(settings.BASE_DIR) / "content/japan/streetview.yaml").read_text().split("  - id: streetview-intro")[0]
+        imgs = set(re.findall(r"(?:img|photo): \"?([\w/.-]+\.(?:svg|jpg))", text))
+        self.assertGreater(len(imgs), 15)
+        drawn = sorted(i for i in imgs if i.endswith(".svg"))
+        self.assertEqual(drawn, sorted(f"lesson/street/sign-{n}.svg" for n in ("eki", "exit", "in", "post", "toilet")))
+        for img in imgs - set(drawn):
+            self.assertIn(img, files, img)
+        html = self.page()
+        self.assertIn("/static/img/photo/street/st-street.jpg", html)
+        self.assertNotIn("lesson/street/street.svg", html)
+
     def page(self, lang="en"):
         self.client.force_login(self.user)
         r = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}")

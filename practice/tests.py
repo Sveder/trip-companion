@@ -294,7 +294,7 @@ class LessonQuizTests(TestCase):
                 self.assertNotRegex(q["prompt"], r"[A-Za-z]", f"{lesson.slug}/{item_id}")
                 self.assertEqual(q["reading"], entry["reading"])  # the audio file name stays Latin
                 asked += 1
-        self.assertGreaterEqual(asked, 39)
+        self.assertGreaterEqual(asked, 36)  # T270: the street photos show no pagoda and no noren, so 3 spot words left
         with translation.override("en"):
             self.assertEqual(question(self.trip, "food/sushi-lesson/neta")["prompt"], "Which one is neta?")
 
@@ -525,7 +525,7 @@ class TextPageQuizTests(TestCase):
         "dos_donts/manners-lesson": ["genkan", "a-home", "torii", "slurp", "getabako", "a-temple-hall", "temizuya", "oshibori", "a-japanese-inn", "two-hands", "a-train-or-a-shop", "no-tips"],
         "food/sushi-lesson": ["neta", "nigiri", "maguro", "shari", "maki", "saamon", "nori", "gunkan", "ebi", "kappamaki", "temaki", "tamago"],
         "safety/safety-lesson": ["koban", "one-one-zero", "maigo-desu", "the-map-on-the-door", "konbini", "one-one-nine-fire", "tasukete", "the-torch", "one-one-nine-ambulance", "the-hotel-card", "help-in-english", "our-meeting-place"],
-        "streetview/streetview-lesson": ["jidouhanbaiki", "jinja", "gojuunotou", "deguchi", "attakai", "posuto", "otera", "ojizousan", "iriguchi", "tsumetai", "noren", "komainu"],
+        "streetview/streetview-lesson": ["posuto", "jinja", "deguchi", "jidouhanbaiki", "otera", "iriguchi", "attakai", "komainu", "eki", "tsumetai", "joukouro", "the-post-mark"],  # T270: real photos, new spots
         "transport/transport-lesson": ["midori-no-madoguchi", "suica-and-pasmo", "yuusenseki", "kakueki-teisha", "takushii", "kaisatsu", "welcome-suica", "tsurikawa", "kaisoku", "kuusha", "bansen", "in-the-phone"],
         "words/words-lesson": ["ohayou", "arigatou", "irasshaimase", "konnichiwa", "sumimasen", "fukuro", "konbanwa", "onegaishimasu", "atatamemasu-ka", "oyasumi", "hai", "sayounara"],
     }
