@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Trip Companion{% endblock %} · {% translate "Get ready for Japan" %}</title>
-  <meta name="description" content="{% block description %}Short, fun activities that get the whole family ready for a trip to Japan: food, words, chopsticks and a Street View hunt.{% endblock %}">
+  <title>{% block title %}Trip Companion{% endblock %} · {% if trip_country.other %}{% blocktranslate with place=trip_country.name %}Get ready for {{ place }}{% endblocktranslate %}{% else %}{% translate "Get ready for Japan" %}{% endif %}</title>
+  <meta name="description" content="{% block description %}{% if trip_country.other %}Short, fun activities that get the whole family ready for a trip to {{ trip_country.name }}: food, words and good manners.{% else %}Short, fun activities that get the whole family ready for a trip to Japan: food, words, chopsticks and a Street View hunt.{% endif %}{% endblock %}">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Trip Companion">
-  <meta property="og:title" content="{% block og_title %}Trip Companion · Get ready for Japan{% endblock %}">
-  <meta property="og:description" content="Short, fun activities that get the whole family ready for a trip to Japan.">
+  <meta property="og:title" content="{% block og_title %}Trip Companion · {% if trip_country.other %}{% blocktranslate with place=trip_country.name %}Get ready for {{ place }}{% endblocktranslate %}{% else %}{% translate "Get ready for Japan" %}{% endif %}{% endblock %}">
+  <meta property="og:description" content="Short, fun activities that get the whole family ready for a trip to {% if trip_country.other %}{{ trip_country.name }}{% else %}Japan{% endif %}.">
   <meta property="og:url" content="{{ site_url }}{{ request.path }}">
   <meta property="og:image" content="{{ site_url }}{% static 'img/og-image.png' %}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Trip Companion: a paper plane over a sun and the words Get ready for Japan">
+  <meta property="og:image:alt" content="Trip Companion: a paper plane over a sun{% if not trip_country.other %} and the words Get ready for Japan{% endif %}">
   <meta name="twitter:card" content="summary_large_image">
   {% if LANG == "he" %}<link rel="preload" href="{% static 'fonts/rubik-hebrew.woff2' %}" as="font" type="font/woff2" crossorigin>{% endif %}
   <link rel="stylesheet" href="{% static 'css/app.css' %}">

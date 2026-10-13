@@ -420,6 +420,11 @@ msgstr ""
 msgid "Get ready for Japan"
 msgstr "מתכוננים ליפן"
 
+#: templates/base.html:6 templates/base.html:14
+#, python-format
+msgid "Get ready for %(place)s"
+msgstr "מתכוננים ל%(place)s"
+
 #: templates/base.html:38
 msgid "Sound on"
 msgstr "צליל מופעל"

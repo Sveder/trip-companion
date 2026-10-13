@@ -479,3 +479,58 @@ class SafetyOverviewTests(TestCase):
         course = self.client.get("/course/").content.decode()
         self.assertIn("Safety: the important things", course)
         self.assertGreaterEqual(course.count('href="/safety/"'), 2)  # the header and the adventure page
+
+
+class SiteTitleFollowsTheTripTests(TestCase):
+    """T259: the tab title, description and share tags name the family's country, not Japan for everyone."""
+
+    @classmethod
+    def setUpTestData(cls):
+        from django.contrib.auth import get_user_model
+        from django.core.management import call_command
+
+        from courses.builder import build_course
+        from content_admin.models import Module
+        from trips.models import Traveller, Trip
+
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        cls.users = {}
+        for country in ("japan", "uzbekistan"):
+            user = get_user_model().objects.create_user(f"{country}@example.com", f"{country}@example.com")
+            trip = Trip.objects.create(user=user, destination=country)
+            Traveller.objects.create(trip=trip, age=40)
+            build_course(trip, list(Module.objects.filter(country=country).values_list("id", flat=True)))
+            cls.users[country] = user
+
+    def head(self, url):
+        html = self.client.get(url, follow=True).content.decode()
+        return html.split("</head>")[0]
+
+    def pages(self, user):
+        from courses.models import CourseItem
+
+        item = CourseItem.objects.filter(course__trip__user=user).order_by("id").first()
+        return ["/course/", f"/a/{item.id}/", "/quiz/", "/highlights/"]
+
+    def test_uzbekistan_family(self):
+        self.client.force_login(self.users["uzbekistan"])
+        for url in self.pages(self.users["uzbekistan"]):
+            head = self.head(url + "?lang=en")
+            self.assertIn("· Get ready for Uzbekistan</title>", head, url)
+            self.assertIn('og:title" content="Trip Companion · Get ready for Uzbekistan"', head, url)
+            self.assertNotIn("Japan", head, url)
+            he = self.head(url + "?lang=he")
+            self.assertIn("· מתכוננים לאוזבקיסטן</title>", he, url)
+            self.assertNotIn("Japan", he, url)
+            self.assertNotIn("יפן", he, url)
+
+    def test_japan_family_and_visitor_keep_japan(self):
+        self.client.force_login(self.users["japan"])
+        for url in self.pages(self.users["japan"]):
+            self.assertIn("· Get ready for Japan</title>", self.head(url + "?lang=en"), url)
+        self.assertIn("· מתכוננים ליפן</title>", self.head("/course/?lang=he"))
+        self.client.logout()
+        for url in ("/", "/privacy/", "/credits/"):
+            head = self.head(url + "?lang=en")
+            self.assertIn("· Get ready for Japan</title>", head, url)
+            self.assertIn("and the words Get ready for Japan", head, url)
