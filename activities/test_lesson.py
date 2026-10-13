@@ -505,7 +505,7 @@ class SafetyLessonTests(TestCase):
                 self.assertIn(f"lpage-{kind}", html)
         self.assertIn("Page 1 of 14", html)
         self.assertIn("Helpers on the street", html)
-        self.assertIn('data-spot="4"', html)               # 5 dots on the street, 5 on the name card
+        self.assertIn('data-spot="4"', html)               # 5 dots on the name card
         self.assertIn("maigo desu", html)
         self.assertIn('data-match-plate="staff"', html)    # the helper match game (T269)
         self.assertNotIn("lpage-train", html)
@@ -519,6 +519,21 @@ class SafetyLessonTests(TestCase):
         self.assertIn("עוזרים ברחוב", html)
         self.assertIn("דף 1 מתוך 14", html)
         self.assertNotIn("Helpers on the street", html)
+
+    def test_pictures_are_photos_or_clean_icons(self):
+        # T275: Michael said the drawn art was bad, and no drawn people. Every picture is a real photo,
+        # except three clean icons with no person in them (the name cards and the map pin).
+        import re
+        icons = {"card.svg", "stay.svg", "namecard.svg", "namecard_he.svg"}
+        for lang in ("en", "he"):
+            srcs = set(re.findall(r'src="/static/img/([^"?]+)', self.page(lang)))
+            drawn = {s for s in srcs if s.endswith(".svg") and s.rsplit("/", 1)[-1] not in icons}
+            self.assertFalse(drawn, lang)
+            self.assertIn("photo/safety/sf-koban.jpg", srcs)
+            self.assertIn("photo/safety/sf-yellowline.jpg", srcs)
+        for name in icons:
+            svg = (Path(settings.BASE_DIR) / "static" / "img" / "lesson" / "safety" / name).read_text()
+            self.assertNotIn("#ffd9b8", svg, name)  # the skin colour of the old drawn people
 
     def test_unapproved_video_shows_the_drill_and_no_id(self):
         html = self.page()

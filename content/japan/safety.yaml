@@ -16,35 +16,35 @@ activities:
     intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ותתאמנו על כל דבר בבית!
     pictures:
       - id: "police"
-        img: "lesson/safety/police.svg"
+        img: "photo/safety/sf-police.jpg"
         label: "Police, 110"
         label_he: "משטרה, 110"
       - id: "fire"
-        img: "lesson/safety/fire.svg"
+        img: "photo/safety/sf-fire.jpg"
         label: "Fire engine, 119"
         label_he: "כבאית, 119"
       - id: "ambulance"
-        img: "lesson/safety/ambulance.svg"
+        img: "photo/safety/sf-ambulance.jpg"
         label: "Ambulance, 119"
         label_he: "אמבולנס, 119"
       - id: "koban"
-        img: "lesson/safety/koban.svg"
+        img: "photo/safety/sf-koban.jpg"
         label: "Police box (koban)"
         label_he: "ביתן משטרה (קובאן)"
       - id: "staff"
-        img: "lesson/safety/staff.svg"
+        img: "photo/safety/sf-staff.jpg"
         label: "Station worker"
         label_he: "עובד תחנה"
       - id: "clerk"
-        img: "lesson/safety/clerk.svg"
+        img: "photo/safety/sf-clerk.jpg"
         label: "Shop worker"
         label_he: "מוכר בחנות"
       - id: "vending"
-        img: "lesson/safety/vending.svg"
+        img: "photo/street/st-vending.jpg"
         label: "Vending machine"
         label_he: "מכונת משקאות"
       - id: "table"
-        img: "lesson/safety/table.svg"
+        img: "photo/safety/sf-table.jpg"
         label: "Under a table"
         label_he: "מתחת לשולחן"
       - id: "stay"
@@ -56,26 +56,26 @@ activities:
         label: "Name card"
         label_he: "כרטיס עם שם"
       - id: "car"
-        img: "lesson/safety/car.svg"
+        img: "photo/safety/sf-car.jpg"
         label: "A car"
         label_he: "מכונית"
       - id: "balloon"
-        img: "lesson/safety/balloon.svg"
+        img: "photo/street/st-balloon.jpg"
         label: "A balloon"
         label_he: "בלון"
       - id: "icecream"
-        img: "lesson/safety/icecream.svg"
+        img: "photo/street/st-icecream.jpg"
         label: "Ice cream"
         label_he: "גלידה"
       - id: "crossing"
-        img: "lesson/safety/crossing.svg"
-        label: "Green walking person"
-        label_he: "האיש הירוק ברמזור"
+        img: "photo/safety/sf-crossing.jpg"
+        label: "Crossing light"
+        label_he: "רמזור להולכי רגל"
     pages:
       - kind: text
         title: Japan is a safe place
         title_he: יפן היא מקום בטוח
-        img: lesson/safety/safe.svg
+        img: photo/safety/sf-safe.jpg
         japanese: 安全
         reading: anzen
         reading_hebrew: "אנזן"
@@ -91,71 +91,66 @@ activities:
           - אם הלכתם לאיבוד, נשארים במקום.
           - אם הרצפה רועדת, נכנסים מתחת לשולחן.
           - המכוניות נוסעות בצד שמאל, אז מסתכלים קודם ימינה.
-      - kind: spots
+      - kind: flip
+        # T275: real photos, not a drawn street.
         title: Helpers on the street
         title_he: עוזרים ברחוב
-        img: lesson/safety/street.svg
-        text: This is a street corner in Japan. Tap each dot to find a helper.
-        text_he: זו פינת רחוב ביפן. געו בכל נקודה כדי למצוא עוזר.
-        spots:
-          - x: 12
-            y: 64
+        text: Look for these on a street in Japan. Tap a card to turn it.
+        text_he: מחפשים את אלה ברחוב ביפן. געו בכרטיס כדי להפוך אותו.
+        cards:
+          - img: "photo/safety/sf-koban.jpg"
             label: "The police box"
             label_he: "ביתן המשטרה"
             japanese: "こうばん"
             reading: "koban"
             reading_hebrew: "קובאן"
-            text: "A koban is a small police house. Many have the word KOBAN on the front and a red lamp on top. Police officers there help lost children every day."
-            text_he: "קובאן הוא בית משטרה קטן. על הרבה מהם כתוב KOBAN מלפנים, ויש להם מנורה אדומה למעלה. השוטרים שם עוזרים לילדים שהלכו לאיבוד כל יום."
-          - x: 33
-            y: 48
-            label: "The vending machine"
-            label_he: "מכונת המשקאות"
-            text: "For grown-ups. Many drinks machines have a small sticker with the address of the place. Read it to the police on the phone, and they know where you are."
-            text_he: "למבוגרים. על הרבה מכונות משקאות יש מדבקה קטנה עם הכתובת של המקום. מקריאים אותה למשטרה בטלפון, והם יודעים איפה אתם."
-          - x: 42
-            y: 40
-            label: "The crossing light"
-            label_he: "הרמזור"
-            text: "Cross when the person in the light is green. Some crossings play a bird song, \"piyo piyo\", to help people who cannot see."
-            text_he: "עוברים כשהאיש ברמזור ירוק. בחלק מהמעברים מתנגן שיר ציפור, \"פיו פיו\", כדי לעזור לאנשים שלא רואים."
-          - x: 61
-            y: 55
+            text: "A koban is a small police house with a red lamp. The police officers there help lost children every day."
+            text_he: "קובאן הוא בית משטרה קטן עם מנורה אדומה. השוטרים שם עוזרים לילדים שהלכו לאיבוד כל יום."
+          - img: "photo/safety/sf-konbini.jpg"
             label: "The convenience store"
             label_he: "המכולת"
             japanese: "コンビニ"
             reading: "konbini"
             reading_hebrew: "קונביני"
-            text: "A konbini is open all day and all night. The people who work there help a child who needs help. It is a good place to wait."
-            text_he: "קונביני פתוחה כל היום וכל הלילה. האנשים שעובדים שם עוזרים לילד שצריך עזרה. זה מקום טוב לחכות בו."
-          - x: 94
-            y: 37
-            label: "The yellow sticker"
-            label_he: "המדבקה הצהובה"
-            text: "A yellow sign that says \"Kodomo 110\" means \"children's help house\". A child in trouble can knock on that door and ask for help."
-            text_he: "שלט צהוב שכתוב עליו \"קודומו 110\" אומר \"בית עזרה לילדים\". ילד בצרה יכול לדפוק בדלת הזאת ולבקש עזרה."
+            text: "A konbini is open day and night. The workers there help a child. It is a good place to wait."
+            text_he: "קונביני פתוחה יום ולילה. העובדים שם עוזרים לילד. זה מקום טוב לחכות בו."
+          - img: "photo/safety/sf-kodomo110.jpg"
+            label: "The children's help sign"
+            label_he: "השלט של עזרה לילדים"
+            text: "\"Kodomo 110\" means \"children's help house\". A child in trouble can knock on that door and ask for help."
+            text_he: "שלט שכתוב עליו \"קודומו 110\" אומר \"בית עזרה לילדים\". ילד בצרה יכול לדפוק בדלת הזאת ולבקש עזרה."
+          - img: "photo/safety/sf-crossing.jpg"
+            label: "The crossing light"
+            label_he: "הרמזור"
+            text: "Red person: wait. Green person: cross. Some lights sing \"piyo piyo\" for people who cannot see."
+            text_he: "איש אדום: מחכים. איש ירוק: עוברים. חלק מהרמזורים שרים \"פיו פיו\" בשביל אנשים שלא רואים."
+          - img: "photo/street/st-vending.jpg"
+            label: "The vending machine"
+            label_he: "מכונת המשקאות"
+            text: "For grown-ups. Many drinks machines have a sticker with the address. Read it to the police on the phone."
+            text_he: "למבוגרים. על הרבה מכונות משקאות יש מדבקה עם הכתובת. מקריאים אותה למשטרה בטלפון."
       - kind: flip
         title: Who comes when you call?
         title_he: מי מגיע כשמתקשרים?
         text: Tap a card to turn it.
         text_he: געו בכרטיס כדי להפוך אותו.
         cards:
-          - img: "lesson/safety/police.svg"
+          - img: "photo/safety/sf-police.jpg"
             label: "One, one, zero"
             label_he: "אחת, אחת, אפס"
             text: "110 calls the police. Call it if you are lost, or if something was stolen."
             text_he: "110 מתקשר למשטרה. מתקשרים אם הלכתם לאיבוד, או אם משהו נגנב."
-          - img: "lesson/safety/fire.svg"
+          - img: "photo/safety/sf-fire.jpg"
             label: "One, one, nine: fire"
             label_he: "אחת, אחת, תשע: אש"
             text: "119 calls the fire engine. Call it if you see fire or a lot of smoke."
             text_he: "119 מתקשר לכבאית. מתקשרים אם רואים אש או הרבה עשן."
-          - img: "lesson/safety/ambulance.svg"
+          - img: "photo/safety/sf-ambulance.jpg"
             label: "One, one, nine: ambulance"
             label_he: "אחת, אחת, תשע: אמבולנס"
             text: "119 also calls the ambulance, if someone is hurt or very sick. It is white with a red stripe."
             text_he: "119 מתקשר גם לאמבולנס, אם מישהו נפצע או חולה מאוד. הוא לבן עם פס אדום."
-          - img: "lesson/safety/phone.svg"
+          - img: "photo/safety/sf-phone.jpg"
             label: "Help in English"
             label_he: "עזרה באנגלית"
             text: "For grown-ups. Japan Visitor Hotline: 050-3816-2787, in English, day and night. In an emergency, call 110 or 119 first."
@@ -181,7 +176,7 @@ activities:
       - kind: text
         title: If you get lost
         title_he: אם הלכתם לאיבוד
-        img: lesson/safety/lost.svg
+        img: photo/safety/sf-info.jpg
         japanese: 迷子
         reading: maigo
         reading_hebrew: "מאיגו"
@@ -255,7 +250,7 @@ activities:
         fallback_title_he: תרגיל הבטיחות המשפחתי
         fallback_text: "Play the safety drill with your family."
         fallback_text_he: "מתאמנים בתרגיל הבטיחות עם המשפחה."
-        fallback_img: lesson/safety/table.svg
+        fallback_img: photo/safety/sf-table.jpg
         fallback:
           - "Turtle time: a grown-up says \"shake!\". Everybody drops to the floor, crawls under the table and holds a leg, like a turtle in its shell. Count to ten."
           - "Statue game: a grown-up says \"lost!\". Everybody freezes like a statue and stays there until the grown-up finds them."
@@ -269,7 +264,7 @@ activities:
       - kind: text
         title: When the floor shakes
         title_he: כשהרצפה רועדת
-        img: lesson/safety/quake.svg
+        img: photo/safety/sf-table.jpg
         japanese: 地震
         reading: jishin
         reading_hebrew: "ג'ישין"
@@ -289,41 +284,37 @@ activities:
           - מתרחקים מחלונות. לא רצים החוצה.
           - טלפון ביפן יכול להשמיע אזעקה חזקה כמה שניות לפני רעידה חזקה. כששומעים אותה, נכנסים מתחת לשולחן.
           - למבוגרים. האפליקציה החינמית "Safety tips" של רשות התיירות היפנית שולחת התראות על רעידות אדמה באנגלית.
-      - kind: spots
+      - kind: flip
+        # T275: real photos, not a drawn platform.
         title: On the train platform
         title_he: על רציף הרכבת
-        img: lesson/safety/platform.svg
-        text: Train stations in Japan are busy. Tap each dot to learn how to stay safe there.
-        text_he: תחנות הרכבת ביפן עמוסות. געו בכל נקודה כדי ללמוד איך שומרים על עצמנו שם.
-        spots:
-          - x: 50
-            y: 52
+        text: Train stations in Japan are busy. Tap a card to learn how to stay safe there.
+        text_he: תחנות הרכבת ביפן עמוסות. געו בכרטיס כדי ללמוד איך שומרים על עצמנו שם.
+        cards:
+          - img: "photo/safety/sf-yellowline.jpg"
             label: "The yellow bumpy line"
             label_he: "הקו הצהוב עם הבליטות"
             text: "Always stand behind the yellow line. The bumps help people who cannot see to feel where the edge is."
             text_he: "תמיד עומדים מאחורי הקו הצהוב. הבליטות עוזרות לאנשים שלא רואים להרגיש איפה הקצה."
-          - x: 21
-            y: 70
+          - img: "photo/safety/sf-doormarks.jpg"
             label: "The marks on the floor"
             label_he: "הסימונים על הרצפה"
             text: "The marks show where the train doors open. Wait in line next to them, not in front of the door."
             text_he: "הסימונים מראים איפה דלתות הרכבת נפתחות. מחכים בתור לידם, לא מול הדלת."
-          - x: 42
-            y: 63
+          - img: "photo/safety/sf-button.jpg"
             label: "The emergency button"
             label_he: "כפתור החירום"
-            text: "A red button stops the trains in an emergency, like a person who fell onto the tracks. Children tell a grown-up. Never press it for fun."
-            text_he: "כפתור אדום עוצר את הרכבות במקרה חירום, כמו אדם שנפל למסילה. ילדים אומרים למבוגר. אף פעם לא לוחצים בשביל הכיף."
-          - x: 85
-            y: 72
+            text: "This button stops the trains if a person falls onto the tracks. Children tell a grown-up. Never press it."
+            text_he: "הכפתור הזה עוצר את הרכבות אם אדם נופל למסילה. ילדים אומרים למבוגר. אף פעם לא לוחצים בשביל הכיף."
+          - img: "photo/safety/sf-staff.jpg"
             label: "The station worker"
             label_he: "עובד התחנה"
-            text: "Station workers wear a uniform and a cap. Lost on the platform? Go to a station worker and show your name card."
-            text_he: "עובדי התחנה לובשים מדים וכובע. הלכתם לאיבוד על הרציף? הולכים לעובד תחנה ומראים את הכרטיס עם השם."
+            text: "Station workers wear a uniform and a cap. Lost on the platform? Show a station worker your name card."
+            text_he: "עובדי התחנה לובשים מדים וכובע. הלכתם לאיבוד על הרציף? מראים לעובד תחנה את הכרטיס עם השם."
       - kind: text
         title: Cars drive on the left
         title_he: המכוניות נוסעות בצד שמאל
-        img: lesson/safety/road.svg
+        img: photo/safety/sf-road.jpg
         text: In Japan, cars drive on the LEFT side of the road. So the first car comes from your right! Look right first.
         text_he: ביפן, המכוניות נוסעות בצד שמאל של הכביש. אז המכונית הראשונה מגיעה מימין! מסתכלים קודם ימינה.
         tips:
@@ -346,10 +337,10 @@ activities:
           - title: Put each plate on the helper
             title_he: שימו כל צלחת ליד העוזר
             targets:
-              - {id: police, img: "lesson/safety/police.svg", label: "Police", label_he: "משטרה"}
-              - {id: ambulance, img: "lesson/safety/ambulance.svg", label: "Ambulance", label_he: "אמבולנס"}
-              - {id: staff, img: "lesson/safety/staff.svg", label: "Station worker", label_he: "עובד תחנה"}
-              - {id: clerk, img: "lesson/safety/clerk.svg", label: "Shop worker", label_he: "מוכר בחנות"}
+              - {id: police, img: "photo/safety/sf-police.jpg", label: "Police", label_he: "משטרה"}
+              - {id: ambulance, img: "photo/safety/sf-ambulance.jpg", label: "Ambulance", label_he: "אמבולנס"}
+              - {id: staff, img: "photo/safety/sf-staff.jpg", label: "Station worker", label_he: "עובד תחנה"}
+              - {id: clerk, img: "photo/safety/sf-clerk.jpg", label: "Shop worker", label_he: "מוכר בחנות"}
             plates:
               - {label: "Call 110", label_he: "מתקשרים 110", target: police}
               - {label: "Call 119", label_he: "מתקשרים 119", target: ambulance}
@@ -361,12 +352,12 @@ activities:
         text: Do these four things on the first day. Tap a card to turn it.
         text_he: עושים את ארבעת הדברים האלה ביום הראשון. געו בכרטיס כדי להפוך אותו.
         cards:
-          - img: "lesson/safety/exitmap.svg"
+          - img: "photo/safety/sf-exitmap.jpg"
             label: "The map on the door"
             label_he: "המפה על הדלת"
             text: "A map on the hotel room door shows the green running person. Walk to the exit stairs together, once."
             text_he: "על דלת החדר במלון יש מפה עם האיש הירוק שרץ. הולכים יחד פעם אחת למדרגות היציאה."
-          - img: "lesson/safety/torch.svg"
+          - img: "photo/safety/sf-torch.jpg"
             label: "The torch"
             label_he: "הפנס"
             text: "Many hotel rooms have a torch near the bed. Find it now, in case the lights go out."
@@ -376,7 +367,7 @@ activities:
             label_he: "כרטיס המלון"
             text: "Take a card with the hotel name in Japanese. Show it to a taxi driver or a helper."
             text_he: "לוקחים כרטיס עם שם המלון ביפנית. מראים אותו לנהג מונית או לעוזר."
-          - img: "lesson/safety/meet.svg"
+          - img: "photo/safety/sf-clock.jpg"
             label: "Our meeting place"
             label_he: "מקום המפגש שלנו"
             text: "Pick a meeting place you can all see, like a big clock. Lost each other? The grown-up comes there."
