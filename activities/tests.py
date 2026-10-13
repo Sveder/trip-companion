@@ -569,6 +569,25 @@ class JapanContentTests(TestCase):
         self.assertIn("119", q["choices"])
         self.assertEqual(len(q["choices"]), 4)
 
+    def test_safety_quizzes_show_the_card_only_when_lost(self):
+        """T294: a child shows the name card when lost, never to a person who asks where the family stays.
+        A 'Which number do you call?' round offers numbers only."""
+        import yaml
+
+        for path in sorted((settings.BASE_DIR / "content").rglob("*.yaml")):
+            text = path.read_text()
+            self.assertNotIn("where you are staying", text, path.name)
+            self.assertNotIn("שואל איפה אתם גרים", text, path.name)
+        data = yaml.safe_load((settings.BASE_DIR / "content/uzbekistan/safety.yaml").read_text())
+        lesson = next(a for a in data["activities"] if a["id"] == "uz-safety-lesson")
+        rounds = [r for p in lesson["pages"] for r in p.get("rounds", [])]
+        for r in rounds:
+            if "Which number" in r["ask"]:
+                self.assertEqual(set(r["choices"]), {"police", "fire", "ambulance"}, r["ask"])
+        card = [r for r in rounds if r["answer"] == "card"]
+        self.assertEqual(len(card), 1)
+        self.assertIn("cannot find your family", card[0]["ask"])
+
 
 class LookTests(TestCase):
     """Feedback T83 (our 4-year-old and Michael): flag red as a highlight only, a Nara deer guide, stars on a finish, a rare penguin."""

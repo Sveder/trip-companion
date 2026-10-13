@@ -178,7 +178,7 @@ class UzbekistanCourseTests(TestCase):
         self.assertNotIn("110", _main_text(en))  # the Japan numbers
         self.assertNotIn("119", _main_text(en))
         game = en.content.decode().rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
-        self.assertEqual(game.count('class="choice"'), 16)
+        self.assertEqual(game.count('class="choice"'), 14)  # T294: the two number rounds offer 3 numbers only
         he = self.client.get(url + "?lang=he")
         self.assertContains(he, "בטוחים כמו ילדים באוזבקיסטן")
         self.assertContains(he, "שותים מים מבקבוק")

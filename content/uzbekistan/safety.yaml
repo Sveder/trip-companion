@@ -100,16 +100,16 @@ activities:
           - ask: "You see a lot of smoke. Which number do you call?"
             ask_he: "אתם רואים הרבה עשן. לאיזה מספר מתקשרים?"
             answer: fire
-            choices: [police, fire, ambulance, bottle]
+            choices: [police, fire, ambulance]
           - ask: "Someone fell and is hurt. Which number do you call?"
             ask_he: "מישהו נפל ונפצע. לאיזה מספר מתקשרים?"
             answer: ambulance
-            choices: [ambulance, fire, card, police]
+            choices: [ambulance, fire, police]
           - ask: "You are thirsty on a hot day. What do you drink from?"
             ask_he: "אתם צמאים ביום חם. ממה שותים?"
             answer: bottle
             choices: [card, bazaar, bottle, fire]
-          - ask: "A seller asks where you are staying. What do you show?"
-            ask_he: "מוכר שואל איפה אתם גרים. מה מראים?"
+          - ask: "You cannot find your family at the bazaar. What do you show a seller?"
+            ask_he: "אתם לא מוצאים את המשפחה בשוק. מה מראים למוכר?"
             answer: card
             choices: [bottle, card, police, bazaar]

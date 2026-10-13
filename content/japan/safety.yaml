@@ -381,8 +381,8 @@ activities:
             ask_he: "אתם לא רואים את המשפחה בחנות. מה עושים קודם?"
             answer: "stay"
             choices: [stay, car, balloon, vending]
-          - ask: "A helper asks where you are staying. What do you show?"
-            ask_he: "עוזר שואל איפה אתם גרים. מה מראים?"
+          - ask: "You are lost, and you find a shop worker. What do you show the worker?"
+            ask_he: "הלכתם לאיבוד, ומצאתם עובד בחנות. מה מראים לעובד?"
             answer: "card"
             choices: [icecream, balloon, card, table]
       - kind: local
