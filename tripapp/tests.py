@@ -86,6 +86,17 @@ class ProfessionalBasicsTests(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r["Content-Type"], "image/x-icon")
 
+    def test_robots_txt(self):
+        r = self.client.get("/robots.txt")
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue(r["Content-Type"].startswith("text/plain"))
+        body = r.content.decode()
+        for path in ("/trip/", "/course/", "/a/", "/continue/", "/there/", "/quiz/", "/highlights/", "/admin/"):
+            self.assertIn(f"Disallow: {path}\n", body)
+        for path in ("/credits/", "/privacy/"):
+            self.assertIn(f"Allow: {path}\n", body)
+            self.assertNotIn(f"Disallow: {path}", body)
+
     def test_sentry_loader_only_when_set(self):
         self.assertNotIn("sentry-cdn", self.client.get("/").content.decode())
         with self.settings(SENTRY_JS_LOADER="https://js.sentry-cdn.com/abc.min.js"):

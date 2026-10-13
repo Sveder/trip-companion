@@ -11,6 +11,7 @@ urlpatterns = [
     path("safety-card/", pages.safety_card, name="safety_card"),
     path("credits/", pages.credits, name="credits"),
     path("favicon.ico", pages.favicon),
+    path("robots.txt", pages.robots_txt),
     path("staff/sentry-check/", pages.sentry_check),
     path("i18n/", include("django.conf.urls.i18n")),
     path("accounts/", include("allauth.urls")),

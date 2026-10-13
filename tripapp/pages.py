@@ -1,7 +1,7 @@
 """Site-wide pages: privacy, the favicon, and the share-preview and Sentry settings for every page."""
 from django.conf import settings
 from django.contrib.staticfiles import finders
-from django.http import FileResponse, Http404
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.cache import cache_control
 
@@ -55,6 +55,22 @@ def favicon(request):
     if not path:
         raise Http404
     return FileResponse(open(path, "rb"), content_type="image/x-icon")
+
+
+# T257: crawlers may read the public pages; every family page stays out of search engines.
+ROBOTS_DISALLOW = (
+    "/a/", "/accounts/", "/admin/", "/builder/", "/clips/", "/continue/", "/course/", "/go/", "/highlights/",
+    "/i18n/", "/next/", "/photos/", "/quiz/", "/reminders/", "/signin/", "/staff/", "/state", "/stats/", "/t/",
+    "/there/", "/trip/",
+)
+ROBOTS_TXT = "User-agent: *\nAllow: /$\nAllow: /credits/\nAllow: /privacy/\nAllow: /safety/\nAllow: /safety-card/\n" + "".join(
+    f"Disallow: {path}\n" for path in ROBOTS_DISALLOW
+)
+
+
+@cache_control(max_age=86400, public=True)
+def robots_txt(request):
+    return HttpResponse(ROBOTS_TXT, content_type="text/plain; charset=utf-8")
 
 
 def sentry_check(request):
