@@ -183,6 +183,29 @@ class UzbekistanCourseTests(TestCase):
         self.assertNotIn("var(--guide-antler)", html)
 
 
+    def test_uzbekistan_is_marked_work_in_progress(self):
+        # Feedback T261 (Michael 2026-10-13): a clear 'work in progress' badge on its card and its course pages, en + he.
+        item = self.course.items.get(activity__slug="uz-words-lesson")
+        words = (("en", "Work in progress"), ("he", "עדיין בבנייה"))
+        for lang, word in words:
+            self.assertContains(self.client.get(reverse("course") + f"?lang={lang}"), word)
+            self.assertContains(self.client.get(reverse("activity", args=[item.id]) + f"?lang={lang}"), word)
+            # The trip form: only the Uzbekistan card has it.
+            self.assertContains(self.client.get(reverse("trip_setup") + f"?lang={lang}"), word, count=1)
+        self.client.logout()
+        for lang, word in words:
+            self.assertContains(self.client.get(reverse("home") + f"?lang={lang}"), word, count=1)
+
+    def test_japan_pages_have_no_work_in_progress_badge(self):
+        jp_user = get_user_model().objects.create_user("jp@example.com", "jp@example.com")
+        jp_trip = Trip.objects.create(user=jp_user, destination="japan")
+        Traveller.objects.create(trip=jp_trip, age=38)
+        jp_course = build_course(jp_trip, list(Module.objects.filter(country="japan", ready=True).values_list("id", flat=True)))
+        self.client.force_login(jp_user)
+        self.assertNotContains(self.client.get(reverse("course") + "?lang=en"), "Work in progress")
+        jp_item = jp_course.next_item()
+        self.assertNotContains(self.client.get(reverse("activity", args=[jp_item.id]) + "?lang=en"), "Work in progress")
+
 class HebrewReadingTests(TestCase):
     """T197: a Hebrew page shows the Hebrew spelling next to the Latin word ('Osh · אוש'); an English page does not."""
 

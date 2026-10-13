@@ -14,6 +14,8 @@
   line: Blue domes, Silk Road cities and plov.
   line_he: כיפות כחולות, ערי דרך המשי ופלוב.
   ready: true
+  # Feedback T261 (Michael 2026-10-13): playable, but shown as work in progress on its card and its pages.
+  wip: true
 - id: new-york
   name: New York City
   name_he: ניו יורק

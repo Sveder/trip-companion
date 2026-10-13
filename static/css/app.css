@@ -414,6 +414,11 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .course-text { display: flex; flex-direction: column; align-items: flex-start; font-size: 1.1rem; }
 .course-text .badge { margin-top: .3rem; }
 .badge.done { background: var(--c-accent); color: #fff; }
+/* Feedback T261: a place still being built (Uzbekistan). Orange-striped so it never reads as 'done' or 'coming soon'. */
+.badge.wip { background: repeating-linear-gradient(135deg, #ffd166 0 10px, #ffbe3d 10px 20px); color: var(--c-ink); white-space: nowrap; }
+.wip-line { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .2rem 0 .6rem; color: var(--c-muted); font-size: .95rem; }
+.wip-line .badge.wip { margin-top: 0; }
+.badge.page-wip { margin: 0 0 .3rem; }
 .course-text small { color: var(--c-muted); font-size: .9rem; }
 .course-text .hunt-count { font-size: .95rem; font-weight: 800; color: var(--c-ink); }
 .course-list .play-again { justify-self: start; margin: .4rem 0 .2rem 3.6rem; padding: .5rem 1.1rem; font-size: 1rem; }

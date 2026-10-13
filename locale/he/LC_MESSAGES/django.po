@@ -1306,3 +1306,11 @@ msgstr "מתחילים את המסלול"
 #: templates/courses/highlights.html
 msgid "Plan our next trip"
 msgstr "מתכננים את הטיול הבא"
+
+#: templates/includes/wip_badge.html:1
+msgid "Work in progress"
+msgstr "עדיין בבנייה"
+
+#: templates/courses/course.html:7
+msgid "We are still building this one. Play it now, more is on the way."
+msgstr "אנחנו עדיין בונים את ההרפתקה הזאת. אפשר לשחק כבר עכשיו, ועוד דברים בדרך."

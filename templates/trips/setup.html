@@ -16,6 +16,7 @@
             <span class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</span>
             <h3>{{ c.name }}</h3>
             <p>{{ c.line }}</p>
+            {% if c.wip %}{% include "includes/wip_badge.html" %}{% endif %}
             <span class="chosen-mark" aria-hidden="true">✓ {% translate "Chosen" %}</span>
           </label>
           {% elif not c.href %}

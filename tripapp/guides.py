@@ -30,6 +30,7 @@ def country_guide(request):
             trip = active_trip(user) if user is not None and user.is_authenticated else None
             place = next((p for p in localize(load_previews()) if trip and p["id"] == trip.destination), None)
             request._trip_country = {"id": trip.destination, "name": place["name"] if place else trip.destination,
-                                     "other": trip.destination != "japan"} if trip else {}
+                                     "other": trip.destination != "japan",
+                                     "wip": bool(place and place.get("wip"))} if trip else {}
         return request._trip_country
     return {"country_guide": guide, "trip_country": country}
