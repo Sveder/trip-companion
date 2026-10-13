@@ -1083,6 +1083,29 @@ class FoodAroundJapanTests(TestCase):
             self.assertIn(f'<span class="card-emoji" aria-hidden="true">{a.emoji}</span>', html)
 
 
+class MannersPicturesTests(TestCase):
+    """T287, Michael 2026-10-13: no drawn humans or hands in the manners lesson or on the sushi 'No wasabi' page."""
+
+    def test_no_manners_picture_draws_a_person(self):
+        base = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson'
+        paths = list((base / 'manners').glob('*.svg')) + [base / 'sushi' / 'sabinuki.svg']
+        for path in paths:
+            text = path.read_text()
+            self.assertNotIn('#ffd9b8', text, path.name)  # the drawn skin colour
+            label = re.search(r'aria-label="([^"]*)"', text).group(1).lower()
+            for word in ('child', 'people', 'person', 'face', 'hand', 'finger', 'kid', 'chef', 'man '):
+                self.assertNotIn(word, label, path.name)
+
+    def test_big_manners_pages_use_credited_photos(self):
+        lesson = (Path(settings.BASE_DIR) / 'content' / 'japan' / 'dos_donts.yaml').read_text()
+        credits = (Path(settings.BASE_DIR) / 'content' / 'photo_credits.yaml').read_text()
+        for name in ('train', 'onsen', 'escalator'):
+            self.assertIn(f'img: photo/manners/manners-{name}.jpg', lesson)
+            self.assertIn(f'photo_credit: manners-{name}', lesson)
+            self.assertIn(f'- id: manners-{name}', credits)
+            self.assertTrue((Path(settings.BASE_DIR) / 'static' / 'img' / 'photo' / 'manners' / f'manners-{name}.jpg').exists())
+
+
 class WordsPicturesTests(TestCase):
     """T161: the words lesson pictures keep their size and their labels, and parse as SVG."""
 

@@ -200,7 +200,8 @@ activities:
       - kind: text
         title: On the train
         title_he: ברכבת
-        img: lesson/manners/train.svg
+        img: photo/manners/manners-train.jpg
+        photo_credit: manners-train
         japanese: でんしゃ
         reading: densha
         reading_hebrew: "דנשה"
@@ -360,7 +361,8 @@ activities:
       - kind: text
         title: The hot spring bath
         title_he: אמבטיית המעיין החם
-        img: lesson/manners/onsen.svg
+        img: photo/manners/manners-onsen.jpg
+        photo_credit: manners-onsen
         japanese: おんせん
         reading: onsen
         reading_hebrew: "אונסן"
@@ -383,7 +385,8 @@ activities:
       - kind: text
         title: Stairs that move
         title_he: מדרגות שזזות
-        img: lesson/manners/escalator.svg
+        img: photo/manners/manners-escalator.jpg
+        photo_credit: manners-escalator
         japanese: エスカレーター
         reading: esukareetaa
         reading_hebrew: "אסקרטא"
