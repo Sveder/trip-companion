@@ -213,3 +213,11 @@ class TripEditTests(TestCase):
                              HTTP_ACCEPT_LANGUAGE="he")
         self.assertRedirects(r, reverse("course"), fetch_redirect_response=False)
         self.assertIn("הטיול עודכן.", self._messages(r))
+
+
+class SetupCssTests(TestCase):
+    def test_switch_track_is_a_block(self):
+        # T264: a <span> track with no display rule is inline, so its width and height were ignored and only the knob showed.
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        rule = css.split("\n.switch-row .switch {", 1)[1].split("}", 1)[0]
+        self.assertIn("display: inline-block", rule)

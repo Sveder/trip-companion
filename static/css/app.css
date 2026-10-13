@@ -650,7 +650,7 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .switch-emoji { font-size: 1.6rem; line-height: 1; flex: none; }
 .switch-text { flex: 1; min-width: 0; line-height: 1.25; }
 .switch-text .badge { margin-inline-start: .3rem; font-size: .75rem; vertical-align: middle; }
-.switch-row .switch { position: relative; flex: none; width: 52px; height: 30px; border-radius: 999px; background: var(--c-line); transition: background .15s; }
+.switch-row .switch { position: relative; display: inline-block; flex: none; width: 52px; height: 30px; border-radius: 999px; background: var(--c-line); transition: background .15s; }
 .switch-row .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: left .15s; }
 .switch-row:has(input:checked) .switch { background: var(--c-accent); }
 .switch-row:has(input:checked) .switch::after { left: 25px; }
