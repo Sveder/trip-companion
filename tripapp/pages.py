@@ -10,6 +10,12 @@ def privacy(request):
     return render(request, "privacy.html")
 
 
+def safety_card(request):
+    """T277: the child safety card. The form has no action and its fields have no name, so nothing in it reaches
+    the server. static/js/safety_card.js draws the card and writes the PDF in the browser."""
+    return render(request, "safety_card.html")
+
+
 def credits(request):
     from content_admin.loader import load_photo_credits
     return render(request, "credits.html", {"photos": list(load_photo_credits().values())})

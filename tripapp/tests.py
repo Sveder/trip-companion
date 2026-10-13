@@ -390,3 +390,54 @@ class SqliteLockSettingsTests(TestCase):
                 self.assertEqual(conn.transaction_mode, "IMMEDIATE")
             finally:
                 conn.close()
+
+
+class SafetyCardTests(TestCase):
+    """T277: the child safety card is made in the browser; the page has nothing that could send the data."""
+
+    def test_page_renders_in_english_and_hebrew(self):
+        en = self.client.get("/safety-card/")
+        self.assertEqual(en.status_code, 200)
+        self.assertContains(en, "Child safety card")
+        self.assertContains(en, "js/safety_card.js")
+        he = self.client.get("/safety-card/?lang=he").content.decode()
+        self.assertIn("כרטיס בטיחות לילד", he)
+        self.assertIn("הכול נשאר במכשיר הזה", he)
+
+    def test_form_has_no_action_and_no_named_field(self):
+        import re
+        html = self.client.get("/safety-card/").content.decode()
+        form = html[html.index("<form class=\"sc-form\""):html.index("</form>", html.index("<form class=\"sc-form\""))]
+        self.assertNotIn("action=", form)
+        self.assertNotIn("method=", form)
+        self.assertNotIn("csrfmiddlewaretoken", form)
+        self.assertEqual(re.findall(r"<(?:input|textarea|select)[^>]*\sname=", form), [])
+        self.assertEqual(len(re.findall(r"<(?:input|textarea)", form)), 17)
+
+    def test_script_sends_nothing_and_saves_nothing(self):
+        from pathlib import Path
+        from django.conf import settings
+        js = (Path(settings.BASE_DIR) / "static/js/safety_card.js").read_text()
+        for word in ("fetch(", "XMLHttpRequest", "sendBeacon", "localStorage", "sessionStorage", "indexedDB", ".submit("):
+            self.assertNotIn(word, js, word)
+
+    def test_safety_lesson_links_to_the_card(self):
+        from django.contrib.auth import get_user_model
+        from django.core.management import call_command
+        from django.urls import reverse
+        from content_admin.models import Activity
+        from courses.builder import build_course
+        from trips.models import Trip, Traveller
+        call_command("load_content", verbosity=0)
+        user = get_user_model().objects.create_user("s@example.com", "s@example.com")
+        trip = Trip.objects.create(user=user, destination="japan")
+        Traveller.objects.create(trip=trip, age=40)
+        Traveller.objects.create(trip=trip, age=5)
+        act = Activity.objects.get(module__slug="safety", slug="safety-lesson")
+        item = build_course(trip, [act.module_id]).items.get(activity=act)
+        self.client.force_login(user)
+        for lang, text in (("en", "Print a child safety card"), ("he", "מדפיסים כרטיס בטיחות לילד")):
+            html = self.client.get(reverse("activity", args=[item.id]) + f"?lang={lang}").content.decode()
+            self.assertEqual(html.count('href="/safety-card/"'), 1, lang)
+            self.assertIn(text, html)
+        self.assertIn("The child safety card is made on your device", self.client.get("/privacy/?lang=en").content.decode())

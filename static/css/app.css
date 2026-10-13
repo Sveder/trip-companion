@@ -805,3 +805,28 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .tv .switch-list { grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); }
 .switch-text .badge { white-space: nowrap; }
 .switch-text { overflow-wrap: anywhere; }
+
+/* T277: the child safety card maker. */
+.safety-card-page { max-width: 1100px; margin: .8rem auto; }
+.sc-private { background: #e8f5e9; border-radius: var(--radius); padding: .6rem .9rem; font-weight: 700; }
+.sc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1.4rem; align-items: start; }
+.sc-form { display: flex; flex-direction: column; gap: .7rem; }
+.sc-form label { display: flex; flex-direction: column; gap: .25rem; font-weight: 700; }
+.sc-form input[type="text"], .sc-form input[type="tel"], .sc-form textarea { font: inherit; font-weight: 400; padding: .55rem .7rem; border: 2px solid var(--c-line); border-radius: 12px; background: #fff; width: 100%; box-sizing: border-box; }
+.sc-form input[type="file"] { font: inherit; font-weight: 400; max-width: 100%; }
+.sc-form .hint { font-weight: 400; }
+.sc-photo-clear { align-self: flex-start; }
+.sc-allergies { border: 2px solid var(--c-line); border-radius: 12px; padding: .5rem .8rem .8rem; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem .8rem; }
+.sc-allergies legend { font-weight: 800; padding: 0 .3rem; }
+.sc-allergies .hint { grid-column: 1 / -1; margin: 0; }
+.sc-allergies label { flex-direction: row; align-items: center; gap: .45rem; font-weight: 400; }
+.sc-allergies input[type="checkbox"] { width: 1.3rem; height: 1.3rem; flex: none; }
+.sc-allergies .sc-other { grid-column: 1 / -1; flex-direction: column; align-items: stretch; font-weight: 700; }
+.sc-out { position: sticky; top: .8rem; }
+.sc-preview { width: 100%; height: auto; display: block; border-radius: 10px; box-shadow: var(--shadow); background: #fff; }
+.sc-status { min-height: 1.4em; }
+.lpage-tool { margin-top: 1rem; text-align: center; }
+@media (max-width: 760px) {
+  .sc-grid { grid-template-columns: minmax(0, 1fr); }
+  .sc-out { position: static; }
+}

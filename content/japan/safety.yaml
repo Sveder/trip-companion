@@ -197,6 +197,8 @@ activities:
         title_he: הכרטיס שלי
         img: lesson/safety/namecard.svg
         img_he: lesson/safety/namecard_he.svg
+        # T277: a button under the page opens the card maker (/safety-card/).
+        tool: safety_card
         text: Every child gets a card like this in a pocket. Tap each dot to see what is on it.
         text_he: כל ילד מקבל כרטיס כזה בכיס. געו בכל נקודה כדי לראות מה כתוב עליו.
         spots:

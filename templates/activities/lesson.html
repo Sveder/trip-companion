@@ -167,6 +167,7 @@
       </ul>
       {% endfor %}
     {% endif %}
+    {% if page.tool == "safety_card" %}<p class="lpage-tool"><a class="btn alt" href="{% url 'safety_card' %}">{% translate "Print a child safety card" %}</a></p>{% endif %}
   </section>
   {% endwith %}{% endfor %}
   <div class="lesson-nav" data-lesson-nav hidden>

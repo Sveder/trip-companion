@@ -1272,3 +1272,147 @@ msgstr "ברוכים השבים! הנה מה שעשיתם."
 
 msgid "Skip"
 msgstr "דילוג"
+
+#: T277
+msgid "Print a child safety card"
+msgstr "מדפיסים כרטיס בטיחות לילד"
+
+#: T277
+msgid "Child safety card"
+msgstr "כרטיס בטיחות לילד"
+
+#: T277
+msgid "Your PDF is ready. Print it at actual size (100 percent), then cut out the cards."
+msgstr "קובץ ה-PDF מוכן. מדפיסים בגודל אמיתי (100 אחוז), ואז גוזרים את הכרטיסים."
+
+#: T277
+msgid "Making the PDF…"
+msgstr "מכינים את ה-PDF…"
+
+#: T277
+msgid "This browser could not make the PDF. Try another browser."
+msgstr "הדפדפן הזה לא הצליח להכין את ה-PDF. נסו דפדפן אחר."
+
+#: T277
+msgid "Make a card for each child's pocket. A helper in Japan can read it in English and in Japanese."
+msgstr "מכינים כרטיס לכיס של כל ילד. מי שעוזר ביפן יכול לקרוא אותו באנגלית וביפנית."
+
+#: T277
+msgid "Everything stays on this device. The photo and the details are never sent to us and never saved. Close the page and they are gone."
+msgstr "הכול נשאר במכשיר הזה. התמונה והפרטים לא נשלחים אלינו ולא נשמרים. סוגרים את הדף, והם נמחקים."
+
+#: T277
+msgid "Every field is optional."
+msgstr "כל השדות לא חובה."
+
+#: T277
+msgid "Child's photo"
+msgstr "תמונה של הילד"
+
+#: T277
+msgid "Remove the photo"
+msgstr "מסירים את התמונה"
+
+#: T277
+msgid "Child's name"
+msgstr "שם הילד"
+
+#: T277
+msgid "In English letters, so a helper in Japan can read it."
+msgstr "באותיות באנגלית, כדי שמי שעוזר ביפן יוכל לקרוא."
+
+#: T277
+msgid "Parent's phone"
+msgstr "הטלפון של ההורה"
+
+#: T277
+msgid "With the country code, so a phone in Japan can call it."
+msgstr "עם הקידומת של המדינה, כדי שאפשר יהיה להתקשר מטלפון ביפן."
+
+#: T277
+msgid "A second phone"
+msgstr "טלפון נוסף"
+
+#: T277
+msgid "Hotel name"
+msgstr "שם המלון"
+
+#: T277
+msgid "Hotel address"
+msgstr "כתובת המלון"
+
+#: T277
+msgid "Ask at the hotel desk to write it in Japanese too."
+msgstr "מבקשים בדלפק של המלון לכתוב אותה גם ביפנית."
+
+#: T277
+msgid "Allergies"
+msgstr "אלרגיות"
+
+#: T277
+msgid "The card writes each one in English and in Japanese."
+msgstr "הכרטיס כותב כל אחת באנגלית וביפנית."
+
+#: T277
+msgid "Peanuts"
+msgstr "בוטנים"
+
+#: T277
+msgid "Tree nuts"
+msgstr "אגוזים"
+
+#: T277
+msgid "Egg"
+msgstr "ביצה"
+
+#: T277
+msgid "Milk"
+msgstr "חלב"
+
+#: T277
+msgid "Wheat"
+msgstr "חיטה"
+
+#: T277
+msgid "Buckwheat (soba)"
+msgstr "כוסמת (סובה)"
+
+#: T277
+msgid "Shrimp"
+msgstr "שרימפס"
+
+#: T277
+msgid "Crab"
+msgstr "סרטן"
+
+#: T277
+msgid "Fish"
+msgstr "דג"
+
+#: T277
+msgid "Sesame"
+msgstr "שומשום"
+
+#: T277
+msgid "Other (in English)"
+msgstr "אחר (באנגלית)"
+
+#: T277
+msgid "Your card (the real card is wallet size, 85 x 54 mm):"
+msgstr "הכרטיס שלכם (הכרטיס האמיתי בגודל של כרטיס אשראי, 85 על 54 מ\"מ):"
+
+#: T277
+msgid "Card preview"
+msgstr "תצוגה של הכרטיס"
+
+#: T277
+msgid "Make the PDF (8 cards)"
+msgstr "מכינים PDF (8 כרטיסים)"
+
+#: T277
+msgid "Download the PDF"
+msgstr "מורידים את ה-PDF"
+
+#: T277
+msgid "The child safety card is made on your device. We never see the photo or the details on it, and we do not keep them."
+msgstr "כרטיס הבטיחות לילד נוצר במכשיר שלכם. אנחנו לא רואים את התמונה או את הפרטים שעליו, ולא שומרים אותם."
