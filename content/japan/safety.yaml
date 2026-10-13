@@ -239,25 +239,23 @@ activities:
       - kind: video
         title: Watch and practise
         title_he: צופים ומתאמנים
-        text: Watch, then play the safety drill below with your family.
-        text_he: צופים, ואז מתאמנים בתרגיל הבטיחות עם המשפחה.
+        text: Watch, then play the safety games below with your family.
+        text_he: צופים, ואז משחקים במשחקי הבטיחות עם המשפחה.
         # Only Michael approves a video. Candidates: eML26rG3Ois ("Turtle Safe", NZGetReady, New Zealand civil defence,
         # drop, cover and hold on for kids), d08QUmxzdKU ("Kids Earthquake Safety - Disaster Dodgers", Ride the Quake),
         # 6wkGQEUeOPQ ("What To Do If You Get Lost?", Rainbow Giggles Kids Tv).
         youtube: eML26rG3Ois
         approved: false
-        fallback_title: The family safety drill
-        fallback_title_he: תרגיל הבטיחות המשפחתי
-        fallback_text: "Play the safety drill with your family."
-        fallback_text_he: "מתאמנים בתרגיל הבטיחות עם המשפחה."
-        fallback_img: photo/safety/sf-table.jpg
+        fallback_title: The family safety games
+        fallback_title_he: משחקי הבטיחות של המשפחה
+        fallback_text: "Play the safety games with your family."
+        fallback_text_he: "משחקים במשחקי הבטיחות עם המשפחה."
+        fallback_img: photo/safety/sf-koban.jpg
         fallback:
-          - "Turtle time: a grown-up says \"shake!\". Everybody drops to the floor, crawls under the table and holds a leg, like a turtle in its shell. Count to ten."
           - "Statue game: a grown-up says \"lost!\". Everybody freezes like a statue and stays there until the grown-up finds them."
           - "Name card check: each child says their name, the hotel name, and \"maigo desu\"."
           - "Number game: a grown-up says \"fire\", \"hurt\" or \"lost\". The children shout the number: 119, 119 or 110."
         fallback_he:
-          - "זמן צב: מבוגר אומר \"רעידה!\". כולם יורדים לרצפה, זוחלים מתחת לשולחן ומחזיקים רגל של השולחן, כמו צב בשריון. סופרים עד עשר."
           - "משחק הפסל: מבוגר אומר \"הלכתי לאיבוד!\". כולם קופאים כמו פסל ונשארים במקום עד שהמבוגר מוצא אותם."
           - "בדיקת כרטיס: כל ילד אומר את השם שלו, את שם המלון, ו\"מאיגו דס\"."
           - "משחק המספרים: מבוגר אומר \"אש\", \"נפצע\" או \"הלכתי לאיבוד\". הילדים צועקים את המספר: 119, 119 או 110."
@@ -270,19 +268,14 @@ activities:
         reading_hebrew: "ג'ישין"
         text: Japan has many small earthquakes. Most of them are so small that people do not feel them. Buildings in Japan are made to stay strong when the ground shakes.
         text_he: ביפן יש הרבה רעידות אדמה קטנות. רובן כל כך קטנות שאנשים לא מרגישים אותן. הבניינים ביפן בנויים כדי להישאר חזקים כשהאדמה רועדת.
+        # T276: Michael asked for one short page and no earthquake drill.
         tips:
-          - "Drop: get down on your hands and knees."
-          - "Cover: crawl under a table. Protect your head."
-          - "Hold on: hold a leg of the table until the shaking stops."
+          - If the floor shakes, get under a table and hold on until it stops.
           - Stay away from windows. Do not run outside.
-          - A phone in Japan can play a loud alarm a few seconds before a strong shake. When you hear it, get under a table.
           - For grown-ups. The free "Safety tips" app from the Japan Tourism Agency sends earthquake alerts in English.
         tips_he:
-          - "יורדים: יורדים לרצפה על הידיים והברכיים."
-          - "מתכסים: זוחלים מתחת לשולחן. מגינים על הראש."
-          - "מחזיקים: מחזיקים ברגל של השולחן עד שהרעידה נגמרת."
+          - אם הרצפה רועדת, נכנסים מתחת לשולחן ומחזיקים חזק עד שזה נגמר.
           - מתרחקים מחלונות. לא רצים החוצה.
-          - טלפון ביפן יכול להשמיע אזעקה חזקה כמה שניות לפני רעידה חזקה. כששומעים אותה, נכנסים מתחת לשולחן.
           - למבוגרים. האפליקציה החינמית "Safety tips" של רשות התיירות היפנית שולחת התראות על רעידות אדמה באנגלית.
       - kind: flip
         # T275: real photos, not a drawn platform.
@@ -409,11 +402,6 @@ activities:
                 title_he: "בקניון"
                 text: "Play \"I am lost\": point to the people who work there, and practise asking one of them for help."
                 text_he: "משחקים ב\"הלכתי לאיבוד\": מצביעים על האנשים שעובדים שם, ומתאמנים לבקש עזרה מאחד מהם."
-              - emoji: "🐢"
-                title: "Under the table"
-                title_he: "מתחת לשולחן"
-                text: "Do the turtle drill once: drop, cover, hold on, and count to ten."
-                text_he: "עושים פעם אחת את תרגיל הצב: יורדים, מתכסים, מחזיקים, וסופרים עד עשר."
               - emoji: "📇"
                 title: "Make the name cards"
                 title_he: "מכינים את הכרטיסים"

@@ -535,12 +535,22 @@ class SafetyLessonTests(TestCase):
             svg = (Path(settings.BASE_DIR) / "static" / "img" / "lesson" / "safety" / name).read_text()
             self.assertNotIn("#ffd9b8", svg, name)  # the skin colour of the old drawn people
 
-    def test_unapproved_video_shows_the_drill_and_no_id(self):
+    def test_unapproved_video_shows_the_games_and_no_id(self):
         html = self.page()
         self.assertNotIn("eML26rG3Ois", html)
         self.assertNotIn("comes soon", html)
-        self.assertIn("The family safety drill", html)
-        self.assertIn("Turtle time", html)
+        self.assertIn("The family safety games", html)
+        self.assertIn("Statue game", html)
+
+    def test_no_earthquake_drill(self):
+        # T276: Michael asked to remove the earthquake practice. One short page mentions earthquakes.
+        for lang in ("en", "he"):
+            html = self.page(lang)
+            for word in ("Turtle", "turtle", "drill", "Drop:", "תרגיל", "זמן צב"):
+                self.assertNotIn(word, html, (lang, word))
+        html = self.page()
+        self.assertEqual(html.count("When the floor shakes"), 1)
+        self.assertIn("get under a table and hold on until it stops", html)
 
     def test_facts_on_the_page(self):
         html = self.page()
