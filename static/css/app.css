@@ -800,3 +800,7 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 /* T236: a kana word on a pick choice, a flip card or a match plate never breaks inside the word (ありがと / う).
    The speaker mark stays on the same line. lesson.js shrinks the font when the word is wider than its card. */
 .choice-word .jp, .flip .jp, .match-plate .jp { white-space: nowrap; word-break: keep-all; max-width: 100%; }
+/* T262: the 'why' dialog lists four reasons, icon first, left-aligned (right-aligned in Hebrew). */
+.why .why-list { list-style: none; margin: .4rem 0 0; padding: 0; text-align: start; }
+.why .why-list li { display: flex; gap: .6rem; align-items: flex-start; margin: .55rem 0; line-height: 1.45; }
+.why .why-list li > span { flex: 0 0 auto; font-size: 1.3rem; line-height: 1.1; }

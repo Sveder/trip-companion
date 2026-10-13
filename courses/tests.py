@@ -1091,20 +1091,24 @@ class WhyDialogTests(TestCase):
         html = self.client.get("/").content.decode()
         self.assertIn('<button type="button" class="buzz" data-why aria-haspopup="dialog">excited</button> for your trip!', html)
         self.assertIn('<dialog id="why"', html)
-        self.assertIn("Half the fun is before you go", html)
-        self.assertIn("Waiting for a trip is half the fun.", html)
-        self.assertIn("Here your family learns what people eat, say and do where you are going.", html)
-        self.assertIn("By the time you fly, everyone is excited.", html)
+        # T262: the dialog says why a family should use the site, in four short reasons.
+        self.assertIn("The trip starts weeks before you fly", html)
+        self.assertIn("Your kids land knowing the food, the customs, a few words and what to look for.", html)
+        self.assertIn("A few minutes a day turns the wait into part of the trip.", html)
+        self.assertIn("Screen time you do together: games, photos and stories, not one more video alone.", html)
+        self.assertIn("On the first day they point and shout: I know that!", html)
+        self.assertNotIn("Half the fun", html)
         self.assertIn("js/why.js", html)
 
     def test_hebrew_word_and_dialog(self):
         self.client.cookies["django_language"] = "he"
         html = self.client.get("/", HTTP_ACCEPT_LANGUAGE="he").content.decode()
         self.assertIn('data-why aria-haspopup="dialog">מתרגשים</button> לקראת הטיול!', html)
-        self.assertIn("חצי מהכיף הוא לפני הטיול", html)
-        self.assertIn("לחכות לטיול זה חצי מהכיף.", html)
-        self.assertIn("כאן המשפחה שלכם לומדת", html)
-        self.assertIn("כשתעלו על המטוס, כולם כבר יתרגשו.", html)
+        self.assertIn("הטיול מתחיל שבועות לפני הטיסה", html)
+        self.assertIn("הילדים נוחתים וכבר מכירים את האוכל, את המנהגים, כמה מילים ומה לחפש.", html)
+        self.assertIn("כמה דקות ביום, וההמתנה הופכת לחלק מהטיול.", html)
+        self.assertIn("זמן מסך שעושים יחד: משחקים, תמונות וסיפורים, ולא עוד סרטון לבד.", html)
+        self.assertIn("וביום הראשון הם מצביעים וצועקים: את זה אני מכיר!", html)
 
     def test_buzz_stops_for_reduced_motion(self):
         from django.conf import settings

@@ -707,23 +707,29 @@ msgstr "לאן אתם נוסעים?"
 msgid "Let's go!"
 msgstr "יוצאים לדרך!"
 
-#: templates/courses/welcome.html:46
-msgid "Half the fun is before you go"
-msgstr "חצי מהכיף הוא לפני הטיול"
-
 #: templates/courses/welcome.html:47
-msgid "Waiting for a trip is half the fun."
-msgstr "לחכות לטיול זה חצי מהכיף."
-
-#: templates/courses/welcome.html:48
-msgid ""
-"Here your family learns what people eat, say and do where you are going."
-msgstr ""
-"כאן המשפחה שלכם לומדת מה אוכלים, מה אומרים ומה עושים במקום שאליו אתם נוסעים."
+msgid "The trip starts weeks before you fly"
+msgstr "הטיול מתחיל שבועות לפני הטיסה"
 
 #: templates/courses/welcome.html:49
-msgid "By the time you fly, everyone is excited."
-msgstr "כשתעלו על המטוס, כולם כבר יתרגשו."
+msgid ""
+"Your kids land knowing the food, the customs, a few words and what to look "
+"for."
+msgstr "הילדים נוחתים וכבר מכירים את האוכל, את המנהגים, כמה מילים ומה לחפש."
+
+#: templates/courses/welcome.html:50
+msgid "A few minutes a day turns the wait into part of the trip."
+msgstr "כמה דקות ביום, וההמתנה הופכת לחלק מהטיול."
+
+#: templates/courses/welcome.html:51
+msgid ""
+"Screen time you do together: games, photos and stories, not one more video "
+"alone."
+msgstr "זמן מסך שעושים יחד: משחקים, תמונות וסיפורים, ולא עוד סרטון לבד."
+
+#: templates/courses/welcome.html:52
+msgid "On the first day they point and shout: I know that!"
+msgstr "וביום הראשון הם מצביעים וצועקים: את זה אני מכיר!"
 
 #: templates/credits.html:7
 msgid ""

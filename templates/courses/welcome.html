@@ -44,10 +44,13 @@
   {% endfor %}
 </div>
 <dialog id="why" class="why" aria-labelledby="why-title">
-  <h2 id="why-title">{% translate "Half the fun is before you go" %}</h2>
-  <p>{% translate "Waiting for a trip is half the fun." %}</p>
-  <p>{% translate "Here your family learns what people eat, say and do where you are going." %}</p>
-  <p>{% translate "By the time you fly, everyone is excited." %}</p>
+  <h2 id="why-title">{% translate "The trip starts weeks before you fly" %}</h2>
+  <ul class="why-list">
+    <li><span aria-hidden="true">🍣</span> {% translate "Your kids land knowing the food, the customs, a few words and what to look for." %}</li>
+    <li><span aria-hidden="true">🗓️</span> {% translate "A few minutes a day turns the wait into part of the trip." %}</li>
+    <li><span aria-hidden="true">📸</span> {% translate "Screen time you do together: games, photos and stories, not one more video alone." %}</li>
+    <li><span aria-hidden="true">👀</span> {% translate "On the first day they point and shout: I know that!" %}</li>
+  </ul>
   <form method="dialog"><button class="btn big" value="close">{% translate "Let's go!" %}</button></form>
 </dialog>
 <script nonce="{{ csp_nonce }}" src="{% static 'js/why.js' %}" defer></script>
