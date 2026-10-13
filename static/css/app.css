@@ -642,7 +642,7 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .module-set[hidden], .switch-row[hidden], .switch-groups[hidden] { display: none; }
 .switch-groups { display: grid; gap: .5rem; margin-bottom: .8rem; }
 .switch-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .5rem; }
-.switch-row { position: relative; display: flex; align-items: center; gap: .7rem; min-height: 3.4rem; padding: .45rem .8rem; background: var(--c-surface); border: 3px solid var(--c-line); border-radius: 16px; cursor: pointer; }
+.switch-row, .form .switch-row { position: relative; display: flex; margin: 0; align-items: center; gap: .7rem; min-height: 3.4rem; padding: .45rem .8rem; background: var(--c-surface); border: 3px solid var(--c-line); border-radius: 16px; cursor: pointer; }
 .switch-row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .switch-row:has(input:checked) { border-color: var(--c-accent); }
 .switch-row:focus-within { outline: 4px solid var(--c-sun); outline-offset: 2px; }

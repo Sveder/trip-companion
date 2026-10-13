@@ -221,3 +221,8 @@ class SetupCssTests(TestCase):
         css = (settings.BASE_DIR / "static/css/app.css").read_text()
         rule = css.split("\n.switch-row .switch {", 1)[1].split("}", 1)[0]
         self.assertIn("display: inline-block", rule)
+
+    def test_switch_row_beats_the_form_label_rule(self):
+        # T264: '.form label { display: block }' is more specific than '.switch-row', so the switch wrapped under the text.
+        css = (settings.BASE_DIR / "static/css/app.css").read_text()
+        self.assertIn(".form .switch-row { position: relative; display: flex;", css.replace(".switch-row, .form .switch-row", ".form .switch-row"))
