@@ -43,18 +43,6 @@ activities:
         img: "lesson/chopsticks/edamame.svg"
         label: "Edamame beans"
         label_he: "אדממה"
-      - id: "grip-right"
-        img: "lesson/chopsticks/grip-right.svg"
-        label: "The right hold"
-        label_he: "האחיזה הנכונה"
-      - id: "grip-fist"
-        img: "lesson/chopsticks/grip-fist.svg"
-        label: "A fist hold"
-        label_he: "אחיזה באגרוף"
-      - id: "grip-cross"
-        img: "lesson/chopsticks/grip-cross.svg"
-        label: "Crossed tips"
-        label_he: "קצוות מוצלבים"
       - id: "grip-stab"
         img: "lesson/chopsticks/grip-stab.svg"
         label: "Spearing food"
@@ -62,20 +50,20 @@ activities:
       # T186: the pick game uses copies with no check or cross mark and one neutral label, so no picture gives the answer away.
       - id: "quiz-grip-right"
         img: "lesson/chopsticks/quiz-grip-right.svg"
-        label: "A hand with chopsticks"
-        label_he: "יד עם צ'ופסטיקס"
-      - id: "quiz-grip-fist"
-        img: "lesson/chopsticks/quiz-grip-fist.svg"
-        label: "A hand with chopsticks"
-        label_he: "יד עם צ'ופסטיקס"
+        label: "Chopsticks"
+        label_he: "צ'ופסטיקס"
+      - id: "quiz-stand"
+        img: "lesson/chopsticks/quiz-stand.svg"
+        label: "Chopsticks"
+        label_he: "צ'ופסטיקס"
       - id: "quiz-grip-cross"
         img: "lesson/chopsticks/quiz-grip-cross.svg"
-        label: "A hand with chopsticks"
-        label_he: "יד עם צ'ופסטיקס"
+        label: "Chopsticks"
+        label_he: "צ'ופסטיקס"
       - id: "quiz-grip-stab"
         img: "lesson/chopsticks/quiz-grip-stab.svg"
-        label: "A hand with chopsticks"
-        label_he: "יד עם צ'ופסטיקס"
+        label: "Chopsticks"
+        label_he: "צ'ופסטיקס"
       - id: "hashioki"
         img: "lesson/chopsticks/hashioki.svg"
         label: "Chopstick rest"
@@ -126,42 +114,43 @@ activities:
       - kind: spots
         title: A hand with chopsticks
         title_he: יד עם צ'ופסטיקס
-        img: lesson/chopsticks/hand.svg
-        text: This hand holds chopsticks the Japanese way. Tap each dot to see what each part does.
-        text_he: היד הזאת מחזיקה צ'ופסטיקס כמו ביפן. געו בכל נקודה כדי לראות מה כל חלק עושה.
+        img: photo/chopsticks/chop-hold.jpg
+        photo_credit: chop-hold
+        text: This is a real hand. It holds chopsticks the right way and picks up a piece of broccoli. Tap each dot to see what each part does.
+        text_he: זו יד אמיתית. היא מחזיקה צ'ופסטיקס נכון ומרימה חתיכת ברוקולי. געו בכל נקודה כדי לראות מה כל חלק עושה.
         spots:
-          - x: 37
-            y: 50
+          - x: 47
+            y: 26
             label: "The top stick"
             label_he: "המקל העליון"
             text: "The top stick moves. It goes up and down to open and close the tips."
             text_he: "המקל העליון זז. הוא עולה ויורד כדי לפתוח ולסגור את הקצוות."
-          - x: 27
-            y: 66
+          - x: 52
+            y: 40
             label: "The bottom stick"
             label_he: "המקל התחתון"
             text: "The bottom stick stays still. It does not move at all."
             text_he: "המקל התחתון נשאר במקום. הוא לא זז בכלל."
-          - x: 63
-            y: 47
+          - x: 87
+            y: 8
             label: "The thumb"
             label_he: "האגודל"
             text: "The thumb holds the top stick against the fingers. The bottom stick rests in the dip at the bottom of the thumb."
             text_he: "האגודל מחזיק את המקל העליון צמוד לאצבעות. המקל התחתון נח בשקע שבבסיס האגודל."
-          - x: 51
-            y: 38
+          - x: 71
+            y: 22
             label: "Pointer and middle finger"
             label_he: "האצבע והאמה"
             text: "These two fingers move the top stick, like when you hold a pencil."
             text_he: "שתי האצבעות האלה מזיזות את המקל העליון, כמו כשמחזיקים עיפרון."
-          - x: 65
-            y: 76
+          - x: 73
+            y: 43
             label: "The ring finger"
             label_he: "הקמיצה"
             text: "The bottom stick rests on the side of the ring finger. The ring finger keeps it still."
             text_he: "המקל התחתון נח על הצד של הקמיצה. הקמיצה שומרת שהוא לא יזוז."
-          - x: 11
-            y: 63
+          - x: 9
+            y: 52
             label: "The tips"
             label_he: "הקצוות"
             text: "Only the tips touch the food. Keep the tips even, so they meet."
@@ -209,23 +198,23 @@ activities:
             text: "No chopsticks! A rice ball is food for your hands. Hold it by the seaweed."
             text_he: "בלי צ'ופסטיקס! כדור אורז אוכלים בידיים. מחזיקים אותו באצה."
       - kind: pick
-        title: Which hand is right?
-        title_he: איזו יד צודקת?
-        text: Look at each hand. Tap the picture we ask for.
-        text_he: הסתכלו על כל יד. געו בתמונה שאנחנו מבקשים.
+        title: Which chopsticks are right?
+        title_he: אילו צ'ופסטיקס נכונים?
+        text: Look at each pair of chopsticks. Tap the picture we ask for.
+        text_he: הסתכלו על כל זוג צ'ופסטיקס. געו בתמונה שאנחנו מבקשים.
         rounds:
-          - ask: "Which hand holds the chopsticks the right way?"
-            ask_he: "איזו יד מחזיקה את הצ'ופסטיקס נכון?"
+          - ask: "The tips are even, and they hold the bean. Which chopsticks do it the right way?"
+            ask_he: "הקצוות באותו אורך, והם מחזיקים את השעועית. אילו צ'ופסטיקס עושים את זה נכון?"
             answer: "quiz-grip-right"
-            choices: [quiz-grip-fist, quiz-grip-right, quiz-grip-cross, quiz-grip-stab]
-          - ask: "Oops, the tips cross like an X, and the food falls. Which hand is that?"
-            ask_he: "אופס, הקצוות מוצלבים כמו X, והאוכל נופל. איזו יד זאת?"
+            choices: [quiz-stand, quiz-grip-right, quiz-grip-cross, quiz-grip-stab]
+          - ask: "Oops, the tips cross like an X, and the bean falls. Which picture is that?"
+            ask_he: "אופס, הקצוות מוצלבים כמו X, והשעועית נופלת. איזו תמונה זאת?"
             answer: "quiz-grip-cross"
-            choices: [quiz-grip-right, quiz-grip-stab, quiz-grip-cross, quiz-grip-fist]
-          - ask: "Which hand spears the food? We do not do that!"
-            ask_he: "איזו יד דוקרת את האוכל? את זה לא עושים!"
+            choices: [quiz-grip-right, quiz-grip-stab, quiz-grip-cross, quiz-stand]
+          - ask: "Which chopsticks spear the food? We do not do that!"
+            ask_he: "אילו צ'ופסטיקס דוקרים את האוכל? את זה לא עושים!"
             answer: "quiz-grip-stab"
-            choices: [quiz-grip-stab, quiz-grip-right, quiz-grip-fist, quiz-grip-cross]
+            choices: [quiz-grip-stab, quiz-grip-right, quiz-stand, quiz-grip-cross]
       - kind: flip
         title: Chopstick rules
         title_he: חוקי הצ'ופסטיקס
@@ -265,7 +254,8 @@ activities:
       - kind: text
         title: How to hold them
         title_he: איך מחזיקים אותם
-        img: lesson/chopsticks/hand.svg
+        img: photo/chopsticks/chop-hold.jpg
+        photo_credit: chop-hold
         text: Hold real chopsticks and try it, one step at a time. Go slowly. Everybody drops food at the start!
         text_he: מחזיקים צ'ופסטיקס אמיתיים ומנסים, צעד אחרי צעד. לאט. כולם מפילים אוכל בהתחלה!
         tips:

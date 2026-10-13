@@ -597,6 +597,20 @@ class ChopsticksLessonTests(TestCase):
             self.assertIn(word, html)
             self.assertNotIn("Drag each plate" if lang == "en" else "גררו כל צלחת", html)
 
+    def test_no_picture_draws_a_hand_t288(self):
+        # T288, Michael 2026-10-13: no drawn humans or hands. The hand pages show a real photo now.
+        lesson = (Path(settings.BASE_DIR) / 'content' / 'japan' / 'chopsticks.yaml').read_text()
+        folder = Path(settings.BASE_DIR) / 'static' / 'img'
+        for img in sorted(set(re.findall(r'lesson/[\w/-]+\.svg', lesson))):
+            text = (folder / img).read_text()
+            self.assertNotIn('#ffd9b8', text, img)  # the drawn skin colour
+            self.assertNotRegex(re.search(r'aria-label="([^"]*)"', text).group(1).lower(), r'\bhand|person|face', img)
+        self.assertEqual(lesson.count('img: photo/chopsticks/chop-hold.jpg'), 2)
+        html = self.page("en")
+        self.assertIn('photo/chopsticks/chop-hold.jpg', html)
+        self.assertNotIn('hand.svg', html)
+        self.assertIn('Which chopsticks are right?', html)
+
     def test_hebrew_page_shows_the_hebrew_picture(self):
         # T98: an explanation picture has a Hebrew twin; English pages keep the English picture.
         self.assertIn("lesson/chopsticks/asia_he.svg", self.page("he"))

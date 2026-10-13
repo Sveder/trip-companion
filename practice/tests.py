@@ -640,9 +640,9 @@ class QuizMixTests(TestCase):
             self.assertNotRegex(" ".join(label for _, _, label in q["choice_imgs"]), r"[A-Za-z]")
 
     def test_picture_only_round_shows_no_labels(self):
-        # Four hands, one label ("A hand with chopsticks"): the pictures are the answers.
+        # Four pairs of chopsticks, one label ("Chopsticks"): the pictures are the answers.
         self.finish_all(self.trip)
-        q = question(self.trip, "chopsticks/chopsticks-lesson/q-which-hand-holds-the-chopsticks-the-right-way")
+        q = question(self.trip, "chopsticks/chopsticks-lesson/q-the-tips-are-even-and-they-hold-the-bean-which-chopsticks-do")
         self.assertEqual(q["answer"], "quiz-grip-right")
         self.assertEqual({label for _, _, label in q["choice_imgs"]}, {""})
         self.assertEqual(q["answer_label"], "")
