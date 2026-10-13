@@ -393,6 +393,27 @@ class StreetViewHuntTests(TestCase):
         first.refresh_from_db()
         self.assertEqual(first.done_at, done_at)
 
+    def test_praise_count_after_a_skip_equals_the_course_count(self):
+        # T292: a hunt skipped with 0 found is not done, on the praise page and on the course page alike.
+        trip = Trip.objects.create(user=self.user, destination="japan")
+        Traveller.objects.create(trip=trip, age=4)
+        course = Course.objects.create(trip=trip)
+        hunts = list(Activity.objects.filter(module__slug="streetview", type="streetview")[:3])
+        items = [CourseItem.objects.create(course=course, order=i, activity=h) for i, h in enumerate(hunts)]
+        n0, n1 = len(hunts[0].data["spots"]), len(hunts[1].data["spots"])
+        self.client.post(reverse("activity_done", args=[items[0].id]), {"found": [], "skip": "1"})
+        self.client.post(reverse("activity_done", args=[items[1].id]), {"found": ["0", "1"], "skip": "1"})
+        for lang, praise, lead in (("en", "1 of 3 done", "We did 1 of 3."), ("he", "1 מתוך 3 הושלמו", "עשינו 1 מתוך 3.")):
+            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
+            skipped = self.client.get(reverse("activity_praise", args=[items[0].id]) + f"?found=0&of={n0}").content.decode()
+            played = self.client.get(reverse("activity_praise", args=[items[1].id]) + f"?found=2&of={n1}").content.decode()
+            self.assertIn(praise, skipped)
+            self.assertIn(praise, played)
+            # The bar moves for the played hunt only.
+            self.assertIn("--from: 33%; width: 33%", skipped)
+            self.assertIn("--from: 0%; width: 33%", played)
+            self.assertIn(lead, self.client.get(reverse("course")).content.decode())
+
     def test_skip_with_nothing_found_offers_play_again_on_the_course(self):
         # T42: a hunt skipped with 0 found shows "found 0 of N" and a Play again link; highlights leave it out.
         trip = Trip.objects.create(user=self.user, destination="japan")

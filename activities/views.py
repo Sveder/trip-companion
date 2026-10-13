@@ -36,7 +36,7 @@ def activity(request, item_id):
     course = item.course
     ready = course.ready_items()
     total = ready.count()
-    done = ready.filter(done_at__isnull=False).count()
+    done = course.done_items().count()
     act = item.activity
     data = localize(act.data or {})
     if request.GET.get("from") == "reminder":
@@ -118,7 +118,7 @@ def activity_praise(request, item_id):
         return redirect("activity", item_id=item.id)
     ready = item.course.ready_items()
     total = ready.count()
-    done = ready.filter(done_at__isnull=False).count()
+    done = item.course.done_items().count()
     found = of = None
     if item.activity.type == "streetview" and request.GET.get("found", "").isdigit() and request.GET.get("of", "").isdigit():
         found, of = int(request.GET["found"]), int(request.GET["of"])
@@ -130,7 +130,8 @@ def activity_praise(request, item_id):
         "item": item, "next_url": reverse("activity", args=[nxt.id]) if nxt else reverse("home"), "activity": item.activity, "module": item.activity.module,
         "next_activity": nxt.activity if nxt else None,
         "found": found if of and found < of else None, "of": of,
-        "progress": {"done": done, "before": max(done - 1, 0), "total": total},
+        # A skipped hunt is not done, so the bar does not move for it (T292).
+        "progress": {"done": done, "before": done if item.skipped else max(done - 1, 0), "total": total},
     })
 
 

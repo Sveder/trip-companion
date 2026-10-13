@@ -25,6 +25,10 @@ class Course(models.Model):
     def has_stubs(self):
         return self.items.count() > self.ready_items().count()
 
+    def done_items(self):
+        """Played and not skipped: the number in 'We did N of M' and on every progress bar (T292)."""
+        return self.ready_items().filter(done_at__isnull=False).exclude(found=0)
+
     def skipped_items(self):
         return self.ready_items().filter(done_at__isnull=False, found=0)
 
