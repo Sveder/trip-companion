@@ -1090,13 +1090,24 @@ class WordsPicturesTests(TestCase):
         import xml.etree.ElementTree as ET
         folder = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson' / 'words'
         names = sorted(p.stem for p in folder.glob('*.svg'))
-        self.assertEqual(len(names), 22)  # + 4 time-of-day pictures (T162), + name (T226), + num-1..5 (T271, count.svg gone)
+        self.assertEqual(len(names), 23)  # + 4 time-of-day pictures (T162), + name (T226), + num-1..5 (T271, count.svg gone), + ojigi (T286)
         for path in folder.glob('*.svg'):
             root = ET.parse(path).getroot()
             want = {'shop': '0 0 400 260'}.get(path.stem, '0 0 200 200' if path.stem.startswith('num-') else '0 0 120 90')
             self.assertEqual(root.get('viewBox'), want, path.name)
             self.assertTrue(root.get('aria-label'), path.name)
             self.assertIsNotNone(root.find('{http://www.w3.org/2000/svg}title'), path.name)
+
+    def test_no_words_picture_draws_a_person(self):
+        # T286, Michael 2026-10-13: no drawn humans or hands. #ffd9b8 was the drawn child's skin.
+        folder = Path(settings.BASE_DIR) / 'static' / 'img' / 'lesson' / 'words'
+        for path in folder.glob('*.svg'):
+            text = path.read_text()
+            self.assertNotIn('#ffd9b8', text, path.name)
+            for word in ('child', 'worker', 'hand', 'person', 'kid'):
+                self.assertNotIn(word, text.lower(), path.name)
+        lesson = (Path(settings.BASE_DIR) / 'content' / 'japan' / 'words.yaml').read_text()
+        self.assertIn('img: lesson/words/ojigi.svg', lesson)
 
 
 class WordsMatchGameTests(TestCase):

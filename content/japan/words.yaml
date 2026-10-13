@@ -177,7 +177,7 @@ activities:
       - kind: text
         title: Bow like this
         title_he: מתכופפים ככה
-        img: lesson/words/arigatou.svg
+        img: lesson/words/ojigi.svg
         japanese: おじぎ
         reading: ojigi
         reading_hebrew: "אוג'יגי"
@@ -285,8 +285,8 @@ activities:
         spots:
           - x: 37
             y: 28
-            label: "The shop worker"
-            label_he: "העובד בחנות"
+            label: "The cash register"
+            label_he: "הקופה"
             japanese: "いらっしゃいませ"
             reading: "irasshaimase"
             meaning: "welcome!"
