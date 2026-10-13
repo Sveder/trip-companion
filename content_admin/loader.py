@@ -69,15 +69,21 @@ def add_new_activities(country, log):
     The course is rebuilt from its own module list; a rebuild keeps the done marks.
     A course with no new activity only gets the current order, in place.
     """
-    from courses.builder import build_course, reorder_course
+    from courses.builder import build_course, course_activities, reorder_course
     from courses.models import Course
 
     for course in Course.objects.filter(trip__destination=country).select_related("trip"):
         have = set(course.items.values_list("activity_id", flat=True))
-        want = set(Activity.objects.filter(module_id__in=course.module_ids).values_list("id", flat=True))
+        want = set(course_activities(course.module_ids).values_list("id", flat=True))
         if want - have:
             build_course(course.trip, course.module_ids)
             log(f"course {course.id}: {len(want - have)} new activities added")
+        elif have - want:
+            # T279: an item the course no longer gets (a quick review) leaves. The other items keep their ids,
+            # so clips and reminder links stay attached.
+            course.items.filter(activity_id__in=have - want).delete()
+            reorder_course(course)
+            log(f"course {course.id}: {len(have - want)} items removed")
         elif reorder_course(course):
             # The content order changed (e.g. a lesson moved first): the items keep their ids.
             log(f"course {course.id}: items put in the new order")
@@ -85,6 +91,12 @@ def add_new_activities(country, log):
 
 def load_previews():
     path = CONTENT_DIR / "previews.yaml"
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def load_safety_overview():
+    """T279: the safety overview of each country, keyed by country id (content/safety_overview.yaml)."""
+    path = CONTENT_DIR / "safety_overview.yaml"
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 

@@ -15,6 +15,7 @@ from content_admin.models import Activity, Module
 from courses.builder import build_course
 from practice.items import add_items, question
 from trips.models import Traveller, Trip
+from courses.testutil import item_for
 
 CONTENT = Path(settings.BASE_DIR) / "content" / "japan"
 # Modules a child sees. Every text in them must have Hebrew.
@@ -72,7 +73,7 @@ class HebrewContentTests(TestCase):
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
 
     def item(self, slug):
-        return self.course.items.get(activity__slug=slug)
+        return item_for(self.course, slug)
 
     def test_words_page_is_hebrew(self):
         html = self.client.get(reverse("activity", args=[self.item("words-intro").id])).content.decode()

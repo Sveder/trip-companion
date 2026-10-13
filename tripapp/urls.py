@@ -6,6 +6,8 @@ from . import pages
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("privacy/", pages.privacy, name="privacy"),
+    path("safety/", pages.safety, name="safety"),
+    path("safety/<slug:country>/", pages.safety, name="safety_country"),
     path("safety-card/", pages.safety_card, name="safety_card"),
     path("credits/", pages.credits, name="credits"),
     path("favicon.ico", pages.favicon),

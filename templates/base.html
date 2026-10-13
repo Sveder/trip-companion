@@ -43,7 +43,8 @@
       <nav class="top-nav">
         {# T210: with no trip yet the course, quiz and hunt links only bounce back to the trip form, so they wait for a trip. #}
         {% if trip_country.id %}<a href="{% url 'course' %}">{% translate "Our adventure" %}</a>
-        <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>{% endif %}
+        <a href="{% url 'quiz' %}">{% translate "Quiz" %}</a>
+        <a href="{% url 'safety' %}">{% translate "Safety" %}</a>{% endif %}
         {# T171: the photo hunt lists Japanese things, so a trip to another place does not show it. #}
         {% if trip_country.id == "japan" %}<a href="{% url 'there' %}">{% translate "In Japan" %}</a>{% endif %}
         <a href="{% url 'trip_setup' %}">{% translate "Our trip" %}</a>

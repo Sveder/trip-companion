@@ -1416,3 +1416,23 @@ msgstr "מורידים את ה-PDF"
 #: T277
 msgid "The child safety card is made on your device. We never see the photo or the details on it, and we do not keep them."
 msgstr "כרטיס הבטיחות לילד נוצר במכשיר שלכם. אנחנו לא רואים את התמונה או את הפרטים שעליו, ולא שומרים אותם."
+
+#: T279
+msgid "Emergency numbers"
+msgstr "מספרי חירום"
+
+#: T279
+msgid "A name card in every pocket"
+msgstr "כרטיס עם שם בכל כיס"
+
+#: T279
+msgid "Make a card for each child's pocket, with the name, a parent's phone and the hotel. Nothing you type leaves this device."
+msgstr "מכינים כרטיס לכיס של כל ילד, עם השם, טלפון של הורה והמלון. שום דבר שאתם מקלידים לא יוצא מהמכשיר."
+
+#: T279
+msgid "Safety: the important things"
+msgstr "בטיחות: הדברים החשובים"
+
+#: T279
+msgid "Safety"
+msgstr "בטיחות"

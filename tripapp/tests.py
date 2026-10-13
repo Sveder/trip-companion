@@ -441,3 +441,41 @@ class SafetyCardTests(TestCase):
             self.assertEqual(html.count('href="/safety-card/"'), 1, lang)
             self.assertIn(text, html)
         self.assertIn("The child safety card is made on your device", self.client.get("/privacy/?lang=en").content.decode())
+
+
+class SafetyOverviewTests(TestCase):
+    """T279 (Michael): a country overview page with the important safety things, linked from the adventure and the header."""
+
+    def test_japan_page_has_numbers_koban_lost_plan_earthquake_and_card(self):
+        en = self.client.get("/safety/japan/").content.decode()
+        for text in ('href="tel:110"', 'href="tel:119"', "koban", "maigo desu", "get under a table", 'href="/safety-card/"'):
+            self.assertIn(text, en)
+        he = self.client.get("/safety/japan/?lang=he").content.decode()
+        self.assertIn("שומרים על עצמנו ביפן", he)
+        self.assertIn("קובאן", he)
+
+    def test_uzbekistan_page_has_its_own_numbers(self):
+        html = self.client.get("/safety/uzbekistan/").content.decode()
+        for n in ("112", "101", "102", "103"):
+            self.assertIn(f'href="tel:{n}"', html)
+        self.assertNotIn("koban", html)
+        self.assertEqual(self.client.get("/safety/mars/").status_code, 404)
+
+    def test_family_page_follows_the_trip_and_is_linked(self):
+        from django.contrib.auth import get_user_model
+        from django.core.management import call_command
+
+        from courses.builder import build_course
+        from content_admin.models import Module
+        from trips.models import Traveller, Trip
+
+        call_command("load_content", "japan", "uzbekistan", verbosity=0)
+        user = get_user_model().objects.create_user("safe@example.com", "safe@example.com")
+        trip = Trip.objects.create(user=user, destination="uzbekistan")
+        Traveller.objects.create(trip=trip, age=40)
+        build_course(trip, list(Module.objects.filter(country="uzbekistan").values_list("id", flat=True)))
+        self.client.force_login(user)
+        self.assertContains(self.client.get("/safety/"), "Staying safe in Uzbekistan")
+        course = self.client.get("/course/").content.decode()
+        self.assertIn("Safety: the important things", course)
+        self.assertGreaterEqual(course.count('href="/safety/"'), 2)  # the header and the adventure page

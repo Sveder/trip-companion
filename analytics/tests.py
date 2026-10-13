@@ -16,6 +16,7 @@ from courses.models import Course
 from reminders.logic import build_email
 
 from .models import NAMES, Event, track
+from courses.testutil import item_for
 
 
 class EventTests(TestCase):
@@ -64,7 +65,7 @@ class EventTests(TestCase):
         c.post(reverse("quiz"), {"key": self.client.session["quiz"]["keys"][0], "choice": "nope"})
         self.assertOne("quiz_answer", right=False)
 
-        sticks = course.items.get(activity__slug="chopsticks-intro")
+        sticks = item_for(course, "chopsticks-intro")
         c.get(reverse("go", args=[sticks.id, "kids-chopsticks"]))
         self.assertOne("referral_click", link="kids-chopsticks")
         r = c.post(reverse("track_video", args=[sticks.id]), {"video": "CBNw5yX1M34"})

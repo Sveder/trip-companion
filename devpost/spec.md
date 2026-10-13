@@ -121,10 +121,17 @@ PRD ref: `prd.md > Modules (Japan)`.
 ### Course builder
 Reads the content library, suggests modules whose audience fits the travellers (adults-only → no `child` modules switched on,
 but they stay listed), lets the parent toggle, and on "Build" writes the course in module order.
-Inside a module, the rich lessons come first (food has two: 'All about sushi', then 'Food around Japan'). The short card item of that module comes after it, titled
-"<module>: quick review" in the content when most of its cards repeat the lesson. Cards that bring new things are
-named by what they hold ("More Japanese food"). With a child in the family, the kids' activities are spread through the course, only at a module edge (the first one after the first module), so a lesson and its quick review stay side by side.
-`load_content` puts the items of courses already built in the same order, in place, so item ids and done marks stay.
+Inside a module, the rich lessons come first (food has two: 'All about sushi', then 'Food around Japan'). T279 (Michael):
+no quick review rounds. A module with a lesson gives the course its lessons and hunts only; its short card item
+("<module>: quick review": cards, words, steps or links) stays in the content but not in the course (`builder.course_activities`).
+With a child in the family, the kids' activities are spread through the course, only at a module edge (the first one after the first module).
+`load_content` puts the items of courses already built in the same order, in place, so item ids and done marks stay; it deletes
+the items a course no longer gets (the quick reviews), and the other items keep their ids.
+
+### Safety overview (T279)
+`/safety/` shows the family's country (Japan with no trip), `/safety/<country>/` a given one. Content: `content/safety_overview.yaml`,
+en + he: the emergency numbers (tap to call), where to find help (Japan: the koban, konbini, Kodomo 110), the lost-child plan,
+the earthquake note, and on Japan the link to the child safety card. Linked from the adventure page and the header menu.
 The course page shows the module name under every item.
 PRD ref: `prd.md > Trip setup and course builder`.
 

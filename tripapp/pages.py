@@ -16,6 +16,23 @@ def safety_card(request):
     return render(request, "safety_card.html")
 
 
+def safety(request, country=None):
+    """T279 (Michael): one page per country with the important safety things: the emergency numbers, where to find
+    help, the lost-child plan, the earthquake note and the safety card. Open to everyone; with no country in the URL
+    it shows the family's own country, else Japan."""
+    from content_admin.i18n import localize
+    from content_admin.loader import load_safety_overview
+    from trips.models import active_trip
+
+    pages = load_safety_overview()
+    if country is None:
+        trip = active_trip(request.user) if request.user.is_authenticated else None
+        country = trip.destination if trip and trip.destination in pages else "japan"
+    if country not in pages:
+        raise Http404
+    return render(request, "safety.html", {"page": localize(pages[country]), "country": country})
+
+
 def credits(request):
     from content_admin.loader import load_photo_credits
     return render(request, "credits.html", {"photos": list(load_photo_credits().values())})

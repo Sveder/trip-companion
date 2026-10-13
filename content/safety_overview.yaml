@@ -1,0 +1,122 @@
+# T279 (Michael 2026-10-13): one overview page per country with the important safety things.
+# Shown at /safety/, linked from the adventure page and the header. en + he, like the lessons.
+# Facts: Japan numbers and koban as in content/japan/safety.yaml. Uzbekistan: GOV.UK travel advice
+# (https://www.gov.uk/foreign-travel-advice/uzbekistan/getting-help): 101 fire, 102 police, 103 ambulance,
+# 112 the single number since 2024.
+japan:
+  title: Staying safe in Japan
+  title_he: שומרים על עצמנו ביפן
+  lead: The important things in one place. Read them together before you fly.
+  lead_he: הדברים החשובים במקום אחד. קוראים אותם יחד לפני הטיסה.
+  numbers:
+    - number: "110"
+      label: Police
+      label_he: משטרה
+      text: Call it if you are lost, or if something was stolen.
+      text_he: מתקשרים אם הלכתם לאיבוד, או אם משהו נגנב.
+    - number: "119"
+      label: Fire engine and ambulance
+      label_he: כבאות ואמבולנס
+      text: Call it if you see fire, or if someone is hurt or very sick.
+      text_he: מתקשרים אם רואים אש, או אם מישהו נפצע או חולה מאוד.
+  numbers_note: "For grown-ups. Japan Visitor Hotline: 050-3816-2787, in English, day and night. In an emergency, call 110 or 119 first."
+  numbers_note_he: "למבוגרים. הקו החם למבקרים ביפן: 050-3816-2787, באנגלית, יומם ולילה. במקרה חירום מתקשרים קודם ל-110 או ל-119."
+  sections:
+    - icon: "🚓"
+      title: Find a koban
+      title_he: מוצאים קובאן
+      text: A koban is a small police house with a red lamp. The police officers there help lost children every day.
+      text_he: קובאן הוא בית משטרה קטן עם מנורה אדומה. השוטרים שם עוזרים לילדים שהלכו לאיבוד כל יום.
+      tips:
+        - A konbini (a small shop) is open day and night. The workers there help a child.
+        - A "Kodomo 110" sticker on a door means a children's help house. A child in trouble can knock and ask for help.
+      tips_he:
+        - קונביני (חנות קטנה) פתוחה יומם ולילה. העובדים שם עוזרים לילד.
+        - מדבקת "קודומו 110" על דלת אומרת שזה בית עזרה לילדים. ילד בצרה יכול לדפוק ולבקש עזרה.
+    - icon: "🔍"
+      title: If you get lost
+      title_he: אם הלכתם לאיבוד
+      text: Do not run to look for your family. Stand still. Your family comes back to the place where they saw you last.
+      text_he: לא רצים לחפש את המשפחה. עומדים במקום. המשפחה חוזרת למקום שבו היא ראתה אתכם בפעם האחרונה.
+      tips:
+        - Ask a person who works there, like a shop worker or a station worker. Look for a uniform or a name badge.
+        - Show them the name card in your pocket.
+        - Say "maigo desu". It means "I am lost".
+      tips_he:
+        - מבקשים עזרה ממישהו שעובד שם, כמו מוכר בחנות או עובד בתחנה. מחפשים מדים או תג עם שם.
+        - מראים לו את הכרטיס עם השם שבכיס.
+        - אומרים "מאיגו דס". זה אומר "הלכתי לאיבוד".
+    - icon: "🏠"
+      title: When the floor shakes
+      title_he: כשהרצפה רועדת
+      text: Japan has many small earthquakes. Most of them are so small that people do not feel them. Buildings in Japan are made to stay strong.
+      text_he: ביפן יש הרבה רעידות אדמה קטנות. רובן כל כך קטנות שאנשים לא מרגישים אותן. הבניינים ביפן בנויים כדי להישאר חזקים.
+      tips:
+        - If the floor shakes, get under a table and hold on until it stops.
+        - Stay away from windows. Do not run outside.
+        - For grown-ups. The free "Safety tips" app from the Japan Tourism Agency sends earthquake alerts in English.
+      tips_he:
+        - אם הרצפה רועדת, נכנסים מתחת לשולחן ומחזיקים חזק עד שזה נגמר.
+        - מתרחקים מחלונות. לא רצים החוצה.
+        - למבוגרים. האפליקציה החינמית "Safety tips" של רשות התיירות היפנית שולחת התראות על רעידות אדמה באנגלית.
+  card: true
+uzbekistan:
+  title: Staying safe in Uzbekistan
+  title_he: שומרים על עצמנו באוזבקיסטן
+  lead: The important things in one place. Read them together before you fly.
+  lead_he: הדברים החשובים במקום אחד. קוראים אותם יחד לפני הטיסה.
+  numbers:
+    - number: "112"
+      label: Any emergency
+      label_he: כל מקרה חירום
+      text: One number for police, fire and ambulance.
+      text_he: מספר אחד למשטרה, לכבאות ולאמבולנס.
+    - number: "102"
+      label: Police
+      label_he: משטרה
+      text: Call it if you are lost, or if something was stolen.
+      text_he: מתקשרים אם הלכתם לאיבוד, או אם משהו נגנב.
+    - number: "103"
+      label: Ambulance
+      label_he: אמבולנס
+      text: Call it if someone is hurt or very sick.
+      text_he: מתקשרים אם מישהו נפצע או חולה מאוד.
+    - number: "101"
+      label: Fire engine
+      label_he: כבאות
+      text: Call it if you see fire or a lot of smoke.
+      text_he: מתקשרים אם רואים אש או הרבה עשן.
+  sections:
+    - icon: "👮"
+      title: Find a helper
+      title_he: מוצאים מישהו שעוזר
+      text: Look for a police officer in uniform, or a person who works there, like a shop worker or the hotel desk.
+      text_he: מחפשים שוטר במדים, או מישהו שעובד שם, כמו מוכר בחנות או פקיד הקבלה במלון.
+    - icon: "🔍"
+      title: If you get lost
+      title_he: אם הלכתם לאיבוד
+      text: Do not run to look for your family. Stand still. Your family comes back to the place where they saw you last.
+      text_he: לא רצים לחפש את המשפחה. עומדים במקום. המשפחה חוזרת למקום שבו היא ראתה אתכם בפעם האחרונה.
+      tips:
+        - A bazaar is big and busy. Before you go in, pick a meeting place together, like the main gate.
+        - Show a helper the name card in your pocket.
+      tips_he:
+        - שוק הוא גדול ומלא אנשים. לפני שנכנסים, בוחרים יחד מקום מפגש, כמו השער הראשי.
+        - מראים למי שעוזר את הכרטיס עם השם שבכיס.
+    - icon: "🏠"
+      title: When the floor shakes
+      title_he: כשהרצפה רועדת
+      text: Uzbekistan sometimes has earthquakes. Learn what to do, so you are ready.
+      text_he: באוזבקיסטן יש לפעמים רעידות אדמה. לומדים מה עושים, כדי להיות מוכנים.
+      tips:
+        - If the floor shakes, get under a table and hold on until it stops.
+        - Stay away from windows. Do not run outside.
+      tips_he:
+        - אם הרצפה רועדת, נכנסים מתחת לשולחן ומחזיקים חזק עד שזה נגמר.
+        - מתרחקים מחלונות. לא רצים החוצה.
+    - icon: "📇"
+      title: A name card in every pocket
+      title_he: כרטיס עם שם בכל כיס
+      text: "Write the child's name, a parent's phone with the country code, and the hotel name on a card. Put it in the child's pocket."
+      text_he: "כותבים על כרטיס את שם הילד, טלפון של הורה עם קידומת המדינה, ואת שם המלון. שמים אותו בכיס של הילד."
+  card: false

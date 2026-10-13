@@ -44,7 +44,7 @@ def build_course(trip, module_ids):
     done = {} if created else {i.activity_id: (i.done_at, i.found) for i in course.items.all()}
     modules = Module.objects.filter(country=trip.destination, id__in=module_ids)
     course.items.all().delete()
-    activities = course_order(trip, Activity.objects.filter(module__in=modules))
+    activities = course_order(trip, course_activities(modules))
     CourseItem.objects.bulk_create(
         CourseItem(course=course, order=n, activity=a, done_at=done.get(a.id, (None, None))[0], found=done.get(a.id, (None, None))[1])
         for n, a in enumerate(activities)
@@ -55,10 +55,22 @@ def build_course(trip, module_ids):
     return course
 
 
+def course_activities(modules):
+    """The activities a course gets from these modules.
+
+    T279 (Michael): no quick review rounds. A module with a lesson gives its lessons and hunts only;
+    its short card item (flip cards, word cards, steps, links) stays in the content but not in the course.
+    """
+    from .models import REVIEW_TYPES
+
+    with_lesson = Activity.objects.filter(module__in=modules, type="lesson").values("module_id")
+    return Activity.objects.filter(module__in=modules).exclude(type__in=REVIEW_TYPES, module_id__in=with_lesson)
+
+
 def course_order(trip, activities):
     """The activities in course order: module by module, the rich lesson first in its module.
 
-    The short card item of a module with a lesson comes after the lesson, as its quick review.
+    A module with no lesson keeps its short card item (T279 removed it from modules with a lesson).
     """
     activities = sorted(
         activities.select_related("module"),

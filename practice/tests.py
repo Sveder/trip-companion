@@ -14,6 +14,7 @@ from trips.models import Traveller, Trip
 
 from .items import _card_id, add_items, due_items, question
 from .models import PracticeItem
+from courses.testutil import item_for
 
 TODAY = date(2026, 10, 7)
 
@@ -114,7 +115,7 @@ class QuizContentTests(TestCase):
 
     def test_stub_turned_ready_clears_old_done_marks(self):
         course = build_course(self.trip, list(Module.objects.values_list("id", flat=True)))
-        item = course.items.get(activity__slug="words-intro")
+        item = item_for(course, "words-lesson")
         item.mark_done()
         Module.objects.filter(slug="words").update(ready=False)
         call_command("load_content", verbosity=0)
@@ -162,7 +163,7 @@ class QuizFlowTests(TestCase):
     def test_words_activity_then_quiz_wrong_answer_comes_back(self):
         trip = make_trip(self.user)
         course = build_course(trip, list(Module.objects.filter(slug="words").values_list("id", flat=True)))
-        item = course.items.get(activity__slug="words-intro")
+        item = item_for(course, "words-intro")
         self.client.force_login(self.user)
         page = self.client.get(reverse("activity", args=[item.id]))
         self.assertContains(page, "こんにちは")

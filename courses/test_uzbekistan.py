@@ -13,6 +13,7 @@ from content_admin.models import Activity, Module
 from courses.builder import build_course
 from courses.models import Course
 from trips.models import Traveller, Trip
+from .testutil import item_for
 
 CONTENT = Path(settings.BASE_DIR) / "content" / "uzbekistan"
 # Every content file: each native word with a reading carries reading_hebrew (T200, T201).
@@ -314,7 +315,7 @@ class HebrewReadingTests(TestCase):
 
     def test_japan_words_cards_show_the_hebrew_spelling(self):
         self.client.force_login(self.jp_user)
-        item = self.jp.items.filter(activity__type="words").first()
+        item = item_for(self.jp, "words-intro")
         url = reverse("activity", args=[item.id])
         he = self.client.get(url + "?lang=he").content.decode()
         self.assertIn('konnichiwa</h3>\n    <p class="he-say reading-he" lang="he">קוניצ\'יווה</p>', he.replace("&#x27;", "'"))

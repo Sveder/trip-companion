@@ -28,6 +28,8 @@
     </li>
     {% endfor %}
   </ol>
+  {# T279: the safety overview of this country, one tap from the adventure. #}
+  <p class="course-safety"><a class="btn alt" href="{% url 'safety' %}"><span aria-hidden="true">🆘</span> {% translate "Safety: the important things" %}</a></p>
   <a class="btn alt" href="{% url 'trip_setup' %}#modules">{% translate "Change our adventure" %}</a>
   {# T196: the link to another device sits in the bottom row; the header menu holds it too. #}
   <p class="new-course-link"><a class="hint" href="{% url 'new_trip' %}">{% translate "New adventure" %}</a> · <a class="hint" href="{% url 'continue' %}">{% translate "Continue on another device" %}</a></p>

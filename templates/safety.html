@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+{# T279 (Michael): the important safety things of one country on one page; content/safety_overview.yaml. #}
+<article class="panel narrow safety-page" data-safety="{{ country }}">
+  <h1>{{ page.title }}</h1>
+  <p class="lead">{{ page.lead }}</p>
+  <h2>{% translate "Emergency numbers" %}</h2>
+  <ul class="sos-numbers">
+    {% for n in page.numbers %}
+    <li><a class="sos-number" href="tel:{{ n.number }}" dir="ltr">{{ n.number }}</a>
+      <span><strong>{{ n.label }}</strong> {{ n.text }}</span></li>
+    {% endfor %}
+  </ul>
+  {% if page.numbers_note %}<p class="hint">{{ page.numbers_note }}</p>{% endif %}
+  {% for s in page.sections %}
+  <section class="safety-part">
+    <h2><span aria-hidden="true">{{ s.icon }}</span> {{ s.title }}</h2>
+    <p>{{ s.text }}</p>
+    {% if s.tips %}<ul>{% for t in s.tips %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+  </section>
+  {% endfor %}
+  {% if page.card %}
+  <section class="safety-part">
+    <h2><span aria-hidden="true">📇</span> {% translate "A name card in every pocket" %}</h2>
+    <p>{% translate "Make a card for each child's pocket, with the name, a parent's phone and the hotel. Nothing you type leaves this device." %}</p>
+    <p><a class="btn" href="{% url 'safety_card' %}">{% translate "Print a child safety card" %}</a></p>
+  </section>
+  {% endif %}
+  {% if user.is_authenticated and trip_country.id %}<p><a class="btn alt" href="{% url 'course' %}">{% translate "Back to our adventure" %}</a></p>{% endif %}
+</article>
+{% endblock %}

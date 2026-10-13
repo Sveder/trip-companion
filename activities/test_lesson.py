@@ -492,10 +492,10 @@ class SafetyLessonTests(TestCase):
         self.assertEqual(r.status_code, 200)
         return r.content.decode()
 
-    def test_lesson_comes_first_and_the_cards_are_the_quick_review(self):
+    def test_lesson_comes_first_and_the_cards_are_not_in_the_course(self):
         slugs = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
         self.assertEqual(slugs[0][0], "safety-lesson")
-        self.assertEqual(slugs[1], ("safety-intro", "Staying safe: quick review"))
+        self.assertNotIn("safety-intro", [r[0] for r in slugs])  # T279: no quick review round in the course
 
     def test_every_kind_renders_in_english(self):
         html = self.page()
@@ -597,10 +597,10 @@ class ChopsticksLessonTests(TestCase):
         self.assertIn("lesson/chopsticks/asia.svg", en)
         self.assertNotIn("_he.svg", en)
 
-    def test_lesson_comes_first_and_the_steps_are_the_quick_review(self):
+    def test_lesson_comes_first_and_the_steps_are_not_in_the_course(self):
         slugs = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
         self.assertEqual(slugs[0][0], "chopsticks-lesson")
-        self.assertEqual(slugs[1], ("chopsticks-intro", "Eat with chopsticks: quick review"))
+        self.assertNotIn("chopsticks-intro", [r[0] for r in slugs])  # T279: no quick review round in the course
 
     def test_no_video_page_and_every_other_kind(self):
         # Michael, feedback T82: no video in the chopsticks lesson.
@@ -768,10 +768,10 @@ class TransportLessonTests(TestCase):
         self.assertEqual(r.status_code, 200)
         return r.content.decode()
 
-    def test_lesson_comes_first_and_the_cards_are_the_quick_review(self):
+    def test_lesson_comes_first_and_the_cards_are_not_in_the_course(self):
         rows = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
         self.assertEqual(rows[0][0], "transport-lesson")
-        self.assertEqual(rows[1], ("transport-intro", "Getting around: quick review"))
+        self.assertNotIn("transport-intro", [r[0] for r in rows])  # T279: no quick review round in the course
 
     def test_every_kind_and_a_video_slot_near_the_middle(self):
         kinds = [p["kind"] for p in self.act.data["pages"]]
@@ -844,10 +844,10 @@ class PackLessonTests(TestCase):
         self.assertEqual(r.status_code, 200)
         return r.content.decode()
 
-    def test_lesson_comes_first_and_the_links_are_the_quick_review(self):
+    def test_lesson_comes_first_and_the_links_are_not_in_the_course(self):
         rows = list(self.item.course.items.order_by("order").values_list("activity__slug", "activity__title"))
         self.assertEqual(rows[0][0], "pack-lesson")
-        self.assertEqual(rows[1], ("buy_in_advance-intro", "Buy before you go: quick review"))
+        self.assertNotIn("buy_in_advance-intro", [r[0] for r in rows])  # T279: no quick review round in the course
 
     def test_every_kind_and_a_video_slot_near_the_middle(self):
         kinds = [p["kind"] for p in self.act.data["pages"]]
@@ -1303,4 +1303,4 @@ class NoRawTemplateSyntax(TestCase):
                     for token in self.RAW:
                         self.assertNotIn(token, html, (country, item.activity.slug, lang, token))
                     seen += 1
-        self.assertGreaterEqual(seen, 2 * 19)
+        self.assertGreaterEqual(seen, 2 * 17)  # T279: the quick reviews left the course

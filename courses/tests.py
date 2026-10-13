@@ -112,10 +112,10 @@ class BuilderTests(TestCase):
         trip = make_trip(self.user, [38, 4])
         ids = [m.id for m, on in suggestions(trip) if on]
         course = build_course(trip, ids)
-        cards = course.items.get(activity__slug="dos_donts-intro")
+        cards = course.items.get(activity__slug="food-around-japan")
         cards.mark_done()
-        # An old course: the manners cards first, the manners lesson after them.
-        lesson = course.items.get(activity__slug="manners-lesson")
+        # An old course: the second food lesson first, the sushi lesson after it.
+        lesson = course.items.get(activity__slug="sushi-lesson")
         cards_order, lesson_order = cards.order, lesson.order
         CourseItem.objects.filter(id=cards.id).update(order=lesson_order)
         CourseItem.objects.filter(id=lesson.id).update(order=cards_order)
@@ -144,21 +144,15 @@ class BuilderTests(TestCase):
             self.assertGreater(slugs.index(adult), first_hunt)
         self.assertEqual(slugs[0], "food")
 
-    def test_with_a_child_each_quick_review_follows_its_lesson(self):
-        # T97: a kids' item goes only at a module edge, never between a lesson and its quick review.
+    def test_no_quick_review_round_in_the_course(self):
+        # T279 (Michael): a module with a lesson gives its lessons and hunts only, no quick review round.
         for ages in ([40, 38, 4, 2], [38, 4], [38, 9]):
             trip = make_trip(self.user, ages)
             ids = [m.id for m, on in suggestions(trip) if on]
             items = list(build_course(trip, ids).items.select_related("activity__module"))
-            reviews = [
-                n for n, i in enumerate(items)
-                if i.activity.title.endswith(": quick review") or i.activity.slug in NEW_CARDS
-            ]
-            self.assertTrue(reviews, ages)
-            for n in reviews:
-                prev = items[n - 1].activity
-                self.assertEqual(prev.module_id, items[n].activity.module_id, (ages, prev.slug))
-                self.assertEqual(prev.type, "lesson", (ages, prev.slug))
+            self.assertTrue(items, ages)
+            for i in items:
+                self.assertIn(i.activity.type, ("lesson", "streetview"), (ages, i.activity.slug))
 
     def test_rebuild_keeps_done_marks(self):
         trip = make_trip(self.user, [38, 4])
@@ -345,7 +339,7 @@ class AfterTheTripTests(TestCase):
         items = list(self.course.items.select_related("activity__module"))
         food = items[0]
         food.mark_done()
-        words_item = next(i for i in items if i.activity.type == "words")
+        words_item = next(i for i in items if i.activity.slug == "words-lesson")
         self.client.post(reverse("activity_done", args=[words_item.id]))
         konnichiwa = PracticeItem.objects.get(trip=self.trip, key__endswith="/konnichiwa")
         konnichiwa.answer(True)
@@ -367,7 +361,7 @@ class AfterTheTripTests(TestCase):
     def test_highlights_say_words_we_met_not_learned(self):
         """T39: a family that got 1 of 8 right did not learn every word."""
         self.set_dates(-20, -1)
-        words_item = next(i for i in self.course.items.select_related("activity__module") if i.activity.type == "words")
+        words_item = next(i for i in self.course.items.select_related("activity__module") if i.activity.slug == "words-lesson")
         self.client.post(reverse("activity_done", args=[words_item.id]))
         PracticeItem.objects.get(trip=self.trip, key__endswith="/konnichiwa").answer(True)
         html = self.client.get(reverse("highlights")).content.decode()
@@ -564,7 +558,7 @@ class AfterTheTripTests(TestCase):
             seen.add((item.activity.type, review))
         self.assertIn(("lesson", False), seen)
         self.assertIn(("streetview", False), seen)
-        self.assertTrue(any(review for _, review in seen))
+        self.assertFalse(any(review for _, review in seen))  # T279: no quick review left in a Japan course
 
     def test_highlights_quiz_button_only_with_quiz_words(self):
         # T142: with no quiz words the button opens the next activity, not the empty 'No quiz yet' page.
