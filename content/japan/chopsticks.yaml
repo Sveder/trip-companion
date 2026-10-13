@@ -339,8 +339,8 @@ activities:
         # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
         title: What do we eat it with?
         title_he: עם מה אוכלים את זה?
-        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
-        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
+        text: Drag each card to its picture. Or tap a card, then tap the picture.
+        text_he: גררו כל כרטיס אל התמונה שלו. או געו בכרטיס, ואז געו בתמונה.
         rounds:
           - title: Put each way to eat on its food
             title_he: שימו כל דרך לאכול ליד האוכל שלה

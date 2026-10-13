@@ -590,6 +590,13 @@ class ChopsticksLessonTests(TestCase):
         self.assertEqual(r.status_code, 200)
         return r.content.decode()
 
+    def test_match_game_says_cards_not_plates_t295(self):
+        """'What do we eat it with?' pairs a spoon or hands with a food, so the hint says card, not plate."""
+        for lang, word in (("en", "Drag each card to its picture"), ("he", "גררו כל כרטיס אל התמונה שלו")):
+            html = self.page(lang)
+            self.assertIn(word, html)
+            self.assertNotIn("Drag each plate" if lang == "en" else "גררו כל צלחת", html)
+
     def test_hebrew_page_shows_the_hebrew_picture(self):
         # T98: an explanation picture has a Hebrew twin; English pages keep the English picture.
         self.assertIn("lesson/chopsticks/asia_he.svg", self.page("he"))
