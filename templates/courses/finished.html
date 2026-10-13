@@ -6,8 +6,8 @@
 <section class="hero">
   {% include "includes/guide.html" with cls="hero-guide cheer" label=_("Our guide jumps for joy") %}
   {% if skipped %}
-  <h1>{% translate "You got to the end of the course!" %}</h1>
-  <p class="lead">{% blocktranslate count n=skipped %}One hunt is still waiting. Try it again on the course page!{% plural %}{{ n }} hunts are still waiting. Try them again on the course page!{% endblocktranslate %}</p>
+  <h1>{% translate "You got to the end of the adventure!" %}</h1>
+  <p class="lead">{% blocktranslate count n=skipped %}One hunt is still waiting. Try it again on the adventure page!{% plural %}{{ n }} hunts are still waiting. Try them again on the adventure page!{% endblocktranslate %}</p>
   {% else %}
   <h1>{% translate "You did every activity!" %}</h1>
   {% endif %}
@@ -23,7 +23,7 @@
   {% if phase == "during" %}<a class="btn big alt" href="{% url 'there' %}">📸 {% translate "While we are there" %}</a>{% endif %}
   <button class="btn big alt" type="button" data-celebrate-again>{% translate "Party again!" %} 🎉</button>
   <a class="btn big" href="{% url 'quiz' %}?new=1">{% translate "Take the quiz" %} ⭐</a>
-  <a class="btn big" href="{% url 'course' %}">{% translate "Our course" %}</a>
-  <a class="btn big alt" href="{% url 'new_trip' %}">{% translate "New course" %}</a>
+  <a class="btn big" href="{% url 'course' %}">{% translate "Our adventure" %}</a>
+  <a class="btn big alt" href="{% url 'new_trip' %}">{% translate "New adventure" %}</a>
 </section>
 {% endblock %}

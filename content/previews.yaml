@@ -52,7 +52,7 @@
   name: Request a new one
   name_he: בקשו מקום חדש
   emoji: "✉️"
-  line: Tell us where you go. We make a course.
-  line_he: ספרו לנו לאן אתם נוסעים. אנחנו נכין מסלול.
+  line: Tell us where you go. We make an adventure.
+  line_he: ספרו לנו לאן אתם נוסעים. אנחנו נכין לכם הרפתקה.
   href: "mailto:m@sveder.com?subject=Trip%20Companion%3A%20new%20place"
   ready: false

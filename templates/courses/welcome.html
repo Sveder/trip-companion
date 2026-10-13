@@ -10,8 +10,8 @@
   {% if course %}
   {# T155: a family with a course goes back to it, or starts a new one. #}
   <div class="hero-buttons">
-    <a class="btn big" href="{% url 'course' %}">{% translate "Go to our course" %}</a>
-    <a class="btn big alt" href="{% url 'new_trip' %}">{% translate "New course" %}</a>
+    <a class="btn big" href="{% url 'course' %}">{% translate "Go to our adventure" %}</a>
+    <a class="btn big alt" href="{% url 'new_trip' %}">{% translate "New adventure" %}</a>
   </div>
   {% else %}
   <a class="btn big" href="{% url 'trip_setup' %}">{% translate "Let's start" %}</a>

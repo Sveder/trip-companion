@@ -287,7 +287,7 @@ class StreetViewHuntTests(TestCase):
         self.assertNotIn("You found 0", html)
         self.assertNotIn("Great job!", html)
         self.assertIn("Good try!", html)
-        self.assertIn("You can play it again from Our course.", html)
+        self.assertIn("You can play it again from Our adventure.", html)
         html = self.client.get(reverse("activity_praise", args=[first.id]) + f"?found=2&of={n}").content.decode()
         self.assertIn(f"You found 2 of {n}!", html)
         self.assertIn("Great job!", html)
@@ -381,7 +381,7 @@ class StreetViewHuntTests(TestCase):
         self.assertIn(f"מצאנו 0 מתוך {n0}", html)
         self.assertIn("לשחק שוב", html)
         html = self.client.get(reverse("activity_praise", args=[first.id]) + f"?found=0&of={n0}").content.decode()
-        self.assertIn("אפשר לשחק בו שוב מתוך המסלול שלנו.", html)
+        self.assertIn("אפשר לשחק בו שוב מתוך ההרפתקה שלנו.", html)
 
     def test_a_course_rebuild_keeps_the_found_count(self):
         from courses.builder import build_course

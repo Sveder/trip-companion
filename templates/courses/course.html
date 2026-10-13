@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}{% translate "Our course" %}{% endblock %}
+{% block title %}{% translate "Our adventure" %}{% endblock %}
 {% block content %}
 <section class="panel">
-  <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% if trip_country.other %}{% blocktranslate with place=trip_country.name %}Our course for {{ place }}{% endblocktranslate %}{% else %}{% translate "Our course for Japan" %}{% endif %}</span></h1>
+  <h1 class="with-guide">{% include "includes/guide.html" with cls="title-guide" %}<span>{% if trip_country.other %}{% blocktranslate with place=trip_country.name %}Our adventure in {{ place }}{% endblocktranslate %}{% else %}{% translate "Our adventure in Japan" %}{% endif %}</span></h1>
   {% if trip_country.wip %}<p class="wip-line">{% include "includes/wip_badge.html" %} {% translate "We are still building this one. Play it now, more is on the way." %}</p>{% endif %}
   <p class="lead">{% if done and done >= total %}{% blocktranslate %}We did all {{ total }}! Tap any one to play it again.{% endblocktranslate %}{% elif done %}{% blocktranslate %}We did {{ done }} of {{ total }}. The next one is waiting!{% endblocktranslate %}{% else %}{% blocktranslate %}We did 0 of {{ total }}. Tap the first one to start!{% endblocktranslate %}{% endif %}</p>
   {% include "includes/in_japan_now.html" %}
@@ -28,8 +28,8 @@
     </li>
     {% endfor %}
   </ol>
-  <a class="btn alt" href="{% url 'trip_setup' %}#modules">{% translate "Change our course" %}</a>
+  <a class="btn alt" href="{% url 'trip_setup' %}#modules">{% translate "Change our adventure" %}</a>
   {# T196: the link to another device sits in the bottom row; the header menu holds it too. #}
-  <p class="new-course-link"><a class="hint" href="{% url 'new_trip' %}">{% translate "New course" %}</a> · <a class="hint" href="{% url 'continue' %}">{% translate "Continue on another device" %}</a></p>
+  <p class="new-course-link"><a class="hint" href="{% url 'new_trip' %}">{% translate "New adventure" %}</a> · <a class="hint" href="{% url 'continue' %}">{% translate "Continue on another device" %}</a></p>
 </section>
 {% endblock %}

@@ -165,7 +165,7 @@ class HeaderMenuTests(TestCase):
         html = self.client.get("/", follow=True).content.decode()
         self.assertIn('class="menu-btn link" aria-expanded="false" aria-controls="top-menu" aria-label="Menu"', html)
         self.assertIn('class="top-menu foldable" id="top-menu"', html)
-        self.assertIn("Our course", html)
+        self.assertIn("Our adventure", html)
         self.client.cookies.load({"django_language": "he"})
         self.assertIn("תפריט", self.client.get("/", follow=True).content.decode())
 

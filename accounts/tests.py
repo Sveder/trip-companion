@@ -265,7 +265,7 @@ class ContinueLinkTests(TestCase):
         self.assertEqual(html.count('href="/continue/"'), 2)
         form = self.client.get(reverse("continue")).content.decode()
         self.assertEqual(form.count('type="email"'), 1)
-        self.assertIn("Open it on the other device and your course is there.", form)
+        self.assertIn("Open it on the other device and your adventure is there.", form)
 
     def test_send_mails_the_typed_address_only_and_the_token_is_stable(self):
         self.family()

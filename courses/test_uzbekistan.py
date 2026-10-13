@@ -80,12 +80,12 @@ class UzbekistanCourseTests(TestCase):
 
     def test_course_names_uzbekistan_and_hides_the_japan_hunt(self):
         page = self.client.get(reverse("course") + "?lang=en")
-        self.assertContains(page, "Our course for Uzbekistan")
-        self.assertNotContains(page, "Our course for Japan")
+        self.assertContains(page, "Our adventure in Uzbekistan")
+        self.assertNotContains(page, "Our adventure in Japan")
         self.assertNotContains(page, "We are in Japan now")
         self.assertNotContains(page, ">In Japan<")
         he = self.client.get(reverse("course") + "?lang=he")
-        self.assertContains(he, "המסלול שלנו לאוזבקיסטן")
+        self.assertContains(he, "ההרפתקה שלנו באוזבקיסטן")
 
     def test_words_lesson_speaks_uzbek(self):
         item = self.course.items.get(activity__slug="uz-words-lesson")

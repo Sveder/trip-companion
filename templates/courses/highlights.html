@@ -77,22 +77,22 @@
 
 {% if past_trips %}
 {# T155: older courses of this family. Each one keeps its done marks, clips and photos. #}
-<h2 class="section-title">🗂️ {% translate "Our past courses" %}</h2>
+<h2 class="section-title">🗂️ {% translate "Our past adventures" %}</h2>
 <ul class="past-courses">
   {% for t in past_trips %}
-  <li><a class="card" href="{% url 'highlights' %}?trip={{ t.id }}">{% blocktranslate with day=t.created_at|date:"j M Y" %}Course from {{ day }}{% endblocktranslate %} <span class="arrow">&rarr;</span></a></li>
+  <li><a class="card" href="{% url 'highlights' %}?trip={{ t.id }}">{% blocktranslate with day=t.created_at|date:"j M Y" %}Adventure from {{ day }}{% endblocktranslate %} <span class="arrow">&rarr;</span></a></li>
   {% endfor %}
 </ul>
 {% endif %}
 
 <section class="hero">
   {% if past %}
-  <a class="btn big" href="{% url 'highlights' %}">{% translate "Back to our course now" %}</a>
+  <a class="btn big" href="{% url 'highlights' %}">{% translate "Back to our adventure now" %}</a>
   {% else %}
   {% if has_quiz %}
   <a class="btn big alt" href="{% url 'quiz' %}?new=1">{% translate "Play the quiz" %} ⭐</a>
   {% elif phase != "after" %}{# T142: no quiz words yet, so the button opens the next activity, not an empty quiz. #}
-  <a class="btn big alt" href="{% url 'next_step' %}">{% translate "Start our course" %}</a>
+  <a class="btn big alt" href="{% url 'next_step' %}">{% translate "Start our adventure" %}</a>
   {% endif %}
   {% if phase == "after" %}{# T189: a family back home plans the next trip; it does not start the old course. #}
   <a class="btn big" href="{% url 'new_trip' %}">{% translate "Plan our next trip" %}</a>

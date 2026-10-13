@@ -571,14 +571,14 @@ class AfterTheTripTests(TestCase):
         html = self.client.get(reverse("highlights")).content.decode()
         self.assertNotIn("Play the quiz", html)
         self.assertIn(f'href="{reverse("next_step")}"', html)
-        self.assertIn("Start our course", html)
+        self.assertIn("Start our adventure", html)
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
-        self.assertIn("מתחילים את המסלול", self.client.get(reverse("highlights")).content.decode())
+        self.assertIn("יוצאים להרפתקה", self.client.get(reverse("highlights")).content.decode())
         self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "en"
         PracticeItem.objects.create(trip=self.trip, key="words/words-intro/hai")
         html = self.client.get(reverse("highlights")).content.decode()
         self.assertIn("Play the quiz", html)
-        self.assertNotIn("Start our course", html)
+        self.assertNotIn("Start our adventure", html)
 
     def test_highlights_page_during_the_trip_has_no_welcome_back(self):
         self.set_dates(-2, 5)
@@ -599,12 +599,12 @@ class AfterTheTripTests(TestCase):
     def test_highlights_after_the_trip_offer_the_next_trip_not_the_course(self):
         # T189: a family back home gets 'Plan our next trip', not 'Start our course' or 'Change our trip'.
         before = self.client.get(reverse("highlights")).content.decode()
-        self.assertIn("Start our course", before)
+        self.assertIn("Start our adventure", before)
         self.assertIn("Change our trip", before)
         self.assertNotIn("Plan our next trip", before)
         self.client.post(reverse("back_home"))
-        for lang, gone, here in (("en", ("Start our course", "Change our trip"), "Plan our next trip"),
-                                 ("he", ("מתחילים את המסלול", "שינוי הטיול"), "מתכננים את הטיול הבא")):
+        for lang, gone, here in (("en", ("Start our adventure", "Change our trip"), "Plan our next trip"),
+                                 ("he", ("יוצאים להרפתקה", "שינוי הטיול"), "מתכננים את הטיול הבא")):
             self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
             for url in (reverse("highlights"), reverse("home")):
                 html = self.client.get(url).content.decode()
@@ -771,9 +771,9 @@ class CoursePageTests(TestCase):
 
     def test_nav_our_course_opens_the_course_page(self):
         page = self.client.get(reverse("course"))
-        self.assertContains(page, f'href="{reverse("course")}">Our course')
+        self.assertContains(page, f'href="{reverse("course")}">Our adventure')
         self.assertContains(page, f'href="{reverse("trip_setup")}#modules"')
-        self.assertContains(page, "Change our course")
+        self.assertContains(page, "Change our adventure")
 
     def test_lists_items_in_order_with_done_marks(self):
         items = list(self.course.ready_items())
@@ -1143,16 +1143,16 @@ class NewCourseTests(TestCase):
         self.assertTemplateUsed(r, "courses/welcome.html")
         self.assertContains(r, f'href="{reverse("course")}"')
         self.assertContains(r, f'href="{reverse("new_trip")}"')
-        self.assertContains(r, "Go to our course")
+        self.assertContains(r, "Go to our adventure")
         self.assertNotContains(r, "Let's start")
 
     def test_hebrew_buttons_and_confirm(self):
         self.client.cookies["django_language"] = "he"
         r = self.client.get("/", HTTP_ACCEPT_LANGUAGE="he")
-        self.assertContains(r, "למסלול שלנו")
-        self.assertContains(r, "מסלול חדש")
+        self.assertContains(r, "להרפתקה שלנו")
+        self.assertContains(r, "הרפתקה חדשה")
         r = self.client.get(reverse("new_trip"), HTTP_ACCEPT_LANGUAGE="he")
-        self.assertContains(r, "להתחיל מסלול חדש?")
+        self.assertContains(r, "להתחיל הרפתקה חדשה?")
 
     def test_course_page_links_to_a_new_course(self):
         self.assertContains(self.client.get(reverse("course")), f'href="{reverse("new_trip")}"')
@@ -1170,7 +1170,7 @@ class NewCourseTests(TestCase):
 
     def test_get_asks_and_changes_nothing(self):
         r = self.client.get(reverse("new_trip"))
-        self.assertContains(r, "Start a new course?")
+        self.assertContains(r, "Start a new adventure?")
         self.assertContains(r, "data-clear-state")
         self.assertEqual(Trip.objects.filter(user=self.user).count(), 1)
 
@@ -1194,11 +1194,11 @@ class NewCourseTests(TestCase):
         self.first.refresh_from_db()
         self.assertIsNotNone(self.first.done_at)
         page = self.client.get(reverse("highlights"))
-        self.assertContains(page, "Our past courses")
+        self.assertContains(page, "Our past adventures")
         self.assertContains(page, f"?trip={old.id}")
         old_page = self.client.get(reverse("highlights") + f"?trip={old.id}")
         self.assertContains(old_page, self.first.activity.local_title)
-        self.assertNotContains(old_page, "Our past courses")
+        self.assertNotContains(old_page, "Our past adventures")
 
     def test_place_card_keeps_the_old_course(self):
         """T175: a country card on home (/trip/?destination=...) with a course already built starts a new trip."""
@@ -1211,7 +1211,7 @@ class NewCourseTests(TestCase):
         self.first.refresh_from_db()
         self.assertIsNotNone(self.first.done_at)
         page = self.client.get(reverse("highlights"))
-        self.assertContains(page, "Our past courses")
+        self.assertContains(page, "Our past adventures")
         self.assertContains(page, f"?trip={self.trip.id}")
         # An edit of the people on the same place still changes the same trip.
         self.client.post(reverse("trip_setup"), {"destination": "uzbekistan", "grownup": 2, "kid": 1})
@@ -1246,3 +1246,34 @@ class HebrewWordingTests(SimpleTestCase):
     def test_card_arrow_flips_in_rtl(self):
         css = (Path(settings.BASE_DIR) / "static/css/app.css").read_text(encoding="utf-8")
         self.assertIn('[dir="rtl"] .arrow { display: inline-block; transform: scaleX(-1); }', css)
+
+
+class AdventureWordTests(TestCase):
+    """T265 (Michael 2026-10-13): the product word is 'adventure', never 'course', in en and he."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("load_content", verbosity=0)
+        cls.user = get_user_model().objects.create_user("w@example.com", "w@example.com")
+        trip = make_trip(cls.user, [38, 5])
+        build_course(trip, [m.id for m, on in suggestions(trip) if on])
+
+    def visible_text(self, html):
+        html = re.sub(r"(?s)<(script|style)\b.*?</\1>", " ", html)
+        html = re.sub(r"(?s)<!--.*?-->", " ", html)
+        return re.sub(r"<[^>]+>", " ", html)
+
+    def test_no_page_says_course(self):
+        self.client.force_login(self.user)
+        for lang in ("en", "he"):
+            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = lang
+            for name in ("home", "course", "trip_setup", "new_trip", "highlights", "privacy", "continue"):
+                r = self.client.get(reverse(name), follow=True)
+                self.assertEqual(r.status_code, 200, name)
+                text = self.visible_text(r.content.decode())
+                self.assertNotRegex(text, r"(?i)\bcourses?\b", f"{lang} {name}")
+                self.assertNotIn("מסלול", text, f"{lang} {name}")
+        self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "en"
+        self.assertContains(self.client.get(reverse("course")), "Our adventure in Japan")
+        self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
+        self.assertContains(self.client.get(reverse("course")), "ההרפתקה שלנו ביפן")

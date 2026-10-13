@@ -221,7 +221,7 @@ class QuizFlowTests(TestCase):
         self.assertContains(page, f'href="{reverse("home")}">Back home<')
         course = build_course(trip, list(Module.objects.filter(slug="words").values_list("id", flat=True)))
         nxt = reverse("activity", args=[course.next_item().id])
-        for lang, label in (("en", "Start our course"), ("he", "מתחילים את המסלול")):
+        for lang, label in (("en", "Start our adventure"), ("he", "יוצאים להרפתקה")):
             self.client.cookies["django_language"] = lang
             page = self.client.get(reverse("quiz"))
             self.assertContains(page, f'href="{nxt}">{label}<')
@@ -230,7 +230,7 @@ class QuizFlowTests(TestCase):
         PracticeItem.objects.create(trip=trip, key="words/words-intro/hai", due_on=timezone.localdate() + timedelta(days=3))
         page = self.client.get(reverse("quiz") + "?new=1")
         self.assertContains(page, "No quiz today!")
-        self.assertContains(page, f'href="{reverse("course")}">Our course<')
+        self.assertContains(page, f'href="{reverse("course")}">Our adventure<')
 
     def test_quiz_ignores_a_stale_answer(self):
         trip = make_trip(self.user)

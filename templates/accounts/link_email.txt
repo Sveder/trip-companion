@@ -1,4 +1,4 @@
-{% load i18n %}{% translate "You asked to continue your trip course on another device. Open this link on that device:" %}
+{% load i18n %}{% translate "You asked to continue your trip adventure on another device. Open this link on that device:" %}
 
 {{ url }}
 
