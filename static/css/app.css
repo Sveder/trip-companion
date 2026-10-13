@@ -839,3 +839,4 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .sos-numbers li { display: flex; align-items: center; gap: .8rem; }
 .sos-number { flex: none; min-width: 4.2rem; text-align: center; font-size: 1.6rem; font-weight: 800; color: #fff; background: #d62d2d; border-radius: var(--radius); padding: .3rem .5rem; text-decoration: none; }
 .course-safety { margin: .2rem 0 .6rem; }
+.sos-numbers li strong { display: block; }
