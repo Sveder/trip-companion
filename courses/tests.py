@@ -1097,6 +1097,18 @@ class WhyDialogTests(TestCase):
         self.assertIn("A few minutes a day turns the wait into part of the trip.", html)
         self.assertIn("Screen time you do together: games, photos and stories, not one more video alone.", html)
         self.assertIn("On the first day they point and shout: I know that!", html)
+
+    def test_home_blurb_says_what_the_site_is(self):
+        """T263: the blurb names the site's job and its subjects: food, customs, history, language."""
+        html = self.client.get("/").content.decode()
+        self.assertIn("get your family ready for a big trip", html)
+        for word in ("food", "customs", "history", "first words"):
+            self.assertIn(word, html)
+        self.assertNotIn("little surprises", html)
+        he = self.client.get("/?lang=he").content.decode()
+        self.assertIn("שמכינים את המשפחה לטיול גדול", he)
+        self.assertIn("המנהגים", he)
+        self.assertIn("ההיסטוריה", he)
         self.assertNotIn("Half the fun", html)
         self.assertIn("js/why.js", html)
 

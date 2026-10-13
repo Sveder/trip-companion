@@ -684,11 +684,8 @@ msgstr ""
 "haspopup=\"dialog\">מתרגשים</button> לקראת הטיול!"
 
 #: templates/courses/welcome.html:8
-msgid ""
-"Short, fun games for the whole family. Food, words and little surprises, all"
-" before you fly."
-msgstr ""
-"משחקים קצרים וכיפיים לכל המשפחה. אוכל, מילים והפתעות קטנות, הכול לפני הטיסה."
+msgid "Short games for kids and grown-ups that get your family ready for a big trip. Taste the food, learn the customs, hear the history and say your first words, all before you fly!"
+msgstr "משחקים קצרים לילדים ולמבוגרים שמכינים את המשפחה לטיול גדול. טועמים את האוכל, לומדים את המנהגים, שומעים את ההיסטוריה ואומרים מילים ראשונות, הכול לפני הטיסה!"
 
 #: templates/courses/welcome.html:12
 msgid "Go to our course"

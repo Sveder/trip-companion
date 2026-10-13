@@ -5,7 +5,8 @@
   {% include "includes/mark.html" with cls="hero-guide" %}
   {# T154: the word 'excited' buzzes; a tap opens the 'why' dialog. The tag sits in the string so Hebrew keeps its word order. #}
   <h1>{% blocktranslate trimmed %}Get <button type="button" class="buzz" data-why aria-haspopup="dialog">excited</button> for your trip!{% endblocktranslate %}</h1>
-  <p class="lead">{% translate "Short, fun games for the whole family. Food, words and little surprises, all before you fly." %}</p>
+  {# T263: the blurb says what the site is: games that get a family ready (food, customs, history, language). #}
+  <p class="lead">{% translate "Short games for kids and grown-ups that get your family ready for a big trip. Taste the food, learn the customs, hear the history and say your first words, all before you fly!" %}</p>
   {% if course %}
   {# T155: a family with a course goes back to it, or starts a new one. #}
   <div class="hero-buttons">
