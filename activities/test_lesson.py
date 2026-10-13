@@ -956,14 +956,16 @@ class SushiPhotoTests(TestCase):
         for credit in credits.values():
             self.assertTrue((Path(settings.BASE_DIR) / "static/img" / credit["file"]).exists(), credit["file"])
 
-    def test_card_back_shows_the_photo_and_credit(self):
+    def test_card_back_shows_the_photo_and_no_credit(self):
+        """T267: no credit text on the photo or under the cards; the footer 'Credits' link leads to every credit."""
         self.client.force_login(self.user)
         for lang, word in (("en", "Photo:"), ("he", "צילום:")):
             html = self.client.get(reverse("activity", args=[self.item.id]) + f"?lang={lang}").content.decode()
             self.assertEqual(html.count('class="flip-photo"'), 6, lang)
-            self.assertEqual(html.count(f'<span class="photo-credit">{word} '), 6, lang)
+            self.assertNotIn(word, html)
+            self.assertNotIn("photo-credit", html)
             self.assertIn('/static/img/photo/sushi/sushi-maguro.jpg', html)
-            self.assertIn(reverse("credits"), html)
+            self.assertIn(f'href="{reverse("credits")}"', html)
 
     def test_no_credited_photo_is_too_dark(self):
         """T215: a night photo reads as a black square at 140 px. The old taiyaki photo had a mean grey of 33."""
@@ -1022,7 +1024,7 @@ class FoodAroundJapanTests(TestCase):
             self.assertEqual(r.status_code, 200)
             html = r.content.decode()
             self.assertIn(word, html)
-            self.assertEqual(html.count('class="lphoto-credit"'), 13, lang)
+            self.assertNotIn("lphoto-credit", html)  # T267: credits only on /credits/
             self.assertIn("food-ekiben.jpg", html)
             self.assertNotIn("wikipedia.org", html)  # the source is for us, not shown
 

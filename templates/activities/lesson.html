@@ -31,7 +31,6 @@
       {% if page.img and page.japanese %}<button type="button" class="lpic-say" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" aria-label="{{ page.japanese }}"><img class="lpic" src="{% static 'img/'|add:page.img %}"{{ 'img/'|add:page.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt=""></button>
       {% elif page.img %}<img class="lpic" src="{% static 'img/'|add:page.img %}"{{ 'img/'|add:page.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt="">{% elif page.emoji %}<div class="lemoji" aria-hidden="true">{{ page.emoji }}</div>{% endif %}
       {# A real photo names its author and licence under it; the link opens the full list (T160). #}
-      {% if page.photo_credit %}{% with credit=page.photo_credit|photo_credit %}{% if credit %}<p class="lphoto-credit"><a href="{% url 'credits' %}">{% translate "Photo:" %} {{ credit.author }}, {{ credit.licence }}</a></p>{% endif %}{% endwith %}{% endif %}
       {# T224: two fixed lines. Line 1 is the kana alone; line 2 is the reading, the Hebrew spelling (he) and the speaker. #}
       {% if page.japanese %}<p class="jp say-word hero-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0"><span class="say-kana">{{ page.japanese }}{% if page.reading|lower == page.japanese|lower %}{% if not bidi or not page.reading_hebrew %}<span class="say-mark" aria-hidden="true"></span>{% endif %}{% endif %}</span>{% if page.reading|lower != page.japanese|lower or bidi and page.reading_hebrew %}<span class="say-sub">{% if page.reading|lower != page.japanese|lower %}<span class="say-reading">{{ page.reading }}</span>{% if bidi and page.reading_hebrew %} · {% endif %}{% endif %}{% if bidi and page.reading_hebrew %}<span class="he-say" lang="he">{{ page.reading_hebrew }}</span>{% endif %}<span class="say-mark" aria-hidden="true"></span></span>{% endif %}</p>{% endif %}
       {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
@@ -74,12 +73,10 @@
         {# A card with a Japanese word also says it: data-say sits on the button itself, so one tap (or OK on the TV remote) flips and speaks (T91). #}
         <button type="button" class="flip" data-flip aria-pressed="false"{% if card.japanese %} data-say="{{ card.japanese }}" data-say-src="{{ card.reading|word_audio }}"{% endif %}>
           <span class="flip-front"><img src="{% static 'img/'|add:card.img %}"{{ 'img/'|add:card.img|img_size }}{% if not first_page %} loading="lazy"{% endif %} alt=""><strong>{{ card.label }}</strong>{% if card.japanese %}<span class="jp small" lang="ja">{{ card.japanese }}<span class="say-mark" aria-hidden="true"></span></span>{% if bidi and card.reading_hebrew and card.reading_hebrew != card.label %}<span class="he-say small" lang="he">{{ card.reading_hebrew }}</span>{% endif %}{% endif %}</span>
-          <span class="flip-back{% if card.photo %} has-photo{% endif %}">{% if card.photo %}<span class="flip-photo-box"><img class="flip-photo" src="{% static 'img/'|add:card.photo %}"{{ 'img/'|add:card.photo|img_size }} alt="" loading="lazy">{% with credit=card.photo_credit|photo_credit %}{% if credit %}<span class="photo-credit">{% translate "Photo:" %} {{ credit.author }}, {{ credit.licence }}</span>{% endif %}{% endwith %}</span>{% endif %}<strong>{{ card.label }}</strong><span>{{ card.text }}</span></span>
+          <span class="flip-back{% if card.photo %} has-photo{% endif %}">{% if card.photo %}<span class="flip-photo-box"><img class="flip-photo" src="{% static 'img/'|add:card.photo %}"{{ 'img/'|add:card.photo|img_size }} alt="" loading="lazy"></span>{% endif %}<strong>{{ card.label }}</strong><span>{{ card.text }}</span></span>
         </button>
         {% endfor %}
       </div>
-      {# A link cannot sit inside the card button, so the full credits, with links, are one tap away (T159). #}
-      {% if page.cards.0.photo %}<p class="photo-credits-link small"><a href="{% url 'credits' %}">{% translate "Photo credits" %}</a></p>{% endif %}
 
     {% elif page.kind == "pick" %}
       {# A page with words: true is a word game: each choice shows the word under the picture (kana + romaji, or the Hebrew way to say it), so the game tests the word, not the picture (T180). #}
