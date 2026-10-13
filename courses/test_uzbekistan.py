@@ -388,3 +388,28 @@ class NoGuideFallbackTests(TestCase):
         self.assertNotIn("guide mark", jp)
         uz = render_to_string("includes/guide.html", {"country_guide": GUIDES["uzbekistan"], "cls": "hero-guide"})
         self.assertIn("var(--guide-camel)", uz)
+
+
+# Code point ranges of person, face-of-a-person, body and hand emoji (T293, Michael 2026-10-13: no drawn humans or hands).
+PERSON_RANGES = [(0x1F466, 0x1F487), (0x1F464, 0x1F465), (0x1F48F, 0x1F491), (0x1F5E3, 0x1F5E3), (0x1F574, 0x1F575),
+                 (0x1F57A, 0x1F57A), (0x1F590, 0x1F596), (0x1F645, 0x1F64F), (0x1F6A3, 0x1F6A3), (0x1F6B4, 0x1F6B6),
+                 (0x1F3C3, 0x1F3CC), (0x1F44A, 0x1F450), (0x1F90C, 0x1F90F), (0x1F918, 0x1F91F), (0x1F926, 0x1F926),
+                 (0x1F930, 0x1F93E), (0x1F9B5, 0x1F9BB), (0x1F9CD, 0x1F9DF), (0x1FAF0, 0x1FAF8), (0x270A, 0x270D),
+                 (0x261D, 0x261D), (0x26F9, 0x26F9)]
+
+
+def has_person(text):
+    return any(lo <= ord(ch) <= hi for ch in text for lo, hi in PERSON_RANGES)
+
+
+class ModuleIconTests(TestCase):
+    """T293: a module icon (trip setup switch, adventure row, lesson header, 'Next up') is never a person emoji."""
+
+    def test_no_module_icon_is_a_person(self):
+        icons = {p.relative_to(ALL_CONTENT).as_posix(): (yaml.safe_load(p.read_text()) or {}).get("emoji", "")
+                 for p in sorted(ALL_CONTENT.glob("*/*.yaml"))}
+        self.assertEqual({k: v for k, v in icons.items() if isinstance(v, str) and has_person(v)}, {})
+        self.assertTrue(has_person("🙇") and has_person("🗣️") and not has_person("⛩️💬"))
+
+    def test_highlights_words_heading_has_no_head(self):
+        self.assertFalse(has_person((Path(settings.BASE_DIR) / "templates/courses/highlights.html").read_text()))
