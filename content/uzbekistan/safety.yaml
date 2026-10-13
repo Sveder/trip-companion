@@ -1,0 +1,115 @@
+id: safety
+title: Staying safe
+title_he: שומרים על עצמנו
+summary: Who to call, how to stay together at the bazaar, and what to drink.
+summary_he: למי מתקשרים, איך נשארים יחד בשוק, ומה שותים.
+emoji: "🚑"
+audience: all
+order: 45
+ready: true
+activities:
+  # Feedback T282 (Michael, 2026-10-13): a safety lesson for Uzbekistan.
+  # Facts checked 2026-10-13. Numbers: GOV.UK (https://www.gov.uk/foreign-travel-advice/uzbekistan/getting-help):
+  # 101 fire, 102 police, 103 ambulance; 112 since 2024 for every emergency; 1173 the tourist line in English.
+  # Water: travel health advice says do not drink tap water in Uzbekistan; drink bottled or boiled water.
+  # The number pictures (lesson/uzbekistan/call-*.svg) are plain shapes and numerals, no people.
+  - id: uz-safety-lesson
+    title: Safe like a kid in Uzbekistan
+    title_he: בטוחים כמו ילדים באוזבקיסטן
+    type: lesson
+    intro: Swipe through the pages. Learn three numbers, and practise each thing at home!
+    intro_he: עוברים דף אחרי דף. לומדים שלושה מספרים, ומתאמנים על כל דבר בבית!
+    pictures:
+      - {id: fire, img: lesson/uzbekistan/call-101.svg, label: "Fire, 101", label_he: "כבאות, 101"}
+      - {id: police, img: lesson/uzbekistan/call-102.svg, label: "Police, 102", label_he: "משטרה, 102"}
+      - {id: ambulance, img: lesson/uzbekistan/call-103.svg, label: "Ambulance, 103", label_he: "אמבולנס, 103"}
+      - {id: bottle, img: photo/uzbekistan/uz-bottle.jpg, label: A water bottle, label_he: בקבוק מים}
+      - {id: card, img: lesson/safety/card.svg, label: Name card, label_he: כרטיס עם שם}
+      - {id: bazaar, img: photo/uzbekistan/uz-chorsu.jpg, label: The bazaar, label_he: השוק}
+    pages:
+      - kind: flip
+        title: Three numbers to know
+        title_he: שלושה מספרים שצריך לדעת
+        text: Tap a card to turn it. Say each number out loud!
+        text_he: געו בכרטיס כדי להפוך אותו. אומרים כל מספר בקול!
+        cards:
+          - img: lesson/uzbekistan/call-101.svg
+            label: "Fire: 101"
+            label_he: "כבאות: 101"
+            text: "One, zero, one. Call it if you see fire or a lot of smoke."
+            text_he: "אחת, אפס, אחת. מתקשרים אם רואים אש או הרבה עשן."
+          - img: lesson/uzbekistan/call-102.svg
+            label: "Police: 102"
+            label_he: "משטרה: 102"
+            text: "One, zero, two. Call it if you are lost and no grown-up can help."
+            text_he: "אחת, אפס, שתיים. מתקשרים אם הלכתם לאיבוד ואף מבוגר לא יכול לעזור."
+          - img: lesson/uzbekistan/call-103.svg
+            label: "Ambulance: 103"
+            label_he: "אמבולנס: 103"
+            text: "One, zero, three. Call it if someone is hurt or very sick."
+            text_he: "אחת, אפס, שלוש. מתקשרים אם מישהו נפצע או חולה מאוד."
+        source: https://www.gov.uk/foreign-travel-advice/uzbekistan/getting-help
+      - kind: text
+        title: Stay together at the bazaar
+        title_he: נשארים יחד בשוק
+        img: photo/uzbekistan/uz-chorsu.jpg
+        photo_credit: uz-chorsu
+        text: A bazaar is big and full of people. Hold a grown-up's hand. If you cannot see your family, stand still. Your family comes back to you.
+        text_he: שוק הוא גדול ומלא אנשים. מחזיקים יד של מבוגר. אם אתם לא רואים את המשפחה, עומדים במקום. המשפחה חוזרת אליכם.
+        tips:
+          - Before you go in, pick a meeting place together, like the main gate.
+          - Lost? Ask a seller at a stall for help, and show the name card in your pocket.
+        tips_he:
+          - לפני שנכנסים, בוחרים יחד מקום מפגש, כמו השער הראשי.
+          - הלכתם לאיבוד? מבקשים עזרה ממוכר בדוכן, ומראים את הכרטיס עם השם שבכיס.
+      - kind: text
+        title: Drink water from a bottle
+        title_he: שותים מים מבקבוק
+        img: photo/uzbekistan/uz-bottle.jpg
+        photo_credit: uz-bottle
+        text: In Uzbekistan, we do not drink water from the tap. We drink water from a closed bottle. Summer days are very hot, so drink a lot!
+        text_he: באוזבקיסטן לא שותים מים מהברז. שותים מים מבקבוק סגור. בקיץ הימים חמים מאוד, אז שותים הרבה!
+        tips:
+          - Brush your teeth with bottled water too.
+          - Wear a hat in the sun, and rest in the shade.
+          - For grown-ups. Hot tea is fine, because the water is boiled. Wash fruit from the bazaar with bottled water.
+        tips_he:
+          - גם מצחצחים שיניים עם מים מבקבוק.
+          - חובשים כובע בשמש, ונחים בצל.
+          - למבוגרים. תה חם זה בסדר, כי המים רתחו. שוטפים פירות מהשוק במים מבקבוק.
+      - kind: text
+        title: A name card in every pocket
+        title_he: כרטיס עם שם בכל כיס
+        img: lesson/safety/card.svg
+        text: "A grown-up writes a card for each child: the child's name, a parent's phone with the country code, and the hotel name. The card goes in your pocket. Show it to a helper if you get lost."
+        text_he: "מבוגר כותב כרטיס לכל ילד: השם של הילד, הטלפון של הורה עם קידומת המדינה, ושם המלון. הכרטיס נכנס לכיס. מראים אותו למי שעוזר אם הולכים לאיבוד."
+        tips:
+          - Ask the hotel desk to write the hotel name and address in Uzbek too.
+          - Practise at home. Find the card in your pocket, and show it to a grown-up.
+          - "For grown-ups. 112 also works for every emergency. The tourist line 1173 answers in English, all day and all night."
+        tips_he:
+          - מבקשים מהקבלה במלון לכתוב את שם המלון והכתובת גם באוזבקית.
+          - מתאמנים בבית. מוצאים את הכרטיס בכיס, ומראים אותו למבוגר.
+          - "למבוגרים. גם 112 עובד לכל מקרה חירום. קו התיירים 1173 עונה באנגלית, כל היום וכל הלילה."
+      - kind: pick
+        title: Safety quiz
+        title_he: חידון בטיחות
+        text: Last game! What do we do? Tap the right picture.
+        text_he: משחק אחרון! מה עושים? געו בתמונה הנכונה.
+        rounds:
+          - ask: "You see a lot of smoke. Which number do you call?"
+            ask_he: "אתם רואים הרבה עשן. לאיזה מספר מתקשרים?"
+            answer: fire
+            choices: [police, fire, ambulance, bottle]
+          - ask: "Someone fell and is hurt. Which number do you call?"
+            ask_he: "מישהו נפל ונפצע. לאיזה מספר מתקשרים?"
+            answer: ambulance
+            choices: [ambulance, fire, card, police]
+          - ask: "You are thirsty on a hot day. What do you drink from?"
+            ask_he: "אתם צמאים ביום חם. ממה שותים?"
+            answer: bottle
+            choices: [card, bazaar, bottle, fire]
+          - ask: "A seller asks where you are staying. What do you show?"
+            ask_he: "מוכר שואל איפה אתם גרים. מה מראים?"
+            answer: card
+            choices: [bottle, card, police, bazaar]

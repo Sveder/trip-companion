@@ -20,6 +20,13 @@ CONTENT = Path(settings.BASE_DIR) / "content" / "uzbekistan"
 ALL_CONTENT = Path(settings.BASE_DIR) / "content"
 
 
+def _main_text(response):
+    """The page body without the head (the site title) and without inline SVG drawings (path numbers)."""
+    import re
+    html = response.content.decode().split("<body", 1)[1]
+    return re.sub(r"<svg.*?</svg>", "", html, flags=re.S)
+
+
 class UzbekistanCourseTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -35,12 +42,15 @@ class UzbekistanCourseTests(TestCase):
 
     def test_ready_modules_of_3_to_5_pages(self):
         # T234 added 'At the bazaar' (bazaar.yaml) and 'Silk Road crafts and blue tiles' (crafts.yaml) to the first three.
+        # T282 added 'Street View hunt' (streetview.yaml: a lesson and two hunts) and 'Staying safe' (safety.yaml).
         modules = Module.objects.filter(country="uzbekistan", ready=True)
-        self.assertEqual(sorted(m.slug for m in modules), ["bazaar", "crafts", "food", "places", "words"])
-        for act in Activity.objects.filter(module__country="uzbekistan"):
-            self.assertEqual(act.type, "lesson")
+        self.assertEqual(sorted(m.slug for m in modules), ["bazaar", "crafts", "food", "places", "safety", "streetview", "words"])
+        for act in Activity.objects.filter(module__country="uzbekistan", type="lesson"):
             self.assertTrue(3 <= len(act.data["pages"]) <= 5, act.slug)
-        self.assertEqual(self.course.items.count(), 5)
+        hunts = Activity.objects.filter(module__country="uzbekistan").exclude(type="lesson")
+        self.assertEqual(sorted(a.slug for a in hunts), ["uz-hunt-kalyan", "uz-hunt-registan"])
+        self.assertEqual({a.type for a in hunts}, {"streetview"})
+        self.assertEqual(self.course.items.count(), Activity.objects.filter(module__country="uzbekistan").count())
 
     def test_trip_form_offers_uzbekistan_and_keeps_other_places_coming_soon(self):
         page = self.client.get(reverse("trip_setup"))
@@ -63,6 +73,8 @@ class UzbekistanCourseTests(TestCase):
         credits = load_photo_credits()
         for path in CONTENT.glob("*.yaml"):
             for act in yaml.safe_load(path.read_text())["activities"]:
+                if act["type"] == "streetview":
+                    continue  # a hunt has spots, not pictures; see test_street_view_hunts_*
                 ids = {p["id"] for p in act["pictures"]}
                 for pic in act["pictures"]:
                     self.assertTrue((Path(settings.BASE_DIR) / "static/img" / pic["img"]).exists(), pic["img"])
@@ -133,6 +145,43 @@ class UzbekistanCourseTests(TestCase):
         self.assertContains(he, 'Chorsu</span><span class="say-sub"><span class="he-say" lang="he">צ\'ורסו</span>'.replace("'", "&#x27;"))
         credits = self.client.get(reverse("credits"))
         self.assertContains(credits, "Chorsu Bazaar in Tashkent.jpg")
+
+    def test_street_view_hunts_open_registan_and_kalyan_with_five_spots_or_fewer(self):
+        # T282 (Michael, 2026-10-13): a Street View hunt for Uzbekistan. The places were probed on 2026-10-13.
+        for slug, place, lat in (("uz-hunt-registan", "Registan Square, Samarkand", "39.6548"),
+                                 ("uz-hunt-kalyan", "Kalyan Mosque, Bukhara", "39.776")):
+            item = self.course.items.get(activity__slug=slug)
+            act = item.activity
+            self.assertTrue(4 <= len(act.data["spots"]) <= 5, slug)
+            for spot in act.data["spots"]:
+                self.assertTrue(spot["name_he"] and spot["text_he"] and spot["about_he"], spot["name"])
+            en = self.client.get(reverse("activity", args=[item.id]) + "?lang=en")
+            self.assertContains(en, place)
+            self.assertContains(en, lat)
+            self.assertNotIn("Japan", _main_text(en))
+            he = self.client.get(reverse("activity", args=[item.id]) + "?lang=he")
+            self.assertContains(he, act.data["spots"][0]["name_he"])
+        lesson = self.course.items.get(activity__slug="uz-street-lesson")
+        page = self.client.get(reverse("activity", args=[lesson.id]) + "?lang=en")
+        self.assertContains(page, "Towers, domes and tigers")
+        self.assertContains(page, "img/photo/uzbekistan/uz-sherdor.jpg")
+        self.assertContains(self.client.get(reverse("credits")), "Sher-Dor Madrasah Samarkand close-up.jpg")
+
+    def test_safety_lesson_teaches_101_102_103_the_bazaar_water_and_the_name_card(self):
+        # T282 (Michael, 2026-10-13): numbers checked on GOV.UK 2026-10-13: 101 fire, 102 police, 103 ambulance.
+        item = self.course.items.get(activity__slug="uz-safety-lesson")
+        url = reverse("activity", args=[item.id])
+        en = self.client.get(url + "?lang=en")
+        for text in ("Fire: 101", "Police: 102", "Ambulance: 103", "Stay together at the bazaar",
+                     "Drink water from a bottle", "A name card in every pocket", "1173"):
+            self.assertContains(en, text)
+        self.assertNotIn("110", _main_text(en))  # the Japan numbers
+        self.assertNotIn("119", _main_text(en))
+        game = en.content.decode().rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
+        self.assertEqual(game.count('class="choice"'), 16)
+        he = self.client.get(url + "?lang=he")
+        self.assertContains(he, "בטוחים כמו ילדים באוזבקיסטן")
+        self.assertContains(he, "שותים מים מבקבוק")
 
     def test_crafts_lesson_shows_tiles_crafts_silk_and_a_match_game(self):
         # T234 (Michael, 2026-10-12): 'Silk Road crafts and blue tiles': Samarkand tiles, suzani, atlas silk, a match-the-craft game.

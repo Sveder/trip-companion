@@ -115,7 +115,7 @@ list of activities. An activity has a type and its data:
 - `steps` — a guided real-world activity (chopsticks): ordered steps, each text / video / link / record.
 - `links` — buy-in-advance items with referral URLs, each with `audience`.
 Quiz items are derived from `words` and from cards marked `quiz: true`.
-`content/previews.yaml` lists the countries with a picture and one line; `ready: true` makes a country a choice in the trip form (Japan, and Uzbekistan since T171), the rest show "coming soon". A country's modules live in `content/<country>/`; `deploy.sh` loads `japan uzbekistan`.
+`content/previews.yaml` lists the countries with a picture and one line; `ready: true` makes a country a choice in the trip form (Japan, and Uzbekistan since T171), the rest show "coming soon". A country's modules live in `content/<country>/`; `deploy.sh` loads `japan uzbekistan`. Uzbekistan has seven modules since T282: food, words, places, safety (101/102/103), the bazaar, crafts, and a Street View hunt module (a lesson plus two `streetview` hunts: the Registan, Samarkand, and the Kalyan Mosque, Bukhara).
 PRD ref: `prd.md > Modules (Japan)`.
 
 ### Course builder

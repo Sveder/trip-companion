@@ -1,0 +1,193 @@
+id: streetview
+title: Street View hunt
+title_he: ציד ברחוב
+summary: Look around two real old squares in Samarkand and Bukhara, and find tigers, towers and blue domes.
+summary_he: מסתכלים מסביב בשתי כיכרות עתיקות אמיתיות בסמרקנד ובבוכרה, ומוצאים נמרים, מגדלים וכיפות כחולות.
+emoji: "🔎"
+audience: all
+order: 60
+ready: true
+activities:
+  # Feedback T282 (Michael, 2026-10-13): a Street View hunt lesson for Uzbekistan.
+  # Photos are from Wikimedia Commons (content/photo_credits.yaml). Facts checked 2026-10-13 against
+  # https://en.wikipedia.org/wiki/Registan and https://en.wikipedia.org/wiki/Po-i-Kalyan.
+  # Each hunt is a 360° photo on Google Maps; lat/lng pick the photo. The spot lists were checked against the
+  # photos on 2026-10-13 (trip-companion-tools/sv_probe.cjs, headings 0, 90, 180 and 270).
+  # Chorsu Bazaar was probed too: its 360° photo shows only a stairway, so it has no hunt.
+  - id: uz-street-lesson
+    title: Towers, domes and tigers
+    title_he: מגדלים, כיפות ונמרים
+    type: lesson
+    intro: Swipe through the pages. Learn what to look for, then go on the two hunts!
+    intro_he: עוברים דף אחרי דף. לומדים מה לחפש, ואז יוצאים לשני הצידים!
+    pictures:
+      - {id: registan, img: photo/uzbekistan/uz-registan.jpg, label: The Registan, label_he: הרגיסטאן}
+      - {id: minaret, img: photo/uzbekistan/uz-minaret.jpg, label: A minaret, label_he: צריח}
+      - {id: dome, img: photo/uzbekistan/uz-dome.jpg, label: A blue dome, label_he: כיפה כחולה}
+      - {id: tigers, img: photo/uzbekistan/uz-sherdor.jpg, label: The tiger gate, label_he: שער הנמרים}
+      - {id: stars, img: photo/uzbekistan/uz-ulughbeg.jpg, label: Star tiles, label_he: אריחי כוכבים}
+    pages:
+      - kind: text
+        title: The Registan, the sandy square
+        title_he: הרגיסטאן, הכיכר החולית
+        img: photo/uzbekistan/uz-registan.jpg
+        photo_credit: uz-registan
+        text: The Registan is a big square in the city of Samarkand. Three old schools stand around it. Each school has a giant gate and blue domes.
+        text_he: הרגיסטאן היא כיכר גדולה בעיר סמרקנד. מסביב לה עומדים שלושה בתי ספר עתיקים. לכל בית ספר יש שער ענק וכיפות כחולות.
+        tips:
+          - Registan means "sandy place".
+          - A school like this is called a madrasa. The oldest one here is about 600 years old.
+        tips_he:
+          - רגיסטאן פירושו "מקום של חול".
+          - בית ספר כזה נקרא מדרסה. הכי ישן כאן הוא בן בערך 600 שנה.
+        source: https://en.wikipedia.org/wiki/Registan
+      - kind: flip
+        title: Things to look for
+        title_he: דברים שמחפשים
+        text: Tap a card to turn it. You can find all four in the hunts!
+        text_he: געו בכרטיס כדי להפוך אותו. את כל הארבעה אפשר למצוא בצידים!
+        cards:
+          - img: photo/uzbekistan/uz-minaret.jpg
+            label: A minaret
+            label_he: צריח
+            text: A minaret is a very tall, thin tower. Long ago, people climbed up and called everyone to pray.
+            text_he: צריח הוא מגדל גבוה מאוד ודק. פעם, אנשים טיפסו למעלה וקראו לכולם להתפלל.
+          - img: photo/uzbekistan/uz-dome.jpg
+            label: A blue dome
+            label_he: כיפה כחולה
+            text: A dome is a round roof, like half a ball. Many domes here are covered in blue-green tiles.
+            text_he: כיפה היא גג עגול, כמו חצי כדור. הרבה כיפות כאן מכוסות באריחים כחולים-ירוקים.
+          - img: photo/uzbekistan/uz-sherdor.jpg
+            label: The tiger gate
+            label_he: שער הנמרים
+            text: Above one big gate, two tigers chase two white deer. A sun with a face shines on each tiger's back!
+            text_he: מעל שער גדול אחד, שני נמרים רודפים אחרי שני צבאים לבנים. שמש עם פנים זורחת על הגב של כל נמר!
+          - img: photo/uzbekistan/uz-ulughbeg.jpg
+            label: Star tiles
+            label_he: אריחי כוכבים
+            text: Tiny tiles fit together like a puzzle and make stars. Count the points on one star!
+            text_he: אריחים קטנטנים מתחברים כמו פאזל ויוצרים כוכבים. ספרו כמה קצוות יש לכוכב אחד!
+        source: https://en.wikipedia.org/wiki/Registan
+      - kind: text
+        title: The tall tower of Bukhara
+        title_he: המגדל הגבוה של בוכרה
+        img: photo/uzbekistan/uz-minaret.jpg
+        photo_credit: uz-minaret
+        text: In the city of Bukhara stands the Kalyan Minaret. It is made of bricks, and it is about 900 years old. It is as tall as a building with 15 floors!
+        text_he: בעיר בוכרה עומד הצריח של קאליאן. הוא בנוי מלבנים, והוא בן בערך 900 שנה. הוא גבוה כמו בניין עם 15 קומות!
+        tips:
+          - The bricks make stripes and zigzags all the way up. Can you see them?
+          - About 800 years ago, the warrior Genghis Khan broke the old mosque here. He left this tower standing.
+        tips_he:
+          - הלבנים יוצרות פסים וזיגזגים לאורך כל הדרך למעלה. אתם רואים אותם?
+          - לפני בערך 800 שנה, הלוחם ג'ינגיס חאן הרס את המסגד הישן כאן. את המגדל הזה הוא השאיר עומד.
+        source: https://en.wikipedia.org/wiki/Po-i-Kalyan
+      - kind: pick
+        title: Find it!
+        title_he: מוצאים!
+        text: Last game before the hunts! Tap the right picture.
+        text_he: משחק אחרון לפני הצידים! געו בתמונה הנכונה.
+        rounds:
+          - ask: "A very tall, thin tower. Where is the minaret?"
+            ask_he: "מגדל גבוה מאוד ודק. איפה הצריח?"
+            answer: minaret
+            choices: [dome, minaret, tigers, stars]
+          - ask: "A round roof, like half a ball. Where is the blue dome?"
+            ask_he: "גג עגול, כמו חצי כדור. איפה הכיפה הכחולה?"
+            answer: dome
+            choices: [stars, tigers, dome, minaret]
+          - ask: "Two tigers with a sun on their backs. Where is the tiger gate?"
+            ask_he: "שני נמרים עם שמש על הגב. איפה שער הנמרים?"
+            answer: tigers
+            choices: [tigers, minaret, stars, dome]
+          - ask: "Three old schools around a big square. Where is the Registan?"
+            ask_he: "שלושה בתי ספר עתיקים מסביב לכיכר גדולה. איפה הרגיסטאן?"
+            answer: registan
+            choices: [minaret, dome, registan, tigers]
+  - id: uz-hunt-registan
+    title: "Hunt: the tiger gate"
+    title_he: "ציד: שער הנמרים"
+    type: streetview
+    place: Registan Square, Samarkand
+    place_he: כיכר הרגיסטאן, סמרקנד
+    intro: You are standing in the middle of the Registan. Three old schools are all around you. Turn around and look up! Can you find these things?
+    intro_he: אתם עומדים באמצע הרגיסטאן. שלושה בתי ספר עתיקים מסביב לכם. תסתובבו ותסתכלו למעלה! אתם יכולים למצוא את הדברים האלה?
+    lat: 39.6548000
+    lng: 66.9757000
+    heading: 0
+    spots:
+      - emoji: "🐯"
+        name: The tigers of Sher-Dor
+        name_he: הנמרים של שיר-דור
+        text: Two tigers chasing deer, high above a gate
+        text_he: שני נמרים שרודפים אחרי צבאים, גבוה מעל שער
+        about: 'In old Persian, "sher" means tiger or lion, so Sher-Dor means "the one with tigers". Builders put the tiger tiles up almost 400 years ago. Each tiger carries a sun with a face on its back.'
+        about_he: בפרסית עתיקה "שיר" פירושו נמר או אריה, אז שיר-דור פירושו "זה עם הנמרים". הבנאים שמו את אריחי הנמרים לפני כמעט 400 שנה. כל נמר נושא על הגב שמש עם פנים.
+      - emoji: "🔵"
+        name: The turquoise dome
+        name_he: הכיפה הטורקיז
+        text: A big round roof, the color of the sea
+        text_he: גג עגול וגדול, בצבע של הים
+        about: 'This dome sits on Tilya-Kori, the "gilded" school. Inside there is a mosque, and its walls and ceiling shine with gold.'
+        about_he: הכיפה הזאת נמצאת על טילה-קורי, בית הספר "המוזהב". בפנים יש מסגד, והקירות והתקרה שלו נוצצים בזהב.
+      - emoji: "🍈"
+        name: A dome with stripes
+        name_he: כיפה עם פסים
+        text: A round roof with stripes, like a melon
+        text_he: גג עגול עם פסים, כמו מלון
+        about: 'Sher-Dor has two striped domes, one on each side of its gate. The lines are ribs that make the round roof strong.'
+        about_he: לשיר-דור יש שתי כיפות עם פסים, אחת בכל צד של השער. הקווים הם צלעות שעושות את הגג העגול חזק.
+      - emoji: "🗼"
+        name: A minaret
+        name_he: צריח
+        text: A tall round tower at the corner of a school
+        text_he: מגדל עגול וגבוה בפינה של בית ספר
+        about: 'Ulugh Beg, a king who loved the stars, built the oldest school here about 600 years ago. Tall minarets stand at its corners.'
+        about_he: אולוג בג, מלך שאהב את הכוכבים, בנה את בית הספר הכי ישן כאן לפני בערך 600 שנה. בפינות שלו עומדים צריחים גבוהים.
+      - emoji: "⭐"
+        name: Star tiles
+        name_he: אריחי כוכבים
+        text: Blue tiles that make big stars on a gate
+        text_he: אריחים כחולים שיוצרים כוכבים גדולים על שער
+        about: 'Tile makers cut little pieces of colored tile and fit them together like a puzzle. They made stars, flowers and writing.'
+        about_he: אומני האריחים חתכו חתיכות קטנות של אריחים צבעוניים והרכיבו אותן כמו פאזל. הם יצרו כוכבים, פרחים וכתב.
+  - id: uz-hunt-kalyan
+    title: "Hunt: the tall tower"
+    title_he: "ציד: המגדל הגבוה"
+    type: streetview
+    place: Kalyan Mosque, Bukhara
+    place_he: מסגד קאליאן, בוכרה
+    intro: You are in the big yard of a mosque in Bukhara. Thousands of people can pray here together. Look all around! Can you find these things?
+    intro_he: אתם בחצר הגדולה של מסגד בבוכרה. אלפי אנשים יכולים להתפלל כאן יחד. תסתכלו מסביב! אתם יכולים למצוא את הדברים האלה?
+    lat: 39.7760000
+    lng: 64.4143000
+    heading: 90
+    spots:
+      - emoji: "🗼"
+        name: The Kalyan Minaret
+        name_he: הצריח של קאליאן
+        text: A giant brick tower behind the wall
+        text_he: מגדל לבנים ענק מאחורי החומה
+        about: 'The Kalyan Minaret was finished in 1127, about 900 years ago. It is about 46 meters tall. Inside, a brick staircase goes round and round up to the top.'
+        about_he: הצריח של קאליאן נגמר ב-1127, לפני בערך 900 שנה. הגובה שלו בערך 46 מטר. בפנים, מדרגות לבנים מסתובבות סביב סביב עד למעלה.
+      - emoji: "🔵"
+        name: The blue dome
+        name_he: הכיפה הכחולה
+        text: A blue dome on top of the biggest gate
+        text_he: כיפה כחולה מעל השער הכי גדול
+        about: 'The dome is the roof of the main prayer room. The mosque you see was built about 500 years ago.'
+        about_he: הכיפה היא הגג של חדר התפילה הראשי. המסגד שאתם רואים נבנה לפני בערך 500 שנה.
+      - emoji: "🌳"
+        name: A tree with white socks
+        name_he: עץ עם גרביים לבנים
+        text: A big tree with a white trunk at the bottom
+        text_he: עץ גדול עם גזע לבן למטה
+        about: 'In Uzbekistan, people often paint the bottom of tree trunks white. The white paint helps keep insects and the hot sun off the bark.'
+        about_he: באוזבקיסטן הרבה פעמים צובעים את החלק התחתון של גזעי העצים בלבן. הצבע הלבן עוזר להרחיק חרקים ואת השמש החמה מהקליפה.
+      - emoji: "🌉"
+        name: A row of arches
+        name_he: שורה של קשתות
+        text: Many pointed arches, one after the other
+        text_he: הרבה קשתות מחודדות, אחת אחרי השנייה
+        about: 'A long row of arches goes all around the yard. In the shade behind them, people can rest out of the hot sun.'
+        about_he: שורה ארוכה של קשתות מקיפה את כל החצר. בצל שמאחוריהן אנשים יכולים לנוח מהשמש החמה.
