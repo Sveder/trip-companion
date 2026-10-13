@@ -16,7 +16,7 @@
   {% for t in things %}
   <article class="card there-thing{% if t.photos %} found{% endif %}" id="{{ t.key }}">
     <span class="card-emoji" aria-hidden="true">{{ t.emoji }}</span>
-    <h3>{{ t.title }}{% if t.photos %} <span class="there-tick" aria-label="{% translate 'Found' %}">✓</span>{% endif %}</h3>
+    <h2>{{ t.title }}{% if t.photos %} <span class="there-tick" aria-label="{% translate 'Found' %}">✓</span>{% endif %}</h2>
     <p class="hint">{{ t.hint }}</p>
     {% if t.photos %}
     <div class="there-photos">

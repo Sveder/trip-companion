@@ -61,7 +61,9 @@ body { margin: 0; background: var(--c-bg) radial-gradient(var(--c-dot) 2px, tran
 a { color: var(--c-primary); }
 h1 { font-size: 2rem; font-weight: 900; margin: .2em 0 .25em; letter-spacing: -.01em; }
 h2 { font-weight: 900; }
-h3 { margin: .3em 0; font-size: 1.25rem; }
+h3, .card > h2 { margin: .3em 0; font-size: 1.25rem; }
+/* T299: card titles under the page h1 are h2 (axe heading-order); they keep the h3 look. */
+.card > h2 { font-weight: 700; }
 /* padding-right keeps the nav clear of the fixed 130 px Sveder corner badge at every width. */
 .top { position: relative; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .3rem 1rem; padding: .5rem 140px .5rem 1.2rem; background: var(--c-surface); border-bottom: 6px solid var(--c-sun); }
 .brand { display: inline-flex; align-items: center; gap: .4rem; font-weight: 900; font-size: 1.25rem; text-decoration: none; color: var(--c-ink); }
@@ -189,7 +191,7 @@ legend { font-weight: 800; font-size: 1.15rem; }
   .cards .card:has(> .card-emoji) > .card-emoji { grid-row: 1 / span 6; align-self: start; width: 3.6rem; height: 3.6rem; font-size: 2.1rem; }
   .cards .card:has(> .card-emoji) > * { grid-column: 2; margin: 0; }
   .cards .card:has(> .card-emoji) > .card-emoji { grid-column: 1; }
-  .cards .card:has(> .card-emoji) h3 { font-size: 1.15rem; }
+  .cards .card:has(> .card-emoji) h3, .cards .card:has(> .card-emoji) > h2 { font-size: 1.15rem; }
   .cards .card:has(> .card-emoji) > .badge { justify-self: start; margin-top: .3rem; }
   .cards .card.word:has(> .card-emoji) .jp { font-size: 1.6rem; }
   .cards .card.word:has(> .card-emoji) .reading { font-size: 1.2rem; }
@@ -243,7 +245,7 @@ html.tv { font-size: 30px; }
 .tv .form input.tv-editing:focus { outline-color: var(--c-accent); background: #fff8d6; }
 .tv .card.open { position: fixed; top: 4vh; right: 6vw; bottom: 4vh; left: 6vw; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: none; opacity: 1; font-size: 1.5rem; }
 .tv .card.open .card-emoji.big { width: 14rem; height: 14rem; font-size: 9rem; }
-.tv .card.open h3 { font-size: 2.4rem; }
+.tv .card.open h3, .tv .card.open > h2 { font-size: 2.4rem; }
 .tv .card.open img { max-height: 55vh; width: auto; }
 .tv .shade { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 40; background: rgba(31, 35, 64, .6); }
 .tv video, .tv iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; }
@@ -338,7 +340,7 @@ span.choice.is-answer::before { content: "✓ "; color: var(--c-accent); }
 .cards.compact { grid-template-columns: repeat(auto-fit, minmax(240px, 255px)); gap: .6rem; }
 .cards.compact .card { display: grid; grid-template-columns: auto 1fr; column-gap: .8rem; align-items: center; padding: .6rem .9rem; }
 .cards.compact .card-emoji { grid-row: span 2; width: 2.6rem; height: 2.6rem; font-size: 1.5rem; }
-.cards.compact h3 { margin: 0; font-size: 1.05rem; }
+.cards.compact h3, .cards.compact > .card > h2 { margin: 0; font-size: 1.05rem; }
 .cards.compact .hint { margin: 0; font-size: .9rem; }
 /* T140: the date sits on its own line and never breaks in two; the card text starts at the top with no gap under a short title. */
 .hl-date { display: block; white-space: nowrap; }

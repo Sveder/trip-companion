@@ -16,7 +16,7 @@
           <label class="card country pick">
             <input type="radio" name="destination" value="{{ c.id }}" {% if form.destination.value == c.id or not form.destination.value and c.id == "japan" %}checked{% endif %}>
             <span class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</span>
-            <h3>{{ c.name }}</h3>
+            <h2>{{ c.name }}</h2>
             <p>{{ c.line }}</p>
             {% if c.wip %}{% include "includes/wip_badge.html" %}{% endif %}
             <span class="chosen-mark" aria-hidden="true">✓ {% translate "Chosen" %}</span>
@@ -24,7 +24,7 @@
           {% elif not c.href %}
           <div class="card country soon" aria-disabled="true">
             <span class="card-emoji" aria-hidden="true">{% if c.flag %}<img class="flag" src="{% static 'img/flags/'|add:c.flag %}" alt="">{% else %}{{ c.emoji }}{% endif %}</span>
-            <h3>{{ c.name }}</h3>
+            <h2>{{ c.name }}</h2>
             <p>{{ c.line }}</p>
             <span class="badge">{% translate "Coming soon" %}</span>
           </div>

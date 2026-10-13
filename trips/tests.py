@@ -19,6 +19,15 @@ class SetupPageTests(TestCase):
         self.user = get_user_model().objects.create_user("p@example.com", "p@example.com")
         self.client.force_login(self.user)
 
+    def test_headings_never_skip_a_level(self):
+        """T299 (axe heading-order): the page h1 is followed by h2 country names, never an h3."""
+        import re
+        html = self.client.get(reverse("trip_setup")).content.decode()
+        levels = [int(n) for n in re.findall(r"<h([1-6])[ >]", html)]
+        self.assertEqual(levels[0], 1)
+        for a, b in zip(levels, levels[1:]):
+            self.assertLessEqual(b, a + 1, levels)
+
     def test_two_groups_only(self):
         self.assertEqual([g[0] for g in GROUPS], ["kid", "grownup"])
 
