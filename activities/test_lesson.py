@@ -513,6 +513,17 @@ class SafetyLessonTests(TestCase):
         self.assertIn("audio/japan/koban.mp3", html)       # the spot word has a voice
         self.assertIn("audio/japan/jishin.mp3", html)      # the page word too
 
+    def test_michael_feedback_t278(self):
+        """'Catch the helper!' is gone; a match game pairs 110 with the police and 119 with the ambulance, and says cards, not plates."""
+        for lang in ("en", "he"):
+            html = self.page(lang)
+            self.assertNotIn("Catch the helper", html)
+            self.assertNotIn("lpage-train", html)
+            game = html.split('data-match>', 1)[1].split('data-match-again', 1)[0]
+            self.assertRegex(game, r'data-match-plate="police"[^>]*>\s*<span class="match-text">(Call 110|מתקשרים 110)<')
+            self.assertRegex(game, r'data-match-plate="ambulance"[^>]*>\s*<span class="match-text">(Call 119|מתקשרים 119)<')
+            self.assertNotIn("plate" if lang == "en" else "צלחת", re.sub(r'(data-match-plate|match-plates?|text-plate)', "", html.split("Who helps us" if lang == "en" else "מי עוזר לנו", 1)[1].split("data-match-again", 1)[0]))
+
     def test_hebrew(self):
         html = self.page("he")
         self.assertIn("בטוחים כמו ילדים ביפן", html)

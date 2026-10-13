@@ -326,11 +326,11 @@ activities:
         # T269: Michael said the catch game belongs only in the sushi lesson. This lesson gets a game that fits it.
         title: Who helps us?
         title_he: מי עוזר לנו?
-        text: Drag each plate to its picture. Or tap a plate, then tap the picture.
-        text_he: גררו כל צלחת אל התמונה שלה. או געו בצלחת, ואז געו בתמונה.
+        text: Drag each card to its picture. Or tap a card, then tap the picture.
+        text_he: גררו כל כרטיס אל התמונה שלו. או געו בכרטיס, ואז געו בתמונה.
         rounds:
-          - title: Put each plate on the helper
-            title_he: שימו כל צלחת ליד העוזר
+          - title: Put each card on the right helper
+            title_he: שימו כל כרטיס ליד העוזר הנכון
             targets:
               - {id: police, img: "photo/safety/sf-police.jpg", label: "Police", label_he: "משטרה"}
               - {id: ambulance, img: "photo/safety/sf-ambulance.jpg", label: "Ambulance", label_he: "אמבולנס"}
