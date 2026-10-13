@@ -652,6 +652,8 @@ class QuizMixTests(TestCase):
         PracticeItem.objects.filter(trip=self.trip).update(due_on=TODAY)
         modules = {p.key.split("/")[0] for p in due_items(self.trip, TODAY)}
         self.assertGreaterEqual(len(modules), 6, modules)  # 8 questions from at least 6 lessons, not 8 foods
+        keys = [p.key for p in due_items(self.trip, TODAY)]
+        self.assertTrue(any("/q-" in k for k in keys) and any("/q-" not in k for k in keys), keys)
 
     def test_missed_items_first_then_new_then_the_rest(self):
         self.finish_all(self.trip)

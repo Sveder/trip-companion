@@ -159,7 +159,14 @@ def due_items(trip, today, limit=QUIZ_SIZE):
         for p in items:
             if group(p) == g:
                 queues.setdefault(p.key.split("/", 1)[0], []).append(p)
-        lanes = list(queues.values())
+        # Inside one lesson, a game round and a spot or card take turns, so a quiz shows both kinds of question.
+        # Every second lesson starts with its game round, so the first questions are half of each kind.
+        lanes = []
+        for n, q in enumerate(queues.values()):
+            a, b = [x for x in q if "/q-" not in x.key], [x for x in q if "/q-" in x.key]
+            if n % 2:
+                a, b = b, a
+            lanes.append([x for k in range(max(len(a), len(b))) for x in (a[k:k + 1] + b[k:k + 1])])
         out += [lane[k] for k in range(max(map(len, lanes), default=0)) for lane in lanes if k < len(lane)]
         if len(out) >= limit:
             break
