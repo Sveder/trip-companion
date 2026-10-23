@@ -7,9 +7,9 @@ from django.utils.http import urlencode
 
 def admin_login(request, extra_context=None):
     next_url = request.GET.get("next") or reverse("admin:index")
-    if request.user.is_authenticated:
-        # Signed in but not staff: the admin is not for this account.
-        return redirect("home") if not request.user.is_staff else redirect(next_url)
+    if request.user.is_authenticated and request.user.is_staff:
+        return redirect(next_url)
+    # Not signed in, or a guest family (T144): the staff email-code sign-in.
     return redirect(f"{reverse('signin')}?{urlencode({'next': next_url})}")
 
 

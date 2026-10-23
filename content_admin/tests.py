@@ -111,7 +111,26 @@ class AdminEditTests(TestCase):
         self.assertRedirects(r, reverse("signin") + "?next=%2Fadmin%2F", fetch_redirect_response=False)
         self.client.force_login(self.family)
         self.assertEqual(self.client.get("/admin/").status_code, 302)
-        self.assertRedirects(self.client.get(reverse("admin:login")), reverse("home"), fetch_redirect_response=False)
+        # A guest family (every visitor is one, T144) goes to the staff sign-in, not home (Michael, 2026-10-23).
+        self.assertRedirects(self.client.get(reverse("admin:login") + "?next=/admin/"),
+                             reverse("signin") + "?next=%2Fadmin%2F", fetch_redirect_response=False)
+
+    def test_a_guest_browser_can_sign_in_as_staff(self):
+        import re
+
+        from django.core import mail
+        from django.core.cache import cache
+
+        cache.clear()
+        self.client.force_login(self.family)
+        self.assertEqual(self.client.get(reverse("signin") + "?next=/admin/").status_code, 200)
+        r = self.client.post(reverse("signin") + "?next=/admin/", {"email": "boss@example.com"})
+        self.assertEqual(r["Location"], reverse("account_confirm_login_code") + "?next=%2Fadmin%2F")
+        self.assertEqual(len(mail.outbox), 1)
+        code = re.search(r"\b(\d{6})\b", mail.outbox[0].body).group(1)
+        r = self.client.post(r["Location"], {"code": code})
+        self.assertEqual(r.status_code, 302, r.content[:1500])
+        self.assertEqual(self.client.get("/admin/").status_code, 200)
 
     def test_signin_passes_next_to_the_code_page(self):
         from django.core.cache import cache

@@ -5,7 +5,7 @@ limited per address and per IP address, so nobody can use it to flood an inbox.
 """
 from allauth.account.internal.flows.login_by_code import LoginCodeVerificationProcess
 from allauth.account.models import EmailAddress
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme, urlencode
@@ -27,7 +27,9 @@ def safe_next(request):
 
 def signin(request):
     next_url = safe_next(request)
-    if request.user.is_authenticated:
+    # A guest family is signed in too (T144), so only a staff account skips the form. A guest must be able
+    # to sign in as staff here, or the admin cannot be reached from a browser that has used the site.
+    if request.user.is_authenticated and request.user.is_staff:
         return redirect(next_url or "home")
     form = EmailForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
@@ -38,6 +40,9 @@ def signin(request):
         # An unknown address goes to the same code page, so the page does not tell who has an account.
         # ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False: no mail goes to it.
         user = user_for_email(email)
+        if request.user.is_authenticated:
+            # A guest family session: allauth keeps it signed in after the code, so end it first.
+            logout(request)
         LoginCodeVerificationProcess.initiate(request=request, user=user, email=email)
         url = reverse("account_confirm_login_code")
         return redirect(f"{url}?{urlencode({'next': next_url})}" if next_url else url)
