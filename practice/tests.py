@@ -523,6 +523,10 @@ class TextPageQuizTests(TestCase):
 
     # The item keys of every other Japan lesson, saved before T211. They must not change.
     JAPAN_KEYS = {
+        # T304: the people lessons have no words or flip cards; the quiz asks their photo pages (T211) and pick games.
+        "people/people-kondo": ["eel-on-rice", "mint-chocolate-ice-cream", "a-cup-of-tea", "the-takehisa-yumeji-museum"],
+        "people/people-beccat": ["pain-au-chocolat", "ohagi", "a-shop-of-old-books", "21_21-design-sight"],
+        "people/people-kato": ["chocolates", "rikugien-garden", "the-nezu-museum-garden", "the-shiseido-building-in-ginza"],
         "chopsticks/chopsticks-lesson": ["sushi", "never-stand-them-in-rice", "oshibori", "waribashi", "noodles", "never-pass-food-stick-to-stick", "renge", "mai-hashi", "a-grape", "do-not-point-with-them", "misoshiru", "peas"],
         "dos_donts/manners-lesson": ["genkan", "a-home", "torii", "slurp", "getabako", "a-temple-hall", "temizuya", "oshibori", "a-japanese-inn", "two-hands", "a-train-or-a-shop", "no-tips"],
         "food/sushi-lesson": ["neta", "nigiri", "maguro", "shari", "maki", "saamon", "nori", "gunkan", "ebi", "kappamaki", "temaki", "tamago"],

@@ -34,6 +34,8 @@
       {# T224: two fixed lines. Line 1 is the kana alone; line 2 is the reading, the Hebrew spelling (he) and the speaker. #}
       {% if page.japanese %}<p class="jp say-word hero-word" lang="ja" data-say="{{ page.japanese }}" data-say-src="{{ page.reading|word_audio }}" tabindex="0"><span class="say-kana">{{ page.japanese }}{% if page.reading|lower == page.japanese|lower %}{% if not bidi or not page.reading_hebrew %}<span class="say-mark" aria-hidden="true"></span>{% endif %}{% endif %}</span>{% if page.reading|lower != page.japanese|lower or bidi and page.reading_hebrew %}<span class="say-sub">{% if page.reading|lower != page.japanese|lower %}<span class="say-reading">{{ page.reading }}</span>{% if bidi and page.reading_hebrew %} · {% endif %}{% endif %}{% if bidi and page.reading_hebrew %}<span class="he-say" lang="he">{{ page.reading_hebrew }}</span>{% endif %}<span class="say-mark" aria-hidden="true"></span></span>{% endif %}</p>{% endif %}
       {% if page.text %}<p class="ltext">{{ page.text|say_quoted }}</p>{% endif %}
+      {# T304: a real person's own words, short and exact, from the source named at the foot of the page. #}
+      {% if page.quote %}<blockquote class="pquote"><p>“{{ page.quote }}”</p>{% if page.quote_by %}<footer>— {{ page.quote_by }}</footer>{% endif %}</blockquote>{% endif %}
       {% if page.tips %}<ul class="tips big-tips">{% for tip in page.tips %}<li>{{ tip|say_quoted }}</li>{% endfor %}</ul>{% endif %}
       {% if page.link %}<p><a class="btn alt" href="{% url 'go' item.id page.link.id %}" target="_blank" rel="noopener nofollow">{{ page.link.label }}</a></p>
       <p class="hint">{% translate "A grown-up buys it. The shop opens in a new tab." %}</p>{% endif %}
@@ -167,6 +169,8 @@
       </ul>
       {% endfor %}
     {% endif %}
+    {# T304: a page built from an interview names it and links to it. #}
+    {% if page.source_name and page.source %}<p class="psource">{% translate "From:" %} <a href="{{ page.source }}" target="_blank" rel="noopener nofollow">{{ page.source_name }}</a></p>{% endif %}
     {% if page.tool == "safety_card" %}<p class="lpage-tool"><a class="btn alt" href="{% url 'safety_card' %}{% if page.tool_country %}?country={{ page.tool_country }}{% endif %}">{% translate "Print a child safety card" %}</a></p>{% endif %}
   </section>
   {% endwith %}{% endfor %}

@@ -19,7 +19,7 @@ from courses.testutil import item_for
 
 CONTENT = Path(settings.BASE_DIR) / "content" / "japan"
 # Modules a child sees. Every text in them must have Hebrew.
-KIDS_MODULES = ("food", "words", "dos_donts", "safety", "chopsticks", "streetview")
+KIDS_MODULES = ("food", "words", "dos_donts", "safety", "chopsticks", "streetview", "people")
 TEXT_KEYS = ("title", "summary", "intro", "text", "name", "about", "place", "meaning", "question", "label", "tips", "fallback")
 
 

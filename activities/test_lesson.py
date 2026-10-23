@@ -268,7 +268,11 @@ class EveryLessonIsWellFormed(TestCase):
         for act in lessons:
             data, name = act.data, act.slug
             pages = data["pages"]
-            self.assertTrue(10 <= len(pages) <= 20, (name, len(pages)))
+            # T304 (Michael, 2026-10-23): a people lesson is a SHORT lesson: who the person is, 4-6 places, a game.
+            if act.module.slug == "people":
+                self.assertTrue(6 <= len(pages) <= 9, (name, len(pages)))
+            else:
+                self.assertTrue(10 <= len(pages) <= 20, (name, len(pages)))
             kinds = [p["kind"] for p in pages]
             self.assertTrue(set(kinds) <= set(KINDS), name)
             # T269 (Michael): the catch game is the sushi train, so it lives in the sushi lesson only.

@@ -1472,3 +1472,7 @@ msgstr "מבקשים בדלפק של המלון לכתוב אותה גם באו�
 #: templates/safety_card.html
 msgid "The card writes each one in English and in Uzbek."
 msgstr "הכרטיס כותב כל אחת באנגלית ובאוזבקית."
+
+#: templates/activities/lesson.html
+msgid "From:"
+msgstr "מקור:"

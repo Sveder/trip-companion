@@ -483,6 +483,11 @@ a.course-item:focus { outline: none; border-color: var(--c-accent); }
 .lesson .lpic { display: block; width: 100%; max-width: 420px; height: auto; margin: .3rem auto; }
 .lesson .lemoji { font-size: 5rem; line-height: 1.1; }
 .lesson .ltext { font-size: 1.2rem; max-width: 36em; margin: .4rem auto; }
+/* T304: a real person's words on a people lesson, and the interview the page comes from. */
+.lesson .pquote { max-width: 32em; margin: .6rem auto; padding: .6rem 1rem; border-inline-start: 5px solid var(--c-sun); background: var(--c-tint-3); color: var(--c-ink); border-radius: 10px; font-size: 1.15rem; font-style: italic; }
+.lesson .pquote p { margin: 0; }
+.lesson .pquote footer { margin-top: .3rem; font-size: .95rem; font-style: normal; font-weight: 700; }
+.lesson .psource { max-width: 36em; margin: .5rem auto 0; font-size: .9rem; overflow-wrap: anywhere; }
 .lesson .say-word { cursor: pointer; }
 /* T158: the picture of a word page is a button that says the word; a Japanese word inside a sentence talks too. */
 .lesson .lpic-say { display: block; width: 100%; max-width: 420px; margin: .3rem auto; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 12px; }

@@ -1,0 +1,434 @@
+id: people
+title: People of Japan
+title_he: אנשים מיפן
+summary: Meet real people from Tokyo and visit their favourite places.
+summary_he: פוגשים אנשים אמיתיים מטוקיו ומבקרים במקומות האהובים עליהם.
+emoji: "🗺️"
+audience: all
+order: 65
+ready: true
+# T304 (Michael, 2026-10-23): human-made content. Each lesson is one real person and the places they named in a
+# public interview. Rules: every spot and every quote comes from the named source on the page (source_name + source);
+# quotes are short and exact (checked against the article text on 2026-10-23); the rest is in our own words.
+# All three sources are the MICHELIN Guide "My Tokyo" series by Wakana Kubo. Only kid-friendly picks are used:
+# the bars, the hotels and the fine-dining rooms in the same articles are left out on purpose.
+# "where" lines: from the source article, the MICHELIN restaurant page (Nodaiwa: 1-5-4 Higashiazabu) and
+# rurubu.jp (Erb: 4 minutes from Meguro Station). The Uf-fu article gives no address, so the page says so.
+activities:
+  - id: people-kondo
+    title: Marie Kondo's favourite places in Tokyo
+    title_he: המקומות האהובים של מארי קונדו בטוקיו
+    type: lesson
+    intro: Meet a real person from Tokyo. Swipe through the places she loves, then play the game!
+    intro_he: פוגשים אדם אמיתי מטוקיו. עוברים בין המקומות שהיא אוהבת, ואז משחקים!
+    pictures:
+      - id: eel
+        img: "photo/people/pp-eel.jpg"
+        label: "Eel on rice"
+        label_he: "צלופח על אורז"
+      - id: mint
+        img: "photo/people/pp-mint.jpg"
+        label: "Mint chocolate ice cream"
+        label_he: "גלידת מנטה שוקולד"
+      - id: tea
+        img: "photo/people/pp-tea.jpg"
+        label: "A cup of tea"
+        label_he: "כוס תה"
+      - id: yumeji
+        img: "photo/people/pp-yumeji.jpg"
+        label: "The Takehisa Yumeji Museum"
+        label_he: "המוזיאון של טאקהיסה יומג'י"
+    pages:
+      - kind: text
+        title: Meet Marie Kondo
+        title_he: הכירו את מארי קונדו
+        img: photo/people/pp-kondo.jpg
+        photo_credit: pp-kondo
+        text: Marie Kondo was born in Tokyo. She writes books about tidying up. She asks one question about every thing you own. Now she lives in America, but she still loves Tokyo. Here are her favourite places.
+        text_he: מארי קונדו נולדה בטוקיו. היא כותבת ספרים על סידור הבית. על כל דבר שיש לכם היא שואלת שאלה אחת. היום היא גרה באמריקה, אבל היא עדיין אוהבת את טוקיו. הנה המקומות האהובים עליה.
+        quote: "Does it spark joy?"
+        quote_he: "האם זה מעורר שמחה?"
+        quote_by: Marie Kondo
+        quote_by_he: מארי קונדו
+        tips:
+          - Her question means "Does it make you happy?".
+          - Ask it about one toy in your room!
+        tips_he:
+          - השאלה שלה אומרת "האם זה משמח אותך?".
+          - שאלו אותה על צעצוע אחד בחדר שלכם!
+        source_name: "MICHELIN Guide: Tokyo with Marie Kondo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my_tokyo_konmari
+      - kind: text
+        title: Eel for lunch
+        title_he: צלופח לארוחת צהריים
+        img: photo/people/pp-eel.jpg
+        photo_credit: pp-eel
+        text: When Marie is tired, she eats eel for lunch. An eel is a long fish. The cook grills it with a sweet, dark sauce and puts it on rice. Her eel place is Nodaiwa. One family has cooked there for five generations.
+        text_he: כשמארי עייפה, היא אוכלת צלופח בצהריים. צלופח הוא דג ארוך. הטבח צולה אותו עם רוטב מתוק וכהה ושם אותו על אורז. מקום הצלופח שלה הוא נודאיווה. משפחה אחת מבשלת שם כבר חמישה דורות.
+        quote: "The plump, flavorful eel reenergizes me and gets me ready to take on my afternoon schedule."
+        quote_he: "הצלופח השמנמן והטעים ממלא אותי אנרגיה ומכין אותי לשאר היום."
+        quote_by: Marie Kondo
+        quote_by_he: מארי קונדו
+        tips:
+          - "Where: Nodaiwa, in Higashi-Azabu, Minato, Tokyo."
+          - In Japanese, eel is "unagi".
+        tips_he:
+          - "איפה: נודאיווה, בשכונת היגאשי-אזבו, מינאטו, טוקיו."
+          - ביפנית צלופח הוא "אונאגי".
+        source_name: "MICHELIN Guide: Tokyo with Marie Kondo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my_tokyo_konmari
+      - kind: text
+        title: Herb ice cream
+        title_he: גלידת צמחים
+        img: photo/people/pp-mint.jpg
+        photo_credit: pp-mint
+        text: Erb is a small ice cream stand. The ice cream is made with fresh herbs, spices and fruit. Marie has a favourite taste. Can you guess it from the green colour?
+        text_he: ארב הוא דוכן גלידה קטן. מכינים שם גלידה מעשבי תיבול טריים, תבלינים ופירות. למארי יש טעם אהוב. אפשר לנחש אותו לפי הצבע הירוק?
+        quote: "I especially like the fresh mint chocolate."
+        quote_he: "אני הכי אוהבת את מנטה שוקולד טרייה."
+        quote_by: Marie Kondo
+        quote_by_he: מארי קונדו
+        tips:
+          - "Where: Erb, about four minutes on foot from Meguro Station, Tokyo."
+          - Which ice cream would you pick?
+        tips_he:
+          - "איפה: ארב, בערך ארבע דקות הליכה מתחנת מגורו, טוקיו."
+          - איזו גלידה אתם הייתם בוחרים?
+        source_name: "MICHELIN Guide: Tokyo with Marie Kondo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my_tokyo_konmari
+      - kind: text
+        title: A tea shop
+        title_he: חנות תה
+        img: photo/people/pp-tea.jpg
+        photo_credit: pp-tea
+        text: Uf-fu is one of Marie's favourite tea shops. The owners travel to tea farms all over the world. They taste the tea leaves and bring the best ones back to Tokyo. In the shop, they tell you about each tea.
+        text_he: אוּפוּ היא אחת מחנויות התה האהובות על מארי. הבעלים נוסעים לחוות תה בכל העולם. הם טועמים את עלי התה ומביאים את הטובים ביותר לטוקיו. בחנות מספרים לכם על כל תה.
+        quote: "The owners visit tea farms around the world to taste test and purchase tea leaves."
+        quote_he: "הבעלים מבקרים בחוות תה בכל העולם כדי לטעום ולקנות עלי תה."
+        quote_by: Marie Kondo
+        quote_by_he: מארי קונדו
+        tips:
+          - "Where: the article gives no address. A grown-up can look up \"Uf-fu Tokyo\"."
+          - Tea leaves grow on a bush. Have you seen one?
+        tips_he:
+          - "איפה: בכתבה אין כתובת. מבוגר יכול לחפש \"Uf-fu Tokyo\"."
+          - עלי תה גדלים על שיח. ראיתם פעם שיח כזה?
+        source_name: "MICHELIN Guide: Tokyo with Marie Kondo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my_tokyo_konmari
+      - kind: text
+        title: A museum of cute pictures
+        title_he: מוזיאון של ציורים חמודים
+        img: photo/people/pp-yumeji.jpg
+        photo_credit: pp-yumeji
+        text: Takehisa Yumeji was a painter about 100 years ago. He painted soft, pretty pictures, and he made designs for things like paper and cloth. Marie goes to his museum for art.
+        text_he: טאקהיסה יומג'י היה צייר לפני בערך 100 שנה. הוא צייר ציורים רכים ויפים, ועיצב דברים כמו נייר ובד. מארי הולכת למוזיאון שלו בשביל אמנות.
+        quote: "The museum is full of examples of Japan's charming \"kawaii\" culture."
+        quote_he: "המוזיאון מלא בדוגמאות לתרבות ה\"קוואיי\" המקסימה של יפן."
+        quote_by: Marie Kondo
+        quote_by_he: מארי קונדו
+        tips:
+          - "Where: the Takehisa Yumeji Museum, in Yayoi, Bunkyo, Tokyo, near the University of Tokyo."
+          - "\"Kawaii\" means \"cute\"."
+        tips_he:
+          - "איפה: המוזיאון של טאקהיסה יומג'י, בשכונת יאיוי, בונקיו, טוקיו, ליד אוניברסיטת טוקיו."
+          - "\"קוואיי\" אומר \"חמוד\"."
+        source_name: "MICHELIN Guide: Tokyo with Marie Kondo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my_tokyo_konmari
+      - kind: pick
+        title: Marie's places game
+        title_he: משחק המקומות של מארי
+        text: Tap the right picture.
+        text_he: געו בתמונה הנכונה.
+        rounds:
+          - ask: "What does Marie eat for lunch when she is tired?"
+            ask_he: "מה מארי אוכלת בצהריים כשהיא עייפה?"
+            answer: eel
+            choices: [mint, eel, tea, yumeji]
+          - ask: "Which ice cream does Marie like best?"
+            ask_he: "איזו גלידה מארי הכי אוהבת?"
+            answer: mint
+            choices: [eel, tea, mint, yumeji]
+          - ask: "Where does Marie go to see art?"
+            ask_he: "לאן מארי הולכת לראות אמנות?"
+            answer: yumeji
+            choices: [yumeji, mint, eel, tea]
+          - ask: "What does Marie buy at Uf-fu?"
+            ask_he: "מה מארי קונה באוּפוּ?"
+            answer: tea
+            choices: [eel, yumeji, mint, tea]
+
+  - id: people-beccat
+    title: Chef Lionel Beccat's favourite places in Tokyo
+    title_he: המקומות האהובים של השף ליונל בקה בטוקיו
+    type: lesson
+    intro: Meet a real chef in Tokyo. Swipe through the places he loves, then play the game!
+    intro_he: פוגשים שף אמיתי בטוקיו. עוברים בין המקומות שהוא אוהב, ואז משחקים!
+    pictures:
+      - id: bread
+        img: "photo/people/pp-bread.jpg"
+        label: "Pain au chocolat"
+        label_he: "מאפה שוקולד"
+      - id: ohagi
+        img: "photo/people/pp-ohagi.jpg"
+        label: "Ohagi"
+        label_he: "אוהאגי"
+      - id: books
+        img: "photo/people/pp-jimbocho.jpg"
+        label: "A shop of old books"
+        label_he: "חנות של ספרים ישנים"
+      - id: design
+        img: "photo/people/pp-design.jpg"
+        label: "21_21 Design Sight"
+        label_he: "21_21 דיזיין סייט"
+    pages:
+      - kind: text
+        title: Meet Lionel Beccat
+        title_he: הכירו את ליונל בקה
+        img: photo/people/pp-ginza.jpg
+        photo_credit: pp-ginza
+        text: Lionel Beccat is a chef. He grew up in Marseille, a city in France. He moved to Japan in 2006. Now he cooks French food at his restaurant, ESqUISSE, in Ginza, Tokyo. This is a street in Ginza.
+        text_he: ליונל בקה הוא שף. הוא גדל במרסיי, עיר בצרפת. הוא עבר ליפן ב-2006. היום הוא מבשל אוכל צרפתי במסעדה שלו, אסקיס, בגינזה שבטוקיו. זה רחוב בגינזה.
+        tips:
+          - A chef is the head cook of a restaurant.
+          - Lionel came from far away. Find France and Japan on a map!
+        tips_he:
+          - שף הוא הטבח הראשי של מסעדה.
+          - ליונל הגיע מרחוק. מצאו את צרפת ואת יפן במפה!
+        source_name: "MICHELIN Guide: Lionel Beccat shares his favourite parts of Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-lionel-beccat
+      - kind: text
+        title: His son's breakfast
+        title_he: ארוחת הבוקר של הבן שלו
+        img: photo/people/pp-bread.jpg
+        photo_credit: pp-bread
+        text: Comme'N Tokyo is Lionel's favourite bakery. He buys bread there for his family. His son eats a pain au chocolat from this bakery for breakfast. It is soft bread with chocolate inside. The bakery also sells Japanese breads, like melon pan.
+        text_he: קומן טוקיו היא המאפייה האהובה על ליונל. הוא קונה שם לחם למשפחה. הבן שלו אוכל לארוחת בוקר מאפה שוקולד מהמאפייה הזאת. זה לחם רך עם שוקולד בפנים. המאפייה מוכרת גם לחמים יפניים, כמו מלון פאן.
+        quote: "The pain au chocolat here is my son's standard breakfast."
+        quote_he: "מאפה השוקולד מכאן הוא ארוחת הבוקר הקבועה של הבן שלי."
+        quote_by: Lionel Beccat
+        quote_by_he: ליונל בקה
+        tips:
+          - "Where: Comme'N Tokyo, next to Kuhonbutsu Station, Setagaya, Tokyo."
+          - What do you eat for breakfast?
+        tips_he:
+          - "איפה: קומן טוקיו, ליד תחנת קוהונבוצו, סטגאיה, טוקיו."
+          - מה אתם אוכלים לארוחת בוקר?
+        source_name: "MICHELIN Guide: Lionel Beccat shares his favourite parts of Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-lionel-beccat
+      - kind: text
+        title: Ohagi, a Japanese sweet
+        title_he: אוהאגי, ממתק יפני
+        img: photo/people/pp-ohagi.jpg
+        photo_credit: pp-ohagi
+        text: Ohagi is a ball of sticky rice with sweet red bean paste around it. The shop Takeno to Ohagi makes very pretty ohagi. Some of them change with the seasons. Lionel likes to give them as a small gift.
+        text_he: אוהאגי הוא כדור של אורז דביק, ומסביבו משחה מתוקה של שעועית אדומה. החנות טאקנו טו אוהאגי מכינה אוהאגי יפים מאוד. חלק מהם משתנים לפי עונות השנה. ליונל אוהב לתת אותם כמתנה קטנה.
+        quote: "These ohagi are really special."
+        quote_he: "האוהאגי האלה מיוחדים באמת."
+        quote_by: Lionel Beccat
+        quote_by_he: ליונל בקה
+        tips:
+          - "Where: Takeno to Ohagi, a short walk from Sakura-Shinmachi Station, Setagaya, Tokyo."
+          - At Sakura-Shinmachi Station you can see statues of Sazae-san, a famous Japanese cartoon family.
+        tips_he:
+          - "איפה: טאקנו טו אוהאגי, הליכה קצרה מתחנת סאקורה-שינמאצ'י, סטגאיה, טוקיו."
+          - בתחנת סאקורה-שינמאצ'י יש פסלים של סאזאה-סאן, משפחה מצוירת מפורסמת ביפן.
+        source_name: "MICHELIN Guide: Lionel Beccat shares his favourite parts of Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-lionel-beccat
+      - kind: text
+        title: A town of old books
+        title_he: עיר של ספרים ישנים
+        img: photo/people/pp-jimbocho.jpg
+        photo_credit: pp-jimbocho
+        text: Jimbocho is a part of Tokyo with very many shops of old books. Some books there are older than your grandparents! There are shops with old records and films, too. Lionel loves to walk there.
+        text_he: ג'ימבוצ'ו הוא חלק של טוקיו עם הרבה מאוד חנויות של ספרים ישנים. יש שם ספרים מבוגרים מסבא וסבתא שלכם! יש גם חנויות של תקליטים וסרטים ישנים. ליונל אוהב לטייל שם.
+        quote: "I love books. This town treats old books printed decades ago with the greatest of care."
+        quote_he: "אני אוהב ספרים. העיר הזאת שומרת בזהירות רבה על ספרים ישנים שהודפסו לפני עשרות שנים."
+        quote_by: Lionel Beccat
+        quote_by_he: ליונל בקה
+        tips:
+          - "Where: Kanda Jimbocho, Chiyoda, Tokyo."
+          - What is the oldest book in your home?
+        tips_he:
+          - "איפה: קאנדה ג'ימבוצ'ו, צ'יודה, טוקיו."
+          - מה הספר הכי ישן אצלכם בבית?
+        source_name: "MICHELIN Guide: Lionel Beccat shares his favourite parts of Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-lionel-beccat
+      - kind: text
+        title: A museum of design
+        title_he: מוזיאון של עיצוב
+        img: photo/people/pp-design.jpg
+        photo_credit: pp-design
+        text: 21_21 Design Sight is a museum about design. Design is how people make things look good and work well. The designer Issey Miyake started it. Lionel says some things there are strange, like a dream.
+        text_he: 21_21 דיזיין סייט הוא מוזיאון של עיצוב. עיצוב זה איך שאנשים גורמים לדברים להיראות טוב ולעבוד טוב. המעצב איסיי מיאקה הקים אותו. ליונל אומר שחלק מהדברים שם מוזרים, כמו חלום.
+        quote: "Some elements can even be strange or fantastical."
+        quote_he: "חלק מהדברים יכולים להיות אפילו מוזרים או דמיוניים."
+        quote_by: Lionel Beccat
+        quote_by_he: ליונל בקה
+        tips:
+          - "Where: 21_21 Design Sight, in Tokyo Midtown, Roppongi, Minato, Tokyo."
+          - Look at the roof in the picture. It looks like one big folded sheet!
+        tips_he:
+          - "איפה: 21_21 דיזיין סייט, בטוקיו מידטאון, רופונגי, מינאטו, טוקיו."
+          - הסתכלו על הגג בתמונה. הוא נראה כמו דף גדול אחד מקופל!
+        source_name: "MICHELIN Guide: Lionel Beccat shares his favourite parts of Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-lionel-beccat
+      - kind: pick
+        title: Lionel's places game
+        title_he: משחק המקומות של ליונל
+        text: Tap the right picture.
+        text_he: געו בתמונה הנכונה.
+        rounds:
+          - ask: "What does Lionel's son eat for breakfast?"
+            ask_he: "מה הבן של ליונל אוכל לארוחת בוקר?"
+            answer: bread
+            choices: [ohagi, bread, books, design]
+          - ask: "Which one is ohagi, a sweet of rice and red beans?"
+            ask_he: "איזה מהם אוהאגי, ממתק של אורז ושעועית אדומה?"
+            answer: ohagi
+            choices: [bread, design, ohagi, books]
+          - ask: "Where does Lionel find old books?"
+            ask_he: "איפה ליונל מוצא ספרים ישנים?"
+            answer: books
+            choices: [books, ohagi, design, bread]
+          - ask: "Which one is a museum of design?"
+            ask_he: "איזה מהם מוזיאון של עיצוב?"
+            answer: design
+            choices: [bread, books, ohagi, design]
+
+  - id: people-kato
+    title: Pastry chef Mineko Kato's favourite places in Tokyo
+    title_he: המקומות האהובים של הקונדיטורית מינקו קאטו בטוקיו
+    type: lesson
+    intro: Meet a real cook of sweets in Tokyo. Swipe through the places she loves, then play the game!
+    intro_he: פוגשים קונדיטורית אמיתית בטוקיו. עוברים בין המקומות שהיא אוהבת, ואז משחקים!
+    pictures:
+      - id: chocolate
+        img: "photo/people/pp-chocolate.jpg"
+        label: "Chocolates"
+        label_he: "פרלינים של שוקולד"
+      - id: rikugien
+        img: "photo/people/pp-rikugien.jpg"
+        label: "Rikugien Garden"
+        label_he: "גן ריקוגיאן"
+      - id: nezu
+        img: "photo/people/pp-nezu.jpg"
+        label: "The Nezu Museum garden"
+        label_he: "הגן של מוזיאון נזו"
+      - id: shiseido
+        img: "photo/people/pp-shiseido.jpg"
+        label: "The Shiseido building in Ginza"
+        label_he: "בניין שיסיידו בגינזה"
+    pages:
+      - kind: text
+        title: Meet Mineko Kato
+        title_he: הכירו את מינקו קאטו
+        img: photo/people/pp-satoyama.jpg
+        photo_credit: pp-satoyama
+        text: Mineko Kato is a pastry chef. That is a cook who makes sweets and cakes. As a child she lived in other countries. She learned to make sweets in Italy. Now she works at the restaurant FARO in Ginza, Tokyo.
+        text_he: מינקו קאטו היא קונדיטורית. זו טבחית שמכינה ממתקים ועוגות. כשהייתה ילדה היא גרה בארצות אחרות. היא למדה להכין ממתקים באיטליה. היום היא עובדת במסעדה פארו בגינזה שבטוקיו.
+        tips:
+          - Her most famous sweet is a tart with flowers on top.
+          - The flowers come from the Japanese countryside, where fields and forests meet the villages, like in this picture.
+        tips_he:
+          - הממתק הכי מפורסם שלה הוא טארט עם פרחים מעליו.
+          - הפרחים באים מהכפר ביפן, איפה שהשדות והיערות נפגשים עם הכפרים, כמו בתמונה.
+        source_name: "MICHELIN Guide: FARO pastry chef Mineko Kato's Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-kato-mineko-faro-en
+      - kind: text
+        title: A chocolate shop
+        title_he: חנות שוקולד
+        img: photo/people/pp-chocolate.jpg
+        photo_credit: pp-chocolate
+        text: PRESQUILE is a chocolate shop. Its chocolate maker, Tomohiro Onuki, makes every chocolate with care. He makes cakes, too. Mineko eats one of his chocolates at the end of a long day or a long week.
+        text_he: פרסקיל היא חנות שוקולד. מכין השוקולד שלה, טומוהירו אונוקי, מכין כל שוקולד בזהירות. הוא מכין גם עוגות. מינקו אוכלת אחד מהשוקולדים שלו בסוף יום ארוך או שבוע ארוך.
+        quote: "With each bite, I feel my inner happiness growing."
+        quote_he: "בכל ביס אני מרגישה שהשמחה שלי גדלה."
+        quote_by: Mineko Kato
+        quote_by_he: מינקו קאטו
+        tips:
+          - "Where: PRESQUILE Chocolaterie, in Kichijoji, Musashino, west Tokyo."
+          - Which sweet makes you happy at the end of the day?
+        tips_he:
+          - "איפה: פרסקיל שוקולטרי, בקיצ'יג'וג'י, מוסאשינו, במערב טוקיו."
+          - איזה ממתק משמח אתכם בסוף היום?
+        source_name: "MICHELIN Guide: FARO pastry chef Mineko Kato's Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-kato-mineko-faro-en
+      - kind: text
+        title: A garden with hills
+        title_he: גן עם גבעות
+        img: photo/people/pp-rikugien.jpg
+        photo_credit: pp-rikugien
+        text: Rikugien is a big Japanese garden. People made it more than 300 years ago. A path goes all the way around a pond. There are small hills and a tea house with tea and sweets. Mineko goes there to read a book.
+        text_he: ריקוגיאן הוא גן יפני גדול. אנשים בנו אותו לפני יותר מ-300 שנה. שביל מקיף בריכה שלמה. יש שם גבעות קטנות ובית תה עם תה וממתקים. מינקו הולכת לשם לקרוא ספר.
+        quote: "This is a place where you can enjoy a beautiful Japanese garden without even leaving Tokyo."
+        quote_he: "זה מקום שבו אפשר ליהנות מגן יפני יפה בלי לצאת מטוקיו."
+        quote_by: Mineko Kato
+        quote_by_he: מינקו קאטו
+        tips:
+          - "Where: Rikugien Garden, near Komagome Station, Bunkyo, Tokyo."
+          - Walk all around the pond. How many bridges can you count?
+        tips_he:
+          - "איפה: גן ריקוגיאן, ליד תחנת קומאגומה, בונקיו, טוקיו."
+          - הקיפו את כל הבריכה. כמה גשרים אתם סופרים?
+        source_name: "MICHELIN Guide: FARO pastry chef Mineko Kato's Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-kato-mineko-faro-en
+      - kind: text
+        title: A museum in a garden
+        title_he: מוזיאון בתוך גן
+        img: photo/people/pp-nezu.jpg
+        photo_credit: pp-nezu
+        text: The Nezu Museum is an art museum with a garden all around it. Its most famous art is "Irises", purple flowers painted on folding screens. The museum shows them for only one month each year. Mineko likes to stay there for hours.
+        text_he: מוזיאון נזו הוא מוזיאון לאמנות שיש סביבו גן. האמנות הכי מפורסמת שלו היא "אירוסים", פרחים סגולים שצוירו על פרגודים מתקפלים. המוזיאון מציג אותם רק חודש אחד בכל שנה. מינקו אוהבת להישאר שם שעות.
+        quote: "This is the perfect place to spend a day off."
+        quote_he: "זה המקום המושלם ליום חופש."
+        quote_by: Mineko Kato
+        quote_by_he: מינקו קאטו
+        tips:
+          - "Where: the Nezu Museum, in Minami-Aoyama, Minato, Tokyo."
+          - Look for the little house on the water in the picture.
+        tips_he:
+          - "איפה: מוזיאון נזו, במינאמי-אאויאמה, מינאטו, טוקיו."
+          - חפשו בתמונה את הבית הקטן על המים.
+        source_name: "MICHELIN Guide: FARO pastry chef Mineko Kato's Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-kato-mineko-faro-en
+      - kind: text
+        title: The oldest art gallery
+        title_he: הגלריה הכי ותיקה
+        img: photo/people/pp-shiseido.jpg
+        photo_credit: pp-shiseido
+        text: The Shiseido Gallery opened in 1919. It is the oldest art gallery in Japan that is still open. It shows art by young artists. It is under this red building in Ginza, the same building as Mineko's restaurant.
+        text_he: גלריית שיסיידו נפתחה ב-1919. זו הגלריה הכי ותיקה ביפן שעדיין פתוחה. מציגים בה אמנות של אמנים צעירים. היא נמצאת מתחת לבניין האדום הזה בגינזה, באותו בניין של המסעדה של מינקו.
+        quote: "This gallery displays artworks from young artists who have promising futures."
+        quote_he: "הגלריה הזאת מציגה יצירות של אמנים צעירים שיש להם עתיד מבטיח."
+        quote_by: Mineko Kato
+        quote_by_he: מינקו קאטו
+        tips:
+          - "Where: Shiseido Gallery, under the Tokyo Ginza Shiseido Building, Ginza, Chuo, Tokyo."
+          - If you could show one of your drawings in a gallery, which one would it be?
+        tips_he:
+          - "איפה: גלריית שיסיידו, מתחת לבניין שיסיידו בגינזה, צ'ואו, טוקיו."
+          - אם הייתם מציגים ציור אחד שלכם בגלריה, איזה ציור זה היה?
+        source_name: "MICHELIN Guide: FARO pastry chef Mineko Kato's Tokyo (2024)"
+        source: https://guide.michelin.com/vn/en/article/travel/my-tokyo-kato-mineko-faro-en
+      - kind: pick
+        title: Mineko's places game
+        title_he: משחק המקומות של מינקו
+        text: Tap the right picture.
+        text_he: געו בתמונה הנכונה.
+        rounds:
+          - ask: "What does Mineko eat at the end of a long day?"
+            ask_he: "מה מינקו אוכלת בסוף יום ארוך?"
+            answer: chocolate
+            choices: [nezu, chocolate, shiseido, rikugien]
+          - ask: "Which garden has a path around a pond and small hills?"
+            ask_he: "באיזה גן יש שביל סביב בריכה וגבעות קטנות?"
+            answer: rikugien
+            choices: [shiseido, rikugien, chocolate, nezu]
+          - ask: "Which museum has a garden with a little house on the water?"
+            ask_he: "לאיזה מוזיאון יש גן עם בית קטן על המים?"
+            answer: nezu
+            choices: [nezu, shiseido, rikugien, chocolate]
+          - ask: "Where is the oldest art gallery in Japan?"
+            ask_he: "איפה נמצאת הגלריה הכי ותיקה ביפן?"
+            answer: shiseido
+            choices: [chocolate, nezu, shiseido, rikugien]
