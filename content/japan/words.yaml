@@ -9,8 +9,8 @@ order: 20
 ready: true
 activities:
   - id: words-lesson
-    title: Talk like a kid in Japan
-    title_he: מדברים כמו ילדים ביפן
+    title: Talk in Japan
+    title_he: מדברים ביפן
     type: lesson
     intro: Swipe through the pages. Say each word out loud!
     intro_he: עוברים דף אחרי דף. אומרים כל מילה בקול!

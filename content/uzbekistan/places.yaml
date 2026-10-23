@@ -10,8 +10,8 @@ ready: true
 activities:
   # Feedback T171. Facts checked 2026-10-11.
   - id: uz-places-lesson
-    title: Polite like a kid in Uzbekistan
-    title_he: מנומסים כמו ילדים באוזבקיסטן
+    title: Polite in Uzbekistan
+    title_he: מנומסים באוזבקיסטן
     type: lesson
     intro: Swipe through the pages. Look, tap and learn!
     intro_he: עוברים דף אחרי דף. מסתכלים, נוגעים ולומדים!

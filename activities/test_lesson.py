@@ -384,7 +384,7 @@ class WordsLessonTests(TestCase):
 
     def test_hebrew(self):
         html = self.page("he")
-        self.assertIn("מדברים כמו ילדים ביפן", html)
+        self.assertIn("מדברים ביפן", html)
         self.assertIn("בחנות ביפן", html)
         self.assertIn("שימו את המילה במקום הנכון", html)
         self.assertIn("מתי אומרים את זה?", html)
@@ -454,7 +454,7 @@ class MannersLessonTests(TestCase):
 
     def test_hebrew(self):
         html = self.page("he")
-        self.assertIn("מנומסים כמו ילדים ביפן", html)
+        self.assertIn("מנומסים ביפן", html)
         self.assertIn("ליד דלת הכניסה", html)
         self.assertIn("נעלי השירותים", html)
         self.assertIn("דף 1 מתוך 14", html)
@@ -526,7 +526,7 @@ class SafetyLessonTests(TestCase):
 
     def test_hebrew(self):
         html = self.page("he")
-        self.assertIn("בטוחים כמו ילדים ביפן", html)
+        self.assertIn("בטוחים ביפן", html)
         self.assertIn("עוזרים ברחוב", html)
         self.assertIn("דף 1 מתוך 14", html)
         self.assertNotIn("Helpers on the street", html)

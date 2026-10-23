@@ -9,8 +9,8 @@ order: 40
 ready: true
 activities:
   - id: safety-lesson
-    title: Safe like a kid in Japan
-    title_he: בטוחים כמו ילדים ביפן
+    title: Safe in Japan
+    title_he: בטוחים ביפן
     type: lesson
     intro: Swipe through the pages. Tap the pictures, play the games, and practise each thing at home!
     intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ותתאמנו על כל דבר בבית!

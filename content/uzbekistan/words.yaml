@@ -10,8 +10,8 @@ ready: true
 activities:
   # Feedback T171. Uzbek Latin spelling (the official alphabet). Facts checked 2026-10-11.
   - id: uz-words-lesson
-    title: Talk like a kid in Uzbekistan
-    title_he: מדברים כמו ילדים באוזבקיסטן
+    title: Talk in Uzbekistan
+    title_he: מדברים באוזבקיסטן
     type: lesson
     intro: Swipe through the pages. Say each word out loud!
     intro_he: עוברים דף אחרי דף. אומרים כל מילה בקול!

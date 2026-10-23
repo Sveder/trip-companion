@@ -109,7 +109,7 @@ class UzbekistanCourseTests(TestCase):
         # The Latin word is not printed twice ('Salom <small>salom</small>').
         self.assertNotContains(page, "<small>salom</small>")
         he = self.client.get(reverse("activity", args=[item.id]) + "?lang=he")
-        self.assertContains(he, "מדברים כמו ילדים באוזבקיסטן")
+        self.assertContains(he, "מדברים באוזבקיסטן")
 
     def test_word_game_shows_the_uzbek_word_on_every_choice(self):
         # T180: the 'What do you say?' choices carry the word; Hebrew adds the way to say it.
@@ -180,7 +180,7 @@ class UzbekistanCourseTests(TestCase):
         game = en.content.decode().rsplit("lpage-pick", 1)[1].split("data-game-msg", 1)[0]
         self.assertEqual(game.count('class="choice"'), 14)  # T294: the two number rounds offer 3 numbers only
         he = self.client.get(url + "?lang=he")
-        self.assertContains(he, "בטוחים כמו ילדים באוזבקיסטן")
+        self.assertContains(he, "בטוחים באוזבקיסטן")
         self.assertContains(he, "שותים מים מבקבוק")
 
     def test_crafts_lesson_shows_tiles_crafts_silk_and_a_match_game(self):

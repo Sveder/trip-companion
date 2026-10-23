@@ -14,8 +14,8 @@ activities:
   # Water: travel health advice says do not drink tap water in Uzbekistan; drink bottled or boiled water.
   # The number pictures (lesson/uzbekistan/call-*.svg) are plain shapes and numerals, no people.
   - id: uz-safety-lesson
-    title: Safe like a kid in Uzbekistan
-    title_he: בטוחים כמו ילדים באוזבקיסטן
+    title: Safe in Uzbekistan
+    title_he: בטוחים באוזבקיסטן
     type: lesson
     intro: Swipe through the pages. Learn three numbers, and practise each thing at home!
     intro_he: עוברים דף אחרי דף. לומדים שלושה מספרים, ומתאמנים על כל דבר בבית!

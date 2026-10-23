@@ -9,8 +9,8 @@ order: 30
 ready: true
 activities:
   - id: manners-lesson
-    title: Polite like a kid in Japan
-    title_he: מנומסים כמו ילדים ביפן
+    title: Polite in Japan
+    title_he: מנומסים ביפן
     type: lesson
     intro: Swipe through the pages. Tap the pictures, play the games, and try each thing at home!
     intro_he: עוברים דף אחרי דף. געו בתמונות, שחקו במשחקים, ונסו כל דבר בבית!
