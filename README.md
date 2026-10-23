@@ -2,7 +2,7 @@
 
 A web app that gets a family ready and excited for a trip abroad: short activities for kids and grown-ups,
 picked for the family, one at a time. Japan is complete. Uzbekistan is a work in progress. Works on a phone, a laptop
-and a TV browser, in English and in Hebrew.
+and a TV browser.
 
 ![The 'Tap the plate' page of the sushi lesson](docs/readme/sushi-tap-the-plate.png)
 
@@ -21,8 +21,7 @@ Try these in about 5 minutes on https://trip.sveder.com. You do not sign in: a n
 5. After you finish one activity, tap "Quiz". The quiz asks about the activities you did.
 6. Tap "Safety" for the emergency numbers (police 110, fire and ambulance 119) and "Print a child safety card".
 7. Tap "In Japan" for the photo hunt that a family does during the trip.
-8. Add `?lang=he` to any page for Hebrew (right to left), or `?tv=1` for the TV mode: big cards for a remote control.
-   The header link switches the language back.
+8. Add `?tv=1` to any page for the TV mode: big cards for a remote control.
 
 ## How it was built
 

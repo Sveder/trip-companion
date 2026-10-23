@@ -37,7 +37,7 @@ class SwitchTests(TestCase):
         self.assertIn(">excited</button> for your trip!", html)
         self.assertIn("Sushi, bullet trains and deer that bow.", html)
         self.assertIn("Blue domes, Silk Road cities and plov.", html)
-        self.assertIn('value="he"', html)  # the switch offers Hebrew
+        self.assertNotIn('value="he"', html)  # no Hebrew link on English pages (Michael, 2026-10-23)
 
     def test_switch_posts_and_the_cookie_keeps_hebrew(self):
         r = self.client.post(reverse("set_language"), {"language": "he", "next": "/"})

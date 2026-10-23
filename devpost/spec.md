@@ -79,10 +79,6 @@ From `prd.md > Look and Feel` and `scope.md > Inspiration & Identity`.
   has no stars and no "You finished" line.
 - Easter egg: in about one celebration out of six, our 4-year-old's penguin (own SVG, `templates/includes/penguin.html`) waddles
   across the bottom of the screen. `?penguin=1` always sends it.
-- Languages: English (default) and Hebrew. Interface text uses Django i18n (`locale/he/LC_MESSAGES/django.po`, compiled
-  `.mo` committed). Content text has a Hebrew twin in the YAML: `title_he`, `text_he`, `meaning_he` and so on
-  (`content_admin/i18n.py > localize`). The language comes from the cookie that the header switch sets (or `?lang=he`),
-  never from the browser. Hebrew pages carry `dir="rtl"`.
 
 ## Components
 
@@ -170,7 +166,7 @@ offering due items until the trip.
 PRD ref: `prd.md > Quiz and repetition`.
 
 ### Reminders
-A management command `send_reminders`, run once a day by cron on the server at 17:00 Israel time. It emails a family when
+A management command `send_reminders`, run once a day by cron on the server at 17:00 server time. It emails a family when
 its last reminder or visit is at least two days old, activities wait, and the trip has not started. Each email has a link
 straight to the next activity and an unsubscribe link.
 PRD ref: `prd.md > Reminders`.

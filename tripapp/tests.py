@@ -184,7 +184,7 @@ class HeaderMenuTests(TestCase):
         html = self.client.get("/").content.decode()
         self.assertNotIn("menu-btn", html)
         self.assertIn('class="top-menu" id="top-menu"', html)
-        self.assertIn("lang-switch", html)
+        self.assertNotIn("עברית", html)
 
 
 class HeaderTripLinksTests(TestCase):

@@ -45,7 +45,7 @@
 <p>Trip Companion gets a family ready for a trip to Japan. The family puts its people on a plane, the app picks short
 activities that fit those ages, and the family does one activity at a time: picture lessons, words, manners, safety and
 a Street View hunt. A short quiz brings back what they met. In Japan, a photo list and a highlights page keep the memories.
-It works on a phone, a laptop and a TV browser, in English and in Hebrew.</p>
+It works on a phone, a laptop and a TV browser.</p>
 <ul class="pieces">
   <li><b>Accounts</b><code>accounts/</code> Email sign-in with a one-time code (django-allauth), no password.</li>
   <li><b>Trips</b><code>trips/</code> The trip: the place, the length and the people on the plane.</li>
@@ -138,7 +138,6 @@ New items are due the same day. A right answer moves an item up one box, and the
 <table>
   <tr><th>You want to change</th><th>Start here</th></tr>
   <tr><td>The text or a picture on a lesson page</td><td><code>content/japan/food.yaml</code> (one YAML file per module in <code>content/japan/</code>), then <code>manage.py load_content japan</code></td></tr>
-  <tr><td>A Hebrew word on a button or a heading</td><td><code>locale/he/LC_MESSAGES/django.po</code>, then <code>manage.py compilemessages</code>. Lesson text in Hebrew is in the YAML (<code>title_he</code>, <code>text_he</code>).</td></tr>
   <tr><td>The order of the course</td><td><code>courses/builder.py</code>, <code>def course_order</code> and <code>def kids_first</code></td></tr>
   <tr><td>The reminder email text</td><td><code>templates/reminders/email.txt</code>, <code>email.html</code> and <code>subject.txt</code>; the logic is in <code>reminders/logic.py</code></td></tr>
 </table>
@@ -160,7 +159,7 @@ venv/bin/pip install -r requirements.txt
 venv/bin/python manage.py migrate
 venv/bin/python manage.py load_content japan
 venv/bin/python manage.py runserver</code></pre>
-<p>Then open <code>http://127.0.0.1:8000/</code>. Add <code>?lang=he</code> for Hebrew and <code>?tv=1</code> for the TV mode.
+<p>Then open <code>http://127.0.0.1:8000/</code>. Add <code>?tv=1</code> for the TV mode.
 The live app is at <a href="https://trip.sveder.com">trip.sveder.com</a>.</p>
 <p>Source commit for this map: <code>6a53ee3</code>. To open this map again, open <code>devpost/app-map.html</code> in any browser.
 It needs no network.</p>

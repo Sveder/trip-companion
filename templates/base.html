@@ -53,10 +53,10 @@
         {% if user.email %}<form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<button class="link">{% translate "Sign out" %}</button></form>{% endif %}
       </nav>
       {% endif %}
-      <form class="lang-switch" method="post" action="{% url 'set_language' %}">{% csrf_token %}
+      {% if LANG == "he" %}<form class="lang-switch" method="post" action="{% url 'set_language' %}">{% csrf_token %}
         <input type="hidden" name="next" value="{{ request.path }}">
-        {% if LANG == "he" %}<button class="link" name="language" value="en" lang="en">English</button>{% else %}<button class="link" name="language" value="he" lang="he">עברית</button>{% endif %}
-      </form>
+        <button class="link" name="language" value="en" lang="en">English</button>
+      </form>{% endif %}
     </div>
     {% if user.is_authenticated %}<script nonce="{{ csp_nonce }}">(function () {
       var top = document.currentScript.parentNode, btn = top.querySelector('.menu-btn');

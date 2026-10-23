@@ -130,8 +130,6 @@ From `scope.md > The POC Boundary`:
 - Login: none. A guest family lives in the browser: a 400-day cookie, plus a copy of the choices and progress in localStorage that brings the family back when the cookies are cleared (feedback T144, 2026-10-11). "Continue on another device" mails one link per family; opening it on another device shows the same course and progress (feedback T145).
 - Reminders a few times a week, not daily — "kids have other activities to do and adults".
 - YouTube videos are chosen by the agent and approved by Michael before use.
-- Two languages: English and Hebrew, so our 4-year-old can play (Michael's feedback, 2026-10-08). A switch in the header
-  changes the language; Hebrew pages run right to left. The Japanese words, their sound and the readings stay the same.
 
 ## What We're Building
 Everything under **Features and Behavior**, for Japan, on a phone and in a TV web browser.
