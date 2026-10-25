@@ -10,6 +10,8 @@ Live: https://trip.sveder.com
 
 ## For judges
 
+Watch the 2-minute video tour first: https://youtu.be/bsog6HsZj2I
+
 Try these in about 5 minutes on https://trip.sveder.com. You do not sign in: a new visitor is a guest family.
 
 1. On the home page, tap "Let's go!", then "Let's start".

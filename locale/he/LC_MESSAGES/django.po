@@ -1476,3 +1476,12 @@ msgstr "הכרטיס כותב כל אחת באנגלית ובאוזבקית."
 #: templates/activities/lesson.html
 msgid "From:"
 msgstr "מקור:"
+
+msgid "Watch the 2-minute tour"
+msgstr "צפו בסיור של 2 דקות"
+
+msgid "The 2-minute tour"
+msgstr "הסיור של 2 דקות"
+
+msgid "Close"
+msgstr "סגירה"

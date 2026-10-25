@@ -252,6 +252,35 @@ class ThemeTests(TestCase):
         self.assertIn("css/app.css", html)
         self.assertIn("js/celebrate.js", html)
 
+    def test_welcome_tour_button_has_no_youtube_before_the_tap(self):
+        """T310: the tour button sits under the start button; the page itself loads nothing from YouTube."""
+        html = self.client.get("/").content.decode()
+        start = html.index("Let's start")
+        tour = html.index('data-tour="bsog6HsZj2I"')
+        self.assertLess(start, tour)
+        self.assertLess(tour, html.index("Where are you going?"))
+        self.assertIn("Watch the 2-minute tour", html)
+        self.assertIn('<dialog id="tour"', html)
+        self.assertIn("img/tour/poster.jpg", html)
+        self.assertIn("js/tour.js", html)
+        self.assertNotIn("<iframe", html)
+        self.assertNotIn("youtube", html.lower().replace('data-tour="bsog6hszj2i"', ""))
+
+    def test_tour_poster_and_script_exist(self):
+        root = Path(settings.BASE_DIR) / "static"
+        self.assertTrue((root / "img/tour/poster.jpg").is_file())
+        js = (root / "js/tour.js").read_text()
+        self.assertIn("youtube-nocookie.com/embed/", js)  # the only YouTube host, and only inside the tap handler
+        self.assertIn("autoplay=1", js)
+        self.assertIn("frame.innerHTML = ''", js)  # closing removes the iframe, so the video stops
+
+    def test_welcome_tour_in_hebrew(self):
+        html = self.client.get("/?lang=he").content.decode()
+        if "צפו בסיור של 2 דקות" not in html:
+            self.client.cookies[settings.LANGUAGE_COOKIE_NAME] = "he"
+            html = self.client.get("/").content.decode()
+        self.assertIn("צפו בסיור של 2 דקות", html)
+
     def test_welcome_ready_country_card_links_to_trip_setup(self):
         html = self.client.get("/").content.decode()
         self.assertRegex(html, r'<a class="card country go" href="/trip/\?destination=japan"')

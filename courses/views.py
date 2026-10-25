@@ -14,13 +14,16 @@ from .builder import build_course, suggestions
 from .highlights import highlights as trip_highlights, trip_phase
 from .models import Course
 
+# T310: the 2-minute demo video on the welcome page. Michael sets it Unlisted or Public on YouTube.
+TOUR_VIDEO = "bsog6HsZj2I"
+
 
 def home(request):
     """Signed out: the welcome page. Signed in: the next step for this family.
     T155: before the trip, a family part way through its course gets the welcome page with
     'Go to our course' and 'New course'."""
     if not request.user.is_authenticated:
-        return render(request, "courses/welcome.html", {"previews": localize(load_previews())})
+        return render(request, "courses/welcome.html", {"previews": localize(load_previews()), "tour_video": TOUR_VIDEO})
     return _next_step(request, welcome=True)
 
 
@@ -50,7 +53,8 @@ def _next_step(request, welcome):
                                                               "skipped": course.skipped_items().count()})
     if welcome and phase == "before":
         # T155: before the trip, home is the welcome page with "Go to our course" and "New course".
-        return render(request, "courses/welcome.html", {"previews": localize(load_previews()), "course": course})
+        return render(request, "courses/welcome.html", {"previews": localize(load_previews()), "course": course,
+                                                         "tour_video": TOUR_VIDEO})
     return redirect("activity", item_id=item.id)
 
 

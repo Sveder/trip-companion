@@ -1,0 +1,9 @@
+{% load i18n static %}
+{# T310: the demo video. Before the tap the page loads no YouTube iframe, script or cookie: only the app's own poster. #}
+<p class="tour-row"><button type="button" class="tour-link" data-tour="{{ tour_video }}" aria-haspopup="dialog">
+  <span class="tour-play" aria-hidden="true">&#9654;</span> {% translate "Watch the 2-minute tour" %}</button></p>
+<dialog id="tour" class="tour" aria-label="{% translate 'The 2-minute tour' %}">
+  <button type="button" class="tour-close" data-tour-close aria-label="{% translate 'Close' %}">&times;</button>
+  <div class="tour-frame" style="background-image: url('{% static 'img/tour/poster.jpg' %}')"></div>
+</dialog>
+<script nonce="{{ csp_nonce }}" src="{% static 'js/tour.js' %}" defer></script>

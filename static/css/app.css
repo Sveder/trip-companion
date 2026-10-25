@@ -852,3 +852,16 @@ html:not(.tv) .flips-two .flip img.flip-photo { object-fit: cover; }
 .sos-number { flex: none; min-width: 4.2rem; text-align: center; font-size: 1.6rem; font-weight: 800; color: #fff; background: #d62d2d; border-radius: var(--radius); padding: .3rem .5rem; text-decoration: none; }
 .course-safety { margin: .2rem 0 .6rem; }
 .sos-numbers li strong { display: block; }
+
+/* T310: the 2-minute tour on the welcome page: a quiet link under the start button, and a video dialog. */
+.tour-row { margin: .7rem 0 0; }
+.tour-link { display: inline-flex; align-items: center; gap: .45rem; border: 0; background: none; padding: .45rem .8rem; border-radius: 999px; font: inherit; font-weight: 700; color: var(--c-ink); text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+.tour-link:hover, .tour-link:focus-visible { background: var(--c-surface); }
+.tour-play { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--c-primary); color: var(--c-primary-ink); font-size: .75rem; text-decoration: none; padding-inline-start: .12rem; }
+.tour { border: 0; padding: 0; width: min(56rem, calc(100vw - 1.5rem)); max-width: none; background: #000; border-radius: var(--radius); box-shadow: var(--shadow); overflow: visible; }
+.tour::backdrop { background: rgba(29, 33, 69, .7); }
+.tour-frame { position: relative; aspect-ratio: 16 / 9; max-height: calc(100vh - 6rem); background: #000 center / cover no-repeat; border-radius: var(--radius); overflow: hidden; }
+.tour-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.tour-close { position: absolute; top: -1rem; inset-inline-end: -.6rem; z-index: 1; width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 3px solid #fff; background: var(--c-ink); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+html.tv .tour-link { font-size: 1.3rem; }
+html.tv .tour { width: min(70rem, 80vw); }
